@@ -1968,18 +1968,12 @@ func (p *CreatePrivateGatewayParams) toURLValues() url.Values {
 	if v, found := p.p["netmask"]; found {
 		u.Set("netmask", v.(string))
 	}
-	if v, found := p.p["networkofferingid"]; found {
-		u.Set("networkofferingid", v.(string))
-	}
-	if v, found := p.p["physicalnetworkid"]; found {
-		u.Set("physicalnetworkid", v.(string))
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
 	}
 	if v, found := p.p["sourcenatsupported"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("sourcenatsupported", vv)
-	}
-	if v, found := p.p["vlan"]; found {
-		u.Set("vlan", v.(string))
 	}
 	if v, found := p.p["vpcid"]; found {
 		u.Set("vpcid", v.(string))
@@ -2019,19 +2013,11 @@ func (p *CreatePrivateGatewayParams) SetNetmask(v string) {
 	return
 }
 
-func (p *CreatePrivateGatewayParams) SetNetworkofferingid(v string) {
+func (p *CreatePrivateGatewayParams) SetNetworkid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["networkofferingid"] = v
-	return
-}
-
-func (p *CreatePrivateGatewayParams) SetPhysicalnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["physicalnetworkid"] = v
+	p.p["networkid"] = v
 	return
 }
 
@@ -2040,14 +2026,6 @@ func (p *CreatePrivateGatewayParams) SetSourcenatsupported(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcenatsupported"] = v
-	return
-}
-
-func (p *CreatePrivateGatewayParams) SetVlan(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vlan"] = v
 	return
 }
 
@@ -2061,13 +2039,11 @@ func (p *CreatePrivateGatewayParams) SetVpcid(v string) {
 
 // You should always use this function to get a new CreatePrivateGatewayParams instance,
 // as then you are sure you have configured all required params
-func (s *VPCService) NewCreatePrivateGatewayParams(gateway string, ipaddress string, netmask string, vlan string, vpcid string) *CreatePrivateGatewayParams {
+func (s *VPCService) NewCreatePrivateGatewayParams(ipaddress string, networkid string, vpcid string) *CreatePrivateGatewayParams {
 	p := &CreatePrivateGatewayParams{}
 	p.p = make(map[string]interface{})
-	p.p["gateway"] = gateway
 	p.p["ipaddress"] = ipaddress
-	p.p["netmask"] = netmask
-	p.p["vlan"] = vlan
+	p.p["networkid"] = networkid
 	p.p["vpcid"] = vpcid
 	return p
 }
@@ -2110,13 +2086,13 @@ type CreatePrivateGatewayResponse struct {
 	JobID              string `json:"jobid,omitempty"`
 	Account            string `json:"account,omitempty"`
 	Aclid              string `json:"aclid,omitempty"`
+	Cidr               string `json:"cidr,omitempty"`
 	Domain             string `json:"domain,omitempty"`
 	Domainid           string `json:"domainid,omitempty"`
-	Gateway            string `json:"gateway,omitempty"`
 	Id                 string `json:"id,omitempty"`
 	Ipaddress          string `json:"ipaddress,omitempty"`
-	Netmask            string `json:"netmask,omitempty"`
-	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
+	Networkid          string `json:"networkid,omitempty"`
+	Networkname        string `json:"networkname,omitempty"`
 	Project            string `json:"project,omitempty"`
 	Projectid          string `json:"projectid,omitempty"`
 	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
@@ -2159,6 +2135,9 @@ func (p *ListPrivateGatewaysParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("listall", vv)
 	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
 	if v, found := p.p["page"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("page", vv)
@@ -2172,9 +2151,6 @@ func (p *ListPrivateGatewaysParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["state"]; found {
 		u.Set("state", v.(string))
-	}
-	if v, found := p.p["vlan"]; found {
-		u.Set("vlan", v.(string))
 	}
 	if v, found := p.p["vpcid"]; found {
 		u.Set("vpcid", v.(string))
@@ -2238,6 +2214,14 @@ func (p *ListPrivateGatewaysParams) SetListall(v bool) {
 	return
 }
 
+func (p *ListPrivateGatewaysParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+	return
+}
+
 func (p *ListPrivateGatewaysParams) SetPage(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -2267,14 +2251,6 @@ func (p *ListPrivateGatewaysParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
-}
-
-func (p *ListPrivateGatewaysParams) SetVlan(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vlan"] = v
 	return
 }
 
@@ -2349,13 +2325,13 @@ type ListPrivateGatewaysResponse struct {
 type PrivateGateway struct {
 	Account            string `json:"account,omitempty"`
 	Aclid              string `json:"aclid,omitempty"`
+	Cidr               string `json:"cidr,omitempty"`
 	Domain             string `json:"domain,omitempty"`
 	Domainid           string `json:"domainid,omitempty"`
-	Gateway            string `json:"gateway,omitempty"`
 	Id                 string `json:"id,omitempty"`
 	Ipaddress          string `json:"ipaddress,omitempty"`
-	Netmask            string `json:"netmask,omitempty"`
-	Physicalnetworkid  string `json:"physicalnetworkid,omitempty"`
+	Networkid          string `json:"networkid,omitempty"`
+	Networkname        string `json:"networkname,omitempty"`
 	Project            string `json:"project,omitempty"`
 	Projectid          string `json:"projectid,omitempty"`
 	Sourcenatsupported bool   `json:"sourcenatsupported,omitempty"`
@@ -2491,10 +2467,12 @@ func (p *CreateStaticRouteParams) SetVpcid(v string) {
 
 // You should always use this function to get a new CreateStaticRouteParams instance,
 // as then you are sure you have configured all required params
-func (s *VPCService) NewCreateStaticRouteParams(cidr string) *CreateStaticRouteParams {
+func (s *VPCService) NewCreateStaticRouteParams(cidr string, nexthop string, vpcid string) *CreateStaticRouteParams {
 	p := &CreateStaticRouteParams{}
 	p.p = make(map[string]interface{})
 	p.p["cidr"] = cidr
+	p.p["nexthop"] = nexthop
+	p.p["vpcid"] = vpcid
 	return p
 }
 
