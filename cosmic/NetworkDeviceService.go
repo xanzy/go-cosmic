@@ -70,7 +70,7 @@ func (s *NetworkDeviceService) NewAddNetworkDeviceParams() *AddNetworkDevicePara
 	return p
 }
 
-// Adds a network device of one of the following types: ExternalDhcp, ExternalFirewall, ExternalLoadBalancer
+// Adds a network device of one of the following types: ExternalDhcp, ExternalLoadBalancer
 func (s *NetworkDeviceService) AddNetworkDevice(p *AddNetworkDeviceParams) (*AddNetworkDeviceResponse, error) {
 	resp, err := s.cs.newRequest("addNetworkDevice", p.toURLValues())
 	if err != nil {

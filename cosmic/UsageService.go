@@ -38,9 +38,6 @@ func (p *AddTrafficTypeParams) toURLValues() url.Values {
 	if v, found := p.p["kvmnetworklabel"]; found {
 		u.Set("kvmnetworklabel", v.(string))
 	}
-	if v, found := p.p["ovm3networklabel"]; found {
-		u.Set("ovm3networklabel", v.(string))
-	}
 	if v, found := p.p["physicalnetworkid"]; found {
 		u.Set("physicalnetworkid", v.(string))
 	}
@@ -69,14 +66,6 @@ func (p *AddTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
-}
-
-func (p *AddTrafficTypeParams) SetOvm3networklabel(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ovm3networklabel"] = v
 	return
 }
 
@@ -160,7 +149,6 @@ type AddTrafficTypeResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Id                string `json:"id,omitempty"`
 	Kvmnetworklabel   string `json:"kvmnetworklabel,omitempty"`
-	Ovm3networklabel  string `json:"ovm3networklabel,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Traffictype       string `json:"traffictype,omitempty"`
 	Xennetworklabel   string `json:"xennetworklabel,omitempty"`
@@ -381,9 +369,6 @@ func (p *UpdateTrafficTypeParams) toURLValues() url.Values {
 	if v, found := p.p["kvmnetworklabel"]; found {
 		u.Set("kvmnetworklabel", v.(string))
 	}
-	if v, found := p.p["ovm3networklabel"]; found {
-		u.Set("ovm3networklabel", v.(string))
-	}
 	if v, found := p.p["xennetworklabel"]; found {
 		u.Set("xennetworklabel", v.(string))
 	}
@@ -403,14 +388,6 @@ func (p *UpdateTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
-}
-
-func (p *UpdateTrafficTypeParams) SetOvm3networklabel(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ovm3networklabel"] = v
 	return
 }
 
@@ -469,7 +446,6 @@ type UpdateTrafficTypeResponse struct {
 	JobID             string `json:"jobid,omitempty"`
 	Id                string `json:"id,omitempty"`
 	Kvmnetworklabel   string `json:"kvmnetworklabel,omitempty"`
-	Ovm3networklabel  string `json:"ovm3networklabel,omitempty"`
 	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
 	Traffictype       string `json:"traffictype,omitempty"`
 	Xennetworklabel   string `json:"xennetworklabel,omitempty"`

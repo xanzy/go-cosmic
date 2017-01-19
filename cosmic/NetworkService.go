@@ -198,6 +198,9 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["acltype"]; found {
 		u.Set("acltype", v.(string))
 	}
+	if v, found := p.p["cidr"]; found {
+		u.Set("cidr", v.(string))
+	}
 	if v, found := p.p["displaynetwork"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("displaynetwork", vv)
@@ -254,6 +257,9 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("subdomainaccess", vv)
 	}
+	if v, found := p.p["vlan"]; found {
+		u.Set("vlan", v.(string))
+	}
 	if v, found := p.p["vpcid"]; found {
 		u.Set("vpcid", v.(string))
 	}
@@ -284,6 +290,14 @@ func (p *CreateNetworkParams) SetAcltype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["acltype"] = v
+	return
+}
+
+func (p *CreateNetworkParams) SetCidr(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cidr"] = v
 	return
 }
 
@@ -428,6 +442,14 @@ func (p *CreateNetworkParams) SetSubdomainaccess(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["subdomainaccess"] = v
+	return
+}
+
+func (p *CreateNetworkParams) SetVlan(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vlan"] = v
 	return
 }
 
