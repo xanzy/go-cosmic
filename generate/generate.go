@@ -246,7 +246,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	return fmt.Errorf(\"Cosmic API error %%d (CSExceptionErrorCode: %%d): %%s\", e.ErrorCode, e.CSErrorCode, e.ErrorText)")
 	pn("}")
 	pn("")
-	pn("type CosminClient struct {")
+	pn("type CosmicClient struct {")
 	pn("	HTTPGETOnly bool // If `true` only use HTTP GET calls")
 	pn("")
 	pn("	client  *http.Client // The http client for communicating")
