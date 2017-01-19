@@ -57,7 +57,7 @@ func (e *CSError) Error() error {
 	return fmt.Errorf("Cosmic API error %d (CSExceptionErrorCode: %d): %s", e.ErrorCode, e.CSErrorCode, e.ErrorText)
 }
 
-type CosminClient struct {
+type CosmicClient struct {
 	HTTPGETOnly bool // If `true` only use HTTP GET calls
 
 	client  *http.Client // The http client for communicating
