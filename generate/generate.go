@@ -1143,7 +1143,7 @@ func (s *service) generateResponseType(a *API) {
 	// If this is a 'list' response, we need an seperate list struct. There seem to be other
 	// types of responses that also need a seperate list struct, so checking on exact matches
 	// for those once.
-	if strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate" {
+	if a.Name != "listCapabilities" && (strings.HasPrefix(a.Name, "list") || a.Name == "registerTemplate") {
 		pn("type %s struct {", tn)
 		pn("	Count int `json:\"count\"`")
 
