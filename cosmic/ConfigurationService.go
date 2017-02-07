@@ -316,6 +316,11 @@ func (s *ConfigurationService) ListCapabilities(p *ListCapabilitiesParams) (*Lis
 }
 
 type ListCapabilitiesResponse struct {
+	Count        int         `json:"count"`
+	Capabilities *Capability `json:"capability"`
+}
+
+type Capability struct {
 	Allowusercreateprojects   bool   `json:"allowusercreateprojects,omitempty"`
 	Allowuserexpungerecovervm bool   `json:"allowuserexpungerecovervm,omitempty"`
 	Allowuserviewdestroyedvm  bool   `json:"allowuserviewdestroyedvm,omitempty"`
