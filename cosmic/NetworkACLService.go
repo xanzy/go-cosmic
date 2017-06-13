@@ -1018,6 +1018,9 @@ func (p *ReplaceNetworkACLListParams) toURLValues() url.Values {
 	if v, found := p.p["networkid"]; found {
 		u.Set("networkid", v.(string))
 	}
+	if v, found := p.p["publicipid"]; found {
+		u.Set("publicipid", v.(string))
+	}
 	return u
 }
 
@@ -1042,6 +1045,14 @@ func (p *ReplaceNetworkACLListParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
+	return
+}
+
+func (p *ReplaceNetworkACLListParams) SetPublicipid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["publicipid"] = v
 	return
 }
 

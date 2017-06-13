@@ -43,6 +43,10 @@ func (p *CreateLoadBalancerRuleParams) toURLValues() url.Values {
 		vv := strings.Join(v.([]string), ",")
 		u.Set("cidrlist", vv)
 	}
+	if v, found := p.p["clienttimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("clienttimeout", vv)
+	}
 	if v, found := p.p["description"]; found {
 		u.Set("description", v.(string))
 	}
@@ -77,6 +81,10 @@ func (p *CreateLoadBalancerRuleParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("publicport", vv)
 	}
+	if v, found := p.p["servertimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("servertimeout", vv)
+	}
 	if v, found := p.p["zoneid"]; found {
 		u.Set("zoneid", v.(string))
 	}
@@ -104,6 +112,14 @@ func (p *CreateLoadBalancerRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
+	return
+}
+
+func (p *CreateLoadBalancerRuleParams) SetClienttimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clienttimeout"] = v
 	return
 }
 
@@ -187,6 +203,14 @@ func (p *CreateLoadBalancerRuleParams) SetPublicport(v int) {
 	return
 }
 
+func (p *CreateLoadBalancerRuleParams) SetServertimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servertimeout"] = v
+	return
+}
+
 func (p *CreateLoadBalancerRuleParams) SetZoneid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -242,26 +266,28 @@ func (s *LoadBalancerService) CreateLoadBalancerRule(p *CreateLoadBalancerRulePa
 }
 
 type CreateLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Account     string `json:"account,omitempty"`
-	Algorithm   string `json:"algorithm,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Description string `json:"description,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Fordisplay  bool   `json:"fordisplay,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Privateport string `json:"privateport,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Publicipid  string `json:"publicipid,omitempty"`
-	Publicport  string `json:"publicport,omitempty"`
-	State       string `json:"state,omitempty"`
-	Tags        []struct {
+	JobID         string `json:"jobid,omitempty"`
+	Account       string `json:"account,omitempty"`
+	Algorithm     string `json:"algorithm,omitempty"`
+	Cidrlist      string `json:"cidrlist,omitempty"`
+	Clienttimeout int    `json:"clienttimeout,omitempty"`
+	Description   string `json:"description,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Fordisplay    bool   `json:"fordisplay,omitempty"`
+	Id            string `json:"id,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Networkid     string `json:"networkid,omitempty"`
+	Privateport   string `json:"privateport,omitempty"`
+	Project       string `json:"project,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Protocol      string `json:"protocol,omitempty"`
+	Publicip      string `json:"publicip,omitempty"`
+	Publicipid    string `json:"publicipid,omitempty"`
+	Publicport    string `json:"publicport,omitempty"`
+	Servertimeout int    `json:"servertimeout,omitempty"`
+	State         string `json:"state,omitempty"`
+	Tags          []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -1169,25 +1195,27 @@ type ListLoadBalancerRulesResponse struct {
 }
 
 type LoadBalancerRule struct {
-	Account     string `json:"account,omitempty"`
-	Algorithm   string `json:"algorithm,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Description string `json:"description,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Fordisplay  bool   `json:"fordisplay,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Privateport string `json:"privateport,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Publicipid  string `json:"publicipid,omitempty"`
-	Publicport  string `json:"publicport,omitempty"`
-	State       string `json:"state,omitempty"`
-	Tags        []struct {
+	Account       string `json:"account,omitempty"`
+	Algorithm     string `json:"algorithm,omitempty"`
+	Cidrlist      string `json:"cidrlist,omitempty"`
+	Clienttimeout int    `json:"clienttimeout,omitempty"`
+	Description   string `json:"description,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Fordisplay    bool   `json:"fordisplay,omitempty"`
+	Id            string `json:"id,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Networkid     string `json:"networkid,omitempty"`
+	Privateport   string `json:"privateport,omitempty"`
+	Project       string `json:"project,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Protocol      string `json:"protocol,omitempty"`
+	Publicip      string `json:"publicip,omitempty"`
+	Publicipid    string `json:"publicipid,omitempty"`
+	Publicport    string `json:"publicport,omitempty"`
+	Servertimeout int    `json:"servertimeout,omitempty"`
+	State         string `json:"state,omitempty"`
+	Tags          []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -2028,6 +2056,10 @@ func (p *UpdateLoadBalancerRuleParams) toURLValues() url.Values {
 	if v, found := p.p["algorithm"]; found {
 		u.Set("algorithm", v.(string))
 	}
+	if v, found := p.p["clienttimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("clienttimeout", vv)
+	}
 	if v, found := p.p["customid"]; found {
 		u.Set("customid", v.(string))
 	}
@@ -2044,6 +2076,10 @@ func (p *UpdateLoadBalancerRuleParams) toURLValues() url.Values {
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
+	if v, found := p.p["servertimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("servertimeout", vv)
+	}
 	return u
 }
 
@@ -2052,6 +2088,14 @@ func (p *UpdateLoadBalancerRuleParams) SetAlgorithm(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["algorithm"] = v
+	return
+}
+
+func (p *UpdateLoadBalancerRuleParams) SetClienttimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clienttimeout"] = v
 	return
 }
 
@@ -2092,6 +2136,14 @@ func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+	return
+}
+
+func (p *UpdateLoadBalancerRuleParams) SetServertimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servertimeout"] = v
 	return
 }
 
@@ -2139,26 +2191,28 @@ func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRulePa
 }
 
 type UpdateLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Account     string `json:"account,omitempty"`
-	Algorithm   string `json:"algorithm,omitempty"`
-	Cidrlist    string `json:"cidrlist,omitempty"`
-	Description string `json:"description,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Fordisplay  bool   `json:"fordisplay,omitempty"`
-	Id          string `json:"id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Networkid   string `json:"networkid,omitempty"`
-	Privateport string `json:"privateport,omitempty"`
-	Project     string `json:"project,omitempty"`
-	Projectid   string `json:"projectid,omitempty"`
-	Protocol    string `json:"protocol,omitempty"`
-	Publicip    string `json:"publicip,omitempty"`
-	Publicipid  string `json:"publicipid,omitempty"`
-	Publicport  string `json:"publicport,omitempty"`
-	State       string `json:"state,omitempty"`
-	Tags        []struct {
+	JobID         string `json:"jobid,omitempty"`
+	Account       string `json:"account,omitempty"`
+	Algorithm     string `json:"algorithm,omitempty"`
+	Cidrlist      string `json:"cidrlist,omitempty"`
+	Clienttimeout int    `json:"clienttimeout,omitempty"`
+	Description   string `json:"description,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Fordisplay    bool   `json:"fordisplay,omitempty"`
+	Id            string `json:"id,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Networkid     string `json:"networkid,omitempty"`
+	Privateport   string `json:"privateport,omitempty"`
+	Project       string `json:"project,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Protocol      string `json:"protocol,omitempty"`
+	Publicip      string `json:"publicip,omitempty"`
+	Publicipid    string `json:"publicipid,omitempty"`
+	Publicport    string `json:"publicport,omitempty"`
+	Servertimeout int    `json:"servertimeout,omitempty"`
+	State         string `json:"state,omitempty"`
+	Tags          []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -2762,25 +2816,27 @@ type CreateGlobalLoadBalancerRuleResponse struct {
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
 	Id                          string `json:"id,omitempty"`
 	Loadbalancerrule            []struct {
-		Account     string `json:"account,omitempty"`
-		Algorithm   string `json:"algorithm,omitempty"`
-		Cidrlist    string `json:"cidrlist,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domain      string `json:"domain,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Fordisplay  bool   `json:"fordisplay,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Name        string `json:"name,omitempty"`
-		Networkid   string `json:"networkid,omitempty"`
-		Privateport string `json:"privateport,omitempty"`
-		Project     string `json:"project,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Protocol    string `json:"protocol,omitempty"`
-		Publicip    string `json:"publicip,omitempty"`
-		Publicipid  string `json:"publicipid,omitempty"`
-		Publicport  string `json:"publicport,omitempty"`
-		State       string `json:"state,omitempty"`
-		Tags        []struct {
+		Account       string `json:"account,omitempty"`
+		Algorithm     string `json:"algorithm,omitempty"`
+		Cidrlist      string `json:"cidrlist,omitempty"`
+		Clienttimeout int    `json:"clienttimeout,omitempty"`
+		Description   string `json:"description,omitempty"`
+		Domain        string `json:"domain,omitempty"`
+		Domainid      string `json:"domainid,omitempty"`
+		Fordisplay    bool   `json:"fordisplay,omitempty"`
+		Id            string `json:"id,omitempty"`
+		Name          string `json:"name,omitempty"`
+		Networkid     string `json:"networkid,omitempty"`
+		Privateport   string `json:"privateport,omitempty"`
+		Project       string `json:"project,omitempty"`
+		Projectid     string `json:"projectid,omitempty"`
+		Protocol      string `json:"protocol,omitempty"`
+		Publicip      string `json:"publicip,omitempty"`
+		Publicipid    string `json:"publicipid,omitempty"`
+		Publicport    string `json:"publicport,omitempty"`
+		Servertimeout int    `json:"servertimeout,omitempty"`
+		State         string `json:"state,omitempty"`
+		Tags          []struct {
 			Account      string `json:"account,omitempty"`
 			Customer     string `json:"customer,omitempty"`
 			Domain       string `json:"domain,omitempty"`
@@ -2978,25 +3034,27 @@ type UpdateGlobalLoadBalancerRuleResponse struct {
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
 	Id                          string `json:"id,omitempty"`
 	Loadbalancerrule            []struct {
-		Account     string `json:"account,omitempty"`
-		Algorithm   string `json:"algorithm,omitempty"`
-		Cidrlist    string `json:"cidrlist,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domain      string `json:"domain,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Fordisplay  bool   `json:"fordisplay,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Name        string `json:"name,omitempty"`
-		Networkid   string `json:"networkid,omitempty"`
-		Privateport string `json:"privateport,omitempty"`
-		Project     string `json:"project,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Protocol    string `json:"protocol,omitempty"`
-		Publicip    string `json:"publicip,omitempty"`
-		Publicipid  string `json:"publicipid,omitempty"`
-		Publicport  string `json:"publicport,omitempty"`
-		State       string `json:"state,omitempty"`
-		Tags        []struct {
+		Account       string `json:"account,omitempty"`
+		Algorithm     string `json:"algorithm,omitempty"`
+		Cidrlist      string `json:"cidrlist,omitempty"`
+		Clienttimeout int    `json:"clienttimeout,omitempty"`
+		Description   string `json:"description,omitempty"`
+		Domain        string `json:"domain,omitempty"`
+		Domainid      string `json:"domainid,omitempty"`
+		Fordisplay    bool   `json:"fordisplay,omitempty"`
+		Id            string `json:"id,omitempty"`
+		Name          string `json:"name,omitempty"`
+		Networkid     string `json:"networkid,omitempty"`
+		Privateport   string `json:"privateport,omitempty"`
+		Project       string `json:"project,omitempty"`
+		Projectid     string `json:"projectid,omitempty"`
+		Protocol      string `json:"protocol,omitempty"`
+		Publicip      string `json:"publicip,omitempty"`
+		Publicipid    string `json:"publicipid,omitempty"`
+		Publicport    string `json:"publicport,omitempty"`
+		Servertimeout int    `json:"servertimeout,omitempty"`
+		State         string `json:"state,omitempty"`
+		Tags          []struct {
 			Account      string `json:"account,omitempty"`
 			Customer     string `json:"customer,omitempty"`
 			Domain       string `json:"domain,omitempty"`
@@ -3280,25 +3338,27 @@ type GlobalLoadBalancerRule struct {
 	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
 	Id                          string `json:"id,omitempty"`
 	Loadbalancerrule            []struct {
-		Account     string `json:"account,omitempty"`
-		Algorithm   string `json:"algorithm,omitempty"`
-		Cidrlist    string `json:"cidrlist,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domain      string `json:"domain,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Fordisplay  bool   `json:"fordisplay,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Name        string `json:"name,omitempty"`
-		Networkid   string `json:"networkid,omitempty"`
-		Privateport string `json:"privateport,omitempty"`
-		Project     string `json:"project,omitempty"`
-		Projectid   string `json:"projectid,omitempty"`
-		Protocol    string `json:"protocol,omitempty"`
-		Publicip    string `json:"publicip,omitempty"`
-		Publicipid  string `json:"publicipid,omitempty"`
-		Publicport  string `json:"publicport,omitempty"`
-		State       string `json:"state,omitempty"`
-		Tags        []struct {
+		Account       string `json:"account,omitempty"`
+		Algorithm     string `json:"algorithm,omitempty"`
+		Cidrlist      string `json:"cidrlist,omitempty"`
+		Clienttimeout int    `json:"clienttimeout,omitempty"`
+		Description   string `json:"description,omitempty"`
+		Domain        string `json:"domain,omitempty"`
+		Domainid      string `json:"domainid,omitempty"`
+		Fordisplay    bool   `json:"fordisplay,omitempty"`
+		Id            string `json:"id,omitempty"`
+		Name          string `json:"name,omitempty"`
+		Networkid     string `json:"networkid,omitempty"`
+		Privateport   string `json:"privateport,omitempty"`
+		Project       string `json:"project,omitempty"`
+		Projectid     string `json:"projectid,omitempty"`
+		Protocol      string `json:"protocol,omitempty"`
+		Publicip      string `json:"publicip,omitempty"`
+		Publicipid    string `json:"publicipid,omitempty"`
+		Publicport    string `json:"publicport,omitempty"`
+		Servertimeout int    `json:"servertimeout,omitempty"`
+		State         string `json:"state,omitempty"`
+		Tags          []struct {
 			Account      string `json:"account,omitempty"`
 			Customer     string `json:"customer,omitempty"`
 			Domain       string `json:"domain,omitempty"`

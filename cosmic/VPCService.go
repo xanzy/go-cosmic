@@ -58,9 +58,15 @@ func (p *CreateVPCParams) toURLValues() url.Values {
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
+	if v, found := p.p["sourcenatlist"]; found {
+		u.Set("sourcenatlist", v.(string))
+	}
 	if v, found := p.p["start"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("start", vv)
+	}
+	if v, found := p.p["syslogserverlist"]; found {
+		u.Set("syslogserverlist", v.(string))
 	}
 	if v, found := p.p["vpcofferingid"]; found {
 		u.Set("vpcofferingid", v.(string))
@@ -135,11 +141,27 @@ func (p *CreateVPCParams) SetProjectid(v string) {
 	return
 }
 
+func (p *CreateVPCParams) SetSourcenatlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sourcenatlist"] = v
+	return
+}
+
 func (p *CreateVPCParams) SetStart(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["start"] = v
+	return
+}
+
+func (p *CreateVPCParams) SetSyslogserverlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["syslogserverlist"] = v
 	return
 }
 
@@ -236,6 +258,7 @@ type CreateVPCResponse struct {
 		Id                          string `json:"id,omitempty"`
 		Ip6cidr                     string `json:"ip6cidr,omitempty"`
 		Ip6gateway                  string `json:"ip6gateway,omitempty"`
+		Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 		Isdefault                   bool   `json:"isdefault,omitempty"`
 		Ispersistent                bool   `json:"ispersistent,omitempty"`
 		Issystem                    bool   `json:"issystem,omitempty"`
@@ -318,8 +341,10 @@ type CreateVPCResponse struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
-	State string `json:"state,omitempty"`
-	Tags  []struct {
+	Sourcenatlist    string `json:"sourcenatlist,omitempty"`
+	State            string `json:"state,omitempty"`
+	Syslogserverlist string `json:"syslogserverlist,omitempty"`
+	Tags             []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -331,9 +356,11 @@ type CreateVPCResponse struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Vpcofferingid string `json:"vpcofferingid,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
+	Vpcofferingdisplaytext string `json:"vpcofferingdisplaytext,omitempty"`
+	Vpcofferingid          string `json:"vpcofferingid,omitempty"`
+	Vpcofferingname        string `json:"vpcofferingname,omitempty"`
+	Zoneid                 string `json:"zoneid,omitempty"`
+	Zonename               string `json:"zonename,omitempty"`
 }
 
 type ListVPCsParams struct {
@@ -708,6 +735,7 @@ type VPC struct {
 		Id                          string `json:"id,omitempty"`
 		Ip6cidr                     string `json:"ip6cidr,omitempty"`
 		Ip6gateway                  string `json:"ip6gateway,omitempty"`
+		Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 		Isdefault                   bool   `json:"isdefault,omitempty"`
 		Ispersistent                bool   `json:"ispersistent,omitempty"`
 		Issystem                    bool   `json:"issystem,omitempty"`
@@ -790,8 +818,10 @@ type VPC struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
-	State string `json:"state,omitempty"`
-	Tags  []struct {
+	Sourcenatlist    string `json:"sourcenatlist,omitempty"`
+	State            string `json:"state,omitempty"`
+	Syslogserverlist string `json:"syslogserverlist,omitempty"`
+	Tags             []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -803,9 +833,11 @@ type VPC struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Vpcofferingid string `json:"vpcofferingid,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
+	Vpcofferingdisplaytext string `json:"vpcofferingdisplaytext,omitempty"`
+	Vpcofferingid          string `json:"vpcofferingid,omitempty"`
+	Vpcofferingname        string `json:"vpcofferingname,omitempty"`
+	Zoneid                 string `json:"zoneid,omitempty"`
+	Zonename               string `json:"zonename,omitempty"`
 }
 
 type DeleteVPCParams struct {
@@ -900,6 +932,15 @@ func (p *UpdateVPCParams) toURLValues() url.Values {
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
+	if v, found := p.p["sourcenatlist"]; found {
+		u.Set("sourcenatlist", v.(string))
+	}
+	if v, found := p.p["syslogserverlist"]; found {
+		u.Set("syslogserverlist", v.(string))
+	}
+	if v, found := p.p["vpcofferingid"]; found {
+		u.Set("vpcofferingid", v.(string))
+	}
 	return u
 }
 
@@ -940,6 +981,30 @@ func (p *UpdateVPCParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+	return
+}
+
+func (p *UpdateVPCParams) SetSourcenatlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sourcenatlist"] = v
+	return
+}
+
+func (p *UpdateVPCParams) SetSyslogserverlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["syslogserverlist"] = v
+	return
+}
+
+func (p *UpdateVPCParams) SetVpcofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vpcofferingid"] = v
 	return
 }
 
@@ -1016,6 +1081,7 @@ type UpdateVPCResponse struct {
 		Id                          string `json:"id,omitempty"`
 		Ip6cidr                     string `json:"ip6cidr,omitempty"`
 		Ip6gateway                  string `json:"ip6gateway,omitempty"`
+		Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 		Isdefault                   bool   `json:"isdefault,omitempty"`
 		Ispersistent                bool   `json:"ispersistent,omitempty"`
 		Issystem                    bool   `json:"issystem,omitempty"`
@@ -1098,8 +1164,10 @@ type UpdateVPCResponse struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
-	State string `json:"state,omitempty"`
-	Tags  []struct {
+	Sourcenatlist    string `json:"sourcenatlist,omitempty"`
+	State            string `json:"state,omitempty"`
+	Syslogserverlist string `json:"syslogserverlist,omitempty"`
+	Tags             []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -1111,9 +1179,11 @@ type UpdateVPCResponse struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Vpcofferingid string `json:"vpcofferingid,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
+	Vpcofferingdisplaytext string `json:"vpcofferingdisplaytext,omitempty"`
+	Vpcofferingid          string `json:"vpcofferingid,omitempty"`
+	Vpcofferingname        string `json:"vpcofferingname,omitempty"`
+	Zoneid                 string `json:"zoneid,omitempty"`
+	Zonename               string `json:"zonename,omitempty"`
 }
 
 type RestartVPCParams struct {
@@ -1132,10 +1202,6 @@ func (p *RestartVPCParams) toURLValues() url.Values {
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
-	if v, found := p.p["makeredundant"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("makeredundant", vv)
-	}
 	return u
 }
 
@@ -1152,14 +1218,6 @@ func (p *RestartVPCParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
-}
-
-func (p *RestartVPCParams) SetMakeredundant(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["makeredundant"] = v
 	return
 }
 
@@ -1236,6 +1294,7 @@ type RestartVPCResponse struct {
 		Id                          string `json:"id,omitempty"`
 		Ip6cidr                     string `json:"ip6cidr,omitempty"`
 		Ip6gateway                  string `json:"ip6gateway,omitempty"`
+		Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 		Isdefault                   bool   `json:"isdefault,omitempty"`
 		Ispersistent                bool   `json:"ispersistent,omitempty"`
 		Issystem                    bool   `json:"issystem,omitempty"`
@@ -1318,8 +1377,10 @@ type RestartVPCResponse struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
-	State string `json:"state,omitempty"`
-	Tags  []struct {
+	Sourcenatlist    string `json:"sourcenatlist,omitempty"`
+	State            string `json:"state,omitempty"`
+	Syslogserverlist string `json:"syslogserverlist,omitempty"`
+	Tags             []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -1331,9 +1392,11 @@ type RestartVPCResponse struct {
 		Resourcetype string `json:"resourcetype,omitempty"`
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
-	Vpcofferingid string `json:"vpcofferingid,omitempty"`
-	Zoneid        string `json:"zoneid,omitempty"`
-	Zonename      string `json:"zonename,omitempty"`
+	Vpcofferingdisplaytext string `json:"vpcofferingdisplaytext,omitempty"`
+	Vpcofferingid          string `json:"vpcofferingid,omitempty"`
+	Vpcofferingname        string `json:"vpcofferingname,omitempty"`
+	Zoneid                 string `json:"zoneid,omitempty"`
+	Zonename               string `json:"zonename,omitempty"`
 }
 
 type CreateVPCOfferingParams struct {
@@ -1350,6 +1413,9 @@ func (p *CreateVPCOfferingParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
+	}
+	if v, found := p.p["secondaryserviceofferingid"]; found {
+		u.Set("secondaryserviceofferingid", v.(string))
 	}
 	if v, found := p.p["servicecapabilitylist"]; found {
 		i := 0
@@ -1390,6 +1456,14 @@ func (p *CreateVPCOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+	return
+}
+
+func (p *CreateVPCOfferingParams) SetSecondaryserviceofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["secondaryserviceofferingid"] = v
 	return
 }
 
@@ -1471,14 +1545,16 @@ func (s *VPCService) CreateVPCOffering(p *CreateVPCOfferingParams) (*CreateVPCOf
 }
 
 type CreateVPCOfferingResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Displaytext          string `json:"displaytext,omitempty"`
-	Distributedvpcrouter bool   `json:"distributedvpcrouter,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Isdefault            bool   `json:"isdefault,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Service              []struct {
+	JobID                        string `json:"jobid,omitempty"`
+	Created                      string `json:"created,omitempty"`
+	Displaytext                  string `json:"displaytext,omitempty"`
+	Distributedvpcrouter         bool   `json:"distributedvpcrouter,omitempty"`
+	Id                           string `json:"id,omitempty"`
+	Isdefault                    bool   `json:"isdefault,omitempty"`
+	Name                         string `json:"name,omitempty"`
+	Secondaryserviceofferingid   string `json:"secondaryserviceofferingid,omitempty"`
+	Secondaryserviceofferingname string `json:"secondaryserviceofferingname,omitempty"`
+	Service                      []struct {
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			Name                       string `json:"name,omitempty"`
@@ -1495,6 +1571,8 @@ type CreateVPCOfferingResponse struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
+	Serviceofferingid      string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname    string `json:"serviceofferingname,omitempty"`
 	State                  string `json:"state,omitempty"`
 	SupportsregionLevelvpc bool   `json:"supportsregionLevelvpc,omitempty"`
 }
@@ -1599,14 +1677,16 @@ func (s *VPCService) UpdateVPCOffering(p *UpdateVPCOfferingParams) (*UpdateVPCOf
 }
 
 type UpdateVPCOfferingResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Displaytext          string `json:"displaytext,omitempty"`
-	Distributedvpcrouter bool   `json:"distributedvpcrouter,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Isdefault            bool   `json:"isdefault,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Service              []struct {
+	JobID                        string `json:"jobid,omitempty"`
+	Created                      string `json:"created,omitempty"`
+	Displaytext                  string `json:"displaytext,omitempty"`
+	Distributedvpcrouter         bool   `json:"distributedvpcrouter,omitempty"`
+	Id                           string `json:"id,omitempty"`
+	Isdefault                    bool   `json:"isdefault,omitempty"`
+	Name                         string `json:"name,omitempty"`
+	Secondaryserviceofferingid   string `json:"secondaryserviceofferingid,omitempty"`
+	Secondaryserviceofferingname string `json:"secondaryserviceofferingname,omitempty"`
+	Service                      []struct {
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			Name                       string `json:"name,omitempty"`
@@ -1623,6 +1703,8 @@ type UpdateVPCOfferingResponse struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
+	Serviceofferingid      string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname    string `json:"serviceofferingname,omitempty"`
 	State                  string `json:"state,omitempty"`
 	SupportsregionLevelvpc bool   `json:"supportsregionLevelvpc,omitempty"`
 }
@@ -1920,13 +2002,15 @@ type ListVPCOfferingsResponse struct {
 }
 
 type VPCOffering struct {
-	Created              string `json:"created,omitempty"`
-	Displaytext          string `json:"displaytext,omitempty"`
-	Distributedvpcrouter bool   `json:"distributedvpcrouter,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Isdefault            bool   `json:"isdefault,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Service              []struct {
+	Created                      string `json:"created,omitempty"`
+	Displaytext                  string `json:"displaytext,omitempty"`
+	Distributedvpcrouter         bool   `json:"distributedvpcrouter,omitempty"`
+	Id                           string `json:"id,omitempty"`
+	Isdefault                    bool   `json:"isdefault,omitempty"`
+	Name                         string `json:"name,omitempty"`
+	Secondaryserviceofferingid   string `json:"secondaryserviceofferingid,omitempty"`
+	Secondaryserviceofferingname string `json:"secondaryserviceofferingname,omitempty"`
+	Service                      []struct {
 		Capability []struct {
 			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
 			Name                       string `json:"name,omitempty"`
@@ -1943,6 +2027,8 @@ type VPCOffering struct {
 			State                        string   `json:"state,omitempty"`
 		} `json:"provider,omitempty"`
 	} `json:"service,omitempty"`
+	Serviceofferingid      string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname    string `json:"serviceofferingname,omitempty"`
 	State                  string `json:"state,omitempty"`
 	SupportsregionLevelvpc bool   `json:"supportsregionLevelvpc,omitempty"`
 }

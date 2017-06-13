@@ -183,6 +183,7 @@ func (s *AddressService) AssociateIpAddress(p *AssociateIpAddressParams) (*Assoc
 type AssociateIpAddressResponse struct {
 	JobID                 string `json:"jobid,omitempty"`
 	Account               string `json:"account,omitempty"`
+	Aclid                 string `json:"aclid,omitempty"`
 	Allocated             string `json:"allocated,omitempty"`
 	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
 	Associatednetworkname string `json:"associatednetworkname,omitempty"`
@@ -613,7 +614,7 @@ func (s *AddressService) GetPublicIpAddressByID(id string, opts ...OptionFunc) (
 	return nil, l.Count, fmt.Errorf("There is more then one result for PublicIpAddress UUID: %s!", id)
 }
 
-// Lists all public IP addresses
+// Lists all public ip addresses
 func (s *AddressService) ListPublicIpAddresses(p *ListPublicIpAddressesParams) (*ListPublicIpAddressesResponse, error) {
 	resp, err := s.cs.newRequest("listPublicIpAddresses", p.toURLValues())
 	if err != nil {
@@ -634,6 +635,7 @@ type ListPublicIpAddressesResponse struct {
 
 type PublicIpAddress struct {
 	Account               string `json:"account,omitempty"`
+	Aclid                 string `json:"aclid,omitempty"`
 	Allocated             string `json:"allocated,omitempty"`
 	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
 	Associatednetworkname string `json:"associatednetworkname,omitempty"`
@@ -768,6 +770,7 @@ func (s *AddressService) UpdateIpAddress(p *UpdateIpAddressParams) (*UpdateIpAdd
 type UpdateIpAddressResponse struct {
 	JobID                 string `json:"jobid,omitempty"`
 	Account               string `json:"account,omitempty"`
+	Aclid                 string `json:"aclid,omitempty"`
 	Allocated             string `json:"allocated,omitempty"`
 	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
 	Associatednetworkname string `json:"associatednetworkname,omitempty"`
