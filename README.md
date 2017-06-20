@@ -10,19 +10,18 @@ To be able to find the API command you want, they are grouped by 'services' whic
 
 ## Usage
 
-The cosmic package is always generated against the latest stable Cosmic release (currently v5.1.x). Luckily the API doesn't change that much, and were it does we try to make sure the generated package is able handle both the old and the new case. Over time it will be impossible to support all version with just one package, but until now we seem to manage this pretty well.
+The cosmic package is always generated against the latest stable Cosmic release (currently v5.3.x). Luckily the API doesn't change that much, and were it does we try to make sure the generated package is able handle both the old and the new case. Over time it will be impossible to support all version with just one package, but until now we seem to manage this pretty well.
 
-Please see the package documentation on [GoDocs](http://godoc.org/github.com/xanzy/go-cosmic/cosmic).
+To generate a new version yourself, you must update `api.go` in the `go-cosmic/generate` directory. This file contains the output from the apidocs website (use the regex.txt) and the `listApis` call (use cloudmonkey with json output).
 
-In the go-cosmic/generate directory there is a api.go, this file contains the output from the apidocs website (use the regex.txt) and the list apis call (use cloudmonkey with json output). Please update these for the latest version if an update is required.
-
-You need the following Go package installed:
+Additionaly you need the following Go package installed:
 `go get golang.org/x/tools/cmd/goimports`
 
-Go into the go-cosmic/generate directory, build and run.
+Then go into the `go-cosmic/generate` directory and just build and run:
 `go build`
 `./generate`
 
+Please see the package documentation on [GoDocs](http://godoc.org/github.com/xanzy/go-cosmic/cosmic).
 
 ## Features
 
