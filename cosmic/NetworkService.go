@@ -208,6 +208,12 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
 	}
+	if v, found := p.p["dns1"]; found {
+		u.Set("dns1", v.(string))
+	}
+	if v, found := p.p["dns2"]; found {
+		u.Set("dns2", v.(string))
+	}
 	if v, found := p.p["domainid"]; found {
 		u.Set("domainid", v.(string))
 	}
@@ -225,6 +231,9 @@ func (p *CreateNetworkParams) toURLValues() url.Values {
 	}
 	if v, found := p.p["ip6gateway"]; found {
 		u.Set("ip6gateway", v.(string))
+	}
+	if v, found := p.p["ipexclusionlist"]; found {
+		u.Set("ipexclusionlist", v.(string))
 	}
 	if v, found := p.p["isolatedpvlan"]; found {
 		u.Set("isolatedpvlan", v.(string))
@@ -317,6 +326,22 @@ func (p *CreateNetworkParams) SetDisplaytext(v string) {
 	return
 }
 
+func (p *CreateNetworkParams) SetDns1(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns1"] = v
+	return
+}
+
+func (p *CreateNetworkParams) SetDns2(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns2"] = v
+	return
+}
+
 func (p *CreateNetworkParams) SetDomainid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -362,6 +387,14 @@ func (p *CreateNetworkParams) SetIp6gateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6gateway"] = v
+	return
+}
+
+func (p *CreateNetworkParams) SetIpexclusionlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ipexclusionlist"] = v
 	return
 }
 
@@ -517,6 +550,7 @@ type CreateNetworkResponse struct {
 	Id                          string `json:"id,omitempty"`
 	Ip6cidr                     string `json:"ip6cidr,omitempty"`
 	Ip6gateway                  string `json:"ip6gateway,omitempty"`
+	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 	Isdefault                   bool   `json:"isdefault,omitempty"`
 	Ispersistent                bool   `json:"ispersistent,omitempty"`
 	Issystem                    bool   `json:"issystem,omitempty"`
@@ -1065,6 +1099,7 @@ type Network struct {
 	Id                          string `json:"id,omitempty"`
 	Ip6cidr                     string `json:"ip6cidr,omitempty"`
 	Ip6gateway                  string `json:"ip6gateway,omitempty"`
+	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 	Isdefault                   bool   `json:"isdefault,omitempty"`
 	Ispersistent                bool   `json:"ispersistent,omitempty"`
 	Issystem                    bool   `json:"issystem,omitempty"`
@@ -1206,6 +1241,7 @@ func (s *NetworkService) RestartNetwork(p *RestartNetworkParams) (*RestartNetwor
 type RestartNetworkResponse struct {
 	JobID                 string `json:"jobid,omitempty"`
 	Account               string `json:"account,omitempty"`
+	Aclid                 string `json:"aclid,omitempty"`
 	Allocated             string `json:"allocated,omitempty"`
 	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
 	Associatednetworkname string `json:"associatednetworkname,omitempty"`
@@ -1271,11 +1307,20 @@ func (p *UpdateNetworkParams) toURLValues() url.Values {
 	if v, found := p.p["displaytext"]; found {
 		u.Set("displaytext", v.(string))
 	}
+	if v, found := p.p["dns1"]; found {
+		u.Set("dns1", v.(string))
+	}
+	if v, found := p.p["dns2"]; found {
+		u.Set("dns2", v.(string))
+	}
 	if v, found := p.p["guestvmcidr"]; found {
 		u.Set("guestvmcidr", v.(string))
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
+	}
+	if v, found := p.p["ipexclusionlist"]; found {
+		u.Set("ipexclusionlist", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
@@ -1321,6 +1366,22 @@ func (p *UpdateNetworkParams) SetDisplaytext(v string) {
 	return
 }
 
+func (p *UpdateNetworkParams) SetDns1(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns1"] = v
+	return
+}
+
+func (p *UpdateNetworkParams) SetDns2(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns2"] = v
+	return
+}
+
 func (p *UpdateNetworkParams) SetGuestvmcidr(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
@@ -1334,6 +1395,14 @@ func (p *UpdateNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
+	return
+}
+
+func (p *UpdateNetworkParams) SetIpexclusionlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ipexclusionlist"] = v
 	return
 }
 
@@ -1423,6 +1492,7 @@ type UpdateNetworkResponse struct {
 	Id                          string `json:"id,omitempty"`
 	Ip6cidr                     string `json:"ip6cidr,omitempty"`
 	Ip6gateway                  string `json:"ip6gateway,omitempty"`
+	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 	Isdefault                   bool   `json:"isdefault,omitempty"`
 	Ispersistent                bool   `json:"ispersistent,omitempty"`
 	Issystem                    bool   `json:"issystem,omitempty"`
@@ -3206,6 +3276,7 @@ type NiciraNvpDeviceNetwork struct {
 	Id                          string `json:"id,omitempty"`
 	Ip6cidr                     string `json:"ip6cidr,omitempty"`
 	Ip6gateway                  string `json:"ip6gateway,omitempty"`
+	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
 	Isdefault                   bool   `json:"isdefault,omitempty"`
 	Ispersistent                bool   `json:"ispersistent,omitempty"`
 	Issystem                    bool   `json:"issystem,omitempty"`

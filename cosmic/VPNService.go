@@ -992,7 +992,8 @@ func (p *CreateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		u.Set("cidrlist", v.(string))
+		vv := strings.Join(v.([]string), ",")
+		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["domainid"]; found {
 		u.Set("domainid", v.(string))
@@ -1042,7 +1043,7 @@ func (p *CreateVpnCustomerGatewayParams) SetAccount(v string) {
 	return
 }
 
-func (p *CreateVpnCustomerGatewayParams) SetCidrlist(v string) {
+func (p *CreateVpnCustomerGatewayParams) SetCidrlist(v []string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1140,7 +1141,7 @@ func (p *CreateVpnCustomerGatewayParams) SetProjectid(v string) {
 
 // You should always use this function to get a new CreateVpnCustomerGatewayParams instance,
 // as then you are sure you have configured all required params
-func (s *VPNService) NewCreateVpnCustomerGatewayParams(cidrlist string, esppolicy string, gateway string, ikepolicy string, ipsecpsk string) *CreateVpnCustomerGatewayParams {
+func (s *VPNService) NewCreateVpnCustomerGatewayParams(cidrlist []string, esppolicy string, gateway string, ikepolicy string, ipsecpsk string) *CreateVpnCustomerGatewayParams {
 	p := &CreateVpnCustomerGatewayParams{}
 	p.p = make(map[string]interface{})
 	p.p["cidrlist"] = cidrlist
@@ -1642,7 +1643,8 @@ func (p *UpdateVpnCustomerGatewayParams) toURLValues() url.Values {
 		u.Set("account", v.(string))
 	}
 	if v, found := p.p["cidrlist"]; found {
-		u.Set("cidrlist", v.(string))
+		vv := strings.Join(v.([]string), ",")
+		u.Set("cidrlist", vv)
 	}
 	if v, found := p.p["domainid"]; found {
 		u.Set("domainid", v.(string))
@@ -1692,7 +1694,7 @@ func (p *UpdateVpnCustomerGatewayParams) SetAccount(v string) {
 	return
 }
 
-func (p *UpdateVpnCustomerGatewayParams) SetCidrlist(v string) {
+func (p *UpdateVpnCustomerGatewayParams) SetCidrlist(v []string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
@@ -1790,7 +1792,7 @@ func (p *UpdateVpnCustomerGatewayParams) SetName(v string) {
 
 // You should always use this function to get a new UpdateVpnCustomerGatewayParams instance,
 // as then you are sure you have configured all required params
-func (s *VPNService) NewUpdateVpnCustomerGatewayParams(cidrlist string, esppolicy string, gateway string, id string, ikepolicy string, ipsecpsk string) *UpdateVpnCustomerGatewayParams {
+func (s *VPNService) NewUpdateVpnCustomerGatewayParams(cidrlist []string, esppolicy string, gateway string, id string, ikepolicy string, ipsecpsk string) *UpdateVpnCustomerGatewayParams {
 	p := &UpdateVpnCustomerGatewayParams{}
 	p.p = make(map[string]interface{})
 	p.p["cidrlist"] = cidrlist

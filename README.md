@@ -6,13 +6,23 @@ A Cosmic API client enabling Go programs to interact with Cosmic in a simple and
 
 This package covers the complete Cosmic API and is well tested. Of course there will still be untested corner cases when you have over 400 API commands that you can use, but over all it's save to use this package.
 
-To be able to find the API command you want, they are grouped by 'services' which match the grouping you can see/find on the [CloudStack API docs](http://cloudstack.apache.org/api/apidocs-4.9/) website (Cosmic does not have it's own API docs yet).
+To be able to find the API command you want, they are grouped by 'services' which match the grouping you can see/find on the [Cosmic API docs](http://apidoc.cosmiccloud.io/) website.
 
 ## Usage
 
 The cosmic package is always generated against the latest stable Cosmic release (currently v5.1.x). Luckily the API doesn't change that much, and were it does we try to make sure the generated package is able handle both the old and the new case. Over time it will be impossible to support all version with just one package, but until now we seem to manage this pretty well.
 
 Please see the package documentation on [GoDocs](http://godoc.org/github.com/xanzy/go-cosmic/cosmic).
+
+In the go-cosmic/generate directory there is a api.go, this file contains the output from the apidocs website (use the regex.txt) and the list apis call (use cloudmonkey with json output). Please update these for the latest version if an update is required.
+
+You need the following Go package installed:
+`go get golang.org/x/tools/cmd/goimports`
+
+Go into the go-cosmic/generate directory, build and run.
+`go build`
+`./generate`
+
 
 ## Features
 
