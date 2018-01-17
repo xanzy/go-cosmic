@@ -82,7 +82,6 @@ func (p *CreateVPCParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetCidr(v string) {
@@ -90,7 +89,6 @@ func (p *CreateVPCParams) SetCidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidr"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetDisplaytext(v string) {
@@ -98,7 +96,6 @@ func (p *CreateVPCParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetDomainid(v string) {
@@ -106,7 +103,6 @@ func (p *CreateVPCParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetFordisplay(v bool) {
@@ -114,7 +110,6 @@ func (p *CreateVPCParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetName(v string) {
@@ -122,7 +117,6 @@ func (p *CreateVPCParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetNetworkdomain(v string) {
@@ -130,7 +124,6 @@ func (p *CreateVPCParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetProjectid(v string) {
@@ -138,7 +131,6 @@ func (p *CreateVPCParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetSourcenatlist(v string) {
@@ -146,7 +138,6 @@ func (p *CreateVPCParams) SetSourcenatlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcenatlist"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetStart(v bool) {
@@ -154,7 +145,6 @@ func (p *CreateVPCParams) SetStart(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["start"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetSyslogserverlist(v string) {
@@ -162,7 +152,6 @@ func (p *CreateVPCParams) SetSyslogserverlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["syslogserverlist"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetVpcofferingid(v string) {
@@ -170,7 +159,6 @@ func (p *CreateVPCParams) SetVpcofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcofferingid"] = v
-	return
 }
 
 func (p *CreateVPCParams) SetZoneid(v string) {
@@ -178,7 +166,6 @@ func (p *CreateVPCParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVPCParams instance,
@@ -449,7 +436,6 @@ func (p *ListVPCsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetCidr(v string) {
@@ -457,7 +443,6 @@ func (p *ListVPCsParams) SetCidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidr"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetDisplaytext(v string) {
@@ -465,7 +450,6 @@ func (p *ListVPCsParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetDomainid(v string) {
@@ -473,7 +457,6 @@ func (p *ListVPCsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetFordisplay(v bool) {
@@ -481,7 +464,6 @@ func (p *ListVPCsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetId(v string) {
@@ -489,7 +471,6 @@ func (p *ListVPCsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetIsrecursive(v bool) {
@@ -497,7 +478,6 @@ func (p *ListVPCsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetKeyword(v string) {
@@ -505,7 +485,6 @@ func (p *ListVPCsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetListall(v bool) {
@@ -513,7 +492,6 @@ func (p *ListVPCsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetName(v string) {
@@ -521,7 +499,6 @@ func (p *ListVPCsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetPage(v int) {
@@ -529,7 +506,6 @@ func (p *ListVPCsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetPagesize(v int) {
@@ -537,7 +513,6 @@ func (p *ListVPCsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetProjectid(v string) {
@@ -545,7 +520,6 @@ func (p *ListVPCsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetRestartrequired(v bool) {
@@ -553,7 +527,6 @@ func (p *ListVPCsParams) SetRestartrequired(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["restartrequired"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetState(v string) {
@@ -561,7 +534,6 @@ func (p *ListVPCsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetSupportedservices(v []string) {
@@ -569,7 +541,6 @@ func (p *ListVPCsParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetTags(v map[string]string) {
@@ -577,7 +548,6 @@ func (p *ListVPCsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetVpcofferingid(v string) {
@@ -585,7 +555,6 @@ func (p *ListVPCsParams) SetVpcofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcofferingid"] = v
-	return
 }
 
 func (p *ListVPCsParams) SetZoneid(v string) {
@@ -593,7 +562,6 @@ func (p *ListVPCsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVPCsParams instance,
@@ -689,16 +657,27 @@ func (s *VPCService) GetVPCByID(id string, opts ...OptionFunc) (*VPC, int, error
 
 // Lists VPCs
 func (s *VPCService) ListVPCs(p *ListVPCsParams) (*ListVPCsResponse, error) {
-	resp, err := s.cs.newRequest("listVPCs", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVPCsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVPCs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVPCsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VPCs = append(r.VPCs, l.VPCs...)
+
+		if r.Count != len(r.VPCs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VPCs))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVPCsResponse struct {
@@ -860,7 +839,6 @@ func (p *DeleteVPCParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVPCParams instance,
@@ -949,7 +927,6 @@ func (p *UpdateVPCParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetDisplaytext(v string) {
@@ -957,7 +934,6 @@ func (p *UpdateVPCParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetFordisplay(v bool) {
@@ -965,7 +941,6 @@ func (p *UpdateVPCParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetId(v string) {
@@ -973,7 +948,6 @@ func (p *UpdateVPCParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetName(v string) {
@@ -981,7 +955,6 @@ func (p *UpdateVPCParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetSourcenatlist(v string) {
@@ -989,7 +962,6 @@ func (p *UpdateVPCParams) SetSourcenatlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcenatlist"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetSyslogserverlist(v string) {
@@ -997,7 +969,6 @@ func (p *UpdateVPCParams) SetSyslogserverlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["syslogserverlist"] = v
-	return
 }
 
 func (p *UpdateVPCParams) SetVpcofferingid(v string) {
@@ -1005,7 +976,6 @@ func (p *UpdateVPCParams) SetVpcofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVPCParams instance,
@@ -1210,7 +1180,6 @@ func (p *RestartVPCParams) SetCleanup(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cleanup"] = v
-	return
 }
 
 func (p *RestartVPCParams) SetId(v string) {
@@ -1218,7 +1187,6 @@ func (p *RestartVPCParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RestartVPCParams instance,
@@ -1448,7 +1416,6 @@ func (p *CreateVPCOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetName(v string) {
@@ -1456,7 +1423,6 @@ func (p *CreateVPCOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetSecondaryserviceofferingid(v string) {
@@ -1464,7 +1430,6 @@ func (p *CreateVPCOfferingParams) SetSecondaryserviceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["secondaryserviceofferingid"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetServicecapabilitylist(v map[string]string) {
@@ -1472,7 +1437,6 @@ func (p *CreateVPCOfferingParams) SetServicecapabilitylist(v map[string]string) 
 		p.p = make(map[string]interface{})
 	}
 	p.p["servicecapabilitylist"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetServiceofferingid(v string) {
@@ -1480,7 +1444,6 @@ func (p *CreateVPCOfferingParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetServiceproviderlist(v map[string]string) {
@@ -1488,7 +1451,6 @@ func (p *CreateVPCOfferingParams) SetServiceproviderlist(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceproviderlist"] = v
-	return
 }
 
 func (p *CreateVPCOfferingParams) SetSupportedservices(v []string) {
@@ -1496,7 +1458,6 @@ func (p *CreateVPCOfferingParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVPCOfferingParams instance,
@@ -1606,7 +1567,6 @@ func (p *UpdateVPCOfferingParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateVPCOfferingParams) SetId(v string) {
@@ -1614,7 +1574,6 @@ func (p *UpdateVPCOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateVPCOfferingParams) SetName(v string) {
@@ -1622,7 +1581,6 @@ func (p *UpdateVPCOfferingParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateVPCOfferingParams) SetState(v string) {
@@ -1630,7 +1588,6 @@ func (p *UpdateVPCOfferingParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVPCOfferingParams instance,
@@ -1729,7 +1686,6 @@ func (p *DeleteVPCOfferingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVPCOfferingParams instance,
@@ -1824,7 +1780,6 @@ func (p *ListVPCOfferingsParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetId(v string) {
@@ -1832,7 +1787,6 @@ func (p *ListVPCOfferingsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetIsdefault(v bool) {
@@ -1840,7 +1794,6 @@ func (p *ListVPCOfferingsParams) SetIsdefault(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdefault"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetKeyword(v string) {
@@ -1848,7 +1801,6 @@ func (p *ListVPCOfferingsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetName(v string) {
@@ -1856,7 +1808,6 @@ func (p *ListVPCOfferingsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetPage(v int) {
@@ -1864,7 +1815,6 @@ func (p *ListVPCOfferingsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetPagesize(v int) {
@@ -1872,7 +1822,6 @@ func (p *ListVPCOfferingsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetState(v string) {
@@ -1880,7 +1829,6 @@ func (p *ListVPCOfferingsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListVPCOfferingsParams) SetSupportedservices(v []string) {
@@ -1888,7 +1836,6 @@ func (p *ListVPCOfferingsParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 // You should always use this function to get a new ListVPCOfferingsParams instance,
@@ -1984,16 +1931,27 @@ func (s *VPCService) GetVPCOfferingByID(id string, opts ...OptionFunc) (*VPCOffe
 
 // Lists VPC offerings
 func (s *VPCService) ListVPCOfferings(p *ListVPCOfferingsParams) (*ListVPCOfferingsResponse, error) {
-	resp, err := s.cs.newRequest("listVPCOfferings", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVPCOfferingsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVPCOfferings", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVPCOfferingsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VPCOfferings = append(r.VPCOfferings, l.VPCOfferings...)
+
+		if r.Count != len(r.VPCOfferings) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VPCOfferings))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVPCOfferingsResponse struct {
@@ -2072,7 +2030,6 @@ func (p *CreatePrivateGatewayParams) SetAclid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["aclid"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetGateway(v string) {
@@ -2080,7 +2037,6 @@ func (p *CreatePrivateGatewayParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetIpaddress(v string) {
@@ -2088,7 +2044,6 @@ func (p *CreatePrivateGatewayParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetNetmask(v string) {
@@ -2096,7 +2051,6 @@ func (p *CreatePrivateGatewayParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetNetworkid(v string) {
@@ -2104,7 +2058,6 @@ func (p *CreatePrivateGatewayParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetSourcenatsupported(v bool) {
@@ -2112,7 +2065,6 @@ func (p *CreatePrivateGatewayParams) SetSourcenatsupported(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcenatsupported"] = v
-	return
 }
 
 func (p *CreatePrivateGatewayParams) SetVpcid(v string) {
@@ -2120,7 +2072,6 @@ func (p *CreatePrivateGatewayParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new CreatePrivateGatewayParams instance,
@@ -2249,7 +2200,6 @@ func (p *ListPrivateGatewaysParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetDomainid(v string) {
@@ -2257,7 +2207,6 @@ func (p *ListPrivateGatewaysParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetId(v string) {
@@ -2265,7 +2214,6 @@ func (p *ListPrivateGatewaysParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetIpaddress(v string) {
@@ -2273,7 +2221,6 @@ func (p *ListPrivateGatewaysParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetIsrecursive(v bool) {
@@ -2281,7 +2228,6 @@ func (p *ListPrivateGatewaysParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetKeyword(v string) {
@@ -2289,7 +2235,6 @@ func (p *ListPrivateGatewaysParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetListall(v bool) {
@@ -2297,7 +2242,6 @@ func (p *ListPrivateGatewaysParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetNetworkid(v string) {
@@ -2305,7 +2249,6 @@ func (p *ListPrivateGatewaysParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetPage(v int) {
@@ -2313,7 +2256,6 @@ func (p *ListPrivateGatewaysParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetPagesize(v int) {
@@ -2321,7 +2263,6 @@ func (p *ListPrivateGatewaysParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetProjectid(v string) {
@@ -2329,7 +2270,6 @@ func (p *ListPrivateGatewaysParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetState(v string) {
@@ -2337,7 +2277,6 @@ func (p *ListPrivateGatewaysParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListPrivateGatewaysParams) SetVpcid(v string) {
@@ -2345,7 +2284,6 @@ func (p *ListPrivateGatewaysParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new ListPrivateGatewaysParams instance,
@@ -2391,16 +2329,27 @@ func (s *VPCService) GetPrivateGatewayByID(id string, opts ...OptionFunc) (*Priv
 
 // List private gateways
 func (s *VPCService) ListPrivateGateways(p *ListPrivateGatewaysParams) (*ListPrivateGatewaysResponse, error) {
-	resp, err := s.cs.newRequest("listPrivateGateways", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListPrivateGatewaysResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listPrivateGateways", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListPrivateGatewaysResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.PrivateGateways = append(r.PrivateGateways, l.PrivateGateways...)
+
+		if r.Count != len(r.PrivateGateways) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.PrivateGateways))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListPrivateGatewaysResponse struct {
@@ -2448,7 +2397,6 @@ func (p *DeletePrivateGatewayParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeletePrivateGatewayParams instance,
@@ -2524,7 +2472,6 @@ func (p *CreateStaticRouteParams) SetCidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidr"] = v
-	return
 }
 
 func (p *CreateStaticRouteParams) SetGatewayid(v string) {
@@ -2532,7 +2479,6 @@ func (p *CreateStaticRouteParams) SetGatewayid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gatewayid"] = v
-	return
 }
 
 func (p *CreateStaticRouteParams) SetNexthop(v string) {
@@ -2540,7 +2486,6 @@ func (p *CreateStaticRouteParams) SetNexthop(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nexthop"] = v
-	return
 }
 
 func (p *CreateStaticRouteParams) SetVpcid(v string) {
@@ -2548,7 +2493,6 @@ func (p *CreateStaticRouteParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateStaticRouteParams instance,
@@ -2642,7 +2586,6 @@ func (p *DeleteStaticRouteParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteStaticRouteParams instance,
@@ -2757,7 +2700,6 @@ func (p *ListStaticRoutesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetCidr(v string) {
@@ -2765,7 +2707,6 @@ func (p *ListStaticRoutesParams) SetCidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidr"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetDomainid(v string) {
@@ -2773,7 +2714,6 @@ func (p *ListStaticRoutesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetGatewayid(v string) {
@@ -2781,7 +2721,6 @@ func (p *ListStaticRoutesParams) SetGatewayid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gatewayid"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetId(v string) {
@@ -2789,7 +2728,6 @@ func (p *ListStaticRoutesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetIsrecursive(v bool) {
@@ -2797,7 +2735,6 @@ func (p *ListStaticRoutesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetKeyword(v string) {
@@ -2805,7 +2742,6 @@ func (p *ListStaticRoutesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetListall(v bool) {
@@ -2813,7 +2749,6 @@ func (p *ListStaticRoutesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetNexthop(v string) {
@@ -2821,7 +2756,6 @@ func (p *ListStaticRoutesParams) SetNexthop(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nexthop"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetPage(v int) {
@@ -2829,7 +2763,6 @@ func (p *ListStaticRoutesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetPagesize(v int) {
@@ -2837,7 +2770,6 @@ func (p *ListStaticRoutesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetProjectid(v string) {
@@ -2845,7 +2777,6 @@ func (p *ListStaticRoutesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetTags(v map[string]string) {
@@ -2853,7 +2784,6 @@ func (p *ListStaticRoutesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListStaticRoutesParams) SetVpcid(v string) {
@@ -2861,7 +2791,6 @@ func (p *ListStaticRoutesParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new ListStaticRoutesParams instance,
@@ -2907,16 +2836,27 @@ func (s *VPCService) GetStaticRouteByID(id string, opts ...OptionFunc) (*StaticR
 
 // Lists all static routes
 func (s *VPCService) ListStaticRoutes(p *ListStaticRoutesParams) (*ListStaticRoutesResponse, error) {
-	resp, err := s.cs.newRequest("listStaticRoutes", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListStaticRoutesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listStaticRoutes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListStaticRoutesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.StaticRoutes = append(r.StaticRoutes, l.StaticRoutes...)
+
+		if r.Count != len(r.StaticRoutes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.StaticRoutes))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListStaticRoutesResponse struct {

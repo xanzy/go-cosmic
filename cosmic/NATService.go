@@ -53,7 +53,6 @@ func (p *EnableStaticNatParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *EnableStaticNatParams) SetNetworkid(v string) {
@@ -61,7 +60,6 @@ func (p *EnableStaticNatParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *EnableStaticNatParams) SetVirtualmachineid(v string) {
@@ -69,7 +67,6 @@ func (p *EnableStaticNatParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *EnableStaticNatParams) SetVmguestip(v string) {
@@ -77,7 +74,6 @@ func (p *EnableStaticNatParams) SetVmguestip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmguestip"] = v
-	return
 }
 
 // You should always use this function to get a new EnableStaticNatParams instance,
@@ -148,7 +144,6 @@ func (p *CreateIpForwardingRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateIpForwardingRuleParams) SetEndport(v int) {
@@ -156,7 +151,6 @@ func (p *CreateIpForwardingRuleParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *CreateIpForwardingRuleParams) SetIpaddressid(v string) {
@@ -164,7 +158,6 @@ func (p *CreateIpForwardingRuleParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *CreateIpForwardingRuleParams) SetOpenfirewall(v bool) {
@@ -172,7 +165,6 @@ func (p *CreateIpForwardingRuleParams) SetOpenfirewall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["openfirewall"] = v
-	return
 }
 
 func (p *CreateIpForwardingRuleParams) SetProtocol(v string) {
@@ -180,7 +172,6 @@ func (p *CreateIpForwardingRuleParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreateIpForwardingRuleParams) SetStartport(v int) {
@@ -188,7 +179,6 @@ func (p *CreateIpForwardingRuleParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 // You should always use this function to get a new CreateIpForwardingRuleParams instance,
@@ -288,7 +278,6 @@ func (p *DeleteIpForwardingRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteIpForwardingRuleParams instance,
@@ -389,7 +378,6 @@ func (p *ListIpForwardingRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetDomainid(v string) {
@@ -397,7 +385,6 @@ func (p *ListIpForwardingRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetId(v string) {
@@ -405,7 +392,6 @@ func (p *ListIpForwardingRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetIpaddressid(v string) {
@@ -413,7 +399,6 @@ func (p *ListIpForwardingRulesParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetIsrecursive(v bool) {
@@ -421,7 +406,6 @@ func (p *ListIpForwardingRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetKeyword(v string) {
@@ -429,7 +413,6 @@ func (p *ListIpForwardingRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetListall(v bool) {
@@ -437,7 +420,6 @@ func (p *ListIpForwardingRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetPage(v int) {
@@ -445,7 +427,6 @@ func (p *ListIpForwardingRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetPagesize(v int) {
@@ -453,7 +434,6 @@ func (p *ListIpForwardingRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetProjectid(v string) {
@@ -461,7 +441,6 @@ func (p *ListIpForwardingRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListIpForwardingRulesParams) SetVirtualmachineid(v string) {
@@ -469,7 +448,6 @@ func (p *ListIpForwardingRulesParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new ListIpForwardingRulesParams instance,
@@ -515,16 +493,27 @@ func (s *NATService) GetIpForwardingRuleByID(id string, opts ...OptionFunc) (*Ip
 
 // List the IP forwarding rules
 func (s *NATService) ListIpForwardingRules(p *ListIpForwardingRulesParams) (*ListIpForwardingRulesResponse, error) {
-	resp, err := s.cs.newRequest("listIpForwardingRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListIpForwardingRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listIpForwardingRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListIpForwardingRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.IpForwardingRules = append(r.IpForwardingRules, l.IpForwardingRules...)
+
+		if r.Count != len(r.IpForwardingRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.IpForwardingRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListIpForwardingRulesResponse struct {
@@ -583,7 +572,6 @@ func (p *DisableStaticNatParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 // You should always use this function to get a new DisableStaticNatParams instance,

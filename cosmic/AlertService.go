@@ -61,7 +61,6 @@ func (p *ListAlertsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAlertsParams) SetKeyword(v string) {
@@ -69,7 +68,6 @@ func (p *ListAlertsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAlertsParams) SetName(v string) {
@@ -77,7 +75,6 @@ func (p *ListAlertsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListAlertsParams) SetPage(v int) {
@@ -85,7 +82,6 @@ func (p *ListAlertsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAlertsParams) SetPagesize(v int) {
@@ -93,7 +89,6 @@ func (p *ListAlertsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAlertsParams) SetType(v string) {
@@ -101,7 +96,6 @@ func (p *ListAlertsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ListAlertsParams instance,
@@ -197,16 +191,27 @@ func (s *AlertService) GetAlertByID(id string, opts ...OptionFunc) (*Alert, int,
 
 // Lists all alerts.
 func (s *AlertService) ListAlerts(p *ListAlertsParams) (*ListAlertsResponse, error) {
-	resp, err := s.cs.newRequest("listAlerts", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListAlertsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listAlerts", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListAlertsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Alerts = append(r.Alerts, l.Alerts...)
+
+		if r.Count != len(r.Alerts) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Alerts))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListAlertsResponse struct {
@@ -252,7 +257,6 @@ func (p *ArchiveAlertsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *ArchiveAlertsParams) SetIds(v []string) {
@@ -260,7 +264,6 @@ func (p *ArchiveAlertsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ArchiveAlertsParams) SetStartdate(v string) {
@@ -268,7 +271,6 @@ func (p *ArchiveAlertsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *ArchiveAlertsParams) SetType(v string) {
@@ -276,7 +278,6 @@ func (p *ArchiveAlertsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ArchiveAlertsParams instance,
@@ -336,7 +337,6 @@ func (p *DeleteAlertsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *DeleteAlertsParams) SetIds(v []string) {
@@ -344,7 +344,6 @@ func (p *DeleteAlertsParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *DeleteAlertsParams) SetStartdate(v string) {
@@ -352,7 +351,6 @@ func (p *DeleteAlertsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *DeleteAlertsParams) SetType(v string) {
@@ -360,7 +358,6 @@ func (p *DeleteAlertsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAlertsParams instance,
@@ -423,7 +420,6 @@ func (p *GenerateAlertParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *GenerateAlertParams) SetName(v string) {
@@ -431,7 +427,6 @@ func (p *GenerateAlertParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *GenerateAlertParams) SetPodid(v string) {
@@ -439,7 +434,6 @@ func (p *GenerateAlertParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *GenerateAlertParams) SetType(v int) {
@@ -447,7 +441,6 @@ func (p *GenerateAlertParams) SetType(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *GenerateAlertParams) SetZoneid(v string) {
@@ -455,7 +448,6 @@ func (p *GenerateAlertParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new GenerateAlertParams instance,

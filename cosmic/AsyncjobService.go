@@ -43,7 +43,6 @@ func (p *QueryAsyncJobResultParams) SetJobid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["jobid"] = v
-	return
 }
 
 // You should always use this function to get a new QueryAsyncJobResultParams instance,
@@ -138,7 +137,6 @@ func (p *ListAsyncJobsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetDomainid(v string) {
@@ -146,7 +144,6 @@ func (p *ListAsyncJobsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetIsrecursive(v bool) {
@@ -154,7 +151,6 @@ func (p *ListAsyncJobsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetKeyword(v string) {
@@ -162,7 +158,6 @@ func (p *ListAsyncJobsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetListall(v bool) {
@@ -170,7 +165,6 @@ func (p *ListAsyncJobsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetPage(v int) {
@@ -178,7 +172,6 @@ func (p *ListAsyncJobsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetPagesize(v int) {
@@ -186,7 +179,6 @@ func (p *ListAsyncJobsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAsyncJobsParams) SetStartdate(v string) {
@@ -194,7 +186,6 @@ func (p *ListAsyncJobsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 // You should always use this function to get a new ListAsyncJobsParams instance,
@@ -207,16 +198,27 @@ func (s *AsyncjobService) NewListAsyncJobsParams() *ListAsyncJobsParams {
 
 // Lists all pending asynchronous jobs for the account.
 func (s *AsyncjobService) ListAsyncJobs(p *ListAsyncJobsParams) (*ListAsyncJobsResponse, error) {
-	resp, err := s.cs.newRequest("listAsyncJobs", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListAsyncJobsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listAsyncJobs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListAsyncJobsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.AsyncJobs = append(r.AsyncJobs, l.AsyncJobs...)
+
+		if r.Count != len(r.AsyncJobs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.AsyncJobs))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListAsyncJobsResponse struct {

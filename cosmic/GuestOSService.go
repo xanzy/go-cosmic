@@ -61,7 +61,6 @@ func (p *ListOsTypesParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *ListOsTypesParams) SetId(v string) {
@@ -69,7 +68,6 @@ func (p *ListOsTypesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListOsTypesParams) SetKeyword(v string) {
@@ -77,7 +75,6 @@ func (p *ListOsTypesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListOsTypesParams) SetOscategoryid(v string) {
@@ -85,7 +82,6 @@ func (p *ListOsTypesParams) SetOscategoryid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["oscategoryid"] = v
-	return
 }
 
 func (p *ListOsTypesParams) SetPage(v int) {
@@ -93,7 +89,6 @@ func (p *ListOsTypesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListOsTypesParams) SetPagesize(v int) {
@@ -101,7 +96,6 @@ func (p *ListOsTypesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListOsTypesParams instance,
@@ -147,16 +141,27 @@ func (s *GuestOSService) GetOsTypeByID(id string, opts ...OptionFunc) (*OsType, 
 
 // Lists all supported OS types for this cloud.
 func (s *GuestOSService) ListOsTypes(p *ListOsTypesParams) (*ListOsTypesResponse, error) {
-	resp, err := s.cs.newRequest("listOsTypes", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListOsTypesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listOsTypes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListOsTypesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.OsTypes = append(r.OsTypes, l.OsTypes...)
+
+		if r.Count != len(r.OsTypes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.OsTypes))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListOsTypesResponse struct {
@@ -205,7 +210,6 @@ func (p *ListOsCategoriesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListOsCategoriesParams) SetKeyword(v string) {
@@ -213,7 +217,6 @@ func (p *ListOsCategoriesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListOsCategoriesParams) SetName(v string) {
@@ -221,7 +224,6 @@ func (p *ListOsCategoriesParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListOsCategoriesParams) SetPage(v int) {
@@ -229,7 +231,6 @@ func (p *ListOsCategoriesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListOsCategoriesParams) SetPagesize(v int) {
@@ -237,7 +238,6 @@ func (p *ListOsCategoriesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListOsCategoriesParams instance,
@@ -333,16 +333,27 @@ func (s *GuestOSService) GetOsCategoryByID(id string, opts ...OptionFunc) (*OsCa
 
 // Lists all supported OS categories for this cloud.
 func (s *GuestOSService) ListOsCategories(p *ListOsCategoriesParams) (*ListOsCategoriesResponse, error) {
-	resp, err := s.cs.newRequest("listOsCategories", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListOsCategoriesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listOsCategories", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListOsCategoriesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.OsCategories = append(r.OsCategories, l.OsCategories...)
+
+		if r.Count != len(r.OsCategories) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.OsCategories))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListOsCategoriesResponse struct {
@@ -381,7 +392,6 @@ func (p *AddGuestOsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *AddGuestOsParams) SetOscategoryid(v string) {
@@ -389,7 +399,6 @@ func (p *AddGuestOsParams) SetOscategoryid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["oscategoryid"] = v
-	return
 }
 
 func (p *AddGuestOsParams) SetOsdisplayname(v string) {
@@ -397,7 +406,6 @@ func (p *AddGuestOsParams) SetOsdisplayname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["osdisplayname"] = v
-	return
 }
 
 // You should always use this function to get a new AddGuestOsParams instance,
@@ -475,7 +483,6 @@ func (p *UpdateGuestOsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateGuestOsParams) SetOsdisplayname(v string) {
@@ -483,7 +490,6 @@ func (p *UpdateGuestOsParams) SetOsdisplayname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["osdisplayname"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateGuestOsParams instance,
@@ -558,7 +564,6 @@ func (p *RemoveGuestOsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveGuestOsParams instance,
@@ -645,7 +650,6 @@ func (p *ListGuestOsMappingParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetHypervisorversion(v string) {
@@ -653,7 +657,6 @@ func (p *ListGuestOsMappingParams) SetHypervisorversion(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisorversion"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetId(v string) {
@@ -661,7 +664,6 @@ func (p *ListGuestOsMappingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetKeyword(v string) {
@@ -669,7 +671,6 @@ func (p *ListGuestOsMappingParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetOstypeid(v string) {
@@ -677,7 +678,6 @@ func (p *ListGuestOsMappingParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetPage(v int) {
@@ -685,7 +685,6 @@ func (p *ListGuestOsMappingParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListGuestOsMappingParams) SetPagesize(v int) {
@@ -693,7 +692,6 @@ func (p *ListGuestOsMappingParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListGuestOsMappingParams instance,
@@ -739,16 +737,27 @@ func (s *GuestOSService) GetGuestOsMappingByID(id string, opts ...OptionFunc) (*
 
 // Lists all available OS mappings for given hypervisor
 func (s *GuestOSService) ListGuestOsMapping(p *ListGuestOsMappingParams) (*ListGuestOsMappingResponse, error) {
-	resp, err := s.cs.newRequest("listGuestOsMapping", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListGuestOsMappingResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listGuestOsMapping", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListGuestOsMappingResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.GuestOsMapping = append(r.GuestOsMapping, l.GuestOsMapping...)
+
+		if r.Count != len(r.GuestOsMapping) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.GuestOsMapping))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListGuestOsMappingResponse struct {
@@ -798,7 +807,6 @@ func (p *AddGuestOsMappingParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *AddGuestOsMappingParams) SetHypervisorversion(v string) {
@@ -806,7 +814,6 @@ func (p *AddGuestOsMappingParams) SetHypervisorversion(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisorversion"] = v
-	return
 }
 
 func (p *AddGuestOsMappingParams) SetOsdisplayname(v string) {
@@ -814,7 +821,6 @@ func (p *AddGuestOsMappingParams) SetOsdisplayname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["osdisplayname"] = v
-	return
 }
 
 func (p *AddGuestOsMappingParams) SetOsnameforhypervisor(v string) {
@@ -822,7 +828,6 @@ func (p *AddGuestOsMappingParams) SetOsnameforhypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["osnameforhypervisor"] = v
-	return
 }
 
 func (p *AddGuestOsMappingParams) SetOstypeid(v string) {
@@ -830,7 +835,6 @@ func (p *AddGuestOsMappingParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 // You should always use this function to get a new AddGuestOsMappingParams instance,
@@ -912,7 +916,6 @@ func (p *UpdateGuestOsMappingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateGuestOsMappingParams) SetOsnameforhypervisor(v string) {
@@ -920,7 +923,6 @@ func (p *UpdateGuestOsMappingParams) SetOsnameforhypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["osnameforhypervisor"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateGuestOsMappingParams instance,
@@ -998,7 +1000,6 @@ func (p *RemoveGuestOsMappingParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveGuestOsMappingParams instance,

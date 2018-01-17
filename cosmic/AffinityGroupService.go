@@ -59,7 +59,6 @@ func (p *CreateAffinityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetDescription(v string) {
@@ -67,7 +66,6 @@ func (p *CreateAffinityGroupParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetDomainid(v string) {
@@ -75,7 +73,6 @@ func (p *CreateAffinityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetName(v string) {
@@ -83,7 +80,6 @@ func (p *CreateAffinityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetProjectid(v string) {
@@ -91,7 +87,6 @@ func (p *CreateAffinityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateAffinityGroupParams) SetType(v string) {
@@ -99,7 +94,6 @@ func (p *CreateAffinityGroupParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new CreateAffinityGroupParams instance,
@@ -192,7 +186,6 @@ func (p *DeleteAffinityGroupParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetDomainid(v string) {
@@ -200,7 +193,6 @@ func (p *DeleteAffinityGroupParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetId(v string) {
@@ -208,7 +200,6 @@ func (p *DeleteAffinityGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetName(v string) {
@@ -216,7 +207,6 @@ func (p *DeleteAffinityGroupParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *DeleteAffinityGroupParams) SetProjectid(v string) {
@@ -224,7 +214,6 @@ func (p *DeleteAffinityGroupParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteAffinityGroupParams instance,
@@ -327,7 +316,6 @@ func (p *ListAffinityGroupsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetDomainid(v string) {
@@ -335,7 +323,6 @@ func (p *ListAffinityGroupsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetId(v string) {
@@ -343,7 +330,6 @@ func (p *ListAffinityGroupsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetIsrecursive(v bool) {
@@ -351,7 +337,6 @@ func (p *ListAffinityGroupsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetKeyword(v string) {
@@ -359,7 +344,6 @@ func (p *ListAffinityGroupsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetListall(v bool) {
@@ -367,7 +351,6 @@ func (p *ListAffinityGroupsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetName(v string) {
@@ -375,7 +358,6 @@ func (p *ListAffinityGroupsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetPage(v int) {
@@ -383,7 +365,6 @@ func (p *ListAffinityGroupsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetPagesize(v int) {
@@ -391,7 +372,6 @@ func (p *ListAffinityGroupsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetProjectid(v string) {
@@ -399,7 +379,6 @@ func (p *ListAffinityGroupsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetType(v string) {
@@ -407,7 +386,6 @@ func (p *ListAffinityGroupsParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListAffinityGroupsParams) SetVirtualmachineid(v string) {
@@ -415,7 +393,6 @@ func (p *ListAffinityGroupsParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new ListAffinityGroupsParams instance,
@@ -519,16 +496,27 @@ func (s *AffinityGroupService) GetAffinityGroupByID(id string, opts ...OptionFun
 
 // Lists affinity groups
 func (s *AffinityGroupService) ListAffinityGroups(p *ListAffinityGroupsParams) (*ListAffinityGroupsResponse, error) {
-	resp, err := s.cs.newRequest("listAffinityGroups", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListAffinityGroupsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listAffinityGroups", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListAffinityGroupsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.AffinityGroups = append(r.AffinityGroups, l.AffinityGroups...)
+
+		if r.Count != len(r.AffinityGroups) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.AffinityGroups))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListAffinityGroupsResponse struct {
@@ -577,7 +565,6 @@ func (p *UpdateVMAffinityGroupParams) SetAffinitygroupids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupids"] = v
-	return
 }
 
 func (p *UpdateVMAffinityGroupParams) SetAffinitygroupnames(v []string) {
@@ -585,7 +572,6 @@ func (p *UpdateVMAffinityGroupParams) SetAffinitygroupnames(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupnames"] = v
-	return
 }
 
 func (p *UpdateVMAffinityGroupParams) SetId(v string) {
@@ -593,7 +579,6 @@ func (p *UpdateVMAffinityGroupParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVMAffinityGroupParams instance,
@@ -844,7 +829,6 @@ func (p *ListAffinityGroupTypesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListAffinityGroupTypesParams) SetPage(v int) {
@@ -852,7 +836,6 @@ func (p *ListAffinityGroupTypesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
@@ -860,7 +843,6 @@ func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListAffinityGroupTypesParams instance,
@@ -873,16 +855,27 @@ func (s *AffinityGroupService) NewListAffinityGroupTypesParams() *ListAffinityGr
 
 // Lists affinity group types available
 func (s *AffinityGroupService) ListAffinityGroupTypes(p *ListAffinityGroupTypesParams) (*ListAffinityGroupTypesResponse, error) {
-	resp, err := s.cs.newRequest("listAffinityGroupTypes", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListAffinityGroupTypesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listAffinityGroupTypes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListAffinityGroupTypesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.AffinityGroupTypes = append(r.AffinityGroupTypes, l.AffinityGroupTypes...)
+
+		if r.Count != len(r.AffinityGroupTypes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.AffinityGroupTypes))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListAffinityGroupTypesResponse struct {

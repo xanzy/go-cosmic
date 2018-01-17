@@ -48,7 +48,6 @@ func (p *ConfigureInternalLoadBalancerElementParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ConfigureInternalLoadBalancerElementParams) SetId(v string) {
@@ -56,7 +55,6 @@ func (p *ConfigureInternalLoadBalancerElementParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ConfigureInternalLoadBalancerElementParams instance,
@@ -130,7 +128,6 @@ func (p *CreateInternalLoadBalancerElementParams) SetNspid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nspid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateInternalLoadBalancerElementParams instance,
@@ -221,7 +218,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetEnabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enabled"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerElementsParams) SetId(v string) {
@@ -229,7 +225,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerElementsParams) SetKeyword(v string) {
@@ -237,7 +232,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerElementsParams) SetNspid(v string) {
@@ -245,7 +239,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetNspid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nspid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerElementsParams) SetPage(v int) {
@@ -253,7 +246,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerElementsParams) SetPagesize(v int) {
@@ -261,7 +253,6 @@ func (p *ListInternalLoadBalancerElementsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListInternalLoadBalancerElementsParams instance,
@@ -307,16 +298,27 @@ func (s *InternalLBService) GetInternalLoadBalancerElementByID(id string, opts .
 
 // Lists all available Internal Load Balancer elements.
 func (s *InternalLBService) ListInternalLoadBalancerElements(p *ListInternalLoadBalancerElementsParams) (*ListInternalLoadBalancerElementsResponse, error) {
-	resp, err := s.cs.newRequest("listInternalLoadBalancerElements", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListInternalLoadBalancerElementsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listInternalLoadBalancerElements", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListInternalLoadBalancerElementsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.InternalLoadBalancerElements = append(r.InternalLoadBalancerElements, l.InternalLoadBalancerElements...)
+
+		if r.Count != len(r.InternalLoadBalancerElements) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.InternalLoadBalancerElements))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListInternalLoadBalancerElementsResponse struct {
@@ -354,7 +356,6 @@ func (p *StopInternalLoadBalancerVMParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *StopInternalLoadBalancerVMParams) SetId(v string) {
@@ -362,7 +363,6 @@ func (p *StopInternalLoadBalancerVMParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StopInternalLoadBalancerVMParams instance,
@@ -500,7 +500,6 @@ func (p *StartInternalLoadBalancerVMParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StartInternalLoadBalancerVMParams instance,
@@ -691,7 +690,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetDomainid(v string) {
@@ -699,7 +697,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetForvpc(v bool) {
@@ -707,7 +704,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetForvpc(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvpc"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetHostid(v string) {
@@ -715,7 +711,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetId(v string) {
@@ -723,7 +718,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetIsrecursive(v bool) {
@@ -731,7 +725,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetKeyword(v string) {
@@ -739,7 +732,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetListall(v bool) {
@@ -747,7 +739,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetName(v string) {
@@ -755,7 +746,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetNetworkid(v string) {
@@ -763,7 +753,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetPage(v int) {
@@ -771,7 +760,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetPagesize(v int) {
@@ -779,7 +767,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetPodid(v string) {
@@ -787,7 +774,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetProjectid(v string) {
@@ -795,7 +781,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetState(v string) {
@@ -803,7 +788,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetVpcid(v string) {
@@ -811,7 +795,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListInternalLoadBalancerVMsParams) SetZoneid(v string) {
@@ -819,7 +802,6 @@ func (p *ListInternalLoadBalancerVMsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListInternalLoadBalancerVMsParams instance,
@@ -915,16 +897,27 @@ func (s *InternalLBService) GetInternalLoadBalancerVMByID(id string, opts ...Opt
 
 // List internal LB VMs.
 func (s *InternalLBService) ListInternalLoadBalancerVMs(p *ListInternalLoadBalancerVMsParams) (*ListInternalLoadBalancerVMsResponse, error) {
-	resp, err := s.cs.newRequest("listInternalLoadBalancerVMs", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListInternalLoadBalancerVMsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listInternalLoadBalancerVMs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListInternalLoadBalancerVMsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.InternalLoadBalancerVMs = append(r.InternalLoadBalancerVMs, l.InternalLoadBalancerVMs...)
+
+		if r.Count != len(r.InternalLoadBalancerVMs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.InternalLoadBalancerVMs))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListInternalLoadBalancerVMsResponse struct {

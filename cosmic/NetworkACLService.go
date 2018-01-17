@@ -84,7 +84,6 @@ func (p *CreateNetworkACLParams) SetAclid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["aclid"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetAction(v string) {
@@ -92,7 +91,6 @@ func (p *CreateNetworkACLParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetCidrlist(v []string) {
@@ -100,7 +98,6 @@ func (p *CreateNetworkACLParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetEndport(v int) {
@@ -108,7 +105,6 @@ func (p *CreateNetworkACLParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetFordisplay(v bool) {
@@ -116,7 +112,6 @@ func (p *CreateNetworkACLParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetIcmpcode(v int) {
@@ -124,7 +119,6 @@ func (p *CreateNetworkACLParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetIcmptype(v int) {
@@ -132,7 +126,6 @@ func (p *CreateNetworkACLParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetNetworkid(v string) {
@@ -140,7 +133,6 @@ func (p *CreateNetworkACLParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetNumber(v int) {
@@ -148,7 +140,6 @@ func (p *CreateNetworkACLParams) SetNumber(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["number"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetProtocol(v string) {
@@ -156,7 +147,6 @@ func (p *CreateNetworkACLParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetStartport(v int) {
@@ -164,7 +154,6 @@ func (p *CreateNetworkACLParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *CreateNetworkACLParams) SetTraffictype(v string) {
@@ -172,7 +161,6 @@ func (p *CreateNetworkACLParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new CreateNetworkACLParams instance,
@@ -307,7 +295,6 @@ func (p *UpdateNetworkACLItemParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetCidrlist(v []string) {
@@ -315,7 +302,6 @@ func (p *UpdateNetworkACLItemParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetCustomid(v string) {
@@ -323,7 +309,6 @@ func (p *UpdateNetworkACLItemParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetEndport(v int) {
@@ -331,7 +316,6 @@ func (p *UpdateNetworkACLItemParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetFordisplay(v bool) {
@@ -339,7 +323,6 @@ func (p *UpdateNetworkACLItemParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetIcmpcode(v int) {
@@ -347,7 +330,6 @@ func (p *UpdateNetworkACLItemParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetIcmptype(v int) {
@@ -355,7 +337,6 @@ func (p *UpdateNetworkACLItemParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetId(v string) {
@@ -363,7 +344,6 @@ func (p *UpdateNetworkACLItemParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetNumber(v int) {
@@ -371,7 +351,6 @@ func (p *UpdateNetworkACLItemParams) SetNumber(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["number"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetProtocol(v string) {
@@ -379,7 +358,6 @@ func (p *UpdateNetworkACLItemParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetStartport(v int) {
@@ -387,7 +365,6 @@ func (p *UpdateNetworkACLItemParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *UpdateNetworkACLItemParams) SetTraffictype(v string) {
@@ -395,7 +372,6 @@ func (p *UpdateNetworkACLItemParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNetworkACLItemParams instance,
@@ -490,7 +466,6 @@ func (p *DeleteNetworkACLParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkACLParams instance,
@@ -612,7 +587,6 @@ func (p *ListNetworkACLsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetAclid(v string) {
@@ -620,7 +594,6 @@ func (p *ListNetworkACLsParams) SetAclid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["aclid"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetAction(v string) {
@@ -628,7 +601,6 @@ func (p *ListNetworkACLsParams) SetAction(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["action"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetDomainid(v string) {
@@ -636,7 +608,6 @@ func (p *ListNetworkACLsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetFordisplay(v bool) {
@@ -644,7 +615,6 @@ func (p *ListNetworkACLsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetId(v string) {
@@ -652,7 +622,6 @@ func (p *ListNetworkACLsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetIsrecursive(v bool) {
@@ -660,7 +629,6 @@ func (p *ListNetworkACLsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetKeyword(v string) {
@@ -668,7 +636,6 @@ func (p *ListNetworkACLsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetListall(v bool) {
@@ -676,7 +643,6 @@ func (p *ListNetworkACLsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetNetworkid(v string) {
@@ -684,7 +650,6 @@ func (p *ListNetworkACLsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetPage(v int) {
@@ -692,7 +657,6 @@ func (p *ListNetworkACLsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetPagesize(v int) {
@@ -700,7 +664,6 @@ func (p *ListNetworkACLsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetProjectid(v string) {
@@ -708,7 +671,6 @@ func (p *ListNetworkACLsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetProtocol(v string) {
@@ -716,7 +678,6 @@ func (p *ListNetworkACLsParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetTags(v map[string]string) {
@@ -724,7 +685,6 @@ func (p *ListNetworkACLsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListNetworkACLsParams) SetTraffictype(v string) {
@@ -732,7 +692,6 @@ func (p *ListNetworkACLsParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkACLsParams instance,
@@ -778,16 +737,27 @@ func (s *NetworkACLService) GetNetworkACLByID(id string, opts ...OptionFunc) (*N
 
 // Lists all network ACL items
 func (s *NetworkACLService) ListNetworkACLs(p *ListNetworkACLsParams) (*ListNetworkACLsResponse, error) {
-	resp, err := s.cs.newRequest("listNetworkACLs", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNetworkACLsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkACLs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNetworkACLsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkACLs = append(r.NetworkACLs, l.NetworkACLs...)
+
+		if r.Count != len(r.NetworkACLs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkACLs))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNetworkACLsResponse struct {
@@ -853,7 +823,6 @@ func (p *CreateNetworkACLListParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateNetworkACLListParams) SetFordisplay(v bool) {
@@ -861,7 +830,6 @@ func (p *CreateNetworkACLListParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateNetworkACLListParams) SetName(v string) {
@@ -869,7 +837,6 @@ func (p *CreateNetworkACLListParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateNetworkACLListParams) SetVpcid(v string) {
@@ -877,7 +844,6 @@ func (p *CreateNetworkACLListParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateNetworkACLListParams instance,
@@ -953,7 +919,6 @@ func (p *DeleteNetworkACLListParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkACLListParams instance,
@@ -1029,7 +994,6 @@ func (p *ReplaceNetworkACLListParams) SetAclid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["aclid"] = v
-	return
 }
 
 func (p *ReplaceNetworkACLListParams) SetGatewayid(v string) {
@@ -1037,7 +1001,6 @@ func (p *ReplaceNetworkACLListParams) SetGatewayid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gatewayid"] = v
-	return
 }
 
 func (p *ReplaceNetworkACLListParams) SetNetworkid(v string) {
@@ -1045,7 +1008,6 @@ func (p *ReplaceNetworkACLListParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ReplaceNetworkACLListParams) SetPublicipid(v string) {
@@ -1053,7 +1015,6 @@ func (p *ReplaceNetworkACLListParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 // You should always use this function to get a new ReplaceNetworkACLListParams instance,
@@ -1161,7 +1122,6 @@ func (p *ListNetworkACLListsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetDomainid(v string) {
@@ -1169,7 +1129,6 @@ func (p *ListNetworkACLListsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetFordisplay(v bool) {
@@ -1177,7 +1136,6 @@ func (p *ListNetworkACLListsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetId(v string) {
@@ -1185,7 +1143,6 @@ func (p *ListNetworkACLListsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetIsrecursive(v bool) {
@@ -1193,7 +1150,6 @@ func (p *ListNetworkACLListsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetKeyword(v string) {
@@ -1201,7 +1157,6 @@ func (p *ListNetworkACLListsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetListall(v bool) {
@@ -1209,7 +1164,6 @@ func (p *ListNetworkACLListsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetName(v string) {
@@ -1217,7 +1171,6 @@ func (p *ListNetworkACLListsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetNetworkid(v string) {
@@ -1225,7 +1178,6 @@ func (p *ListNetworkACLListsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetPage(v int) {
@@ -1233,7 +1185,6 @@ func (p *ListNetworkACLListsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetPagesize(v int) {
@@ -1241,7 +1192,6 @@ func (p *ListNetworkACLListsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetProjectid(v string) {
@@ -1249,7 +1199,6 @@ func (p *ListNetworkACLListsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListNetworkACLListsParams) SetVpcid(v string) {
@@ -1257,7 +1206,6 @@ func (p *ListNetworkACLListsParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkACLListsParams instance,
@@ -1353,16 +1301,27 @@ func (s *NetworkACLService) GetNetworkACLListByID(id string, opts ...OptionFunc)
 
 // Lists all network ACLs
 func (s *NetworkACLService) ListNetworkACLLists(p *ListNetworkACLListsParams) (*ListNetworkACLListsResponse, error) {
-	resp, err := s.cs.newRequest("listNetworkACLLists", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNetworkACLListsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkACLLists", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNetworkACLListsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkACLLists = append(r.NetworkACLLists, l.NetworkACLLists...)
+
+		if r.Count != len(r.NetworkACLLists) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkACLLists))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNetworkACLListsResponse struct {
@@ -1405,7 +1364,6 @@ func (p *UpdateNetworkACLListParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateNetworkACLListParams) SetFordisplay(v bool) {
@@ -1413,7 +1371,6 @@ func (p *UpdateNetworkACLListParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateNetworkACLListParams) SetId(v string) {
@@ -1421,7 +1378,6 @@ func (p *UpdateNetworkACLListParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNetworkACLListParams instance,

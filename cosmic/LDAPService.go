@@ -73,7 +73,6 @@ func (p *LdapCreateAccountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccountdetails(v map[string]string) {
@@ -81,7 +80,6 @@ func (p *LdapCreateAccountParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccountid(v string) {
@@ -89,7 +87,6 @@ func (p *LdapCreateAccountParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetAccounttype(v int) {
@@ -97,7 +94,6 @@ func (p *LdapCreateAccountParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetDomainid(v string) {
@@ -105,7 +101,6 @@ func (p *LdapCreateAccountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetNetworkdomain(v string) {
@@ -113,7 +108,6 @@ func (p *LdapCreateAccountParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetTimezone(v string) {
@@ -121,7 +115,6 @@ func (p *LdapCreateAccountParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetUserid(v string) {
@@ -129,7 +122,6 @@ func (p *LdapCreateAccountParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *LdapCreateAccountParams) SetUsername(v string) {
@@ -137,7 +129,6 @@ func (p *LdapCreateAccountParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new LdapCreateAccountParams instance,

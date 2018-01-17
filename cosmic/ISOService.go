@@ -47,7 +47,6 @@ func (p *AttachIsoParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *AttachIsoParams) SetVirtualmachineid(v string) {
@@ -55,7 +54,6 @@ func (p *AttachIsoParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new AttachIsoParams instance,
@@ -299,7 +297,6 @@ func (p *DetachIsoParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new DetachIsoParams instance,
@@ -606,7 +603,6 @@ func (p *ListIsosParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListIsosParams) SetBootable(v bool) {
@@ -614,7 +610,6 @@ func (p *ListIsosParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
-	return
 }
 
 func (p *ListIsosParams) SetDomainid(v string) {
@@ -622,7 +617,6 @@ func (p *ListIsosParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListIsosParams) SetHypervisor(v string) {
@@ -630,7 +624,6 @@ func (p *ListIsosParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListIsosParams) SetId(v string) {
@@ -638,7 +631,6 @@ func (p *ListIsosParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListIsosParams) SetIsofilter(v string) {
@@ -646,7 +638,6 @@ func (p *ListIsosParams) SetIsofilter(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isofilter"] = v
-	return
 }
 
 func (p *ListIsosParams) SetIspublic(v bool) {
@@ -654,7 +645,6 @@ func (p *ListIsosParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *ListIsosParams) SetIsready(v bool) {
@@ -662,7 +652,6 @@ func (p *ListIsosParams) SetIsready(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isready"] = v
-	return
 }
 
 func (p *ListIsosParams) SetIsrecursive(v bool) {
@@ -670,7 +659,6 @@ func (p *ListIsosParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListIsosParams) SetKeyword(v string) {
@@ -678,7 +666,6 @@ func (p *ListIsosParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListIsosParams) SetListall(v bool) {
@@ -686,7 +673,6 @@ func (p *ListIsosParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListIsosParams) SetName(v string) {
@@ -694,7 +680,6 @@ func (p *ListIsosParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListIsosParams) SetPage(v int) {
@@ -702,7 +687,6 @@ func (p *ListIsosParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListIsosParams) SetPagesize(v int) {
@@ -710,7 +694,6 @@ func (p *ListIsosParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListIsosParams) SetProjectid(v string) {
@@ -718,7 +701,6 @@ func (p *ListIsosParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListIsosParams) SetShowremoved(v bool) {
@@ -726,7 +708,6 @@ func (p *ListIsosParams) SetShowremoved(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["showremoved"] = v
-	return
 }
 
 func (p *ListIsosParams) SetTags(v map[string]string) {
@@ -734,7 +715,6 @@ func (p *ListIsosParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListIsosParams) SetZoneid(v string) {
@@ -742,7 +722,6 @@ func (p *ListIsosParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListIsosParams instance,
@@ -840,16 +819,27 @@ func (s *ISOService) GetIsoByID(id string, opts ...OptionFunc) (*Iso, int, error
 
 // Lists all available ISO files.
 func (s *ISOService) ListIsos(p *ListIsosParams) (*ListIsosResponse, error) {
-	resp, err := s.cs.newRequest("listIsos", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListIsosResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listIsos", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListIsosResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Isos = append(r.Isos, l.Isos...)
+
+		if r.Count != len(r.Isos) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Isos))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListIsosResponse struct {
@@ -974,7 +964,6 @@ func (p *RegisterIsoParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetBootable(v bool) {
@@ -982,7 +971,6 @@ func (p *RegisterIsoParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetChecksum(v string) {
@@ -990,7 +978,6 @@ func (p *RegisterIsoParams) SetChecksum(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetDisplaytext(v string) {
@@ -998,7 +985,6 @@ func (p *RegisterIsoParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetDomainid(v string) {
@@ -1006,7 +992,6 @@ func (p *RegisterIsoParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetImagestoreuuid(v string) {
@@ -1014,7 +999,6 @@ func (p *RegisterIsoParams) SetImagestoreuuid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["imagestoreuuid"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetIsdynamicallyscalable(v bool) {
@@ -1022,7 +1006,6 @@ func (p *RegisterIsoParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetIsextractable(v bool) {
@@ -1030,7 +1013,6 @@ func (p *RegisterIsoParams) SetIsextractable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isextractable"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetIsfeatured(v bool) {
@@ -1038,7 +1020,6 @@ func (p *RegisterIsoParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetIspublic(v bool) {
@@ -1046,7 +1027,6 @@ func (p *RegisterIsoParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetName(v string) {
@@ -1054,7 +1034,6 @@ func (p *RegisterIsoParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetOstypeid(v string) {
@@ -1062,7 +1041,6 @@ func (p *RegisterIsoParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetProjectid(v string) {
@@ -1070,7 +1048,6 @@ func (p *RegisterIsoParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetUrl(v string) {
@@ -1078,7 +1055,6 @@ func (p *RegisterIsoParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *RegisterIsoParams) SetZoneid(v string) {
@@ -1086,7 +1062,6 @@ func (p *RegisterIsoParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new RegisterIsoParams instance,
@@ -1229,7 +1204,6 @@ func (p *UpdateIsoParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetDetails(v map[string]string) {
@@ -1237,7 +1211,6 @@ func (p *UpdateIsoParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetDisplaytext(v string) {
@@ -1245,7 +1218,6 @@ func (p *UpdateIsoParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetFormat(v string) {
@@ -1253,7 +1225,6 @@ func (p *UpdateIsoParams) SetFormat(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["format"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetId(v string) {
@@ -1261,7 +1232,6 @@ func (p *UpdateIsoParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetIsdynamicallyscalable(v bool) {
@@ -1269,7 +1239,6 @@ func (p *UpdateIsoParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetIsrouting(v bool) {
@@ -1277,7 +1246,6 @@ func (p *UpdateIsoParams) SetIsrouting(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrouting"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetName(v string) {
@@ -1285,7 +1253,6 @@ func (p *UpdateIsoParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetOstypeid(v string) {
@@ -1293,7 +1260,6 @@ func (p *UpdateIsoParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetPasswordenabled(v bool) {
@@ -1301,7 +1267,6 @@ func (p *UpdateIsoParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetRequireshvm(v bool) {
@@ -1309,7 +1274,6 @@ func (p *UpdateIsoParams) SetRequireshvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["requireshvm"] = v
-	return
 }
 
 func (p *UpdateIsoParams) SetSortkey(v int) {
@@ -1317,7 +1281,6 @@ func (p *UpdateIsoParams) SetSortkey(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sortkey"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateIsoParams instance,
@@ -1416,7 +1379,6 @@ func (p *DeleteIsoParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DeleteIsoParams) SetZoneid(v string) {
@@ -1424,7 +1386,6 @@ func (p *DeleteIsoParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteIsoParams instance,
@@ -1497,7 +1458,6 @@ func (p *CopyIsoParams) SetDestzoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["destzoneid"] = v
-	return
 }
 
 func (p *CopyIsoParams) SetId(v string) {
@@ -1505,7 +1465,6 @@ func (p *CopyIsoParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *CopyIsoParams) SetSourcezoneid(v string) {
@@ -1513,7 +1472,6 @@ func (p *CopyIsoParams) SetSourcezoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourcezoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CopyIsoParams instance,
@@ -1654,7 +1612,6 @@ func (p *UpdateIsoPermissionsParams) SetAccounts(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounts"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetId(v string) {
@@ -1662,7 +1619,6 @@ func (p *UpdateIsoPermissionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetIsextractable(v bool) {
@@ -1670,7 +1626,6 @@ func (p *UpdateIsoPermissionsParams) SetIsextractable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isextractable"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetIsfeatured(v bool) {
@@ -1678,7 +1633,6 @@ func (p *UpdateIsoPermissionsParams) SetIsfeatured(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isfeatured"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetIspublic(v bool) {
@@ -1686,7 +1640,6 @@ func (p *UpdateIsoPermissionsParams) SetIspublic(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ispublic"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetOp(v string) {
@@ -1694,7 +1647,6 @@ func (p *UpdateIsoPermissionsParams) SetOp(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["op"] = v
-	return
 }
 
 func (p *UpdateIsoPermissionsParams) SetProjectids(v []string) {
@@ -1702,7 +1654,6 @@ func (p *UpdateIsoPermissionsParams) SetProjectids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectids"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateIsoPermissionsParams instance,
@@ -1753,7 +1704,6 @@ func (p *ListIsoPermissionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ListIsoPermissionsParams instance,
@@ -1854,7 +1804,6 @@ func (p *ExtractIsoParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ExtractIsoParams) SetMode(v string) {
@@ -1862,7 +1811,6 @@ func (p *ExtractIsoParams) SetMode(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["mode"] = v
-	return
 }
 
 func (p *ExtractIsoParams) SetUrl(v string) {
@@ -1870,7 +1818,6 @@ func (p *ExtractIsoParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *ExtractIsoParams) SetZoneid(v string) {
@@ -1878,7 +1825,6 @@ func (p *ExtractIsoParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ExtractIsoParams instance,

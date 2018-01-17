@@ -140,7 +140,6 @@ func (p *ListPortForwardingRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetDomainid(v string) {
@@ -148,7 +147,6 @@ func (p *ListPortForwardingRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetFordisplay(v bool) {
@@ -156,7 +154,6 @@ func (p *ListPortForwardingRulesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetId(v string) {
@@ -164,7 +161,6 @@ func (p *ListPortForwardingRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetIpaddressid(v string) {
@@ -172,7 +168,6 @@ func (p *ListPortForwardingRulesParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetIsrecursive(v bool) {
@@ -180,7 +175,6 @@ func (p *ListPortForwardingRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetKeyword(v string) {
@@ -188,7 +182,6 @@ func (p *ListPortForwardingRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetListall(v bool) {
@@ -196,7 +189,6 @@ func (p *ListPortForwardingRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetNetworkid(v string) {
@@ -204,7 +196,6 @@ func (p *ListPortForwardingRulesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetPage(v int) {
@@ -212,7 +203,6 @@ func (p *ListPortForwardingRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetPagesize(v int) {
@@ -220,7 +210,6 @@ func (p *ListPortForwardingRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetProjectid(v string) {
@@ -228,7 +217,6 @@ func (p *ListPortForwardingRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListPortForwardingRulesParams) SetTags(v map[string]string) {
@@ -236,7 +224,6 @@ func (p *ListPortForwardingRulesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new ListPortForwardingRulesParams instance,
@@ -282,16 +269,27 @@ func (s *FirewallService) GetPortForwardingRuleByID(id string, opts ...OptionFun
 
 // Lists all port forwarding rules for an IP address.
 func (s *FirewallService) ListPortForwardingRules(p *ListPortForwardingRulesParams) (*ListPortForwardingRulesResponse, error) {
-	resp, err := s.cs.newRequest("listPortForwardingRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListPortForwardingRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listPortForwardingRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListPortForwardingRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.PortForwardingRules = append(r.PortForwardingRules, l.PortForwardingRules...)
+
+		if r.Count != len(r.PortForwardingRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.PortForwardingRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListPortForwardingRulesResponse struct {
@@ -390,7 +388,6 @@ func (p *CreatePortForwardingRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetFordisplay(v bool) {
@@ -398,7 +395,6 @@ func (p *CreatePortForwardingRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetIpaddressid(v string) {
@@ -406,7 +402,6 @@ func (p *CreatePortForwardingRuleParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetNetworkid(v string) {
@@ -414,7 +409,6 @@ func (p *CreatePortForwardingRuleParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetOpenfirewall(v bool) {
@@ -422,7 +416,6 @@ func (p *CreatePortForwardingRuleParams) SetOpenfirewall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["openfirewall"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetPrivateendport(v int) {
@@ -430,7 +423,6 @@ func (p *CreatePortForwardingRuleParams) SetPrivateendport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privateendport"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetPrivateport(v int) {
@@ -438,7 +430,6 @@ func (p *CreatePortForwardingRuleParams) SetPrivateport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privateport"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetProtocol(v string) {
@@ -446,7 +437,6 @@ func (p *CreatePortForwardingRuleParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetPublicendport(v int) {
@@ -454,7 +444,6 @@ func (p *CreatePortForwardingRuleParams) SetPublicendport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicendport"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetPublicport(v int) {
@@ -462,7 +451,6 @@ func (p *CreatePortForwardingRuleParams) SetPublicport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicport"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetVirtualmachineid(v string) {
@@ -470,7 +458,6 @@ func (p *CreatePortForwardingRuleParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *CreatePortForwardingRuleParams) SetVmguestip(v string) {
@@ -478,7 +465,6 @@ func (p *CreatePortForwardingRuleParams) SetVmguestip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmguestip"] = v
-	return
 }
 
 // You should always use this function to get a new CreatePortForwardingRuleParams instance,
@@ -585,7 +571,6 @@ func (p *DeletePortForwardingRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeletePortForwardingRuleParams instance,
@@ -674,7 +659,6 @@ func (p *UpdatePortForwardingRuleParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdatePortForwardingRuleParams) SetFordisplay(v bool) {
@@ -682,7 +666,6 @@ func (p *UpdatePortForwardingRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdatePortForwardingRuleParams) SetId(v string) {
@@ -690,7 +673,6 @@ func (p *UpdatePortForwardingRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdatePortForwardingRuleParams) SetPrivateport(v int) {
@@ -698,7 +680,6 @@ func (p *UpdatePortForwardingRuleParams) SetPrivateport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privateport"] = v
-	return
 }
 
 func (p *UpdatePortForwardingRuleParams) SetVirtualmachineid(v string) {
@@ -706,7 +687,6 @@ func (p *UpdatePortForwardingRuleParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *UpdatePortForwardingRuleParams) SetVmguestip(v string) {
@@ -714,7 +694,6 @@ func (p *UpdatePortForwardingRuleParams) SetVmguestip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmguestip"] = v
-	return
 }
 
 // You should always use this function to get a new UpdatePortForwardingRuleParams instance,
@@ -847,7 +826,6 @@ func (p *CreateFirewallRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetEndport(v int) {
@@ -855,7 +833,6 @@ func (p *CreateFirewallRuleParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetFordisplay(v bool) {
@@ -863,7 +840,6 @@ func (p *CreateFirewallRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetIcmpcode(v int) {
@@ -871,7 +847,6 @@ func (p *CreateFirewallRuleParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetIcmptype(v int) {
@@ -879,7 +854,6 @@ func (p *CreateFirewallRuleParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetIpaddressid(v string) {
@@ -887,7 +861,6 @@ func (p *CreateFirewallRuleParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetProtocol(v string) {
@@ -895,7 +868,6 @@ func (p *CreateFirewallRuleParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetStartport(v int) {
@@ -903,7 +875,6 @@ func (p *CreateFirewallRuleParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *CreateFirewallRuleParams) SetType(v string) {
@@ -911,7 +882,6 @@ func (p *CreateFirewallRuleParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new CreateFirewallRuleParams instance,
@@ -1011,7 +981,6 @@ func (p *DeleteFirewallRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteFirewallRuleParams instance,
@@ -1129,7 +1098,6 @@ func (p *ListFirewallRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetDomainid(v string) {
@@ -1137,7 +1105,6 @@ func (p *ListFirewallRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetFordisplay(v bool) {
@@ -1145,7 +1112,6 @@ func (p *ListFirewallRulesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetId(v string) {
@@ -1153,7 +1119,6 @@ func (p *ListFirewallRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetIpaddressid(v string) {
@@ -1161,7 +1126,6 @@ func (p *ListFirewallRulesParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetIsrecursive(v bool) {
@@ -1169,7 +1133,6 @@ func (p *ListFirewallRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetKeyword(v string) {
@@ -1177,7 +1140,6 @@ func (p *ListFirewallRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetListall(v bool) {
@@ -1185,7 +1147,6 @@ func (p *ListFirewallRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetNetworkid(v string) {
@@ -1193,7 +1154,6 @@ func (p *ListFirewallRulesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetPage(v int) {
@@ -1201,7 +1161,6 @@ func (p *ListFirewallRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetPagesize(v int) {
@@ -1209,7 +1168,6 @@ func (p *ListFirewallRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetProjectid(v string) {
@@ -1217,7 +1175,6 @@ func (p *ListFirewallRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListFirewallRulesParams) SetTags(v map[string]string) {
@@ -1225,7 +1182,6 @@ func (p *ListFirewallRulesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new ListFirewallRulesParams instance,
@@ -1271,16 +1227,27 @@ func (s *FirewallService) GetFirewallRuleByID(id string, opts ...OptionFunc) (*F
 
 // Lists all firewall rules for an IP address.
 func (s *FirewallService) ListFirewallRules(p *ListFirewallRulesParams) (*ListFirewallRulesResponse, error) {
-	resp, err := s.cs.newRequest("listFirewallRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListFirewallRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listFirewallRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListFirewallRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.FirewallRules = append(r.FirewallRules, l.FirewallRules...)
+
+		if r.Count != len(r.FirewallRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.FirewallRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListFirewallRulesResponse struct {
@@ -1342,7 +1309,6 @@ func (p *UpdateFirewallRuleParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateFirewallRuleParams) SetFordisplay(v bool) {
@@ -1350,7 +1316,6 @@ func (p *UpdateFirewallRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateFirewallRuleParams) SetId(v string) {
@@ -1358,7 +1323,6 @@ func (p *UpdateFirewallRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateFirewallRuleParams instance,
@@ -1487,7 +1451,6 @@ func (p *CreateEgressFirewallRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetEndport(v int) {
@@ -1495,7 +1458,6 @@ func (p *CreateEgressFirewallRuleParams) SetEndport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endport"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetFordisplay(v bool) {
@@ -1503,7 +1465,6 @@ func (p *CreateEgressFirewallRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetIcmpcode(v int) {
@@ -1511,7 +1472,6 @@ func (p *CreateEgressFirewallRuleParams) SetIcmpcode(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmpcode"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetIcmptype(v int) {
@@ -1519,7 +1479,6 @@ func (p *CreateEgressFirewallRuleParams) SetIcmptype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["icmptype"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetNetworkid(v string) {
@@ -1527,7 +1486,6 @@ func (p *CreateEgressFirewallRuleParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetProtocol(v string) {
@@ -1535,7 +1493,6 @@ func (p *CreateEgressFirewallRuleParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetStartport(v int) {
@@ -1543,7 +1500,6 @@ func (p *CreateEgressFirewallRuleParams) SetStartport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startport"] = v
-	return
 }
 
 func (p *CreateEgressFirewallRuleParams) SetType(v string) {
@@ -1551,7 +1507,6 @@ func (p *CreateEgressFirewallRuleParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new CreateEgressFirewallRuleParams instance,
@@ -1651,7 +1606,6 @@ func (p *DeleteEgressFirewallRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteEgressFirewallRuleParams instance,
@@ -1769,7 +1723,6 @@ func (p *ListEgressFirewallRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetDomainid(v string) {
@@ -1777,7 +1730,6 @@ func (p *ListEgressFirewallRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetFordisplay(v bool) {
@@ -1785,7 +1737,6 @@ func (p *ListEgressFirewallRulesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetId(v string) {
@@ -1793,7 +1744,6 @@ func (p *ListEgressFirewallRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetIpaddressid(v string) {
@@ -1801,7 +1751,6 @@ func (p *ListEgressFirewallRulesParams) SetIpaddressid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddressid"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetIsrecursive(v bool) {
@@ -1809,7 +1758,6 @@ func (p *ListEgressFirewallRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetKeyword(v string) {
@@ -1817,7 +1765,6 @@ func (p *ListEgressFirewallRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetListall(v bool) {
@@ -1825,7 +1772,6 @@ func (p *ListEgressFirewallRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetNetworkid(v string) {
@@ -1833,7 +1779,6 @@ func (p *ListEgressFirewallRulesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetPage(v int) {
@@ -1841,7 +1786,6 @@ func (p *ListEgressFirewallRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetPagesize(v int) {
@@ -1849,7 +1793,6 @@ func (p *ListEgressFirewallRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetProjectid(v string) {
@@ -1857,7 +1800,6 @@ func (p *ListEgressFirewallRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListEgressFirewallRulesParams) SetTags(v map[string]string) {
@@ -1865,7 +1807,6 @@ func (p *ListEgressFirewallRulesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new ListEgressFirewallRulesParams instance,
@@ -1911,16 +1852,27 @@ func (s *FirewallService) GetEgressFirewallRuleByID(id string, opts ...OptionFun
 
 // Lists all egress firewall rules for network ID.
 func (s *FirewallService) ListEgressFirewallRules(p *ListEgressFirewallRulesParams) (*ListEgressFirewallRulesResponse, error) {
-	resp, err := s.cs.newRequest("listEgressFirewallRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListEgressFirewallRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listEgressFirewallRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListEgressFirewallRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.EgressFirewallRules = append(r.EgressFirewallRules, l.EgressFirewallRules...)
+
+		if r.Count != len(r.EgressFirewallRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.EgressFirewallRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListEgressFirewallRulesResponse struct {
@@ -1982,7 +1934,6 @@ func (p *UpdateEgressFirewallRuleParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateEgressFirewallRuleParams) SetFordisplay(v bool) {
@@ -1990,7 +1941,6 @@ func (p *UpdateEgressFirewallRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateEgressFirewallRuleParams) SetId(v string) {
@@ -1998,7 +1948,6 @@ func (p *UpdateEgressFirewallRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateEgressFirewallRuleParams instance,

@@ -52,7 +52,6 @@ func (p *ListStorageTagsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListStorageTagsParams) SetPage(v int) {
@@ -60,7 +59,6 @@ func (p *ListStorageTagsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListStorageTagsParams) SetPagesize(v int) {
@@ -68,7 +66,6 @@ func (p *ListStorageTagsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListStorageTagsParams instance,
@@ -117,16 +114,27 @@ func (s *ResourcetagsService) GetStorageTagID(keyword string, opts ...OptionFunc
 
 // Lists storage tags
 func (s *ResourcetagsService) ListStorageTags(p *ListStorageTagsParams) (*ListStorageTagsResponse, error) {
-	resp, err := s.cs.newRequest("listStorageTags", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListStorageTagsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listStorageTags", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListStorageTagsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.StorageTags = append(r.StorageTags, l.StorageTags...)
+
+		if r.Count != len(r.StorageTags) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.StorageTags))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListStorageTagsResponse struct {
@@ -175,7 +183,6 @@ func (p *CreateTagsParams) SetCustomer(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customer"] = v
-	return
 }
 
 func (p *CreateTagsParams) SetResourceids(v []string) {
@@ -183,7 +190,6 @@ func (p *CreateTagsParams) SetResourceids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourceids"] = v
-	return
 }
 
 func (p *CreateTagsParams) SetResourcetype(v string) {
@@ -191,7 +197,6 @@ func (p *CreateTagsParams) SetResourcetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 func (p *CreateTagsParams) SetTags(v map[string]string) {
@@ -199,7 +204,6 @@ func (p *CreateTagsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new CreateTagsParams instance,
@@ -280,7 +284,6 @@ func (p *DeleteTagsParams) SetResourceids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourceids"] = v
-	return
 }
 
 func (p *DeleteTagsParams) SetResourcetype(v string) {
@@ -288,7 +291,6 @@ func (p *DeleteTagsParams) SetResourcetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 func (p *DeleteTagsParams) SetTags(v map[string]string) {
@@ -296,7 +298,6 @@ func (p *DeleteTagsParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTagsParams instance,
@@ -404,7 +405,6 @@ func (p *ListTagsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListTagsParams) SetCustomer(v string) {
@@ -412,7 +412,6 @@ func (p *ListTagsParams) SetCustomer(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customer"] = v
-	return
 }
 
 func (p *ListTagsParams) SetDomainid(v string) {
@@ -420,7 +419,6 @@ func (p *ListTagsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListTagsParams) SetIsrecursive(v bool) {
@@ -428,7 +426,6 @@ func (p *ListTagsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListTagsParams) SetKey(v string) {
@@ -436,7 +433,6 @@ func (p *ListTagsParams) SetKey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["key"] = v
-	return
 }
 
 func (p *ListTagsParams) SetKeyword(v string) {
@@ -444,7 +440,6 @@ func (p *ListTagsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTagsParams) SetListall(v bool) {
@@ -452,7 +447,6 @@ func (p *ListTagsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListTagsParams) SetPage(v int) {
@@ -460,7 +454,6 @@ func (p *ListTagsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTagsParams) SetPagesize(v int) {
@@ -468,7 +461,6 @@ func (p *ListTagsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTagsParams) SetProjectid(v string) {
@@ -476,7 +468,6 @@ func (p *ListTagsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListTagsParams) SetResourceid(v string) {
@@ -484,7 +475,6 @@ func (p *ListTagsParams) SetResourceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourceid"] = v
-	return
 }
 
 func (p *ListTagsParams) SetResourcetype(v string) {
@@ -492,7 +482,6 @@ func (p *ListTagsParams) SetResourcetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 func (p *ListTagsParams) SetValue(v string) {
@@ -500,7 +489,6 @@ func (p *ListTagsParams) SetValue(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["value"] = v
-	return
 }
 
 // You should always use this function to get a new ListTagsParams instance,
@@ -513,16 +501,27 @@ func (s *ResourcetagsService) NewListTagsParams() *ListTagsParams {
 
 // List resource tag(s)
 func (s *ResourcetagsService) ListTags(p *ListTagsParams) (*ListTagsResponse, error) {
-	resp, err := s.cs.newRequest("listTags", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListTagsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listTags", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListTagsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Tags = append(r.Tags, l.Tags...)
+
+		if r.Count != len(r.Tags) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Tags))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListTagsResponse struct {

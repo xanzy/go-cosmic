@@ -68,7 +68,6 @@ func (p *CreateUserParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateUserParams) SetDomainid(v string) {
@@ -76,7 +75,6 @@ func (p *CreateUserParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateUserParams) SetEmail(v string) {
@@ -84,7 +82,6 @@ func (p *CreateUserParams) SetEmail(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["email"] = v
-	return
 }
 
 func (p *CreateUserParams) SetFirstname(v string) {
@@ -92,7 +89,6 @@ func (p *CreateUserParams) SetFirstname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["firstname"] = v
-	return
 }
 
 func (p *CreateUserParams) SetLastname(v string) {
@@ -100,7 +96,6 @@ func (p *CreateUserParams) SetLastname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lastname"] = v
-	return
 }
 
 func (p *CreateUserParams) SetPassword(v string) {
@@ -108,7 +103,6 @@ func (p *CreateUserParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *CreateUserParams) SetTimezone(v string) {
@@ -116,7 +110,6 @@ func (p *CreateUserParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *CreateUserParams) SetUserid(v string) {
@@ -124,7 +117,6 @@ func (p *CreateUserParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *CreateUserParams) SetUsername(v string) {
@@ -132,7 +124,6 @@ func (p *CreateUserParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new CreateUserParams instance,
@@ -204,7 +195,6 @@ func (p *DeleteUserParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteUserParams instance,
@@ -279,7 +269,6 @@ func (p *UpdateUserParams) SetEmail(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["email"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetFirstname(v string) {
@@ -287,7 +276,6 @@ func (p *UpdateUserParams) SetFirstname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["firstname"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetId(v string) {
@@ -295,7 +283,6 @@ func (p *UpdateUserParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetLastname(v string) {
@@ -303,7 +290,6 @@ func (p *UpdateUserParams) SetLastname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lastname"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetPassword(v string) {
@@ -311,7 +297,6 @@ func (p *UpdateUserParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetTimezone(v string) {
@@ -319,7 +304,6 @@ func (p *UpdateUserParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetUserapikey(v string) {
@@ -327,7 +311,6 @@ func (p *UpdateUserParams) SetUserapikey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userapikey"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetUsername(v string) {
@@ -335,7 +318,6 @@ func (p *UpdateUserParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 func (p *UpdateUserParams) SetUsersecretkey(v string) {
@@ -343,7 +325,6 @@ func (p *UpdateUserParams) SetUsersecretkey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["usersecretkey"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateUserParams instance,
@@ -444,7 +425,6 @@ func (p *ListUsersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListUsersParams) SetAccounttype(v int64) {
@@ -452,7 +432,6 @@ func (p *ListUsersParams) SetAccounttype(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *ListUsersParams) SetDomainid(v string) {
@@ -460,7 +439,6 @@ func (p *ListUsersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListUsersParams) SetId(v string) {
@@ -468,7 +446,6 @@ func (p *ListUsersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListUsersParams) SetIsrecursive(v bool) {
@@ -476,7 +453,6 @@ func (p *ListUsersParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListUsersParams) SetKeyword(v string) {
@@ -484,7 +460,6 @@ func (p *ListUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUsersParams) SetListall(v bool) {
@@ -492,7 +467,6 @@ func (p *ListUsersParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListUsersParams) SetPage(v int) {
@@ -500,7 +474,6 @@ func (p *ListUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUsersParams) SetPagesize(v int) {
@@ -508,7 +481,6 @@ func (p *ListUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUsersParams) SetState(v string) {
@@ -516,7 +488,6 @@ func (p *ListUsersParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListUsersParams) SetUsername(v string) {
@@ -524,7 +495,6 @@ func (p *ListUsersParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new ListUsersParams instance,
@@ -570,16 +540,27 @@ func (s *UserService) GetUserByID(id string, opts ...OptionFunc) (*User, int, er
 
 // Lists user accounts
 func (s *UserService) ListUsers(p *ListUsersParams) (*ListUsersResponse, error) {
-	resp, err := s.cs.newRequest("listUsers", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListUsersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listUsers", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListUsersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Users = append(r.Users, l.Users...)
+
+		if r.Count != len(r.Users) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Users))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListUsersResponse struct {
@@ -627,7 +608,6 @@ func (p *LockUserParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new LockUserParams instance,
@@ -693,7 +673,6 @@ func (p *DisableUserParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DisableUserParams instance,
@@ -780,7 +759,6 @@ func (p *EnableUserParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new EnableUserParams instance,
@@ -846,7 +824,6 @@ func (p *GetUserParams) SetUserapikey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userapikey"] = v
-	return
 }
 
 // You should always use this function to get a new GetUserParams instance,
@@ -912,7 +889,6 @@ func (p *GetVirtualMachineUserDataParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new GetVirtualMachineUserDataParams instance,
@@ -963,7 +939,6 @@ func (p *RegisterUserKeysParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RegisterUserKeysParams instance,
@@ -1025,7 +1000,6 @@ func (p *ListLdapUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetListtype(v string) {
@@ -1033,7 +1007,6 @@ func (p *ListLdapUsersParams) SetListtype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listtype"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetPage(v int) {
@@ -1041,7 +1014,6 @@ func (p *ListLdapUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLdapUsersParams) SetPagesize(v int) {
@@ -1049,7 +1021,6 @@ func (p *ListLdapUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListLdapUsersParams instance,
@@ -1062,16 +1033,27 @@ func (s *UserService) NewListLdapUsersParams() *ListLdapUsersParams {
 
 // Lists all LDAP Users
 func (s *UserService) ListLdapUsers(p *ListLdapUsersParams) (*ListLdapUsersResponse, error) {
-	resp, err := s.cs.newRequest("listLdapUsers", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLdapUsersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLdapUsers", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLdapUsersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LdapUsers = append(r.LdapUsers, l.LdapUsers...)
+
+		if r.Count != len(r.LdapUsers) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LdapUsers))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLdapUsersResponse struct {
@@ -1140,7 +1122,6 @@ func (p *ImportLdapUsersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
@@ -1148,7 +1129,6 @@ func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountdetails"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetAccounttype(v int) {
@@ -1156,7 +1136,6 @@ func (p *ImportLdapUsersParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetDomainid(v string) {
@@ -1164,7 +1143,6 @@ func (p *ImportLdapUsersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetGroup(v string) {
@@ -1172,7 +1150,6 @@ func (p *ImportLdapUsersParams) SetGroup(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["group"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetKeyword(v string) {
@@ -1180,7 +1157,6 @@ func (p *ImportLdapUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetPage(v int) {
@@ -1188,7 +1164,6 @@ func (p *ImportLdapUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetPagesize(v int) {
@@ -1196,7 +1171,6 @@ func (p *ImportLdapUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ImportLdapUsersParams) SetTimezone(v string) {
@@ -1204,7 +1178,6 @@ func (p *ImportLdapUsersParams) SetTimezone(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["timezone"] = v
-	return
 }
 
 // You should always use this function to get a new ImportLdapUsersParams instance,

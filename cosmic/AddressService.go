@@ -71,7 +71,6 @@ func (p *AssociateIpAddressParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetDomainid(v string) {
@@ -79,7 +78,6 @@ func (p *AssociateIpAddressParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetFordisplay(v bool) {
@@ -87,7 +85,6 @@ func (p *AssociateIpAddressParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetIsportable(v bool) {
@@ -95,7 +92,6 @@ func (p *AssociateIpAddressParams) SetIsportable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isportable"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetNetworkid(v string) {
@@ -103,7 +99,6 @@ func (p *AssociateIpAddressParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetProjectid(v string) {
@@ -111,7 +106,6 @@ func (p *AssociateIpAddressParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetRegionid(v int) {
@@ -119,7 +113,6 @@ func (p *AssociateIpAddressParams) SetRegionid(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["regionid"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetVpcid(v string) {
@@ -127,7 +120,6 @@ func (p *AssociateIpAddressParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *AssociateIpAddressParams) SetZoneid(v string) {
@@ -135,7 +127,6 @@ func (p *AssociateIpAddressParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AssociateIpAddressParams instance,
@@ -246,7 +237,6 @@ func (p *DisassociateIpAddressParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DisassociateIpAddressParams instance,
@@ -394,7 +384,6 @@ func (p *ListPublicIpAddressesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetAllocatedonly(v bool) {
@@ -402,7 +391,6 @@ func (p *ListPublicIpAddressesParams) SetAllocatedonly(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocatedonly"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetAssociatednetworkid(v string) {
@@ -410,7 +398,6 @@ func (p *ListPublicIpAddressesParams) SetAssociatednetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["associatednetworkid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetDomainid(v string) {
@@ -418,7 +405,6 @@ func (p *ListPublicIpAddressesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetFordisplay(v bool) {
@@ -426,7 +412,6 @@ func (p *ListPublicIpAddressesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetForloadbalancing(v bool) {
@@ -434,7 +419,6 @@ func (p *ListPublicIpAddressesParams) SetForloadbalancing(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forloadbalancing"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetForvirtualnetwork(v bool) {
@@ -442,7 +426,6 @@ func (p *ListPublicIpAddressesParams) SetForvirtualnetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvirtualnetwork"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetId(v string) {
@@ -450,7 +433,6 @@ func (p *ListPublicIpAddressesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetIpaddress(v string) {
@@ -458,7 +440,6 @@ func (p *ListPublicIpAddressesParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetIsrecursive(v bool) {
@@ -466,7 +447,6 @@ func (p *ListPublicIpAddressesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetIssourcenat(v bool) {
@@ -474,7 +454,6 @@ func (p *ListPublicIpAddressesParams) SetIssourcenat(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["issourcenat"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetIsstaticnat(v bool) {
@@ -482,7 +461,6 @@ func (p *ListPublicIpAddressesParams) SetIsstaticnat(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isstaticnat"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetKeyword(v string) {
@@ -490,7 +468,6 @@ func (p *ListPublicIpAddressesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetListall(v bool) {
@@ -498,7 +475,6 @@ func (p *ListPublicIpAddressesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetPage(v int) {
@@ -506,7 +482,6 @@ func (p *ListPublicIpAddressesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetPagesize(v int) {
@@ -514,7 +489,6 @@ func (p *ListPublicIpAddressesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetPhysicalnetworkid(v string) {
@@ -522,7 +496,6 @@ func (p *ListPublicIpAddressesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetProjectid(v string) {
@@ -530,7 +503,6 @@ func (p *ListPublicIpAddressesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetState(v string) {
@@ -538,7 +510,6 @@ func (p *ListPublicIpAddressesParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetTags(v map[string]string) {
@@ -546,7 +517,6 @@ func (p *ListPublicIpAddressesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetVlanid(v string) {
@@ -554,7 +524,6 @@ func (p *ListPublicIpAddressesParams) SetVlanid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlanid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetVpcid(v string) {
@@ -562,7 +531,6 @@ func (p *ListPublicIpAddressesParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListPublicIpAddressesParams) SetZoneid(v string) {
@@ -570,7 +538,6 @@ func (p *ListPublicIpAddressesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListPublicIpAddressesParams instance,
@@ -616,16 +583,27 @@ func (s *AddressService) GetPublicIpAddressByID(id string, opts ...OptionFunc) (
 
 // Lists all public ip addresses
 func (s *AddressService) ListPublicIpAddresses(p *ListPublicIpAddressesParams) (*ListPublicIpAddressesResponse, error) {
-	resp, err := s.cs.newRequest("listPublicIpAddresses", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListPublicIpAddressesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listPublicIpAddresses", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListPublicIpAddressesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.PublicIpAddresses = append(r.PublicIpAddresses, l.PublicIpAddresses...)
+
+		if r.Count != len(r.PublicIpAddresses) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.PublicIpAddresses))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListPublicIpAddressesResponse struct {
@@ -705,7 +683,6 @@ func (p *UpdateIpAddressParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateIpAddressParams) SetFordisplay(v bool) {
@@ -713,7 +690,6 @@ func (p *UpdateIpAddressParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateIpAddressParams) SetId(v string) {
@@ -721,7 +697,6 @@ func (p *UpdateIpAddressParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateIpAddressParams instance,

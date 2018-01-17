@@ -58,7 +58,6 @@ func (p *AddTrafficTypeParams) SetIsolationmethod(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isolationmethod"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetKvmnetworklabel(v string) {
@@ -66,7 +65,6 @@ func (p *AddTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetPhysicalnetworkid(v string) {
@@ -74,7 +72,6 @@ func (p *AddTrafficTypeParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetTraffictype(v string) {
@@ -82,7 +79,6 @@ func (p *AddTrafficTypeParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetVlan(v string) {
@@ -90,7 +86,6 @@ func (p *AddTrafficTypeParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *AddTrafficTypeParams) SetXennetworklabel(v string) {
@@ -98,7 +93,6 @@ func (p *AddTrafficTypeParams) SetXennetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["xennetworklabel"] = v
-	return
 }
 
 // You should always use this function to get a new AddTrafficTypeParams instance,
@@ -174,7 +168,6 @@ func (p *DeleteTrafficTypeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTrafficTypeParams instance,
@@ -252,7 +245,6 @@ func (p *ListTrafficTypesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPage(v int) {
@@ -260,7 +252,6 @@ func (p *ListTrafficTypesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPagesize(v int) {
@@ -268,7 +259,6 @@ func (p *ListTrafficTypesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficTypesParams) SetPhysicalnetworkid(v string) {
@@ -276,7 +266,6 @@ func (p *ListTrafficTypesParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficTypesParams instance,
@@ -327,16 +316,27 @@ func (s *UsageService) GetTrafficTypeID(keyword string, physicalnetworkid string
 
 // Lists traffic types of a given physical network.
 func (s *UsageService) ListTrafficTypes(p *ListTrafficTypesParams) (*ListTrafficTypesResponse, error) {
-	resp, err := s.cs.newRequest("listTrafficTypes", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListTrafficTypesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listTrafficTypes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListTrafficTypesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.TrafficTypes = append(r.TrafficTypes, l.TrafficTypes...)
+
+		if r.Count != len(r.TrafficTypes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.TrafficTypes))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListTrafficTypesResponse struct {
@@ -380,7 +380,6 @@ func (p *UpdateTrafficTypeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetKvmnetworklabel(v string) {
@@ -388,7 +387,6 @@ func (p *UpdateTrafficTypeParams) SetKvmnetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["kvmnetworklabel"] = v
-	return
 }
 
 func (p *UpdateTrafficTypeParams) SetXennetworklabel(v string) {
@@ -396,7 +394,6 @@ func (p *UpdateTrafficTypeParams) SetXennetworklabel(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["xennetworklabel"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateTrafficTypeParams instance,
@@ -482,7 +479,6 @@ func (p *ListTrafficTypeImplementorsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetPage(v int) {
@@ -490,7 +486,6 @@ func (p *ListTrafficTypeImplementorsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetPagesize(v int) {
@@ -498,7 +493,6 @@ func (p *ListTrafficTypeImplementorsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficTypeImplementorsParams) SetTraffictype(v string) {
@@ -506,7 +500,6 @@ func (p *ListTrafficTypeImplementorsParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficTypeImplementorsParams instance,
@@ -519,16 +512,27 @@ func (s *UsageService) NewListTrafficTypeImplementorsParams() *ListTrafficTypeIm
 
 // Lists implementors of implementor of a network traffic type or implementors of all network traffic types
 func (s *UsageService) ListTrafficTypeImplementors(p *ListTrafficTypeImplementorsParams) (*ListTrafficTypeImplementorsResponse, error) {
-	resp, err := s.cs.newRequest("listTrafficTypeImplementors", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListTrafficTypeImplementorsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listTrafficTypeImplementors", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListTrafficTypeImplementorsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.TrafficTypeImplementors = append(r.TrafficTypeImplementors, l.TrafficTypeImplementors...)
+
+		if r.Count != len(r.TrafficTypeImplementors) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.TrafficTypeImplementors))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListTrafficTypeImplementorsResponse struct {
@@ -567,7 +571,6 @@ func (p *GenerateUsageRecordsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *GenerateUsageRecordsParams) SetEnddate(v string) {
@@ -575,7 +578,6 @@ func (p *GenerateUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *GenerateUsageRecordsParams) SetStartdate(v string) {
@@ -583,7 +585,6 @@ func (p *GenerateUsageRecordsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 // You should always use this function to get a new GenerateUsageRecordsParams instance,
@@ -668,7 +669,6 @@ func (p *ListUsageRecordsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetAccountid(v string) {
@@ -676,7 +676,6 @@ func (p *ListUsageRecordsParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetDomainid(v string) {
@@ -684,7 +683,6 @@ func (p *ListUsageRecordsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetEnddate(v string) {
@@ -692,7 +690,6 @@ func (p *ListUsageRecordsParams) SetEnddate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["enddate"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetKeyword(v string) {
@@ -700,7 +697,6 @@ func (p *ListUsageRecordsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetPage(v int) {
@@ -708,7 +704,6 @@ func (p *ListUsageRecordsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetPagesize(v int) {
@@ -716,7 +711,6 @@ func (p *ListUsageRecordsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetProjectid(v string) {
@@ -724,7 +718,6 @@ func (p *ListUsageRecordsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetStartdate(v string) {
@@ -732,7 +725,6 @@ func (p *ListUsageRecordsParams) SetStartdate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startdate"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetType(v int64) {
@@ -740,7 +732,6 @@ func (p *ListUsageRecordsParams) SetType(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListUsageRecordsParams) SetUsageid(v string) {
@@ -748,7 +739,6 @@ func (p *ListUsageRecordsParams) SetUsageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["usageid"] = v
-	return
 }
 
 // You should always use this function to get a new ListUsageRecordsParams instance,
@@ -763,16 +753,27 @@ func (s *UsageService) NewListUsageRecordsParams(enddate string, startdate strin
 
 // Lists usage records for accounts
 func (s *UsageService) ListUsageRecords(p *ListUsageRecordsParams) (*ListUsageRecordsResponse, error) {
-	resp, err := s.cs.newRequest("listUsageRecords", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListUsageRecordsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listUsageRecords", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListUsageRecordsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.UsageRecords = append(r.UsageRecords, l.UsageRecords...)
+
+		if r.Count != len(r.UsageRecords) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.UsageRecords))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListUsageRecordsResponse struct {
@@ -876,7 +877,6 @@ func (p *RemoveRawUsageRecordsParams) SetInterval(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["interval"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveRawUsageRecordsParams instance,
@@ -936,7 +936,6 @@ func (p *AddTrafficMonitorParams) SetExcludezones(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["excludezones"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetIncludezones(v string) {
@@ -944,7 +943,6 @@ func (p *AddTrafficMonitorParams) SetIncludezones(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["includezones"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetUrl(v string) {
@@ -952,7 +950,6 @@ func (p *AddTrafficMonitorParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddTrafficMonitorParams) SetZoneid(v string) {
@@ -960,7 +957,6 @@ func (p *AddTrafficMonitorParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddTrafficMonitorParams instance,
@@ -1015,7 +1011,6 @@ func (p *DeleteTrafficMonitorParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteTrafficMonitorParams instance,
@@ -1077,7 +1072,6 @@ func (p *ListTrafficMonitorsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetPage(v int) {
@@ -1085,7 +1079,6 @@ func (p *ListTrafficMonitorsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetPagesize(v int) {
@@ -1093,7 +1086,6 @@ func (p *ListTrafficMonitorsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListTrafficMonitorsParams) SetZoneid(v string) {
@@ -1101,7 +1093,6 @@ func (p *ListTrafficMonitorsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListTrafficMonitorsParams instance,
@@ -1115,16 +1106,27 @@ func (s *UsageService) NewListTrafficMonitorsParams(zoneid string) *ListTrafficM
 
 // List traffic monitor Hosts.
 func (s *UsageService) ListTrafficMonitors(p *ListTrafficMonitorsParams) (*ListTrafficMonitorsResponse, error) {
-	resp, err := s.cs.newRequest("listTrafficMonitors", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListTrafficMonitorsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listTrafficMonitors", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListTrafficMonitorsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.TrafficMonitors = append(r.TrafficMonitors, l.TrafficMonitors...)
+
+		if r.Count != len(r.TrafficMonitors) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.TrafficMonitors))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListTrafficMonitorsResponse struct {
