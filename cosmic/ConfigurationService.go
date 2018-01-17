@@ -57,7 +57,6 @@ func (p *UpdateConfigurationParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetClusterid(v string) {
@@ -65,7 +64,6 @@ func (p *UpdateConfigurationParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetName(v string) {
@@ -73,7 +71,6 @@ func (p *UpdateConfigurationParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetStorageid(v string) {
@@ -81,7 +78,6 @@ func (p *UpdateConfigurationParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetValue(v string) {
@@ -89,7 +85,6 @@ func (p *UpdateConfigurationParams) SetValue(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["value"] = v
-	return
 }
 
 func (p *UpdateConfigurationParams) SetZoneid(v string) {
@@ -97,7 +92,6 @@ func (p *UpdateConfigurationParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateConfigurationParams instance,
@@ -178,7 +172,6 @@ func (p *ListConfigurationsParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetCategory(v string) {
@@ -186,7 +179,6 @@ func (p *ListConfigurationsParams) SetCategory(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["category"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetClusterid(v string) {
@@ -194,7 +186,6 @@ func (p *ListConfigurationsParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetKeyword(v string) {
@@ -202,7 +193,6 @@ func (p *ListConfigurationsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetName(v string) {
@@ -210,7 +200,6 @@ func (p *ListConfigurationsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetPage(v int) {
@@ -218,7 +207,6 @@ func (p *ListConfigurationsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetPagesize(v int) {
@@ -226,7 +214,6 @@ func (p *ListConfigurationsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetStorageid(v string) {
@@ -234,7 +221,6 @@ func (p *ListConfigurationsParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *ListConfigurationsParams) SetZoneid(v string) {
@@ -242,7 +228,6 @@ func (p *ListConfigurationsParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListConfigurationsParams instance,
@@ -255,16 +240,27 @@ func (s *ConfigurationService) NewListConfigurationsParams() *ListConfigurations
 
 // Lists all configurations.
 func (s *ConfigurationService) ListConfigurations(p *ListConfigurationsParams) (*ListConfigurationsResponse, error) {
-	resp, err := s.cs.newRequest("listConfigurations", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListConfigurationsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listConfigurations", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListConfigurationsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Configurations = append(r.Configurations, l.Configurations...)
+
+		if r.Count != len(r.Configurations) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Configurations))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListConfigurationsResponse struct {
@@ -366,7 +362,6 @@ func (p *ListDeploymentPlannersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDeploymentPlannersParams) SetPage(v int) {
@@ -374,7 +369,6 @@ func (p *ListDeploymentPlannersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDeploymentPlannersParams) SetPagesize(v int) {
@@ -382,7 +376,6 @@ func (p *ListDeploymentPlannersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDeploymentPlannersParams instance,
@@ -395,16 +388,27 @@ func (s *ConfigurationService) NewListDeploymentPlannersParams() *ListDeployment
 
 // Lists all DeploymentPlanners available.
 func (s *ConfigurationService) ListDeploymentPlanners(p *ListDeploymentPlannersParams) (*ListDeploymentPlannersResponse, error) {
-	resp, err := s.cs.newRequest("listDeploymentPlanners", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListDeploymentPlannersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDeploymentPlanners", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListDeploymentPlannersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DeploymentPlanners = append(r.DeploymentPlanners, l.DeploymentPlanners...)
+
+		if r.Count != len(r.DeploymentPlanners) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DeploymentPlanners))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListDeploymentPlannersResponse struct {
@@ -451,7 +455,6 @@ func (p *ListLdapConfigurationsParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetKeyword(v string) {
@@ -459,7 +462,6 @@ func (p *ListLdapConfigurationsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPage(v int) {
@@ -467,7 +469,6 @@ func (p *ListLdapConfigurationsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPagesize(v int) {
@@ -475,7 +476,6 @@ func (p *ListLdapConfigurationsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListLdapConfigurationsParams) SetPort(v int) {
@@ -483,7 +483,6 @@ func (p *ListLdapConfigurationsParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 // You should always use this function to get a new ListLdapConfigurationsParams instance,
@@ -496,16 +495,27 @@ func (s *ConfigurationService) NewListLdapConfigurationsParams() *ListLdapConfig
 
 // Lists all LDAP configurations
 func (s *ConfigurationService) ListLdapConfigurations(p *ListLdapConfigurationsParams) (*ListLdapConfigurationsResponse, error) {
-	resp, err := s.cs.newRequest("listLdapConfigurations", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLdapConfigurationsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLdapConfigurations", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLdapConfigurationsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LdapConfigurations = append(r.LdapConfigurations, l.LdapConfigurations...)
+
+		if r.Count != len(r.LdapConfigurations) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LdapConfigurations))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLdapConfigurationsResponse struct {
@@ -542,7 +552,6 @@ func (p *AddLdapConfigurationParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 func (p *AddLdapConfigurationParams) SetPort(v int) {
@@ -550,7 +559,6 @@ func (p *AddLdapConfigurationParams) SetPort(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["port"] = v
-	return
 }
 
 // You should always use this function to get a new AddLdapConfigurationParams instance,
@@ -602,7 +610,6 @@ func (p *DeleteLdapConfigurationParams) SetHostname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostname"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLdapConfigurationParams instance,

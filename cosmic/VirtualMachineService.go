@@ -150,7 +150,6 @@ func (p *DeployVirtualMachineParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetAffinitygroupids(v []string) {
@@ -158,7 +157,6 @@ func (p *DeployVirtualMachineParams) SetAffinitygroupids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupids"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetAffinitygroupnames(v []string) {
@@ -166,7 +164,6 @@ func (p *DeployVirtualMachineParams) SetAffinitygroupnames(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupnames"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetCustomid(v string) {
@@ -174,7 +171,6 @@ func (p *DeployVirtualMachineParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDeploymentplanner(v string) {
@@ -182,7 +178,6 @@ func (p *DeployVirtualMachineParams) SetDeploymentplanner(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["deploymentplanner"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDetails(v map[string]string) {
@@ -190,7 +185,6 @@ func (p *DeployVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDiskofferingid(v string) {
@@ -198,7 +192,6 @@ func (p *DeployVirtualMachineParams) SetDiskofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["diskofferingid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDisplayname(v string) {
@@ -206,7 +199,6 @@ func (p *DeployVirtualMachineParams) SetDisplayname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayname"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDisplayvm(v bool) {
@@ -214,7 +206,6 @@ func (p *DeployVirtualMachineParams) SetDisplayvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayvm"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetDomainid(v string) {
@@ -222,7 +213,6 @@ func (p *DeployVirtualMachineParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetGroup(v string) {
@@ -230,7 +220,6 @@ func (p *DeployVirtualMachineParams) SetGroup(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["group"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetHostid(v string) {
@@ -238,7 +227,6 @@ func (p *DeployVirtualMachineParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetHypervisor(v string) {
@@ -246,7 +234,6 @@ func (p *DeployVirtualMachineParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetIp6address(v string) {
@@ -254,7 +241,6 @@ func (p *DeployVirtualMachineParams) SetIp6address(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6address"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetIpaddress(v string) {
@@ -262,7 +248,6 @@ func (p *DeployVirtualMachineParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetIptonetworklist(v map[string]string) {
@@ -270,7 +255,6 @@ func (p *DeployVirtualMachineParams) SetIptonetworklist(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iptonetworklist"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetKeyboard(v string) {
@@ -278,7 +262,6 @@ func (p *DeployVirtualMachineParams) SetKeyboard(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyboard"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetKeypair(v string) {
@@ -286,7 +269,6 @@ func (p *DeployVirtualMachineParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetName(v string) {
@@ -294,7 +276,6 @@ func (p *DeployVirtualMachineParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetNetworkids(v []string) {
@@ -302,7 +283,6 @@ func (p *DeployVirtualMachineParams) SetNetworkids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkids"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetProjectid(v string) {
@@ -310,7 +290,6 @@ func (p *DeployVirtualMachineParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetRootdisksize(v int64) {
@@ -318,7 +297,6 @@ func (p *DeployVirtualMachineParams) SetRootdisksize(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["rootdisksize"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetSecuritygroupids(v []string) {
@@ -326,7 +304,6 @@ func (p *DeployVirtualMachineParams) SetSecuritygroupids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupids"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetSecuritygroupnames(v []string) {
@@ -334,7 +311,6 @@ func (p *DeployVirtualMachineParams) SetSecuritygroupnames(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupnames"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetServiceofferingid(v string) {
@@ -342,7 +318,6 @@ func (p *DeployVirtualMachineParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetSize(v int64) {
@@ -350,7 +325,6 @@ func (p *DeployVirtualMachineParams) SetSize(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["size"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetStartvm(v bool) {
@@ -358,7 +332,6 @@ func (p *DeployVirtualMachineParams) SetStartvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startvm"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetTemplateid(v string) {
@@ -366,7 +339,6 @@ func (p *DeployVirtualMachineParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetUserdata(v string) {
@@ -374,7 +346,6 @@ func (p *DeployVirtualMachineParams) SetUserdata(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userdata"] = v
-	return
 }
 
 func (p *DeployVirtualMachineParams) SetZoneid(v string) {
@@ -382,7 +353,6 @@ func (p *DeployVirtualMachineParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new DeployVirtualMachineParams instance,
@@ -631,7 +601,6 @@ func (p *DestroyVirtualMachineParams) SetExpunge(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["expunge"] = v
-	return
 }
 
 func (p *DestroyVirtualMachineParams) SetId(v string) {
@@ -639,7 +608,6 @@ func (p *DestroyVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DestroyVirtualMachineParams instance,
@@ -882,7 +850,6 @@ func (p *RebootVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RebootVirtualMachineParams instance,
@@ -1131,7 +1098,6 @@ func (p *StartVirtualMachineParams) SetDeploymentplanner(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["deploymentplanner"] = v
-	return
 }
 
 func (p *StartVirtualMachineParams) SetHostid(v string) {
@@ -1139,7 +1105,6 @@ func (p *StartVirtualMachineParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *StartVirtualMachineParams) SetId(v string) {
@@ -1147,7 +1112,6 @@ func (p *StartVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StartVirtualMachineParams instance,
@@ -1394,7 +1358,6 @@ func (p *StopVirtualMachineParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *StopVirtualMachineParams) SetId(v string) {
@@ -1402,7 +1365,6 @@ func (p *StopVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new StopVirtualMachineParams instance,
@@ -1645,7 +1607,6 @@ func (p *ResetPasswordForVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ResetPasswordForVirtualMachineParams instance,
@@ -1929,7 +1890,6 @@ func (p *UpdateVirtualMachineParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetDetails(v map[string]string) {
@@ -1937,7 +1897,6 @@ func (p *UpdateVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetDisplayname(v string) {
@@ -1945,7 +1904,6 @@ func (p *UpdateVirtualMachineParams) SetDisplayname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayname"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetDisplayvm(v bool) {
@@ -1953,7 +1911,6 @@ func (p *UpdateVirtualMachineParams) SetDisplayvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayvm"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetGroup(v string) {
@@ -1961,7 +1918,6 @@ func (p *UpdateVirtualMachineParams) SetGroup(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["group"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetHaenable(v bool) {
@@ -1969,7 +1925,6 @@ func (p *UpdateVirtualMachineParams) SetHaenable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["haenable"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetId(v string) {
@@ -1977,7 +1932,6 @@ func (p *UpdateVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetInstancename(v string) {
@@ -1985,7 +1939,6 @@ func (p *UpdateVirtualMachineParams) SetInstancename(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["instancename"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetIsdynamicallyscalable(v bool) {
@@ -1993,7 +1946,6 @@ func (p *UpdateVirtualMachineParams) SetIsdynamicallyscalable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isdynamicallyscalable"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetName(v string) {
@@ -2001,7 +1953,6 @@ func (p *UpdateVirtualMachineParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetOstypeid(v string) {
@@ -2009,7 +1960,6 @@ func (p *UpdateVirtualMachineParams) SetOstypeid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ostypeid"] = v
-	return
 }
 
 func (p *UpdateVirtualMachineParams) SetUserdata(v string) {
@@ -2017,7 +1967,6 @@ func (p *UpdateVirtualMachineParams) SetUserdata(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userdata"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVirtualMachineParams instance,
@@ -2348,7 +2297,6 @@ func (p *ListVirtualMachinesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetAffinitygroupid(v string) {
@@ -2356,7 +2304,6 @@ func (p *ListVirtualMachinesParams) SetAffinitygroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetDetails(v []string) {
@@ -2364,7 +2311,6 @@ func (p *ListVirtualMachinesParams) SetDetails(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetDisplayvm(v bool) {
@@ -2372,7 +2318,6 @@ func (p *ListVirtualMachinesParams) SetDisplayvm(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displayvm"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetDomainid(v string) {
@@ -2380,7 +2325,6 @@ func (p *ListVirtualMachinesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetForvirtualnetwork(v bool) {
@@ -2388,7 +2332,6 @@ func (p *ListVirtualMachinesParams) SetForvirtualnetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvirtualnetwork"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetGroupid(v string) {
@@ -2396,7 +2339,6 @@ func (p *ListVirtualMachinesParams) SetGroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["groupid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetHostid(v string) {
@@ -2404,7 +2346,6 @@ func (p *ListVirtualMachinesParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetHypervisor(v string) {
@@ -2412,7 +2353,6 @@ func (p *ListVirtualMachinesParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetId(v string) {
@@ -2420,7 +2360,6 @@ func (p *ListVirtualMachinesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetIds(v []string) {
@@ -2428,7 +2367,6 @@ func (p *ListVirtualMachinesParams) SetIds(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ids"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetIsoid(v string) {
@@ -2436,7 +2374,6 @@ func (p *ListVirtualMachinesParams) SetIsoid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isoid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetIsrecursive(v bool) {
@@ -2444,7 +2381,6 @@ func (p *ListVirtualMachinesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetKeypair(v string) {
@@ -2452,7 +2388,6 @@ func (p *ListVirtualMachinesParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetKeyword(v string) {
@@ -2460,7 +2395,6 @@ func (p *ListVirtualMachinesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetListall(v bool) {
@@ -2468,7 +2402,6 @@ func (p *ListVirtualMachinesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetName(v string) {
@@ -2476,7 +2409,6 @@ func (p *ListVirtualMachinesParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetNetworkid(v string) {
@@ -2484,7 +2416,6 @@ func (p *ListVirtualMachinesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetPage(v int) {
@@ -2492,7 +2423,6 @@ func (p *ListVirtualMachinesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetPagesize(v int) {
@@ -2500,7 +2430,6 @@ func (p *ListVirtualMachinesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetPodid(v string) {
@@ -2508,7 +2437,6 @@ func (p *ListVirtualMachinesParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetProjectid(v string) {
@@ -2516,7 +2444,6 @@ func (p *ListVirtualMachinesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetServiceofferingid(v string) {
@@ -2524,7 +2451,6 @@ func (p *ListVirtualMachinesParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetState(v string) {
@@ -2532,7 +2458,6 @@ func (p *ListVirtualMachinesParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetStorageid(v string) {
@@ -2540,7 +2465,6 @@ func (p *ListVirtualMachinesParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetTags(v map[string]string) {
@@ -2548,7 +2472,6 @@ func (p *ListVirtualMachinesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetTemplateid(v string) {
@@ -2556,7 +2479,6 @@ func (p *ListVirtualMachinesParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetUserid(v string) {
@@ -2564,7 +2486,6 @@ func (p *ListVirtualMachinesParams) SetUserid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["userid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetVpcid(v string) {
@@ -2572,7 +2493,6 @@ func (p *ListVirtualMachinesParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListVirtualMachinesParams) SetZoneid(v string) {
@@ -2580,7 +2500,6 @@ func (p *ListVirtualMachinesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVirtualMachinesParams instance,
@@ -2676,16 +2595,27 @@ func (s *VirtualMachineService) GetVirtualMachineByID(id string, opts ...OptionF
 
 // List the virtual machines owned by the account.
 func (s *VirtualMachineService) ListVirtualMachines(p *ListVirtualMachinesParams) (*ListVirtualMachinesResponse, error) {
-	resp, err := s.cs.newRequest("listVirtualMachines", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVirtualMachinesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVirtualMachines", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVirtualMachinesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VirtualMachines = append(r.VirtualMachines, l.VirtualMachines...)
+
+		if r.Count != len(r.VirtualMachines) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VirtualMachines))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVirtualMachinesResponse struct {
@@ -2889,7 +2819,6 @@ func (p *GetVMPasswordParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new GetVMPasswordParams instance,
@@ -2942,7 +2871,6 @@ func (p *RestoreVirtualMachineParams) SetTemplateid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["templateid"] = v
-	return
 }
 
 func (p *RestoreVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -2950,7 +2878,6 @@ func (p *RestoreVirtualMachineParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new RestoreVirtualMachineParams instance,
@@ -3204,7 +3131,6 @@ func (p *ChangeServiceForVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ChangeServiceForVirtualMachineParams) SetId(v string) {
@@ -3212,7 +3138,6 @@ func (p *ChangeServiceForVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ChangeServiceForVirtualMachineParams) SetServiceofferingid(v string) {
@@ -3220,7 +3145,6 @@ func (p *ChangeServiceForVirtualMachineParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new ChangeServiceForVirtualMachineParams instance,
@@ -3454,7 +3378,6 @@ func (p *ScaleVirtualMachineParams) SetDetails(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["details"] = v
-	return
 }
 
 func (p *ScaleVirtualMachineParams) SetId(v string) {
@@ -3462,7 +3385,6 @@ func (p *ScaleVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ScaleVirtualMachineParams) SetServiceofferingid(v string) {
@@ -3470,7 +3392,6 @@ func (p *ScaleVirtualMachineParams) SetServiceofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["serviceofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new ScaleVirtualMachineParams instance,
@@ -3552,7 +3473,6 @@ func (p *AssignVirtualMachineParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AssignVirtualMachineParams) SetDomainid(v string) {
@@ -3560,7 +3480,6 @@ func (p *AssignVirtualMachineParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AssignVirtualMachineParams) SetNetworkids(v []string) {
@@ -3568,7 +3487,6 @@ func (p *AssignVirtualMachineParams) SetNetworkids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkids"] = v
-	return
 }
 
 func (p *AssignVirtualMachineParams) SetSecuritygroupids(v []string) {
@@ -3576,7 +3494,6 @@ func (p *AssignVirtualMachineParams) SetSecuritygroupids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["securitygroupids"] = v
-	return
 }
 
 func (p *AssignVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -3584,7 +3501,6 @@ func (p *AssignVirtualMachineParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new AssignVirtualMachineParams instance,
@@ -3814,7 +3730,6 @@ func (p *MigrateVirtualMachineParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *MigrateVirtualMachineParams) SetStorageid(v string) {
@@ -3822,7 +3737,6 @@ func (p *MigrateVirtualMachineParams) SetStorageid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["storageid"] = v
-	return
 }
 
 func (p *MigrateVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -3830,7 +3744,6 @@ func (p *MigrateVirtualMachineParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new MigrateVirtualMachineParams instance,
@@ -4084,7 +3997,6 @@ func (p *MigrateVirtualMachineWithVolumeParams) SetHostid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hostid"] = v
-	return
 }
 
 func (p *MigrateVirtualMachineWithVolumeParams) SetMigrateto(v map[string]string) {
@@ -4092,7 +4004,6 @@ func (p *MigrateVirtualMachineWithVolumeParams) SetMigrateto(v map[string]string
 		p.p = make(map[string]interface{})
 	}
 	p.p["migrateto"] = v
-	return
 }
 
 func (p *MigrateVirtualMachineWithVolumeParams) SetVirtualmachineid(v string) {
@@ -4100,7 +4011,6 @@ func (p *MigrateVirtualMachineWithVolumeParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new MigrateVirtualMachineWithVolumeParams instance,
@@ -4344,7 +4254,6 @@ func (p *RecoverVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RecoverVirtualMachineParams instance,
@@ -4566,7 +4475,6 @@ func (p *ExpungeVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ExpungeVirtualMachineParams instance,
@@ -4694,7 +4602,6 @@ func (p *AddNicToVirtualMachineParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *AddNicToVirtualMachineParams) SetNetworkid(v string) {
@@ -4702,7 +4609,6 @@ func (p *AddNicToVirtualMachineParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *AddNicToVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -4710,7 +4616,6 @@ func (p *AddNicToVirtualMachineParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new AddNicToVirtualMachineParams instance,
@@ -4957,7 +4862,6 @@ func (p *RemoveNicFromVirtualMachineParams) SetNicid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nicid"] = v
-	return
 }
 
 func (p *RemoveNicFromVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -4965,7 +4869,6 @@ func (p *RemoveNicFromVirtualMachineParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveNicFromVirtualMachineParams instance,
@@ -5212,7 +5115,6 @@ func (p *UpdateDefaultNicForVirtualMachineParams) SetNicid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nicid"] = v
-	return
 }
 
 func (p *UpdateDefaultNicForVirtualMachineParams) SetVirtualmachineid(v string) {
@@ -5220,7 +5122,6 @@ func (p *UpdateDefaultNicForVirtualMachineParams) SetVirtualmachineid(v string) 
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateDefaultNicForVirtualMachineParams instance,

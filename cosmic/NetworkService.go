@@ -53,7 +53,6 @@ func (p *DedicatePublicIpRangeParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DedicatePublicIpRangeParams) SetDomainid(v string) {
@@ -61,7 +60,6 @@ func (p *DedicatePublicIpRangeParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DedicatePublicIpRangeParams) SetId(v string) {
@@ -69,7 +67,6 @@ func (p *DedicatePublicIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *DedicatePublicIpRangeParams) SetProjectid(v string) {
@@ -77,7 +74,6 @@ func (p *DedicatePublicIpRangeParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DedicatePublicIpRangeParams instance,
@@ -149,7 +145,6 @@ func (p *ReleasePublicIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ReleasePublicIpRangeParams instance,
@@ -283,7 +278,6 @@ func (p *CreateNetworkParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetAclid(v string) {
@@ -291,7 +285,6 @@ func (p *CreateNetworkParams) SetAclid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["aclid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetAcltype(v string) {
@@ -299,7 +292,6 @@ func (p *CreateNetworkParams) SetAcltype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["acltype"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetCidr(v string) {
@@ -307,7 +299,6 @@ func (p *CreateNetworkParams) SetCidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidr"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetDisplaynetwork(v bool) {
@@ -315,7 +306,6 @@ func (p *CreateNetworkParams) SetDisplaynetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaynetwork"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetDisplaytext(v string) {
@@ -323,7 +313,6 @@ func (p *CreateNetworkParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetDns1(v string) {
@@ -331,7 +320,6 @@ func (p *CreateNetworkParams) SetDns1(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dns1"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetDns2(v string) {
@@ -339,7 +327,6 @@ func (p *CreateNetworkParams) SetDns2(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dns2"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetDomainid(v string) {
@@ -347,7 +334,6 @@ func (p *CreateNetworkParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetEndip(v string) {
@@ -355,7 +341,6 @@ func (p *CreateNetworkParams) SetEndip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endip"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetEndipv6(v string) {
@@ -363,7 +348,6 @@ func (p *CreateNetworkParams) SetEndipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endipv6"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetGateway(v string) {
@@ -371,7 +355,6 @@ func (p *CreateNetworkParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetIp6cidr(v string) {
@@ -379,7 +362,6 @@ func (p *CreateNetworkParams) SetIp6cidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6cidr"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetIp6gateway(v string) {
@@ -387,7 +369,6 @@ func (p *CreateNetworkParams) SetIp6gateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ip6gateway"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetIpexclusionlist(v string) {
@@ -395,7 +376,6 @@ func (p *CreateNetworkParams) SetIpexclusionlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipexclusionlist"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetIsolatedpvlan(v string) {
@@ -403,7 +383,6 @@ func (p *CreateNetworkParams) SetIsolatedpvlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isolatedpvlan"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetName(v string) {
@@ -411,7 +390,6 @@ func (p *CreateNetworkParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetNetmask(v string) {
@@ -419,7 +397,6 @@ func (p *CreateNetworkParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetNetworkdomain(v string) {
@@ -427,7 +404,6 @@ func (p *CreateNetworkParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetNetworkofferingid(v string) {
@@ -435,7 +411,6 @@ func (p *CreateNetworkParams) SetNetworkofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkofferingid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetPhysicalnetworkid(v string) {
@@ -443,7 +418,6 @@ func (p *CreateNetworkParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetProjectid(v string) {
@@ -451,7 +425,6 @@ func (p *CreateNetworkParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetStartip(v string) {
@@ -459,7 +432,6 @@ func (p *CreateNetworkParams) SetStartip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startip"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetStartipv6(v string) {
@@ -467,7 +439,6 @@ func (p *CreateNetworkParams) SetStartipv6(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startipv6"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetSubdomainaccess(v bool) {
@@ -475,7 +446,6 @@ func (p *CreateNetworkParams) SetSubdomainaccess(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["subdomainaccess"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetVlan(v string) {
@@ -483,7 +453,6 @@ func (p *CreateNetworkParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetVpcid(v string) {
@@ -491,7 +460,6 @@ func (p *CreateNetworkParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *CreateNetworkParams) SetZoneid(v string) {
@@ -499,7 +467,6 @@ func (p *CreateNetworkParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateNetworkParams instance,
@@ -635,7 +602,6 @@ func (p *DeleteNetworkParams) SetForced(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forced"] = v
-	return
 }
 
 func (p *DeleteNetworkParams) SetId(v string) {
@@ -643,7 +609,6 @@ func (p *DeleteNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkParams instance,
@@ -792,7 +757,6 @@ func (p *ListNetworksParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetAcltype(v string) {
@@ -800,7 +764,6 @@ func (p *ListNetworksParams) SetAcltype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["acltype"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetCanusefordeploy(v bool) {
@@ -808,7 +771,6 @@ func (p *ListNetworksParams) SetCanusefordeploy(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["canusefordeploy"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetDisplaynetwork(v bool) {
@@ -816,7 +778,6 @@ func (p *ListNetworksParams) SetDisplaynetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaynetwork"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetDomainid(v string) {
@@ -824,7 +785,6 @@ func (p *ListNetworksParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetForvpc(v bool) {
@@ -832,7 +792,6 @@ func (p *ListNetworksParams) SetForvpc(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forvpc"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetId(v string) {
@@ -840,7 +799,6 @@ func (p *ListNetworksParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetIsrecursive(v bool) {
@@ -848,7 +806,6 @@ func (p *ListNetworksParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetIssystem(v bool) {
@@ -856,7 +813,6 @@ func (p *ListNetworksParams) SetIssystem(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["issystem"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetKeyword(v string) {
@@ -864,7 +820,6 @@ func (p *ListNetworksParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetListall(v bool) {
@@ -872,7 +827,6 @@ func (p *ListNetworksParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetPage(v int) {
@@ -880,7 +834,6 @@ func (p *ListNetworksParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetPagesize(v int) {
@@ -888,7 +841,6 @@ func (p *ListNetworksParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetPhysicalnetworkid(v string) {
@@ -896,7 +848,6 @@ func (p *ListNetworksParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetProjectid(v string) {
@@ -904,7 +855,6 @@ func (p *ListNetworksParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetRestartrequired(v bool) {
@@ -912,7 +862,6 @@ func (p *ListNetworksParams) SetRestartrequired(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["restartrequired"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetSpecifyipranges(v bool) {
@@ -920,7 +869,6 @@ func (p *ListNetworksParams) SetSpecifyipranges(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["specifyipranges"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetSupportedservices(v []string) {
@@ -928,7 +876,6 @@ func (p *ListNetworksParams) SetSupportedservices(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["supportedservices"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetTags(v map[string]string) {
@@ -936,7 +883,6 @@ func (p *ListNetworksParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetTraffictype(v string) {
@@ -944,7 +890,6 @@ func (p *ListNetworksParams) SetTraffictype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["traffictype"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetType(v string) {
@@ -952,7 +897,6 @@ func (p *ListNetworksParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetVpcid(v string) {
@@ -960,7 +904,6 @@ func (p *ListNetworksParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 func (p *ListNetworksParams) SetZoneid(v string) {
@@ -968,7 +911,6 @@ func (p *ListNetworksParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworksParams instance,
@@ -1064,16 +1006,27 @@ func (s *NetworkService) GetNetworkByID(id string, opts ...OptionFunc) (*Network
 
 // Lists all available networks.
 func (s *NetworkService) ListNetworks(p *ListNetworksParams) (*ListNetworksResponse, error) {
-	resp, err := s.cs.newRequest("listNetworks", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNetworksResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworks", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNetworksResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Networks = append(r.Networks, l.Networks...)
+
+		if r.Count != len(r.Networks) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Networks))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNetworksResponse struct {
@@ -1184,7 +1137,6 @@ func (p *RestartNetworkParams) SetCleanup(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cleanup"] = v
-	return
 }
 
 func (p *RestartNetworkParams) SetId(v string) {
@@ -1192,7 +1144,6 @@ func (p *RestartNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RestartNetworkParams instance,
@@ -1339,7 +1290,6 @@ func (p *UpdateNetworkParams) SetChangecidr(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["changecidr"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetCustomid(v string) {
@@ -1347,7 +1297,6 @@ func (p *UpdateNetworkParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetDisplaynetwork(v bool) {
@@ -1355,7 +1304,6 @@ func (p *UpdateNetworkParams) SetDisplaynetwork(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaynetwork"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetDisplaytext(v string) {
@@ -1363,7 +1311,6 @@ func (p *UpdateNetworkParams) SetDisplaytext(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["displaytext"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetDns1(v string) {
@@ -1371,7 +1318,6 @@ func (p *UpdateNetworkParams) SetDns1(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dns1"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetDns2(v string) {
@@ -1379,7 +1325,6 @@ func (p *UpdateNetworkParams) SetDns2(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dns2"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetGuestvmcidr(v string) {
@@ -1387,7 +1332,6 @@ func (p *UpdateNetworkParams) SetGuestvmcidr(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["guestvmcidr"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetId(v string) {
@@ -1395,7 +1339,6 @@ func (p *UpdateNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetIpexclusionlist(v string) {
@@ -1403,7 +1346,6 @@ func (p *UpdateNetworkParams) SetIpexclusionlist(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipexclusionlist"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetName(v string) {
@@ -1411,7 +1353,6 @@ func (p *UpdateNetworkParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetNetworkdomain(v string) {
@@ -1419,7 +1360,6 @@ func (p *UpdateNetworkParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
@@ -1427,7 +1367,6 @@ func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkofferingid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNetworkParams instance,
@@ -1596,7 +1535,6 @@ func (p *CreatePhysicalNetworkParams) SetBroadcastdomainrange(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["broadcastdomainrange"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetDomainid(v string) {
@@ -1604,7 +1542,6 @@ func (p *CreatePhysicalNetworkParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetIsolationmethods(v []string) {
@@ -1612,7 +1549,6 @@ func (p *CreatePhysicalNetworkParams) SetIsolationmethods(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isolationmethods"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetName(v string) {
@@ -1620,7 +1556,6 @@ func (p *CreatePhysicalNetworkParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetNetworkspeed(v string) {
@@ -1628,7 +1563,6 @@ func (p *CreatePhysicalNetworkParams) SetNetworkspeed(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkspeed"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetTags(v []string) {
@@ -1636,7 +1570,6 @@ func (p *CreatePhysicalNetworkParams) SetTags(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetVlan(v string) {
@@ -1644,7 +1577,6 @@ func (p *CreatePhysicalNetworkParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 func (p *CreatePhysicalNetworkParams) SetZoneid(v string) {
@@ -1652,7 +1584,6 @@ func (p *CreatePhysicalNetworkParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreatePhysicalNetworkParams instance,
@@ -1733,7 +1664,6 @@ func (p *DeletePhysicalNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeletePhysicalNetworkParams instance,
@@ -1817,7 +1747,6 @@ func (p *ListPhysicalNetworksParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListPhysicalNetworksParams) SetKeyword(v string) {
@@ -1825,7 +1754,6 @@ func (p *ListPhysicalNetworksParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListPhysicalNetworksParams) SetName(v string) {
@@ -1833,7 +1761,6 @@ func (p *ListPhysicalNetworksParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListPhysicalNetworksParams) SetPage(v int) {
@@ -1841,7 +1768,6 @@ func (p *ListPhysicalNetworksParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListPhysicalNetworksParams) SetPagesize(v int) {
@@ -1849,7 +1775,6 @@ func (p *ListPhysicalNetworksParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListPhysicalNetworksParams) SetZoneid(v string) {
@@ -1857,7 +1782,6 @@ func (p *ListPhysicalNetworksParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListPhysicalNetworksParams instance,
@@ -1953,16 +1877,27 @@ func (s *NetworkService) GetPhysicalNetworkByID(id string, opts ...OptionFunc) (
 
 // Lists physical networks
 func (s *NetworkService) ListPhysicalNetworks(p *ListPhysicalNetworksParams) (*ListPhysicalNetworksResponse, error) {
-	resp, err := s.cs.newRequest("listPhysicalNetworks", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListPhysicalNetworksResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listPhysicalNetworks", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListPhysicalNetworksResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.PhysicalNetworks = append(r.PhysicalNetworks, l.PhysicalNetworks...)
+
+		if r.Count != len(r.PhysicalNetworks) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.PhysicalNetworks))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListPhysicalNetworksResponse struct {
@@ -2016,7 +1951,6 @@ func (p *UpdatePhysicalNetworkParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdatePhysicalNetworkParams) SetNetworkspeed(v string) {
@@ -2024,7 +1958,6 @@ func (p *UpdatePhysicalNetworkParams) SetNetworkspeed(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkspeed"] = v
-	return
 }
 
 func (p *UpdatePhysicalNetworkParams) SetState(v string) {
@@ -2032,7 +1965,6 @@ func (p *UpdatePhysicalNetworkParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 func (p *UpdatePhysicalNetworkParams) SetTags(v []string) {
@@ -2040,7 +1972,6 @@ func (p *UpdatePhysicalNetworkParams) SetTags(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *UpdatePhysicalNetworkParams) SetVlan(v string) {
@@ -2048,7 +1979,6 @@ func (p *UpdatePhysicalNetworkParams) SetVlan(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 // You should always use this function to get a new UpdatePhysicalNetworkParams instance,
@@ -2142,7 +2072,6 @@ func (p *ListSupportedNetworkServicesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSupportedNetworkServicesParams) SetPage(v int) {
@@ -2150,7 +2079,6 @@ func (p *ListSupportedNetworkServicesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSupportedNetworkServicesParams) SetPagesize(v int) {
@@ -2158,7 +2086,6 @@ func (p *ListSupportedNetworkServicesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSupportedNetworkServicesParams) SetProvider(v string) {
@@ -2166,7 +2093,6 @@ func (p *ListSupportedNetworkServicesParams) SetProvider(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["provider"] = v
-	return
 }
 
 func (p *ListSupportedNetworkServicesParams) SetService(v string) {
@@ -2174,7 +2100,6 @@ func (p *ListSupportedNetworkServicesParams) SetService(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["service"] = v
-	return
 }
 
 // You should always use this function to get a new ListSupportedNetworkServicesParams instance,
@@ -2187,16 +2112,27 @@ func (s *NetworkService) NewListSupportedNetworkServicesParams() *ListSupportedN
 
 // Lists all network services provided by CloudStack or for the given Provider.
 func (s *NetworkService) ListSupportedNetworkServices(p *ListSupportedNetworkServicesParams) (*ListSupportedNetworkServicesResponse, error) {
-	resp, err := s.cs.newRequest("listSupportedNetworkServices", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListSupportedNetworkServicesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listSupportedNetworkServices", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListSupportedNetworkServicesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.SupportedNetworkServices = append(r.SupportedNetworkServices, l.SupportedNetworkServices...)
+
+		if r.Count != len(r.SupportedNetworkServices) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.SupportedNetworkServices))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListSupportedNetworkServicesResponse struct {
@@ -2252,7 +2188,6 @@ func (p *AddNetworkServiceProviderParams) SetDestinationphysicalnetworkid(v stri
 		p.p = make(map[string]interface{})
 	}
 	p.p["destinationphysicalnetworkid"] = v
-	return
 }
 
 func (p *AddNetworkServiceProviderParams) SetName(v string) {
@@ -2260,7 +2195,6 @@ func (p *AddNetworkServiceProviderParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *AddNetworkServiceProviderParams) SetPhysicalnetworkid(v string) {
@@ -2268,7 +2202,6 @@ func (p *AddNetworkServiceProviderParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *AddNetworkServiceProviderParams) SetServicelist(v []string) {
@@ -2276,7 +2209,6 @@ func (p *AddNetworkServiceProviderParams) SetServicelist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["servicelist"] = v
-	return
 }
 
 // You should always use this function to get a new AddNetworkServiceProviderParams instance,
@@ -2354,7 +2286,6 @@ func (p *DeleteNetworkServiceProviderParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteNetworkServiceProviderParams instance,
@@ -2438,7 +2369,6 @@ func (p *ListNetworkServiceProvidersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkServiceProvidersParams) SetName(v string) {
@@ -2446,7 +2376,6 @@ func (p *ListNetworkServiceProvidersParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListNetworkServiceProvidersParams) SetPage(v int) {
@@ -2454,7 +2383,6 @@ func (p *ListNetworkServiceProvidersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkServiceProvidersParams) SetPagesize(v int) {
@@ -2462,7 +2390,6 @@ func (p *ListNetworkServiceProvidersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNetworkServiceProvidersParams) SetPhysicalnetworkid(v string) {
@@ -2470,7 +2397,6 @@ func (p *ListNetworkServiceProvidersParams) SetPhysicalnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["physicalnetworkid"] = v
-	return
 }
 
 func (p *ListNetworkServiceProvidersParams) SetState(v string) {
@@ -2478,7 +2404,6 @@ func (p *ListNetworkServiceProvidersParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkServiceProvidersParams instance,
@@ -2527,16 +2452,27 @@ func (s *NetworkService) GetNetworkServiceProviderID(name string, opts ...Option
 
 // Lists network serviceproviders for a given physical network.
 func (s *NetworkService) ListNetworkServiceProviders(p *ListNetworkServiceProvidersParams) (*ListNetworkServiceProvidersResponse, error) {
-	resp, err := s.cs.newRequest("listNetworkServiceProviders", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNetworkServiceProvidersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkServiceProviders", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNetworkServiceProvidersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkServiceProviders = append(r.NetworkServiceProviders, l.NetworkServiceProviders...)
+
+		if r.Count != len(r.NetworkServiceProviders) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkServiceProviders))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNetworkServiceProvidersResponse struct {
@@ -2581,7 +2517,6 @@ func (p *UpdateNetworkServiceProviderParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateNetworkServiceProviderParams) SetServicelist(v []string) {
@@ -2589,7 +2524,6 @@ func (p *UpdateNetworkServiceProviderParams) SetServicelist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["servicelist"] = v
-	return
 }
 
 func (p *UpdateNetworkServiceProviderParams) SetState(v string) {
@@ -2597,7 +2531,6 @@ func (p *UpdateNetworkServiceProviderParams) SetState(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["state"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateNetworkServiceProviderParams instance,
@@ -2690,7 +2623,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetEndip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endip"] = v
-	return
 }
 
 func (p *CreateStorageNetworkIpRangeParams) SetGateway(v string) {
@@ -2698,7 +2630,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreateStorageNetworkIpRangeParams) SetNetmask(v string) {
@@ -2706,7 +2637,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *CreateStorageNetworkIpRangeParams) SetPodid(v string) {
@@ -2714,7 +2644,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *CreateStorageNetworkIpRangeParams) SetStartip(v string) {
@@ -2722,7 +2651,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetStartip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startip"] = v
-	return
 }
 
 func (p *CreateStorageNetworkIpRangeParams) SetVlan(v int) {
@@ -2730,7 +2658,6 @@ func (p *CreateStorageNetworkIpRangeParams) SetVlan(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 // You should always use this function to get a new CreateStorageNetworkIpRangeParams instance,
@@ -2812,7 +2739,6 @@ func (p *DeleteStorageNetworkIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteStorageNetworkIpRangeParams instance,
@@ -2896,7 +2822,6 @@ func (p *ListStorageNetworkIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListStorageNetworkIpRangeParams) SetKeyword(v string) {
@@ -2904,7 +2829,6 @@ func (p *ListStorageNetworkIpRangeParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListStorageNetworkIpRangeParams) SetPage(v int) {
@@ -2912,7 +2836,6 @@ func (p *ListStorageNetworkIpRangeParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListStorageNetworkIpRangeParams) SetPagesize(v int) {
@@ -2920,7 +2843,6 @@ func (p *ListStorageNetworkIpRangeParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListStorageNetworkIpRangeParams) SetPodid(v string) {
@@ -2928,7 +2850,6 @@ func (p *ListStorageNetworkIpRangeParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListStorageNetworkIpRangeParams) SetZoneid(v string) {
@@ -2936,7 +2857,6 @@ func (p *ListStorageNetworkIpRangeParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListStorageNetworkIpRangeParams instance,
@@ -2982,16 +2902,27 @@ func (s *NetworkService) GetStorageNetworkIpRangeByID(id string, opts ...OptionF
 
 // List a storage network IP range.
 func (s *NetworkService) ListStorageNetworkIpRange(p *ListStorageNetworkIpRangeParams) (*ListStorageNetworkIpRangeResponse, error) {
-	resp, err := s.cs.newRequest("listStorageNetworkIpRange", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListStorageNetworkIpRangeResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listStorageNetworkIpRange", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListStorageNetworkIpRangeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.StorageNetworkIpRange = append(r.StorageNetworkIpRange, l.StorageNetworkIpRange...)
+
+		if r.Count != len(r.StorageNetworkIpRange) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.StorageNetworkIpRange))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListStorageNetworkIpRangeResponse struct {
@@ -3044,7 +2975,6 @@ func (p *UpdateStorageNetworkIpRangeParams) SetEndip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endip"] = v
-	return
 }
 
 func (p *UpdateStorageNetworkIpRangeParams) SetId(v string) {
@@ -3052,7 +2982,6 @@ func (p *UpdateStorageNetworkIpRangeParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateStorageNetworkIpRangeParams) SetNetmask(v string) {
@@ -3060,7 +2989,6 @@ func (p *UpdateStorageNetworkIpRangeParams) SetNetmask(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["netmask"] = v
-	return
 }
 
 func (p *UpdateStorageNetworkIpRangeParams) SetStartip(v string) {
@@ -3068,7 +2996,6 @@ func (p *UpdateStorageNetworkIpRangeParams) SetStartip(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["startip"] = v
-	return
 }
 
 func (p *UpdateStorageNetworkIpRangeParams) SetVlan(v int) {
@@ -3076,7 +3003,6 @@ func (p *UpdateStorageNetworkIpRangeParams) SetVlan(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vlan"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateStorageNetworkIpRangeParams instance,
@@ -3166,7 +3092,6 @@ func (p *ListNiciraNvpDeviceNetworksParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNiciraNvpDeviceNetworksParams) SetNvpdeviceid(v string) {
@@ -3174,7 +3099,6 @@ func (p *ListNiciraNvpDeviceNetworksParams) SetNvpdeviceid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nvpdeviceid"] = v
-	return
 }
 
 func (p *ListNiciraNvpDeviceNetworksParams) SetPage(v int) {
@@ -3182,7 +3106,6 @@ func (p *ListNiciraNvpDeviceNetworksParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNiciraNvpDeviceNetworksParams) SetPagesize(v int) {
@@ -3190,7 +3113,6 @@ func (p *ListNiciraNvpDeviceNetworksParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListNiciraNvpDeviceNetworksParams instance,
@@ -3241,16 +3163,27 @@ func (s *NetworkService) GetNiciraNvpDeviceNetworkID(keyword string, nvpdeviceid
 
 // lists network that are using a nicira nvp device
 func (s *NetworkService) ListNiciraNvpDeviceNetworks(p *ListNiciraNvpDeviceNetworksParams) (*ListNiciraNvpDeviceNetworksResponse, error) {
-	resp, err := s.cs.newRequest("listNiciraNvpDeviceNetworks", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNiciraNvpDeviceNetworksResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNiciraNvpDeviceNetworks", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNiciraNvpDeviceNetworksResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NiciraNvpDeviceNetworks = append(r.NiciraNvpDeviceNetworks, l.NiciraNvpDeviceNetworks...)
+
+		if r.Count != len(r.NiciraNvpDeviceNetworks) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NiciraNvpDeviceNetworks))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNiciraNvpDeviceNetworksResponse struct {
@@ -3365,7 +3298,6 @@ func (p *ListNetworkIsolationMethodsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNetworkIsolationMethodsParams) SetPage(v int) {
@@ -3373,7 +3305,6 @@ func (p *ListNetworkIsolationMethodsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNetworkIsolationMethodsParams) SetPagesize(v int) {
@@ -3381,7 +3312,6 @@ func (p *ListNetworkIsolationMethodsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListNetworkIsolationMethodsParams instance,
@@ -3394,16 +3324,27 @@ func (s *NetworkService) NewListNetworkIsolationMethodsParams() *ListNetworkIsol
 
 // Lists supported methods of network isolation
 func (s *NetworkService) ListNetworkIsolationMethods(p *ListNetworkIsolationMethodsParams) (*ListNetworkIsolationMethodsResponse, error) {
-	resp, err := s.cs.newRequest("listNetworkIsolationMethods", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNetworkIsolationMethodsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkIsolationMethods", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNetworkIsolationMethodsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkIsolationMethods = append(r.NetworkIsolationMethods, l.NetworkIsolationMethods...)
+
+		if r.Count != len(r.NetworkIsolationMethods) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkIsolationMethods))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNetworkIsolationMethodsResponse struct {

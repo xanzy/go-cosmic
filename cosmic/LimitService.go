@@ -56,7 +56,6 @@ func (p *UpdateResourceLimitParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UpdateResourceLimitParams) SetDomainid(v string) {
@@ -64,7 +63,6 @@ func (p *UpdateResourceLimitParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpdateResourceLimitParams) SetMax(v int64) {
@@ -72,7 +70,6 @@ func (p *UpdateResourceLimitParams) SetMax(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["max"] = v
-	return
 }
 
 func (p *UpdateResourceLimitParams) SetProjectid(v string) {
@@ -80,7 +77,6 @@ func (p *UpdateResourceLimitParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *UpdateResourceLimitParams) SetResourcetype(v int) {
@@ -88,7 +84,6 @@ func (p *UpdateResourceLimitParams) SetResourcetype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateResourceLimitParams instance,
@@ -154,7 +149,6 @@ func (p *UpdateResourceCountParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UpdateResourceCountParams) SetDomainid(v string) {
@@ -162,7 +156,6 @@ func (p *UpdateResourceCountParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpdateResourceCountParams) SetProjectid(v string) {
@@ -170,7 +163,6 @@ func (p *UpdateResourceCountParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *UpdateResourceCountParams) SetResourcetype(v int) {
@@ -178,7 +170,6 @@ func (p *UpdateResourceCountParams) SetResourcetype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateResourceCountParams instance,
@@ -267,7 +258,6 @@ func (p *ListResourceLimitsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetDomainid(v string) {
@@ -275,7 +265,6 @@ func (p *ListResourceLimitsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetId(v int64) {
@@ -283,7 +272,6 @@ func (p *ListResourceLimitsParams) SetId(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetIsrecursive(v bool) {
@@ -291,7 +279,6 @@ func (p *ListResourceLimitsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetKeyword(v string) {
@@ -299,7 +286,6 @@ func (p *ListResourceLimitsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetListall(v bool) {
@@ -307,7 +293,6 @@ func (p *ListResourceLimitsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetPage(v int) {
@@ -315,7 +300,6 @@ func (p *ListResourceLimitsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetPagesize(v int) {
@@ -323,7 +307,6 @@ func (p *ListResourceLimitsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetProjectid(v string) {
@@ -331,7 +314,6 @@ func (p *ListResourceLimitsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListResourceLimitsParams) SetResourcetype(v int) {
@@ -339,7 +321,6 @@ func (p *ListResourceLimitsParams) SetResourcetype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["resourcetype"] = v
-	return
 }
 
 // You should always use this function to get a new ListResourceLimitsParams instance,
@@ -352,16 +333,27 @@ func (s *LimitService) NewListResourceLimitsParams() *ListResourceLimitsParams {
 
 // Lists resource limits.
 func (s *LimitService) ListResourceLimits(p *ListResourceLimitsParams) (*ListResourceLimitsResponse, error) {
-	resp, err := s.cs.newRequest("listResourceLimits", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListResourceLimitsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listResourceLimits", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListResourceLimitsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.ResourceLimits = append(r.ResourceLimits, l.ResourceLimits...)
+
+		if r.Count != len(r.ResourceLimits) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.ResourceLimits))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListResourceLimitsResponse struct {
@@ -441,7 +433,6 @@ func (p *ResetApiLimitParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 // You should always use this function to get a new ResetApiLimitParams instance,

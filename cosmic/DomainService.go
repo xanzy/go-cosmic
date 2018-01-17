@@ -53,7 +53,6 @@ func (p *CreateDomainParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateDomainParams) SetName(v string) {
@@ -61,7 +60,6 @@ func (p *CreateDomainParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateDomainParams) SetNetworkdomain(v string) {
@@ -69,7 +67,6 @@ func (p *CreateDomainParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 func (p *CreateDomainParams) SetParentdomainid(v string) {
@@ -77,7 +74,6 @@ func (p *CreateDomainParams) SetParentdomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["parentdomainid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateDomainParams instance,
@@ -177,7 +173,6 @@ func (p *UpdateDomainParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateDomainParams) SetName(v string) {
@@ -185,7 +180,6 @@ func (p *UpdateDomainParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateDomainParams) SetNetworkdomain(v string) {
@@ -193,7 +187,6 @@ func (p *UpdateDomainParams) SetNetworkdomain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkdomain"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateDomainParams instance,
@@ -291,7 +284,6 @@ func (p *DeleteDomainParams) SetCleanup(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cleanup"] = v
-	return
 }
 
 func (p *DeleteDomainParams) SetId(v string) {
@@ -299,7 +291,6 @@ func (p *DeleteDomainParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteDomainParams instance,
@@ -388,7 +379,6 @@ func (p *ListDomainsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetKeyword(v string) {
@@ -396,7 +386,6 @@ func (p *ListDomainsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetLevel(v int) {
@@ -404,7 +393,6 @@ func (p *ListDomainsParams) SetLevel(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["level"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetListall(v bool) {
@@ -412,7 +400,6 @@ func (p *ListDomainsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetName(v string) {
@@ -420,7 +407,6 @@ func (p *ListDomainsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetPage(v int) {
@@ -428,7 +414,6 @@ func (p *ListDomainsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDomainsParams) SetPagesize(v int) {
@@ -436,7 +421,6 @@ func (p *ListDomainsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDomainsParams instance,
@@ -532,16 +516,27 @@ func (s *DomainService) GetDomainByID(id string, opts ...OptionFunc) (*Domain, i
 
 // Lists domains and provides detailed information for listed domains
 func (s *DomainService) ListDomains(p *ListDomainsParams) (*ListDomainsResponse, error) {
-	resp, err := s.cs.newRequest("listDomains", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListDomainsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDomains", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListDomainsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Domains = append(r.Domains, l.Domains...)
+
+		if r.Count != len(r.Domains) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Domains))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListDomainsResponse struct {
@@ -639,7 +634,6 @@ func (p *ListDomainChildrenParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetIsrecursive(v bool) {
@@ -647,7 +641,6 @@ func (p *ListDomainChildrenParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetKeyword(v string) {
@@ -655,7 +648,6 @@ func (p *ListDomainChildrenParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetListall(v bool) {
@@ -663,7 +655,6 @@ func (p *ListDomainChildrenParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetName(v string) {
@@ -671,7 +662,6 @@ func (p *ListDomainChildrenParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetPage(v int) {
@@ -679,7 +669,6 @@ func (p *ListDomainChildrenParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDomainChildrenParams) SetPagesize(v int) {
@@ -687,7 +676,6 @@ func (p *ListDomainChildrenParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDomainChildrenParams instance,
@@ -783,16 +771,27 @@ func (s *DomainService) GetDomainChildrenByID(id string, opts ...OptionFunc) (*D
 
 // Lists all children domains belonging to a specified domain
 func (s *DomainService) ListDomainChildren(p *ListDomainChildrenParams) (*ListDomainChildrenResponse, error) {
-	resp, err := s.cs.newRequest("listDomainChildren", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListDomainChildrenResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDomainChildren", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListDomainChildrenResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DomainChildren = append(r.DomainChildren, l.DomainChildren...)
+
+		if r.Count != len(r.DomainChildren) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DomainChildren))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListDomainChildrenResponse struct {
@@ -881,7 +880,6 @@ func (p *LinkDomainToLdapParams) SetAccounttype(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accounttype"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetAdmin(v string) {
@@ -889,7 +887,6 @@ func (p *LinkDomainToLdapParams) SetAdmin(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["admin"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetDomainid(v string) {
@@ -897,7 +894,6 @@ func (p *LinkDomainToLdapParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetName(v string) {
@@ -905,7 +901,6 @@ func (p *LinkDomainToLdapParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *LinkDomainToLdapParams) SetType(v string) {
@@ -913,7 +908,6 @@ func (p *LinkDomainToLdapParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new LinkDomainToLdapParams instance,

@@ -68,7 +68,6 @@ func (p *AddClusterParams) SetAllocationstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocationstate"] = v
-	return
 }
 
 func (p *AddClusterParams) SetClustername(v string) {
@@ -76,7 +75,6 @@ func (p *AddClusterParams) SetClustername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustername"] = v
-	return
 }
 
 func (p *AddClusterParams) SetClustertype(v string) {
@@ -84,7 +82,6 @@ func (p *AddClusterParams) SetClustertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustertype"] = v
-	return
 }
 
 func (p *AddClusterParams) SetHypervisor(v string) {
@@ -92,7 +89,6 @@ func (p *AddClusterParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *AddClusterParams) SetPassword(v string) {
@@ -100,7 +96,6 @@ func (p *AddClusterParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddClusterParams) SetPodid(v string) {
@@ -108,7 +103,6 @@ func (p *AddClusterParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *AddClusterParams) SetUrl(v string) {
@@ -116,7 +110,6 @@ func (p *AddClusterParams) SetUrl(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["url"] = v
-	return
 }
 
 func (p *AddClusterParams) SetUsername(v string) {
@@ -124,7 +117,6 @@ func (p *AddClusterParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 func (p *AddClusterParams) SetZoneid(v string) {
@@ -132,7 +124,6 @@ func (p *AddClusterParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new AddClusterParams instance,
@@ -209,7 +200,6 @@ func (p *DeleteClusterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteClusterParams instance,
@@ -275,7 +265,6 @@ func (p *UpdateClusterParams) SetAllocationstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocationstate"] = v
-	return
 }
 
 func (p *UpdateClusterParams) SetClustername(v string) {
@@ -283,7 +272,6 @@ func (p *UpdateClusterParams) SetClustername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustername"] = v
-	return
 }
 
 func (p *UpdateClusterParams) SetClustertype(v string) {
@@ -291,7 +279,6 @@ func (p *UpdateClusterParams) SetClustertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustertype"] = v
-	return
 }
 
 func (p *UpdateClusterParams) SetHypervisor(v string) {
@@ -299,7 +286,6 @@ func (p *UpdateClusterParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *UpdateClusterParams) SetId(v string) {
@@ -307,7 +293,6 @@ func (p *UpdateClusterParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateClusterParams) SetManagedstate(v string) {
@@ -315,7 +300,6 @@ func (p *UpdateClusterParams) SetManagedstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["managedstate"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateClusterParams instance,
@@ -424,7 +408,6 @@ func (p *ListClustersParams) SetAllocationstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["allocationstate"] = v
-	return
 }
 
 func (p *ListClustersParams) SetClustertype(v string) {
@@ -432,7 +415,6 @@ func (p *ListClustersParams) SetClustertype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clustertype"] = v
-	return
 }
 
 func (p *ListClustersParams) SetHypervisor(v string) {
@@ -440,7 +422,6 @@ func (p *ListClustersParams) SetHypervisor(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["hypervisor"] = v
-	return
 }
 
 func (p *ListClustersParams) SetId(v string) {
@@ -448,7 +429,6 @@ func (p *ListClustersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListClustersParams) SetKeyword(v string) {
@@ -456,7 +436,6 @@ func (p *ListClustersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListClustersParams) SetManagedstate(v string) {
@@ -464,7 +443,6 @@ func (p *ListClustersParams) SetManagedstate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["managedstate"] = v
-	return
 }
 
 func (p *ListClustersParams) SetName(v string) {
@@ -472,7 +450,6 @@ func (p *ListClustersParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListClustersParams) SetPage(v int) {
@@ -480,7 +457,6 @@ func (p *ListClustersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListClustersParams) SetPagesize(v int) {
@@ -488,7 +464,6 @@ func (p *ListClustersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListClustersParams) SetPodid(v string) {
@@ -496,7 +471,6 @@ func (p *ListClustersParams) SetPodid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["podid"] = v
-	return
 }
 
 func (p *ListClustersParams) SetShowcapacities(v bool) {
@@ -504,7 +478,6 @@ func (p *ListClustersParams) SetShowcapacities(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["showcapacities"] = v
-	return
 }
 
 func (p *ListClustersParams) SetZoneid(v string) {
@@ -512,7 +485,6 @@ func (p *ListClustersParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListClustersParams instance,
@@ -608,16 +580,27 @@ func (s *ClusterService) GetClusterByID(id string, opts ...OptionFunc) (*Cluster
 
 // Lists clusters.
 func (s *ClusterService) ListClusters(p *ListClustersParams) (*ListClustersResponse, error) {
-	resp, err := s.cs.newRequest("listClusters", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListClustersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listClusters", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListClustersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Clusters = append(r.Clusters, l.Clusters...)
+
+		if r.Count != len(r.Clusters) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Clusters))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListClustersResponse struct {
@@ -678,7 +661,6 @@ func (p *DedicateClusterParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DedicateClusterParams) SetClusterid(v string) {
@@ -686,7 +668,6 @@ func (p *DedicateClusterParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *DedicateClusterParams) SetDomainid(v string) {
@@ -694,7 +675,6 @@ func (p *DedicateClusterParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 // You should always use this function to get a new DedicateClusterParams instance,
@@ -771,7 +751,6 @@ func (p *ReleaseDedicatedClusterParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 // You should always use this function to get a new ReleaseDedicatedClusterParams instance,
@@ -858,7 +837,6 @@ func (p *ListDedicatedClustersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetAffinitygroupid(v string) {
@@ -866,7 +844,6 @@ func (p *ListDedicatedClustersParams) SetAffinitygroupid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["affinitygroupid"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetClusterid(v string) {
@@ -874,7 +851,6 @@ func (p *ListDedicatedClustersParams) SetClusterid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clusterid"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetDomainid(v string) {
@@ -882,7 +858,6 @@ func (p *ListDedicatedClustersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetKeyword(v string) {
@@ -890,7 +865,6 @@ func (p *ListDedicatedClustersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetPage(v int) {
@@ -898,7 +872,6 @@ func (p *ListDedicatedClustersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListDedicatedClustersParams) SetPagesize(v int) {
@@ -906,7 +879,6 @@ func (p *ListDedicatedClustersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListDedicatedClustersParams instance,
@@ -919,16 +891,27 @@ func (s *ClusterService) NewListDedicatedClustersParams() *ListDedicatedClusters
 
 // Lists dedicated clusters.
 func (s *ClusterService) ListDedicatedClusters(p *ListDedicatedClustersParams) (*ListDedicatedClustersResponse, error) {
-	resp, err := s.cs.newRequest("listDedicatedClusters", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListDedicatedClustersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDedicatedClusters", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListDedicatedClustersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DedicatedClusters = append(r.DedicatedClusters, l.DedicatedClusters...)
+
+		if r.Count != len(r.DedicatedClusters) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DedicatedClusters))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListDedicatedClustersResponse struct {

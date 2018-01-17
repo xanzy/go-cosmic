@@ -61,7 +61,6 @@ func (p *CreateRemoteAccessVpnParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateRemoteAccessVpnParams) SetDomainid(v string) {
@@ -69,7 +68,6 @@ func (p *CreateRemoteAccessVpnParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateRemoteAccessVpnParams) SetFordisplay(v bool) {
@@ -77,7 +75,6 @@ func (p *CreateRemoteAccessVpnParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateRemoteAccessVpnParams) SetIprange(v string) {
@@ -85,7 +82,6 @@ func (p *CreateRemoteAccessVpnParams) SetIprange(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["iprange"] = v
-	return
 }
 
 func (p *CreateRemoteAccessVpnParams) SetOpenfirewall(v bool) {
@@ -93,7 +89,6 @@ func (p *CreateRemoteAccessVpnParams) SetOpenfirewall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["openfirewall"] = v
-	return
 }
 
 func (p *CreateRemoteAccessVpnParams) SetPublicipid(v string) {
@@ -101,7 +96,6 @@ func (p *CreateRemoteAccessVpnParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateRemoteAccessVpnParams instance,
@@ -183,7 +177,6 @@ func (p *DeleteRemoteAccessVpnParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteRemoteAccessVpnParams instance,
@@ -288,7 +281,6 @@ func (p *ListRemoteAccessVpnsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetDomainid(v string) {
@@ -296,7 +288,6 @@ func (p *ListRemoteAccessVpnsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetFordisplay(v bool) {
@@ -304,7 +295,6 @@ func (p *ListRemoteAccessVpnsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetId(v string) {
@@ -312,7 +302,6 @@ func (p *ListRemoteAccessVpnsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetIsrecursive(v bool) {
@@ -320,7 +309,6 @@ func (p *ListRemoteAccessVpnsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetKeyword(v string) {
@@ -328,7 +316,6 @@ func (p *ListRemoteAccessVpnsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetListall(v bool) {
@@ -336,7 +323,6 @@ func (p *ListRemoteAccessVpnsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetNetworkid(v string) {
@@ -344,7 +330,6 @@ func (p *ListRemoteAccessVpnsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetPage(v int) {
@@ -352,7 +337,6 @@ func (p *ListRemoteAccessVpnsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetPagesize(v int) {
@@ -360,7 +344,6 @@ func (p *ListRemoteAccessVpnsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetProjectid(v string) {
@@ -368,7 +351,6 @@ func (p *ListRemoteAccessVpnsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListRemoteAccessVpnsParams) SetPublicipid(v string) {
@@ -376,7 +358,6 @@ func (p *ListRemoteAccessVpnsParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 // You should always use this function to get a new ListRemoteAccessVpnsParams instance,
@@ -422,16 +403,27 @@ func (s *VPNService) GetRemoteAccessVpnByID(id string, opts ...OptionFunc) (*Rem
 
 // Lists remote access vpns
 func (s *VPNService) ListRemoteAccessVpns(p *ListRemoteAccessVpnsParams) (*ListRemoteAccessVpnsResponse, error) {
-	resp, err := s.cs.newRequest("listRemoteAccessVpns", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListRemoteAccessVpnsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listRemoteAccessVpns", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListRemoteAccessVpnsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.RemoteAccessVpns = append(r.RemoteAccessVpns, l.RemoteAccessVpns...)
+
+		if r.Count != len(r.RemoteAccessVpns) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.RemoteAccessVpns))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListRemoteAccessVpnsResponse struct {
@@ -481,7 +473,6 @@ func (p *UpdateRemoteAccessVpnParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateRemoteAccessVpnParams) SetFordisplay(v bool) {
@@ -489,7 +480,6 @@ func (p *UpdateRemoteAccessVpnParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateRemoteAccessVpnParams) SetId(v string) {
@@ -497,7 +487,6 @@ func (p *UpdateRemoteAccessVpnParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateRemoteAccessVpnParams instance,
@@ -591,7 +580,6 @@ func (p *AddVpnUserParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *AddVpnUserParams) SetDomainid(v string) {
@@ -599,7 +587,6 @@ func (p *AddVpnUserParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *AddVpnUserParams) SetPassword(v string) {
@@ -607,7 +594,6 @@ func (p *AddVpnUserParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *AddVpnUserParams) SetProjectid(v string) {
@@ -615,7 +601,6 @@ func (p *AddVpnUserParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *AddVpnUserParams) SetUsername(v string) {
@@ -623,7 +608,6 @@ func (p *AddVpnUserParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new AddVpnUserParams instance,
@@ -711,7 +695,6 @@ func (p *RemoveVpnUserParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *RemoveVpnUserParams) SetDomainid(v string) {
@@ -719,7 +702,6 @@ func (p *RemoveVpnUserParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *RemoveVpnUserParams) SetProjectid(v string) {
@@ -727,7 +709,6 @@ func (p *RemoveVpnUserParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *RemoveVpnUserParams) SetUsername(v string) {
@@ -735,7 +716,6 @@ func (p *RemoveVpnUserParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveVpnUserParams instance,
@@ -833,7 +813,6 @@ func (p *ListVpnUsersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetDomainid(v string) {
@@ -841,7 +820,6 @@ func (p *ListVpnUsersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetId(v string) {
@@ -849,7 +827,6 @@ func (p *ListVpnUsersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetIsrecursive(v bool) {
@@ -857,7 +834,6 @@ func (p *ListVpnUsersParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetKeyword(v string) {
@@ -865,7 +841,6 @@ func (p *ListVpnUsersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetListall(v bool) {
@@ -873,7 +848,6 @@ func (p *ListVpnUsersParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetPage(v int) {
@@ -881,7 +855,6 @@ func (p *ListVpnUsersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetPagesize(v int) {
@@ -889,7 +862,6 @@ func (p *ListVpnUsersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetProjectid(v string) {
@@ -897,7 +869,6 @@ func (p *ListVpnUsersParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVpnUsersParams) SetUsername(v string) {
@@ -905,7 +876,6 @@ func (p *ListVpnUsersParams) SetUsername(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["username"] = v
-	return
 }
 
 // You should always use this function to get a new ListVpnUsersParams instance,
@@ -951,16 +921,27 @@ func (s *VPNService) GetVpnUserByID(id string, opts ...OptionFunc) (*VpnUser, in
 
 // Lists vpn users
 func (s *VPNService) ListVpnUsers(p *ListVpnUsersParams) (*ListVpnUsersResponse, error) {
-	resp, err := s.cs.newRequest("listVpnUsers", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVpnUsersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVpnUsers", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVpnUsersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VpnUsers = append(r.VpnUsers, l.VpnUsers...)
+
+		if r.Count != len(r.VpnUsers) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VpnUsers))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVpnUsersResponse struct {
@@ -1040,7 +1021,6 @@ func (p *CreateVpnCustomerGatewayParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetCidrlist(v []string) {
@@ -1048,7 +1028,6 @@ func (p *CreateVpnCustomerGatewayParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetDomainid(v string) {
@@ -1056,7 +1035,6 @@ func (p *CreateVpnCustomerGatewayParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetDpd(v bool) {
@@ -1064,7 +1042,6 @@ func (p *CreateVpnCustomerGatewayParams) SetDpd(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dpd"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
@@ -1072,7 +1049,6 @@ func (p *CreateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["esplifetime"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetEsppolicy(v string) {
@@ -1080,7 +1056,6 @@ func (p *CreateVpnCustomerGatewayParams) SetEsppolicy(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["esppolicy"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetForceencap(v bool) {
@@ -1088,7 +1063,6 @@ func (p *CreateVpnCustomerGatewayParams) SetForceencap(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forceencap"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetGateway(v string) {
@@ -1096,7 +1070,6 @@ func (p *CreateVpnCustomerGatewayParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
@@ -1104,7 +1077,6 @@ func (p *CreateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ikelifetime"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetIkepolicy(v string) {
@@ -1112,7 +1084,6 @@ func (p *CreateVpnCustomerGatewayParams) SetIkepolicy(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ikepolicy"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetIpsecpsk(v string) {
@@ -1120,7 +1091,6 @@ func (p *CreateVpnCustomerGatewayParams) SetIpsecpsk(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipsecpsk"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetName(v string) {
@@ -1128,7 +1098,6 @@ func (p *CreateVpnCustomerGatewayParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateVpnCustomerGatewayParams) SetProjectid(v string) {
@@ -1136,7 +1105,6 @@ func (p *CreateVpnCustomerGatewayParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVpnCustomerGatewayParams instance,
@@ -1232,7 +1200,6 @@ func (p *CreateVpnGatewayParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateVpnGatewayParams) SetVpcid(v string) {
@@ -1240,7 +1207,6 @@ func (p *CreateVpnGatewayParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVpnGatewayParams instance,
@@ -1331,7 +1297,6 @@ func (p *CreateVpnConnectionParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateVpnConnectionParams) SetPassive(v bool) {
@@ -1339,7 +1304,6 @@ func (p *CreateVpnConnectionParams) SetPassive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passive"] = v
-	return
 }
 
 func (p *CreateVpnConnectionParams) SetS2scustomergatewayid(v string) {
@@ -1347,7 +1311,6 @@ func (p *CreateVpnConnectionParams) SetS2scustomergatewayid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["s2scustomergatewayid"] = v
-	return
 }
 
 func (p *CreateVpnConnectionParams) SetS2svpngatewayid(v string) {
@@ -1355,7 +1318,6 @@ func (p *CreateVpnConnectionParams) SetS2svpngatewayid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["s2svpngatewayid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateVpnConnectionParams instance,
@@ -1449,7 +1411,6 @@ func (p *DeleteVpnCustomerGatewayParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVpnCustomerGatewayParams instance,
@@ -1516,7 +1477,6 @@ func (p *DeleteVpnGatewayParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVpnGatewayParams instance,
@@ -1583,7 +1543,6 @@ func (p *DeleteVpnConnectionParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteVpnConnectionParams instance,
@@ -1691,7 +1650,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetCidrlist(v []string) {
@@ -1699,7 +1657,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetDomainid(v string) {
@@ -1707,7 +1664,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetDpd(v bool) {
@@ -1715,7 +1671,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetDpd(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["dpd"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
@@ -1723,7 +1678,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetEsplifetime(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["esplifetime"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetEsppolicy(v string) {
@@ -1731,7 +1685,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetEsppolicy(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["esppolicy"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetForceencap(v bool) {
@@ -1739,7 +1692,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetForceencap(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["forceencap"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetGateway(v string) {
@@ -1747,7 +1699,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetGateway(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gateway"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetId(v string) {
@@ -1755,7 +1706,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
@@ -1763,7 +1713,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetIkelifetime(v int64) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ikelifetime"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetIkepolicy(v string) {
@@ -1771,7 +1720,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetIkepolicy(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ikepolicy"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetIpsecpsk(v string) {
@@ -1779,7 +1727,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetIpsecpsk(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipsecpsk"] = v
-	return
 }
 
 func (p *UpdateVpnCustomerGatewayParams) SetName(v string) {
@@ -1787,7 +1734,6 @@ func (p *UpdateVpnCustomerGatewayParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVpnCustomerGatewayParams instance,
@@ -1886,7 +1832,6 @@ func (p *ResetVpnConnectionParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ResetVpnConnectionParams) SetDomainid(v string) {
@@ -1894,7 +1839,6 @@ func (p *ResetVpnConnectionParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ResetVpnConnectionParams) SetId(v string) {
@@ -1902,7 +1846,6 @@ func (p *ResetVpnConnectionParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new ResetVpnConnectionParams instance,
@@ -2023,7 +1966,6 @@ func (p *ListVpnCustomerGatewaysParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetDomainid(v string) {
@@ -2031,7 +1973,6 @@ func (p *ListVpnCustomerGatewaysParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetId(v string) {
@@ -2039,7 +1980,6 @@ func (p *ListVpnCustomerGatewaysParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetIsrecursive(v bool) {
@@ -2047,7 +1987,6 @@ func (p *ListVpnCustomerGatewaysParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetKeyword(v string) {
@@ -2055,7 +1994,6 @@ func (p *ListVpnCustomerGatewaysParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetListall(v bool) {
@@ -2063,7 +2001,6 @@ func (p *ListVpnCustomerGatewaysParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetPage(v int) {
@@ -2071,7 +2008,6 @@ func (p *ListVpnCustomerGatewaysParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetPagesize(v int) {
@@ -2079,7 +2015,6 @@ func (p *ListVpnCustomerGatewaysParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVpnCustomerGatewaysParams) SetProjectid(v string) {
@@ -2087,7 +2022,6 @@ func (p *ListVpnCustomerGatewaysParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVpnCustomerGatewaysParams instance,
@@ -2183,16 +2117,27 @@ func (s *VPNService) GetVpnCustomerGatewayByID(id string, opts ...OptionFunc) (*
 
 // Lists site to site vpn customer gateways
 func (s *VPNService) ListVpnCustomerGateways(p *ListVpnCustomerGatewaysParams) (*ListVpnCustomerGatewaysResponse, error) {
-	resp, err := s.cs.newRequest("listVpnCustomerGateways", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVpnCustomerGatewaysResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVpnCustomerGateways", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVpnCustomerGatewaysResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VpnCustomerGateways = append(r.VpnCustomerGateways, l.VpnCustomerGateways...)
+
+		if r.Count != len(r.VpnCustomerGateways) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VpnCustomerGateways))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVpnCustomerGatewaysResponse struct {
@@ -2276,7 +2221,6 @@ func (p *ListVpnGatewaysParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetDomainid(v string) {
@@ -2284,7 +2228,6 @@ func (p *ListVpnGatewaysParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetFordisplay(v bool) {
@@ -2292,7 +2235,6 @@ func (p *ListVpnGatewaysParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetId(v string) {
@@ -2300,7 +2242,6 @@ func (p *ListVpnGatewaysParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetIsrecursive(v bool) {
@@ -2308,7 +2249,6 @@ func (p *ListVpnGatewaysParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetKeyword(v string) {
@@ -2316,7 +2256,6 @@ func (p *ListVpnGatewaysParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetListall(v bool) {
@@ -2324,7 +2263,6 @@ func (p *ListVpnGatewaysParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetPage(v int) {
@@ -2332,7 +2270,6 @@ func (p *ListVpnGatewaysParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetPagesize(v int) {
@@ -2340,7 +2277,6 @@ func (p *ListVpnGatewaysParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetProjectid(v string) {
@@ -2348,7 +2284,6 @@ func (p *ListVpnGatewaysParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVpnGatewaysParams) SetVpcid(v string) {
@@ -2356,7 +2291,6 @@ func (p *ListVpnGatewaysParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVpnGatewaysParams instance,
@@ -2402,16 +2336,27 @@ func (s *VPNService) GetVpnGatewayByID(id string, opts ...OptionFunc) (*VpnGatew
 
 // Lists site 2 site vpn gateways
 func (s *VPNService) ListVpnGateways(p *ListVpnGatewaysParams) (*ListVpnGatewaysResponse, error) {
-	resp, err := s.cs.newRequest("listVpnGateways", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVpnGatewaysResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVpnGateways", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVpnGatewaysResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VpnGateways = append(r.VpnGateways, l.VpnGateways...)
+
+		if r.Count != len(r.VpnGateways) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VpnGateways))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVpnGatewaysResponse struct {
@@ -2487,7 +2432,6 @@ func (p *ListVpnConnectionsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetDomainid(v string) {
@@ -2495,7 +2439,6 @@ func (p *ListVpnConnectionsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetFordisplay(v bool) {
@@ -2503,7 +2446,6 @@ func (p *ListVpnConnectionsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetId(v string) {
@@ -2511,7 +2453,6 @@ func (p *ListVpnConnectionsParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetIsrecursive(v bool) {
@@ -2519,7 +2460,6 @@ func (p *ListVpnConnectionsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetKeyword(v string) {
@@ -2527,7 +2467,6 @@ func (p *ListVpnConnectionsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetListall(v bool) {
@@ -2535,7 +2474,6 @@ func (p *ListVpnConnectionsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetPage(v int) {
@@ -2543,7 +2481,6 @@ func (p *ListVpnConnectionsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetPagesize(v int) {
@@ -2551,7 +2488,6 @@ func (p *ListVpnConnectionsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetProjectid(v string) {
@@ -2559,7 +2495,6 @@ func (p *ListVpnConnectionsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListVpnConnectionsParams) SetVpcid(v string) {
@@ -2567,7 +2502,6 @@ func (p *ListVpnConnectionsParams) SetVpcid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vpcid"] = v
-	return
 }
 
 // You should always use this function to get a new ListVpnConnectionsParams instance,
@@ -2613,16 +2547,27 @@ func (s *VPNService) GetVpnConnectionByID(id string, opts ...OptionFunc) (*VpnCo
 
 // Lists site to site vpn connection gateways
 func (s *VPNService) ListVpnConnections(p *ListVpnConnectionsParams) (*ListVpnConnectionsResponse, error) {
-	resp, err := s.cs.newRequest("listVpnConnections", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListVpnConnectionsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVpnConnections", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListVpnConnectionsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VpnConnections = append(r.VpnConnections, l.VpnConnections...)
+
+		if r.Count != len(r.VpnConnections) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VpnConnections))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListVpnConnectionsResponse struct {
@@ -2683,7 +2628,6 @@ func (p *UpdateVpnConnectionParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateVpnConnectionParams) SetFordisplay(v bool) {
@@ -2691,7 +2635,6 @@ func (p *UpdateVpnConnectionParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateVpnConnectionParams) SetId(v string) {
@@ -2699,7 +2642,6 @@ func (p *UpdateVpnConnectionParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVpnConnectionParams instance,
@@ -2799,7 +2741,6 @@ func (p *UpdateVpnGatewayParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateVpnGatewayParams) SetFordisplay(v bool) {
@@ -2807,7 +2748,6 @@ func (p *UpdateVpnGatewayParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateVpnGatewayParams) SetId(v string) {
@@ -2815,7 +2755,6 @@ func (p *UpdateVpnGatewayParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVpnGatewayParams instance,

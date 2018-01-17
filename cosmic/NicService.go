@@ -45,7 +45,6 @@ func (p *AddIpToNicParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *AddIpToNicParams) SetNicid(v string) {
@@ -53,7 +52,6 @@ func (p *AddIpToNicParams) SetNicid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nicid"] = v
-	return
 }
 
 // You should always use this function to get a new AddIpToNicParams instance,
@@ -128,7 +126,6 @@ func (p *RemoveIpFromNicParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveIpFromNicParams instance,
@@ -198,7 +195,6 @@ func (p *UpdateVmNicIpParams) SetIpaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["ipaddress"] = v
-	return
 }
 
 func (p *UpdateVmNicIpParams) SetNicid(v string) {
@@ -206,7 +202,6 @@ func (p *UpdateVmNicIpParams) SetNicid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nicid"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateVmNicIpParams instance,
@@ -470,7 +465,6 @@ func (p *ListNicsParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListNicsParams) SetKeyword(v string) {
@@ -478,7 +472,6 @@ func (p *ListNicsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListNicsParams) SetNetworkid(v string) {
@@ -486,7 +479,6 @@ func (p *ListNicsParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListNicsParams) SetNicid(v string) {
@@ -494,7 +486,6 @@ func (p *ListNicsParams) SetNicid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["nicid"] = v
-	return
 }
 
 func (p *ListNicsParams) SetPage(v int) {
@@ -502,7 +493,6 @@ func (p *ListNicsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListNicsParams) SetPagesize(v int) {
@@ -510,7 +500,6 @@ func (p *ListNicsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListNicsParams) SetVirtualmachineid(v string) {
@@ -518,7 +507,6 @@ func (p *ListNicsParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 // You should always use this function to get a new ListNicsParams instance,
@@ -532,16 +520,27 @@ func (s *NicService) NewListNicsParams(virtualmachineid string) *ListNicsParams 
 
 // list the vm nics  IP to NIC
 func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
-	resp, err := s.cs.newRequest("listNics", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListNicsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNics", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListNicsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Nics = append(r.Nics, l.Nics...)
+
+		if r.Count != len(r.Nics) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Nics))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListNicsResponse struct {

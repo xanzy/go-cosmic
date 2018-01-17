@@ -96,7 +96,6 @@ func (p *CreateLoadBalancerRuleParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetAlgorithm(v string) {
@@ -104,7 +103,6 @@ func (p *CreateLoadBalancerRuleParams) SetAlgorithm(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["algorithm"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetCidrlist(v []string) {
@@ -112,7 +110,6 @@ func (p *CreateLoadBalancerRuleParams) SetCidrlist(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cidrlist"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetClienttimeout(v int) {
@@ -120,7 +117,6 @@ func (p *CreateLoadBalancerRuleParams) SetClienttimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clienttimeout"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetDescription(v string) {
@@ -128,7 +124,6 @@ func (p *CreateLoadBalancerRuleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetDomainid(v string) {
@@ -136,7 +131,6 @@ func (p *CreateLoadBalancerRuleParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetFordisplay(v bool) {
@@ -144,7 +138,6 @@ func (p *CreateLoadBalancerRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetName(v string) {
@@ -152,7 +145,6 @@ func (p *CreateLoadBalancerRuleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetNetworkid(v string) {
@@ -160,7 +152,6 @@ func (p *CreateLoadBalancerRuleParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetOpenfirewall(v bool) {
@@ -168,7 +159,6 @@ func (p *CreateLoadBalancerRuleParams) SetOpenfirewall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["openfirewall"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetPrivateport(v int) {
@@ -176,7 +166,6 @@ func (p *CreateLoadBalancerRuleParams) SetPrivateport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privateport"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetProtocol(v string) {
@@ -184,7 +173,6 @@ func (p *CreateLoadBalancerRuleParams) SetProtocol(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["protocol"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetPublicipid(v string) {
@@ -192,7 +180,6 @@ func (p *CreateLoadBalancerRuleParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetPublicport(v int) {
@@ -200,7 +187,6 @@ func (p *CreateLoadBalancerRuleParams) SetPublicport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicport"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetServertimeout(v int) {
@@ -208,7 +194,6 @@ func (p *CreateLoadBalancerRuleParams) SetServertimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["servertimeout"] = v
-	return
 }
 
 func (p *CreateLoadBalancerRuleParams) SetZoneid(v string) {
@@ -216,7 +201,6 @@ func (p *CreateLoadBalancerRuleParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateLoadBalancerRuleParams instance,
@@ -322,7 +306,6 @@ func (p *DeleteLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLoadBalancerRuleParams instance,
@@ -401,7 +384,6 @@ func (p *RemoveFromLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *RemoveFromLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
@@ -409,7 +391,6 @@ func (p *RemoveFromLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineids"] = v
-	return
 }
 
 func (p *RemoveFromLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
@@ -417,7 +398,6 @@ func (p *RemoveFromLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmidipmap"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveFromLoadBalancerRuleParams instance,
@@ -496,7 +476,6 @@ func (p *AssignToLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *AssignToLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
@@ -504,7 +483,6 @@ func (p *AssignToLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineids"] = v
-	return
 }
 
 func (p *AssignToLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
@@ -512,7 +490,6 @@ func (p *AssignToLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["vmidipmap"] = v
-	return
 }
 
 // You should always use this function to get a new AssignToLoadBalancerRuleParams instance,
@@ -600,7 +577,6 @@ func (p *CreateLBStickinessPolicyParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateLBStickinessPolicyParams) SetFordisplay(v bool) {
@@ -608,7 +584,6 @@ func (p *CreateLBStickinessPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateLBStickinessPolicyParams) SetLbruleid(v string) {
@@ -616,7 +591,6 @@ func (p *CreateLBStickinessPolicyParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *CreateLBStickinessPolicyParams) SetMethodname(v string) {
@@ -624,7 +598,6 @@ func (p *CreateLBStickinessPolicyParams) SetMethodname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["methodname"] = v
-	return
 }
 
 func (p *CreateLBStickinessPolicyParams) SetName(v string) {
@@ -632,7 +605,6 @@ func (p *CreateLBStickinessPolicyParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateLBStickinessPolicyParams) SetParam(v map[string]string) {
@@ -640,7 +612,6 @@ func (p *CreateLBStickinessPolicyParams) SetParam(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["param"] = v
-	return
 }
 
 // You should always use this function to get a new CreateLBStickinessPolicyParams instance,
@@ -736,7 +707,6 @@ func (p *UpdateLBStickinessPolicyParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateLBStickinessPolicyParams) SetFordisplay(v bool) {
@@ -744,7 +714,6 @@ func (p *UpdateLBStickinessPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateLBStickinessPolicyParams) SetId(v string) {
@@ -752,7 +721,6 @@ func (p *UpdateLBStickinessPolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateLBStickinessPolicyParams instance,
@@ -839,7 +807,6 @@ func (p *DeleteLBStickinessPolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLBStickinessPolicyParams instance,
@@ -961,7 +928,6 @@ func (p *ListLoadBalancerRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetDomainid(v string) {
@@ -969,7 +935,6 @@ func (p *ListLoadBalancerRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetFordisplay(v bool) {
@@ -977,7 +942,6 @@ func (p *ListLoadBalancerRulesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetId(v string) {
@@ -985,7 +949,6 @@ func (p *ListLoadBalancerRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetIsrecursive(v bool) {
@@ -993,7 +956,6 @@ func (p *ListLoadBalancerRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetKeyword(v string) {
@@ -1001,7 +963,6 @@ func (p *ListLoadBalancerRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetListall(v bool) {
@@ -1009,7 +970,6 @@ func (p *ListLoadBalancerRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetName(v string) {
@@ -1017,7 +977,6 @@ func (p *ListLoadBalancerRulesParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetNetworkid(v string) {
@@ -1025,7 +984,6 @@ func (p *ListLoadBalancerRulesParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetPage(v int) {
@@ -1033,7 +991,6 @@ func (p *ListLoadBalancerRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetPagesize(v int) {
@@ -1041,7 +998,6 @@ func (p *ListLoadBalancerRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetProjectid(v string) {
@@ -1049,7 +1005,6 @@ func (p *ListLoadBalancerRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetPublicipid(v string) {
@@ -1057,7 +1012,6 @@ func (p *ListLoadBalancerRulesParams) SetPublicipid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publicipid"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetTags(v map[string]string) {
@@ -1065,7 +1019,6 @@ func (p *ListLoadBalancerRulesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetVirtualmachineid(v string) {
@@ -1073,7 +1026,6 @@ func (p *ListLoadBalancerRulesParams) SetVirtualmachineid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
-	return
 }
 
 func (p *ListLoadBalancerRulesParams) SetZoneid(v string) {
@@ -1081,7 +1033,6 @@ func (p *ListLoadBalancerRulesParams) SetZoneid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
-	return
 }
 
 // You should always use this function to get a new ListLoadBalancerRulesParams instance,
@@ -1177,16 +1128,27 @@ func (s *LoadBalancerService) GetLoadBalancerRuleByID(id string, opts ...OptionF
 
 // Lists load balancer rules.
 func (s *LoadBalancerService) ListLoadBalancerRules(p *ListLoadBalancerRulesParams) (*ListLoadBalancerRulesResponse, error) {
-	resp, err := s.cs.newRequest("listLoadBalancerRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLoadBalancerRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLoadBalancerRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLoadBalancerRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LoadBalancerRules = append(r.LoadBalancerRules, l.LoadBalancerRules...)
+
+		if r.Count != len(r.LoadBalancerRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LoadBalancerRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLoadBalancerRulesResponse struct {
@@ -1268,7 +1230,6 @@ func (p *ListLBStickinessPoliciesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListLBStickinessPoliciesParams) SetId(v string) {
@@ -1276,7 +1237,6 @@ func (p *ListLBStickinessPoliciesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListLBStickinessPoliciesParams) SetKeyword(v string) {
@@ -1284,7 +1244,6 @@ func (p *ListLBStickinessPoliciesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLBStickinessPoliciesParams) SetLbruleid(v string) {
@@ -1292,7 +1251,6 @@ func (p *ListLBStickinessPoliciesParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *ListLBStickinessPoliciesParams) SetPage(v int) {
@@ -1300,7 +1258,6 @@ func (p *ListLBStickinessPoliciesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLBStickinessPoliciesParams) SetPagesize(v int) {
@@ -1308,7 +1265,6 @@ func (p *ListLBStickinessPoliciesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListLBStickinessPoliciesParams instance,
@@ -1354,16 +1310,27 @@ func (s *LoadBalancerService) GetLBStickinessPolicyByID(id string, opts ...Optio
 
 // Lists load balancer stickiness policies.
 func (s *LoadBalancerService) ListLBStickinessPolicies(p *ListLBStickinessPoliciesParams) (*ListLBStickinessPoliciesResponse, error) {
-	resp, err := s.cs.newRequest("listLBStickinessPolicies", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLBStickinessPoliciesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLBStickinessPolicies", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLBStickinessPoliciesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LBStickinessPolicies = append(r.LBStickinessPolicies, l.LBStickinessPolicies...)
+
+		if r.Count != len(r.LBStickinessPolicies) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LBStickinessPolicies))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLBStickinessPoliciesResponse struct {
@@ -1429,7 +1396,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListLBHealthCheckPoliciesParams) SetId(v string) {
@@ -1437,7 +1403,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListLBHealthCheckPoliciesParams) SetKeyword(v string) {
@@ -1445,7 +1410,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLBHealthCheckPoliciesParams) SetLbruleid(v string) {
@@ -1453,7 +1417,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *ListLBHealthCheckPoliciesParams) SetPage(v int) {
@@ -1461,7 +1424,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLBHealthCheckPoliciesParams) SetPagesize(v int) {
@@ -1469,7 +1431,6 @@ func (p *ListLBHealthCheckPoliciesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListLBHealthCheckPoliciesParams instance,
@@ -1515,16 +1476,27 @@ func (s *LoadBalancerService) GetLBHealthCheckPolicyByID(id string, opts ...Opti
 
 // Lists load balancer health check policies.
 func (s *LoadBalancerService) ListLBHealthCheckPolicies(p *ListLBHealthCheckPoliciesParams) (*ListLBHealthCheckPoliciesResponse, error) {
-	resp, err := s.cs.newRequest("listLBHealthCheckPolicies", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLBHealthCheckPoliciesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLBHealthCheckPolicies", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLBHealthCheckPoliciesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LBHealthCheckPolicies = append(r.LBHealthCheckPolicies, l.LBHealthCheckPolicies...)
+
+		if r.Count != len(r.LBHealthCheckPolicies) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LBHealthCheckPolicies))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLBHealthCheckPoliciesResponse struct {
@@ -1597,7 +1569,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
@@ -1605,7 +1576,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetHealthythreshold(v int) {
@@ -1613,7 +1583,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetHealthythreshold(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["healthythreshold"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetIntervaltime(v int) {
@@ -1621,7 +1590,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetIntervaltime(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["intervaltime"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetLbruleid(v string) {
@@ -1629,7 +1597,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetPingpath(v string) {
@@ -1637,7 +1604,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetPingpath(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pingpath"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetResponsetimeout(v int) {
@@ -1645,7 +1611,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetResponsetimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["responsetimeout"] = v
-	return
 }
 
 func (p *CreateLBHealthCheckPolicyParams) SetUnhealthythreshold(v int) {
@@ -1653,7 +1618,6 @@ func (p *CreateLBHealthCheckPolicyParams) SetUnhealthythreshold(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["unhealthythreshold"] = v
-	return
 }
 
 // You should always use this function to get a new CreateLBHealthCheckPolicyParams instance,
@@ -1746,7 +1710,6 @@ func (p *UpdateLBHealthCheckPolicyParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
@@ -1754,7 +1717,6 @@ func (p *UpdateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateLBHealthCheckPolicyParams) SetId(v string) {
@@ -1762,7 +1724,6 @@ func (p *UpdateLBHealthCheckPolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateLBHealthCheckPolicyParams instance,
@@ -1848,7 +1809,6 @@ func (p *DeleteLBHealthCheckPolicyParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLBHealthCheckPolicyParams instance,
@@ -1934,7 +1894,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetApplied(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["applied"] = v
-	return
 }
 
 func (p *ListLoadBalancerRuleInstancesParams) SetId(v string) {
@@ -1942,7 +1901,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListLoadBalancerRuleInstancesParams) SetKeyword(v string) {
@@ -1950,7 +1908,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLoadBalancerRuleInstancesParams) SetLbvmips(v bool) {
@@ -1958,7 +1915,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetLbvmips(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbvmips"] = v
-	return
 }
 
 func (p *ListLoadBalancerRuleInstancesParams) SetPage(v int) {
@@ -1966,7 +1922,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLoadBalancerRuleInstancesParams) SetPagesize(v int) {
@@ -1974,7 +1929,6 @@ func (p *ListLoadBalancerRuleInstancesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListLoadBalancerRuleInstancesParams instance,
@@ -2021,16 +1975,27 @@ func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ..
 
 // List all virtual machine instances that are assigned to a load balancer rule.
 func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerRuleInstancesParams) (*ListLoadBalancerRuleInstancesResponse, error) {
-	resp, err := s.cs.newRequest("listLoadBalancerRuleInstances", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLoadBalancerRuleInstancesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLoadBalancerRuleInstances", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLoadBalancerRuleInstancesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LoadBalancerRuleInstances = append(r.LoadBalancerRuleInstances, l.LoadBalancerRuleInstances...)
+
+		if r.Count != len(r.LoadBalancerRuleInstances) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LoadBalancerRuleInstances))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLoadBalancerRuleInstancesResponse struct {
@@ -2088,7 +2053,6 @@ func (p *UpdateLoadBalancerRuleParams) SetAlgorithm(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["algorithm"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetClienttimeout(v int) {
@@ -2096,7 +2060,6 @@ func (p *UpdateLoadBalancerRuleParams) SetClienttimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["clienttimeout"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetCustomid(v string) {
@@ -2104,7 +2067,6 @@ func (p *UpdateLoadBalancerRuleParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetDescription(v string) {
@@ -2112,7 +2074,6 @@ func (p *UpdateLoadBalancerRuleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetFordisplay(v bool) {
@@ -2120,7 +2081,6 @@ func (p *UpdateLoadBalancerRuleParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetId(v string) {
@@ -2128,7 +2088,6 @@ func (p *UpdateLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
@@ -2136,7 +2095,6 @@ func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerRuleParams) SetServertimeout(v int) {
@@ -2144,7 +2102,6 @@ func (p *UpdateLoadBalancerRuleParams) SetServertimeout(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["servertimeout"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateLoadBalancerRuleParams instance,
@@ -2265,7 +2222,6 @@ func (p *UploadSslCertParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetCertchain(v string) {
@@ -2273,7 +2229,6 @@ func (p *UploadSslCertParams) SetCertchain(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["certchain"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetCertificate(v string) {
@@ -2281,7 +2236,6 @@ func (p *UploadSslCertParams) SetCertificate(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["certificate"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetDomainid(v string) {
@@ -2289,7 +2243,6 @@ func (p *UploadSslCertParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetPassword(v string) {
@@ -2297,7 +2250,6 @@ func (p *UploadSslCertParams) SetPassword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["password"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetPrivatekey(v string) {
@@ -2305,7 +2257,6 @@ func (p *UploadSslCertParams) SetPrivatekey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["privatekey"] = v
-	return
 }
 
 func (p *UploadSslCertParams) SetProjectid(v string) {
@@ -2313,7 +2264,6 @@ func (p *UploadSslCertParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new UploadSslCertParams instance,
@@ -2373,7 +2323,6 @@ func (p *DeleteSslCertParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSslCertParams instance,
@@ -2433,7 +2382,6 @@ func (p *ListSslCertsParams) SetAccountid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["accountid"] = v
-	return
 }
 
 func (p *ListSslCertsParams) SetCertid(v string) {
@@ -2441,7 +2389,6 @@ func (p *ListSslCertsParams) SetCertid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["certid"] = v
-	return
 }
 
 func (p *ListSslCertsParams) SetLbruleid(v string) {
@@ -2449,7 +2396,6 @@ func (p *ListSslCertsParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 func (p *ListSslCertsParams) SetProjectid(v string) {
@@ -2457,7 +2403,6 @@ func (p *ListSslCertsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSslCertsParams instance,
@@ -2523,7 +2468,6 @@ func (p *AssignCertToLoadBalancerParams) SetCertid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["certid"] = v
-	return
 }
 
 func (p *AssignCertToLoadBalancerParams) SetLbruleid(v string) {
@@ -2531,7 +2475,6 @@ func (p *AssignCertToLoadBalancerParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 // You should always use this function to get a new AssignCertToLoadBalancerParams instance,
@@ -2599,7 +2542,6 @@ func (p *RemoveCertFromLoadBalancerParams) SetLbruleid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["lbruleid"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveCertFromLoadBalancerParams instance,
@@ -2691,7 +2633,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetDescription(v string) {
@@ -2699,7 +2640,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetDomainid(v string) {
@@ -2707,7 +2647,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetGslbdomainname(v string) {
@@ -2715,7 +2654,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetGslbdomainname(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslbdomainname"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
@@ -2723,7 +2661,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslblbmethod"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetGslbservicetype(v string) {
@@ -2731,7 +2668,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetGslbservicetype(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslbservicetype"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v string) {
@@ -2739,7 +2675,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v st
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslbstickysessionmethodname"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetName(v string) {
@@ -2747,7 +2682,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateGlobalLoadBalancerRuleParams) SetRegionid(v int) {
@@ -2755,7 +2689,6 @@ func (p *CreateGlobalLoadBalancerRuleParams) SetRegionid(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["regionid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateGlobalLoadBalancerRuleParams instance,
@@ -2876,7 +2809,6 @@ func (p *DeleteGlobalLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteGlobalLoadBalancerRuleParams instance,
@@ -2952,7 +2884,6 @@ func (p *UpdateGlobalLoadBalancerRuleParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *UpdateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
@@ -2960,7 +2891,6 @@ func (p *UpdateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslblbmethod"] = v
-	return
 }
 
 func (p *UpdateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v string) {
@@ -2968,7 +2898,6 @@ func (p *UpdateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v st
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslbstickysessionmethodname"] = v
-	return
 }
 
 func (p *UpdateGlobalLoadBalancerRuleParams) SetId(v string) {
@@ -2976,7 +2905,6 @@ func (p *UpdateGlobalLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateGlobalLoadBalancerRuleParams instance,
@@ -3134,7 +3062,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetDomainid(v string) {
@@ -3142,7 +3069,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetId(v string) {
@@ -3150,7 +3076,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetIsrecursive(v bool) {
@@ -3158,7 +3083,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetKeyword(v string) {
@@ -3166,7 +3090,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetListall(v bool) {
@@ -3174,7 +3097,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetPage(v int) {
@@ -3182,7 +3104,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetPagesize(v int) {
@@ -3190,7 +3111,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetProjectid(v string) {
@@ -3198,7 +3118,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetRegionid(v int) {
@@ -3206,7 +3125,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetRegionid(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["regionid"] = v
-	return
 }
 
 func (p *ListGlobalLoadBalancerRulesParams) SetTags(v map[string]string) {
@@ -3214,7 +3132,6 @@ func (p *ListGlobalLoadBalancerRulesParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new ListGlobalLoadBalancerRulesParams instance,
@@ -3310,16 +3227,27 @@ func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByID(id string, opts ...O
 
 // Lists load balancer rules.
 func (s *LoadBalancerService) ListGlobalLoadBalancerRules(p *ListGlobalLoadBalancerRulesParams) (*ListGlobalLoadBalancerRulesResponse, error) {
-	resp, err := s.cs.newRequest("listGlobalLoadBalancerRules", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListGlobalLoadBalancerRulesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listGlobalLoadBalancerRules", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListGlobalLoadBalancerRulesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.GlobalLoadBalancerRules = append(r.GlobalLoadBalancerRules, l.GlobalLoadBalancerRules...)
+
+		if r.Count != len(r.GlobalLoadBalancerRules) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.GlobalLoadBalancerRules))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListGlobalLoadBalancerRulesResponse struct {
@@ -3410,7 +3338,6 @@ func (p *AssignToGlobalLoadBalancerRuleParams) SetGslblbruleweightsmap(v map[str
 		p.p = make(map[string]interface{})
 	}
 	p.p["gslblbruleweightsmap"] = v
-	return
 }
 
 func (p *AssignToGlobalLoadBalancerRuleParams) SetId(v string) {
@@ -3418,7 +3345,6 @@ func (p *AssignToGlobalLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *AssignToGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []string) {
@@ -3426,7 +3352,6 @@ func (p *AssignToGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []strin
 		p.p = make(map[string]interface{})
 	}
 	p.p["loadbalancerrulelist"] = v
-	return
 }
 
 // You should always use this function to get a new AssignToGlobalLoadBalancerRuleParams instance,
@@ -3498,7 +3423,6 @@ func (p *RemoveFromGlobalLoadBalancerRuleParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *RemoveFromGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []string) {
@@ -3506,7 +3430,6 @@ func (p *RemoveFromGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []str
 		p.p = make(map[string]interface{})
 	}
 	p.p["loadbalancerrulelist"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveFromGlobalLoadBalancerRuleParams instance,
@@ -3604,7 +3527,6 @@ func (p *CreateLoadBalancerParams) SetAlgorithm(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["algorithm"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetDescription(v string) {
@@ -3612,7 +3534,6 @@ func (p *CreateLoadBalancerParams) SetDescription(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["description"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetFordisplay(v bool) {
@@ -3620,7 +3541,6 @@ func (p *CreateLoadBalancerParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetInstanceport(v int) {
@@ -3628,7 +3548,6 @@ func (p *CreateLoadBalancerParams) SetInstanceport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["instanceport"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetName(v string) {
@@ -3636,7 +3555,6 @@ func (p *CreateLoadBalancerParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetNetworkid(v string) {
@@ -3644,7 +3562,6 @@ func (p *CreateLoadBalancerParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetScheme(v string) {
@@ -3652,7 +3569,6 @@ func (p *CreateLoadBalancerParams) SetScheme(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scheme"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetSourceipaddress(v string) {
@@ -3660,7 +3576,6 @@ func (p *CreateLoadBalancerParams) SetSourceipaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourceipaddress"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetSourceipaddressnetworkid(v string) {
@@ -3668,7 +3583,6 @@ func (p *CreateLoadBalancerParams) SetSourceipaddressnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourceipaddressnetworkid"] = v
-	return
 }
 
 func (p *CreateLoadBalancerParams) SetSourceport(v int) {
@@ -3676,7 +3590,6 @@ func (p *CreateLoadBalancerParams) SetSourceport(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourceport"] = v
-	return
 }
 
 // You should always use this function to get a new CreateLoadBalancerParams instance,
@@ -3843,7 +3756,6 @@ func (p *ListLoadBalancersParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetDomainid(v string) {
@@ -3851,7 +3763,6 @@ func (p *ListLoadBalancersParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetFordisplay(v bool) {
@@ -3859,7 +3770,6 @@ func (p *ListLoadBalancersParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetId(v string) {
@@ -3867,7 +3777,6 @@ func (p *ListLoadBalancersParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetIsrecursive(v bool) {
@@ -3875,7 +3784,6 @@ func (p *ListLoadBalancersParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetKeyword(v string) {
@@ -3883,7 +3791,6 @@ func (p *ListLoadBalancersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetListall(v bool) {
@@ -3891,7 +3798,6 @@ func (p *ListLoadBalancersParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetName(v string) {
@@ -3899,7 +3805,6 @@ func (p *ListLoadBalancersParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetNetworkid(v string) {
@@ -3907,7 +3812,6 @@ func (p *ListLoadBalancersParams) SetNetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["networkid"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetPage(v int) {
@@ -3915,7 +3819,6 @@ func (p *ListLoadBalancersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetPagesize(v int) {
@@ -3923,7 +3826,6 @@ func (p *ListLoadBalancersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetProjectid(v string) {
@@ -3931,7 +3833,6 @@ func (p *ListLoadBalancersParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetScheme(v string) {
@@ -3939,7 +3840,6 @@ func (p *ListLoadBalancersParams) SetScheme(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["scheme"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetSourceipaddress(v string) {
@@ -3947,7 +3847,6 @@ func (p *ListLoadBalancersParams) SetSourceipaddress(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourceipaddress"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetSourceipaddressnetworkid(v string) {
@@ -3955,7 +3854,6 @@ func (p *ListLoadBalancersParams) SetSourceipaddressnetworkid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["sourceipaddressnetworkid"] = v
-	return
 }
 
 func (p *ListLoadBalancersParams) SetTags(v map[string]string) {
@@ -3963,7 +3861,6 @@ func (p *ListLoadBalancersParams) SetTags(v map[string]string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["tags"] = v
-	return
 }
 
 // You should always use this function to get a new ListLoadBalancersParams instance,
@@ -4059,16 +3956,27 @@ func (s *LoadBalancerService) GetLoadBalancerByID(id string, opts ...OptionFunc)
 
 // Lists load balancers
 func (s *LoadBalancerService) ListLoadBalancers(p *ListLoadBalancersParams) (*ListLoadBalancersResponse, error) {
-	resp, err := s.cs.newRequest("listLoadBalancers", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListLoadBalancersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLoadBalancers", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListLoadBalancersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LoadBalancers = append(r.LoadBalancers, l.LoadBalancers...)
+
+		if r.Count != len(r.LoadBalancers) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LoadBalancers))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListLoadBalancersResponse struct {
@@ -4135,7 +4043,6 @@ func (p *DeleteLoadBalancerParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteLoadBalancerParams instance,
@@ -4209,7 +4116,6 @@ func (p *UpdateLoadBalancerParams) SetCustomid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerParams) SetFordisplay(v bool) {
@@ -4217,7 +4123,6 @@ func (p *UpdateLoadBalancerParams) SetFordisplay(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
-	return
 }
 
 func (p *UpdateLoadBalancerParams) SetId(v string) {
@@ -4225,7 +4130,6 @@ func (p *UpdateLoadBalancerParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateLoadBalancerParams instance,

@@ -754,7 +754,6 @@ func (s *service) generateParamSettersFunc(a *API) {
 			pn("		p.p = make(map[string]interface{})")
 			pn("	}")
 			pn("	p.p[\"%s\"] = v", ap.Name)
-			pn("	return")
 			pn("}")
 			pn("")
 			found[ap.Name] = true
@@ -1007,6 +1006,15 @@ func hasNameOrKeywordParamField(params APIParams) (v string, found bool) {
 	return v, found
 }
 
+func hasPageParamField(params APIParams) bool {
+	for _, p := range params {
+		if p.Name == "page" && mapType(p.Type) == "int" {
+			return true
+		}
+	}
+	return false
+}
+
 func hasIDParamField(params APIParams) bool {
 	for _, p := range params {
 		if p.Name == "id" && mapType(p.Type) == "string" {
@@ -1033,14 +1041,40 @@ func hasIDAndNameResponseField(resp APIResponses) bool {
 
 func (s *service) generateNewAPICallFunc(a *API) {
 	pn := s.pn
-	n := capitalize(a.Name)
+	fn := capitalize(a.Name)
+	ln := capitalize(strings.TrimPrefix(a.Name, "list"))
 
 	// Generate the function signature
 	pn("// %s", a.Description)
-	pn("func (s *%s) %s(p *%s) (*%s, error) {", s.name, n, n+"Params", n+"Response")
+	pn("func (s *%s) %s(p *%s) (*%s, error) {", s.name, fn, fn+"Params", fn+"Response")
 
 	// Generate the function body
-	if n == "QueryAsyncJobResult" {
+	switch {
+	case strings.HasPrefix(fn, "List") && hasPageParamField(a.Params):
+		pn("	var r, l %s", fn+"Response")
+		pn("	for page := 2; ; page++ {")
+		pn("		resp, err := s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
+		pn("		if err != nil {")
+		pn("			return nil, err")
+		pn("		}")
+		pn("")
+		pn("		if err := json.Unmarshal(resp, &l); err != nil {")
+		pn("			return nil, err")
+		pn("		}")
+		pn("")
+		pn("		r.Count = l.Count")
+		pn("		r.%s = append(r.%s, l.%s...)", ln, ln, ln)
+		pn("")
+		pn("		if r.Count != len(r.%s) {", ln)
+		pn("			return &r, nil")
+		pn("		}")
+		pn("")
+		pn("		p.SetPagesize(len(l.%s))", ln)
+		pn("		p.SetPage(page)")
+		pn("	}")
+		pn("}")
+		return
+	case fn == "QueryAsyncJobResult":
 		pn("	var resp json.RawMessage")
 		pn("	var err error")
 		pn("")
@@ -1052,21 +1086,21 @@ func (s *service) generateNewAPICallFunc(a *API) {
 		pn("		}")
 		pn("		time.Sleep(500 * time.Millisecond)")
 		pn("	}")
-	} else {
+	default:
 		pn("	resp, err := s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
 	}
 	pn("	if err != nil {")
 	pn("		return nil, err")
 	pn("	}")
 	pn("")
-	switch n {
+	switch fn {
 	case "CreateNetwork", "CreateNetworkOffering", "CreateSecurityGroup", "CreateServiceOffering", "CreateSSHKeyPair", "RegisterSSHKeyPair":
 		pn("	if resp, err = getRawValue(resp); err != nil {")
 		pn("		return nil, err")
 		pn("	}")
 		pn("")
 	}
-	pn("	var r %s", n+"Response")
+	pn("	var r %s", fn+"Response")
 	pn("	if err := json.Unmarshal(resp, &r); err != nil {")
 	pn("		return nil, err")
 	pn("	}")
@@ -1096,14 +1130,14 @@ func (s *service) generateNewAPICallFunc(a *API) {
 			pn("		}")
 			pn("")
 		}
-		if n == "AuthorizeSecurityGroupIngress" {
+		if fn == "AuthorizeSecurityGroupIngress" {
 			pn("		b, err = convertAuthorizeSecurityGroupIngressResponse(b)")
 			pn("		if err != nil {")
 			pn("			return nil, err")
 			pn("		}")
 			pn("")
 		}
-		if n == "AuthorizeSecurityGroupEgress" {
+		if fn == "AuthorizeSecurityGroupEgress" {
 			pn("		b, err = convertAuthorizeSecurityGroupEgressResponse(b)")
 			pn("		if err != nil {")
 			pn("			return nil, err")

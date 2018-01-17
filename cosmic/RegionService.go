@@ -49,7 +49,6 @@ func (p *AddRegionParams) SetEndpoint(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endpoint"] = v
-	return
 }
 
 func (p *AddRegionParams) SetId(v int) {
@@ -57,7 +56,6 @@ func (p *AddRegionParams) SetId(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *AddRegionParams) SetName(v string) {
@@ -65,7 +63,6 @@ func (p *AddRegionParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 // You should always use this function to get a new AddRegionParams instance,
@@ -128,7 +125,6 @@ func (p *UpdateRegionParams) SetEndpoint(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["endpoint"] = v
-	return
 }
 
 func (p *UpdateRegionParams) SetId(v int) {
@@ -136,7 +132,6 @@ func (p *UpdateRegionParams) SetId(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *UpdateRegionParams) SetName(v string) {
@@ -144,7 +139,6 @@ func (p *UpdateRegionParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 // You should always use this function to get a new UpdateRegionParams instance,
@@ -199,7 +193,6 @@ func (p *RemoveRegionParams) SetId(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new RemoveRegionParams instance,
@@ -265,7 +258,6 @@ func (p *ListRegionsParams) SetId(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ListRegionsParams) SetKeyword(v string) {
@@ -273,7 +265,6 @@ func (p *ListRegionsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListRegionsParams) SetName(v string) {
@@ -281,7 +272,6 @@ func (p *ListRegionsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListRegionsParams) SetPage(v int) {
@@ -289,7 +279,6 @@ func (p *ListRegionsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListRegionsParams) SetPagesize(v int) {
@@ -297,7 +286,6 @@ func (p *ListRegionsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 // You should always use this function to get a new ListRegionsParams instance,
@@ -310,16 +298,27 @@ func (s *RegionService) NewListRegionsParams() *ListRegionsParams {
 
 // Lists Regions
 func (s *RegionService) ListRegions(p *ListRegionsParams) (*ListRegionsResponse, error) {
-	resp, err := s.cs.newRequest("listRegions", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListRegionsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listRegions", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListRegionsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Regions = append(r.Regions, l.Regions...)
+
+		if r.Count != len(r.Regions) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Regions))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListRegionsResponse struct {

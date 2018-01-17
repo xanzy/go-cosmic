@@ -54,7 +54,6 @@ func (p *ResetSSHKeyForVirtualMachineParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ResetSSHKeyForVirtualMachineParams) SetDomainid(v string) {
@@ -62,7 +61,6 @@ func (p *ResetSSHKeyForVirtualMachineParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ResetSSHKeyForVirtualMachineParams) SetId(v string) {
@@ -70,7 +68,6 @@ func (p *ResetSSHKeyForVirtualMachineParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 func (p *ResetSSHKeyForVirtualMachineParams) SetKeypair(v string) {
@@ -78,7 +75,6 @@ func (p *ResetSSHKeyForVirtualMachineParams) SetKeypair(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keypair"] = v
-	return
 }
 
 func (p *ResetSSHKeyForVirtualMachineParams) SetProjectid(v string) {
@@ -86,7 +82,6 @@ func (p *ResetSSHKeyForVirtualMachineParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new ResetSSHKeyForVirtualMachineParams instance,
@@ -342,7 +337,6 @@ func (p *RegisterSSHKeyPairParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *RegisterSSHKeyPairParams) SetDomainid(v string) {
@@ -350,7 +344,6 @@ func (p *RegisterSSHKeyPairParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *RegisterSSHKeyPairParams) SetName(v string) {
@@ -358,7 +351,6 @@ func (p *RegisterSSHKeyPairParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *RegisterSSHKeyPairParams) SetProjectid(v string) {
@@ -366,7 +358,6 @@ func (p *RegisterSSHKeyPairParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 func (p *RegisterSSHKeyPairParams) SetPublickey(v string) {
@@ -374,7 +365,6 @@ func (p *RegisterSSHKeyPairParams) SetPublickey(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["publickey"] = v
-	return
 }
 
 // You should always use this function to get a new RegisterSSHKeyPairParams instance,
@@ -442,7 +432,6 @@ func (p *CreateSSHKeyPairParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *CreateSSHKeyPairParams) SetDomainid(v string) {
@@ -450,7 +439,6 @@ func (p *CreateSSHKeyPairParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *CreateSSHKeyPairParams) SetName(v string) {
@@ -458,7 +446,6 @@ func (p *CreateSSHKeyPairParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *CreateSSHKeyPairParams) SetProjectid(v string) {
@@ -466,7 +453,6 @@ func (p *CreateSSHKeyPairParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new CreateSSHKeyPairParams instance,
@@ -529,7 +515,6 @@ func (p *DeleteSSHKeyPairParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *DeleteSSHKeyPairParams) SetDomainid(v string) {
@@ -537,7 +522,6 @@ func (p *DeleteSSHKeyPairParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *DeleteSSHKeyPairParams) SetName(v string) {
@@ -545,7 +529,6 @@ func (p *DeleteSSHKeyPairParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *DeleteSSHKeyPairParams) SetProjectid(v string) {
@@ -553,7 +536,6 @@ func (p *DeleteSSHKeyPairParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new DeleteSSHKeyPairParams instance,
@@ -635,7 +617,6 @@ func (p *ListSSHKeyPairsParams) SetAccount(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetDomainid(v string) {
@@ -643,7 +624,6 @@ func (p *ListSSHKeyPairsParams) SetDomainid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetFingerprint(v string) {
@@ -651,7 +631,6 @@ func (p *ListSSHKeyPairsParams) SetFingerprint(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fingerprint"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetIsrecursive(v bool) {
@@ -659,7 +638,6 @@ func (p *ListSSHKeyPairsParams) SetIsrecursive(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["isrecursive"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetKeyword(v string) {
@@ -667,7 +645,6 @@ func (p *ListSSHKeyPairsParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetListall(v bool) {
@@ -675,7 +652,6 @@ func (p *ListSSHKeyPairsParams) SetListall(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["listall"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetName(v string) {
@@ -683,7 +659,6 @@ func (p *ListSSHKeyPairsParams) SetName(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetPage(v int) {
@@ -691,7 +666,6 @@ func (p *ListSSHKeyPairsParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetPagesize(v int) {
@@ -699,7 +673,6 @@ func (p *ListSSHKeyPairsParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListSSHKeyPairsParams) SetProjectid(v string) {
@@ -707,7 +680,6 @@ func (p *ListSSHKeyPairsParams) SetProjectid(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
-	return
 }
 
 // You should always use this function to get a new ListSSHKeyPairsParams instance,
@@ -720,16 +692,27 @@ func (s *SSHService) NewListSSHKeyPairsParams() *ListSSHKeyPairsParams {
 
 // List registered keypairs
 func (s *SSHService) ListSSHKeyPairs(p *ListSSHKeyPairsParams) (*ListSSHKeyPairsResponse, error) {
-	resp, err := s.cs.newRequest("listSSHKeyPairs", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListSSHKeyPairsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listSSHKeyPairs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListSSHKeyPairsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.SSHKeyPairs = append(r.SSHKeyPairs, l.SSHKeyPairs...)
+
+		if r.Count != len(r.SSHKeyPairs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.SSHKeyPairs))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListSSHKeyPairsResponse struct {

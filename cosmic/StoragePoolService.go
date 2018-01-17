@@ -53,7 +53,6 @@ func (p *ListStorageProvidersParams) SetKeyword(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
-	return
 }
 
 func (p *ListStorageProvidersParams) SetPage(v int) {
@@ -61,7 +60,6 @@ func (p *ListStorageProvidersParams) SetPage(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
-	return
 }
 
 func (p *ListStorageProvidersParams) SetPagesize(v int) {
@@ -69,7 +67,6 @@ func (p *ListStorageProvidersParams) SetPagesize(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
-	return
 }
 
 func (p *ListStorageProvidersParams) SetType(v string) {
@@ -77,7 +74,6 @@ func (p *ListStorageProvidersParams) SetType(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["type"] = v
-	return
 }
 
 // You should always use this function to get a new ListStorageProvidersParams instance,
@@ -91,16 +87,27 @@ func (s *StoragePoolService) NewListStorageProvidersParams(storagePoolType strin
 
 // Lists storage providers.
 func (s *StoragePoolService) ListStorageProviders(p *ListStorageProvidersParams) (*ListStorageProvidersResponse, error) {
-	resp, err := s.cs.newRequest("listStorageProviders", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
+	var r, l ListStorageProvidersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listStorageProviders", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
 
-	var r ListStorageProvidersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.StorageProviders = append(r.StorageProviders, l.StorageProviders...)
+
+		if r.Count != len(r.StorageProviders) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.StorageProviders))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
 type ListStorageProvidersResponse struct {
@@ -133,7 +140,6 @@ func (p *EnableStorageMaintenanceParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new EnableStorageMaintenanceParams instance,
@@ -226,7 +232,6 @@ func (p *CancelStorageMaintenanceParams) SetId(v string) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
-	return
 }
 
 // You should always use this function to get a new CancelStorageMaintenanceParams instance,
