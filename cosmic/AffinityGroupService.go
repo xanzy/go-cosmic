@@ -259,6 +259,92 @@ type DeleteAffinityGroupResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
+type ListAffinityGroupTypesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListAffinityGroupTypesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListAffinityGroupTypesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListAffinityGroupTypesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListAffinityGroupTypesParams instance,
+// as then you are sure you have configured all required params
+func (s *AffinityGroupService) NewListAffinityGroupTypesParams() *ListAffinityGroupTypesParams {
+	p := &ListAffinityGroupTypesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists affinity group types available
+func (s *AffinityGroupService) ListAffinityGroupTypes(p *ListAffinityGroupTypesParams) (*ListAffinityGroupTypesResponse, error) {
+	var r, l ListAffinityGroupTypesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listAffinityGroupTypes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.AffinityGroupTypes = append(r.AffinityGroupTypes, l.AffinityGroupTypes...)
+
+		if r.Count != len(r.AffinityGroupTypes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.AffinityGroupTypes))
+		p.SetPage(page)
+	}
+}
+
+type ListAffinityGroupTypesResponse struct {
+	Count              int                  `json:"count"`
+	AffinityGroupTypes []*AffinityGroupType `json:"affinitygrouptype"`
+}
+
+type AffinityGroupType struct {
+	Type string `json:"type,omitempty"`
+}
+
 type ListAffinityGroupsParams struct {
 	p map[string]interface{}
 }
@@ -799,90 +885,4 @@ type UpdateVMAffinityGroupResponse struct {
 	Vgpu                string `json:"vgpu,omitempty"`
 	Zoneid              string `json:"zoneid,omitempty"`
 	Zonename            string `json:"zonename,omitempty"`
-}
-
-type ListAffinityGroupTypesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListAffinityGroupTypesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListAffinityGroupTypesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListAffinityGroupTypesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListAffinityGroupTypesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListAffinityGroupTypesParams instance,
-// as then you are sure you have configured all required params
-func (s *AffinityGroupService) NewListAffinityGroupTypesParams() *ListAffinityGroupTypesParams {
-	p := &ListAffinityGroupTypesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists affinity group types available
-func (s *AffinityGroupService) ListAffinityGroupTypes(p *ListAffinityGroupTypesParams) (*ListAffinityGroupTypesResponse, error) {
-	var r, l ListAffinityGroupTypesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listAffinityGroupTypes", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.AffinityGroupTypes = append(r.AffinityGroupTypes, l.AffinityGroupTypes...)
-
-		if r.Count != len(r.AffinityGroupTypes) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.AffinityGroupTypes))
-		p.SetPage(page)
-	}
-}
-
-type ListAffinityGroupTypesResponse struct {
-	Count              int                  `json:"count"`
-	AffinityGroupTypes []*AffinityGroupType `json:"affinitygrouptype"`
-}
-
-type AffinityGroupType struct {
-	Type string `json:"type,omitempty"`
 }

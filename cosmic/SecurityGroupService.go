@@ -305,286 +305,6 @@ type DeleteSecurityGroupResponse struct {
 	Success     string `json:"success,omitempty"`
 }
 
-type AuthorizeSecurityGroupIngressParams struct {
-	p map[string]interface{}
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["cidrlist"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("cidrlist", vv)
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["endport"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("endport", vv)
-	}
-	if v, found := p.p["icmpcode"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("icmpcode", vv)
-	}
-	if v, found := p.p["icmptype"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("icmptype", vv)
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["protocol"]; found {
-		u.Set("protocol", v.(string))
-	}
-	if v, found := p.p["securitygroupid"]; found {
-		u.Set("securitygroupid", v.(string))
-	}
-	if v, found := p.p["securitygroupname"]; found {
-		u.Set("securitygroupname", v.(string))
-	}
-	if v, found := p.p["startport"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("startport", vv)
-	}
-	if v, found := p.p["usersecuritygrouplist"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].account", i), k)
-			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetCidrlist(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["cidrlist"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetEndport(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["endport"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetIcmpcode(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["icmpcode"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetIcmptype(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["icmptype"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetProtocol(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["protocol"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["securitygroupid"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["securitygroupname"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetStartport(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["startport"] = v
-}
-
-func (p *AuthorizeSecurityGroupIngressParams) SetUsersecuritygrouplist(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["usersecuritygrouplist"] = v
-}
-
-// You should always use this function to get a new AuthorizeSecurityGroupIngressParams instance,
-// as then you are sure you have configured all required params
-func (s *SecurityGroupService) NewAuthorizeSecurityGroupIngressParams() *AuthorizeSecurityGroupIngressParams {
-	p := &AuthorizeSecurityGroupIngressParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Authorizes a particular ingress rule for this security group
-func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurityGroupIngressParams) (*AuthorizeSecurityGroupIngressResponse, error) {
-	resp, err := s.cs.newRequest("authorizeSecurityGroupIngress", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AuthorizeSecurityGroupIngressResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		b, err = convertAuthorizeSecurityGroupIngressResponse(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AuthorizeSecurityGroupIngressResponse struct {
-	JobID             string `json:"jobid,omitempty"`
-	Account           string `json:"account,omitempty"`
-	Cidr              string `json:"cidr,omitempty"`
-	Endport           int    `json:"endport,omitempty"`
-	Icmpcode          int    `json:"icmpcode,omitempty"`
-	Icmptype          int    `json:"icmptype,omitempty"`
-	Protocol          string `json:"protocol,omitempty"`
-	Ruleid            string `json:"ruleid,omitempty"`
-	Securitygroupname string `json:"securitygroupname,omitempty"`
-	Startport         int    `json:"startport,omitempty"`
-	Tags              []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-}
-
-type RevokeSecurityGroupIngressParams struct {
-	p map[string]interface{}
-}
-
-func (p *RevokeSecurityGroupIngressParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *RevokeSecurityGroupIngressParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new RevokeSecurityGroupIngressParams instance,
-// as then you are sure you have configured all required params
-func (s *SecurityGroupService) NewRevokeSecurityGroupIngressParams(id string) *RevokeSecurityGroupIngressParams {
-	p := &RevokeSecurityGroupIngressParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a particular ingress rule from this security group
-func (s *SecurityGroupService) RevokeSecurityGroupIngress(p *RevokeSecurityGroupIngressParams) (*RevokeSecurityGroupIngressResponse, error) {
-	resp, err := s.cs.newRequest("revokeSecurityGroupIngress", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RevokeSecurityGroupIngressResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type RevokeSecurityGroupIngressResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
 type AuthorizeSecurityGroupEgressParams struct {
 	p map[string]interface{}
 }
@@ -860,6 +580,286 @@ func (s *SecurityGroupService) RevokeSecurityGroupEgress(p *RevokeSecurityGroupE
 }
 
 type RevokeSecurityGroupEgressResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type AuthorizeSecurityGroupIngressParams struct {
+	p map[string]interface{}
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["cidrlist"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("cidrlist", vv)
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["endport"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("endport", vv)
+	}
+	if v, found := p.p["icmpcode"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("icmpcode", vv)
+	}
+	if v, found := p.p["icmptype"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("icmptype", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["protocol"]; found {
+		u.Set("protocol", v.(string))
+	}
+	if v, found := p.p["securitygroupid"]; found {
+		u.Set("securitygroupid", v.(string))
+	}
+	if v, found := p.p["securitygroupname"]; found {
+		u.Set("securitygroupname", v.(string))
+	}
+	if v, found := p.p["startport"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("startport", vv)
+	}
+	if v, found := p.p["usersecuritygrouplist"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].account", i), k)
+			u.Set(fmt.Sprintf("usersecuritygrouplist[%d].group", i), vv)
+			i++
+		}
+	}
+	return u
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetCidrlist(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cidrlist"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetEndport(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["endport"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetIcmpcode(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["icmpcode"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetIcmptype(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["icmptype"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetProtocol(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["protocol"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["securitygroupid"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetSecuritygroupname(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["securitygroupname"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetStartport(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startport"] = v
+}
+
+func (p *AuthorizeSecurityGroupIngressParams) SetUsersecuritygrouplist(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["usersecuritygrouplist"] = v
+}
+
+// You should always use this function to get a new AuthorizeSecurityGroupIngressParams instance,
+// as then you are sure you have configured all required params
+func (s *SecurityGroupService) NewAuthorizeSecurityGroupIngressParams() *AuthorizeSecurityGroupIngressParams {
+	p := &AuthorizeSecurityGroupIngressParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Authorizes a particular ingress rule for this security group
+func (s *SecurityGroupService) AuthorizeSecurityGroupIngress(p *AuthorizeSecurityGroupIngressParams) (*AuthorizeSecurityGroupIngressResponse, error) {
+	resp, err := s.cs.newRequest("authorizeSecurityGroupIngress", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AuthorizeSecurityGroupIngressResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err = convertAuthorizeSecurityGroupIngressResponse(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type AuthorizeSecurityGroupIngressResponse struct {
+	JobID             string `json:"jobid,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Cidr              string `json:"cidr,omitempty"`
+	Endport           int    `json:"endport,omitempty"`
+	Icmpcode          int    `json:"icmpcode,omitempty"`
+	Icmptype          int    `json:"icmptype,omitempty"`
+	Protocol          string `json:"protocol,omitempty"`
+	Ruleid            string `json:"ruleid,omitempty"`
+	Securitygroupname string `json:"securitygroupname,omitempty"`
+	Startport         int    `json:"startport,omitempty"`
+	Tags              []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+}
+
+type RevokeSecurityGroupIngressParams struct {
+	p map[string]interface{}
+}
+
+func (p *RevokeSecurityGroupIngressParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *RevokeSecurityGroupIngressParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new RevokeSecurityGroupIngressParams instance,
+// as then you are sure you have configured all required params
+func (s *SecurityGroupService) NewRevokeSecurityGroupIngressParams(id string) *RevokeSecurityGroupIngressParams {
+	p := &RevokeSecurityGroupIngressParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a particular ingress rule from this security group
+func (s *SecurityGroupService) RevokeSecurityGroupIngress(p *RevokeSecurityGroupIngressParams) (*RevokeSecurityGroupIngressResponse, error) {
+	resp, err := s.cs.newRequest("revokeSecurityGroupIngress", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RevokeSecurityGroupIngressResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type RevokeSecurityGroupIngressResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`

@@ -24,6 +24,141 @@ import (
 	"strings"
 )
 
+type GetUploadParamsForVolumeParams struct {
+	p map[string]interface{}
+}
+
+func (p *GetUploadParamsForVolumeParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["checksum"]; found {
+		u.Set("checksum", v.(string))
+	}
+	if v, found := p.p["diskofferingid"]; found {
+		u.Set("diskofferingid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["format"]; found {
+		u.Set("format", v.(string))
+	}
+	if v, found := p.p["imagestoreuuid"]; found {
+		u.Set("imagestoreuuid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *GetUploadParamsForVolumeParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetChecksum(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["checksum"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetDiskofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["diskofferingid"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetFormat(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["format"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetImagestoreuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["imagestoreuuid"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *GetUploadParamsForVolumeParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new GetUploadParamsForVolumeParams instance,
+// as then you are sure you have configured all required params
+func (s *VolumeService) NewGetUploadParamsForVolumeParams(format string, name string, zoneid string) *GetUploadParamsForVolumeParams {
+	p := &GetUploadParamsForVolumeParams{}
+	p.p = make(map[string]interface{})
+	p.p["format"] = format
+	p.p["name"] = name
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Upload a data disk to the cloudstack cloud.
+func (s *VolumeService) GetUploadParamsForVolume(p *GetUploadParamsForVolumeParams) (*GetUploadParamsForVolumeResponse, error) {
+	resp, err := s.cs.newRequest("getUploadParamsForVolume", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GetUploadParamsForVolumeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type GetUploadParamsForVolumeResponse struct {
+	Expires   string `json:"expires,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Metadata  string `json:"metadata,omitempty"`
+	PostURL   string `json:"postURL,omitempty"`
+	Signature string `json:"signature,omitempty"`
+}
+
 type AttachVolumeParams struct {
 	p map[string]interface{}
 }
@@ -112,381 +247,6 @@ func (s *VolumeService) AttachVolume(p *AttachVolumeParams) (*AttachVolumeRespon
 }
 
 type AttachVolumeResponse struct {
-	JobID                      string `json:"jobid,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Chaininfo                  string `json:"chaininfo,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int64  `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Domainid                   string `json:"domainid,omitempty"`
-	Hypervisor                 string `json:"hypervisor,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Isextractable              bool   `json:"isextractable,omitempty"`
-	Isodisplaytext             string `json:"isodisplaytext,omitempty"`
-	Isoid                      string `json:"isoid,omitempty"`
-	Isoname                    string `json:"isoname,omitempty"`
-	Maxiops                    int64  `json:"maxiops,omitempty"`
-	Miniops                    int64  `json:"miniops,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Project                    string `json:"project,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	Provisioningtype           string `json:"provisioningtype,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int64  `json:"size,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-}
-
-type UploadVolumeParams struct {
-	p map[string]interface{}
-}
-
-func (p *UploadVolumeParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["checksum"]; found {
-		u.Set("checksum", v.(string))
-	}
-	if v, found := p.p["diskofferingid"]; found {
-		u.Set("diskofferingid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["format"]; found {
-		u.Set("format", v.(string))
-	}
-	if v, found := p.p["imagestoreuuid"]; found {
-		u.Set("imagestoreuuid", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *UploadVolumeParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *UploadVolumeParams) SetChecksum(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["checksum"] = v
-}
-
-func (p *UploadVolumeParams) SetDiskofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["diskofferingid"] = v
-}
-
-func (p *UploadVolumeParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *UploadVolumeParams) SetFormat(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["format"] = v
-}
-
-func (p *UploadVolumeParams) SetImagestoreuuid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["imagestoreuuid"] = v
-}
-
-func (p *UploadVolumeParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *UploadVolumeParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *UploadVolumeParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-}
-
-func (p *UploadVolumeParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new UploadVolumeParams instance,
-// as then you are sure you have configured all required params
-func (s *VolumeService) NewUploadVolumeParams(format string, name string, url string, zoneid string) *UploadVolumeParams {
-	p := &UploadVolumeParams{}
-	p.p = make(map[string]interface{})
-	p.p["format"] = format
-	p.p["name"] = name
-	p.p["url"] = url
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Uploads a data disk.
-func (s *VolumeService) UploadVolume(p *UploadVolumeParams) (*UploadVolumeResponse, error) {
-	resp, err := s.cs.newRequest("uploadVolume", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UploadVolumeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UploadVolumeResponse struct {
-	JobID                      string `json:"jobid,omitempty"`
-	Account                    string `json:"account,omitempty"`
-	Attached                   string `json:"attached,omitempty"`
-	Chaininfo                  string `json:"chaininfo,omitempty"`
-	Created                    string `json:"created,omitempty"`
-	Destroyed                  bool   `json:"destroyed,omitempty"`
-	Deviceid                   int64  `json:"deviceid,omitempty"`
-	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
-	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
-	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
-	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
-	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
-	Diskofferingid             string `json:"diskofferingid,omitempty"`
-	Diskofferingname           string `json:"diskofferingname,omitempty"`
-	Displayvolume              bool   `json:"displayvolume,omitempty"`
-	Domain                     string `json:"domain,omitempty"`
-	Domainid                   string `json:"domainid,omitempty"`
-	Hypervisor                 string `json:"hypervisor,omitempty"`
-	Id                         string `json:"id,omitempty"`
-	Isextractable              bool   `json:"isextractable,omitempty"`
-	Isodisplaytext             string `json:"isodisplaytext,omitempty"`
-	Isoid                      string `json:"isoid,omitempty"`
-	Isoname                    string `json:"isoname,omitempty"`
-	Maxiops                    int64  `json:"maxiops,omitempty"`
-	Miniops                    int64  `json:"miniops,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	Path                       string `json:"path,omitempty"`
-	Project                    string `json:"project,omitempty"`
-	Projectid                  string `json:"projectid,omitempty"`
-	Provisioningtype           string `json:"provisioningtype,omitempty"`
-	Quiescevm                  bool   `json:"quiescevm,omitempty"`
-	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
-	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
-	Size                       int64  `json:"size,omitempty"`
-	Snapshotid                 string `json:"snapshotid,omitempty"`
-	State                      string `json:"state,omitempty"`
-	Status                     string `json:"status,omitempty"`
-	Storage                    string `json:"storage,omitempty"`
-	Storageid                  string `json:"storageid,omitempty"`
-	Storagetype                string `json:"storagetype,omitempty"`
-	Tags                       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Templatename        string `json:"templatename,omitempty"`
-	Type                string `json:"type,omitempty"`
-	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
-	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
-	Vmname              string `json:"vmname,omitempty"`
-	Vmstate             string `json:"vmstate,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-}
-
-type DetachVolumeParams struct {
-	p map[string]interface{}
-}
-
-func (p *DetachVolumeParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["deviceid"]; found {
-		vv := strconv.FormatInt(v.(int64), 10)
-		u.Set("deviceid", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["virtualmachineid"]; found {
-		u.Set("virtualmachineid", v.(string))
-	}
-	return u
-}
-
-func (p *DetachVolumeParams) SetDeviceid(v int64) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["deviceid"] = v
-}
-
-func (p *DetachVolumeParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *DetachVolumeParams) SetVirtualmachineid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineid"] = v
-}
-
-// You should always use this function to get a new DetachVolumeParams instance,
-// as then you are sure you have configured all required params
-func (s *VolumeService) NewDetachVolumeParams() *DetachVolumeParams {
-	p := &DetachVolumeParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Detaches a disk volume from a virtual machine.
-func (s *VolumeService) DetachVolume(p *DetachVolumeParams) (*DetachVolumeResponse, error) {
-	resp, err := s.cs.newRequest("detachVolume", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DetachVolumeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DetachVolumeResponse struct {
 	JobID                      string `json:"jobid,omitempty"`
 	Account                    string `json:"account,omitempty"`
 	Attached                   string `json:"attached,omitempty"`
@@ -856,340 +616,93 @@ type DeleteVolumeResponse struct {
 	Success     string `json:"success,omitempty"`
 }
 
-type ListVolumesParams struct {
+type DetachVolumeParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListVolumesParams) toURLValues() url.Values {
+func (p *DetachVolumeParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["diskofferingid"]; found {
-		u.Set("diskofferingid", v.(string))
-	}
-	if v, found := p.p["displayvolume"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("displayvolume", vv)
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
+	if v, found := p.p["deviceid"]; found {
+		vv := strconv.FormatInt(v.(int64), 10)
+		u.Set("deviceid", vv)
 	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
-	if v, found := p.p["isrecursive"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrecursive", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listall"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("listall", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["type"]; found {
-		u.Set("type", v.(string))
-	}
 	if v, found := p.p["virtualmachineid"]; found {
 		u.Set("virtualmachineid", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
 	}
 	return u
 }
 
-func (p *ListVolumesParams) SetAccount(v string) {
+func (p *DetachVolumeParams) SetDeviceid(v int64) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["account"] = v
+	p.p["deviceid"] = v
 }
 
-func (p *ListVolumesParams) SetDiskofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["diskofferingid"] = v
-}
-
-func (p *ListVolumesParams) SetDisplayvolume(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["displayvolume"] = v
-}
-
-func (p *ListVolumesParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListVolumesParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-func (p *ListVolumesParams) SetId(v string) {
+func (p *DetachVolumeParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *ListVolumesParams) SetIsrecursive(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isrecursive"] = v
-}
-
-func (p *ListVolumesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListVolumesParams) SetListall(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listall"] = v
-}
-
-func (p *ListVolumesParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *ListVolumesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListVolumesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListVolumesParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-func (p *ListVolumesParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *ListVolumesParams) SetStorageid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["storageid"] = v
-}
-
-func (p *ListVolumesParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-func (p *ListVolumesParams) SetType(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-}
-
-func (p *ListVolumesParams) SetVirtualmachineid(v string) {
+func (p *DetachVolumeParams) SetVirtualmachineid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["virtualmachineid"] = v
 }
 
-func (p *ListVolumesParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new ListVolumesParams instance,
+// You should always use this function to get a new DetachVolumeParams instance,
 // as then you are sure you have configured all required params
-func (s *VolumeService) NewListVolumesParams() *ListVolumesParams {
-	p := &ListVolumesParams{}
+func (s *VolumeService) NewDetachVolumeParams() *DetachVolumeParams {
+	p := &DetachVolumeParams{}
 	p.p = make(map[string]interface{})
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VolumeService) GetVolumeID(name string, opts ...OptionFunc) (string, int, error) {
-	p := &ListVolumesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["name"] = name
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListVolumes(p)
+// Detaches a disk volume from a virtual machine.
+func (s *VolumeService) DetachVolume(p *DetachVolumeParams) (*DetachVolumeResponse, error) {
+	resp, err := s.cs.newRequest("detachVolume", p.toURLValues())
 	if err != nil {
-		return "", -1, err
+		return nil, err
 	}
 
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	var r DetachVolumeResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
 	}
 
-	if l.Count == 1 {
-		return l.Volumes[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.Volumes {
-			if v.Name == name {
-				return v.Id, l.Count, nil
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
 			}
+			return nil, err
 		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
-}
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VolumeService) GetVolumeByName(name string, opts ...OptionFunc) (*Volume, int, error) {
-	id, count, err := s.GetVolumeID(name, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-
-	r, count, err := s.GetVolumeByID(id, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-	return r, count, nil
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *VolumeService) GetVolumeByID(id string, opts ...OptionFunc) (*Volume, int, error) {
-	p := &ListVolumesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListVolumes(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.Volumes[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for Volume UUID: %s!", id)
-}
-
-// Lists all volumes.
-func (s *VolumeService) ListVolumes(p *ListVolumesParams) (*ListVolumesResponse, error) {
-	var r, l ListVolumesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listVolumes", p.toURLValues())
+		b, err = getRawValue(b)
 		if err != nil {
 			return nil, err
 		}
 
-		if err := json.Unmarshal(resp, &l); err != nil {
+		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
-
-		r.Count = l.Count
-		r.Volumes = append(r.Volumes, l.Volumes...)
-
-		if r.Count != len(r.Volumes) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.Volumes))
-		p.SetPage(page)
 	}
+	return &r, nil
 }
 
-type ListVolumesResponse struct {
-	Count   int       `json:"count"`
-	Volumes []*Volume `json:"volume"`
-}
-
-type Volume struct {
+type DetachVolumeResponse struct {
+	JobID                      string `json:"jobid,omitempty"`
 	Account                    string `json:"account,omitempty"`
 	Attached                   string `json:"attached,omitempty"`
 	Chaininfo                  string `json:"chaininfo,omitempty"`
@@ -1898,11 +1411,11 @@ type UpdateVolumeResponse struct {
 	Zonename            string `json:"zonename,omitempty"`
 }
 
-type GetUploadParamsForVolumeParams struct {
+type UploadVolumeParams struct {
 	p map[string]interface{}
 }
 
-func (p *GetUploadParamsForVolumeParams) toURLValues() url.Values {
+func (p *UploadVolumeParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -1931,104 +1444,597 @@ func (p *GetUploadParamsForVolumeParams) toURLValues() url.Values {
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
 	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
 	if v, found := p.p["zoneid"]; found {
 		u.Set("zoneid", v.(string))
 	}
 	return u
 }
 
-func (p *GetUploadParamsForVolumeParams) SetAccount(v string) {
+func (p *UploadVolumeParams) SetAccount(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["account"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetChecksum(v string) {
+func (p *UploadVolumeParams) SetChecksum(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["checksum"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetDiskofferingid(v string) {
+func (p *UploadVolumeParams) SetDiskofferingid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["diskofferingid"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetDomainid(v string) {
+func (p *UploadVolumeParams) SetDomainid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["domainid"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetFormat(v string) {
+func (p *UploadVolumeParams) SetFormat(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["format"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetImagestoreuuid(v string) {
+func (p *UploadVolumeParams) SetImagestoreuuid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["imagestoreuuid"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetName(v string) {
+func (p *UploadVolumeParams) SetName(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetProjectid(v string) {
+func (p *UploadVolumeParams) SetProjectid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["projectid"] = v
 }
 
-func (p *GetUploadParamsForVolumeParams) SetZoneid(v string) {
+func (p *UploadVolumeParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+}
+
+func (p *UploadVolumeParams) SetZoneid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["zoneid"] = v
 }
 
-// You should always use this function to get a new GetUploadParamsForVolumeParams instance,
+// You should always use this function to get a new UploadVolumeParams instance,
 // as then you are sure you have configured all required params
-func (s *VolumeService) NewGetUploadParamsForVolumeParams(format string, name string, zoneid string) *GetUploadParamsForVolumeParams {
-	p := &GetUploadParamsForVolumeParams{}
+func (s *VolumeService) NewUploadVolumeParams(format string, name string, url string, zoneid string) *UploadVolumeParams {
+	p := &UploadVolumeParams{}
 	p.p = make(map[string]interface{})
 	p.p["format"] = format
 	p.p["name"] = name
+	p.p["url"] = url
 	p.p["zoneid"] = zoneid
 	return p
 }
 
-// Upload a data disk to the cloudstack cloud.
-func (s *VolumeService) GetUploadParamsForVolume(p *GetUploadParamsForVolumeParams) (*GetUploadParamsForVolumeResponse, error) {
-	resp, err := s.cs.newRequest("getUploadParamsForVolume", p.toURLValues())
+// Uploads a data disk.
+func (s *VolumeService) UploadVolume(p *UploadVolumeParams) (*UploadVolumeResponse, error) {
+	resp, err := s.cs.newRequest("uploadVolume", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r GetUploadParamsForVolumeResponse
+	var r UploadVolumeResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
 	}
 	return &r, nil
 }
 
-type GetUploadParamsForVolumeResponse struct {
-	Expires   string `json:"expires,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Metadata  string `json:"metadata,omitempty"`
-	PostURL   string `json:"postURL,omitempty"`
-	Signature string `json:"signature,omitempty"`
+type UploadVolumeResponse struct {
+	JobID                      string `json:"jobid,omitempty"`
+	Account                    string `json:"account,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Chaininfo                  string `json:"chaininfo,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	Domainid                   string `json:"domainid,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Isodisplaytext             string `json:"isodisplaytext,omitempty"`
+	Isoid                      string `json:"isoid,omitempty"`
+	Isoname                    string `json:"isoname,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Provisioningtype           string `json:"provisioningtype,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	State                      string `json:"state,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
+	Tags                       []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Templatename        string `json:"templatename,omitempty"`
+	Type                string `json:"type,omitempty"`
+	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
+	Vmname              string `json:"vmname,omitempty"`
+	Vmstate             string `json:"vmstate,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
+}
+
+type ListVolumesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListVolumesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["diskofferingid"]; found {
+		u.Set("diskofferingid", v.(string))
+	}
+	if v, found := p.p["displayvolume"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("displayvolume", vv)
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["isrecursive"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isrecursive", vv)
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listall"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("listall", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["storageid"]; found {
+		u.Set("storageid", v.(string))
+	}
+	if v, found := p.p["storageid"]; found {
+		u.Set("storageid", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	if v, found := p.p["virtualmachineid"]; found {
+		u.Set("virtualmachineid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListVolumesParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *ListVolumesParams) SetDiskofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["diskofferingid"] = v
+}
+
+func (p *ListVolumesParams) SetDisplayvolume(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displayvolume"] = v
+}
+
+func (p *ListVolumesParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListVolumesParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *ListVolumesParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ListVolumesParams) SetIsrecursive(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isrecursive"] = v
+}
+
+func (p *ListVolumesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListVolumesParams) SetListall(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listall"] = v
+}
+
+func (p *ListVolumesParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *ListVolumesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListVolumesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListVolumesParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+func (p *ListVolumesParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *ListVolumesParams) SetStorageid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["storageid"] = v
+}
+
+func (p *ListVolumesParams) SetTags(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+}
+
+func (p *ListVolumesParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+}
+
+func (p *ListVolumesParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+}
+
+func (p *ListVolumesParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new ListVolumesParams instance,
+// as then you are sure you have configured all required params
+func (s *VolumeService) NewListVolumesParams() *ListVolumesParams {
+	p := &ListVolumesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeID(name string, opts ...OptionFunc) (string, int, error) {
+	p := &ListVolumesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["name"] = name
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListVolumes(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	}
+
+	if l.Count == 1 {
+		return l.Volumes[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.Volumes {
+			if v.Name == name {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByName(name string, opts ...OptionFunc) (*Volume, int, error) {
+	id, count, err := s.GetVolumeID(name, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+
+	r, count, err := s.GetVolumeByID(id, opts...)
+	if err != nil {
+		return nil, count, err
+	}
+	return r, count, nil
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *VolumeService) GetVolumeByID(id string, opts ...OptionFunc) (*Volume, int, error) {
+	p := &ListVolumesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListVolumes(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.Volumes[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for Volume UUID: %s!", id)
+}
+
+// Lists all volumes.
+func (s *VolumeService) ListVolumes(p *ListVolumesParams) (*ListVolumesResponse, error) {
+	var r, l ListVolumesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVolumes", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.Volumes = append(r.Volumes, l.Volumes...)
+
+		if r.Count != len(r.Volumes) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Volumes))
+		p.SetPage(page)
+	}
+}
+
+type ListVolumesResponse struct {
+	Count   int       `json:"count"`
+	Volumes []*Volume `json:"volume"`
+}
+
+type Volume struct {
+	Account                    string `json:"account,omitempty"`
+	Attached                   string `json:"attached,omitempty"`
+	Chaininfo                  string `json:"chaininfo,omitempty"`
+	Created                    string `json:"created,omitempty"`
+	Destroyed                  bool   `json:"destroyed,omitempty"`
+	Deviceid                   int64  `json:"deviceid,omitempty"`
+	DiskBytesReadRate          int64  `json:"diskBytesReadRate,omitempty"`
+	DiskBytesWriteRate         int64  `json:"diskBytesWriteRate,omitempty"`
+	DiskIopsReadRate           int64  `json:"diskIopsReadRate,omitempty"`
+	DiskIopsWriteRate          int64  `json:"diskIopsWriteRate,omitempty"`
+	Diskofferingdisplaytext    string `json:"diskofferingdisplaytext,omitempty"`
+	Diskofferingid             string `json:"diskofferingid,omitempty"`
+	Diskofferingname           string `json:"diskofferingname,omitempty"`
+	Displayvolume              bool   `json:"displayvolume,omitempty"`
+	Domain                     string `json:"domain,omitempty"`
+	Domainid                   string `json:"domainid,omitempty"`
+	Hypervisor                 string `json:"hypervisor,omitempty"`
+	Id                         string `json:"id,omitempty"`
+	Isextractable              bool   `json:"isextractable,omitempty"`
+	Isodisplaytext             string `json:"isodisplaytext,omitempty"`
+	Isoid                      string `json:"isoid,omitempty"`
+	Isoname                    string `json:"isoname,omitempty"`
+	Maxiops                    int64  `json:"maxiops,omitempty"`
+	Miniops                    int64  `json:"miniops,omitempty"`
+	Name                       string `json:"name,omitempty"`
+	Path                       string `json:"path,omitempty"`
+	Project                    string `json:"project,omitempty"`
+	Projectid                  string `json:"projectid,omitempty"`
+	Provisioningtype           string `json:"provisioningtype,omitempty"`
+	Quiescevm                  bool   `json:"quiescevm,omitempty"`
+	Serviceofferingdisplaytext string `json:"serviceofferingdisplaytext,omitempty"`
+	Serviceofferingid          string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname        string `json:"serviceofferingname,omitempty"`
+	Size                       int64  `json:"size,omitempty"`
+	Snapshotid                 string `json:"snapshotid,omitempty"`
+	State                      string `json:"state,omitempty"`
+	Status                     string `json:"status,omitempty"`
+	Storage                    string `json:"storage,omitempty"`
+	Storageid                  string `json:"storageid,omitempty"`
+	Storagetype                string `json:"storagetype,omitempty"`
+	Tags                       []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templatedisplaytext string `json:"templatedisplaytext,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Templatename        string `json:"templatename,omitempty"`
+	Type                string `json:"type,omitempty"`
+	Virtualmachineid    string `json:"virtualmachineid,omitempty"`
+	Vmdisplayname       string `json:"vmdisplayname,omitempty"`
+	Vmname              string `json:"vmname,omitempty"`
+	Vmstate             string `json:"vmstate,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }

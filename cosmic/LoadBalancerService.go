@@ -24,6 +24,1221 @@ import (
 	"strings"
 )
 
+type RemoveCertFromLoadBalancerParams struct {
+	p map[string]interface{}
+}
+
+func (p *RemoveCertFromLoadBalancerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	return u
+}
+
+func (p *RemoveCertFromLoadBalancerParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+// You should always use this function to get a new RemoveCertFromLoadBalancerParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewRemoveCertFromLoadBalancerParams(lbruleid string) *RemoveCertFromLoadBalancerParams {
+	p := &RemoveCertFromLoadBalancerParams{}
+	p.p = make(map[string]interface{})
+	p.p["lbruleid"] = lbruleid
+	return p
+}
+
+// Removes a certificate from a load balancer rule
+func (s *LoadBalancerService) RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBalancerParams) (*RemoveCertFromLoadBalancerResponse, error) {
+	resp, err := s.cs.newRequest("removeCertFromLoadBalancer", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RemoveCertFromLoadBalancerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type RemoveCertFromLoadBalancerResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type AssignCertToLoadBalancerParams struct {
+	p map[string]interface{}
+}
+
+func (p *AssignCertToLoadBalancerParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["certid"]; found {
+		u.Set("certid", v.(string))
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	return u
+}
+
+func (p *AssignCertToLoadBalancerParams) SetCertid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["certid"] = v
+}
+
+func (p *AssignCertToLoadBalancerParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+// You should always use this function to get a new AssignCertToLoadBalancerParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewAssignCertToLoadBalancerParams(certid string, lbruleid string) *AssignCertToLoadBalancerParams {
+	p := &AssignCertToLoadBalancerParams{}
+	p.p = make(map[string]interface{})
+	p.p["certid"] = certid
+	p.p["lbruleid"] = lbruleid
+	return p
+}
+
+// Assigns a certificate to a load balancer rule
+func (s *LoadBalancerService) AssignCertToLoadBalancer(p *AssignCertToLoadBalancerParams) (*AssignCertToLoadBalancerResponse, error) {
+	resp, err := s.cs.newRequest("assignCertToLoadBalancer", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AssignCertToLoadBalancerResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type AssignCertToLoadBalancerResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type RemoveFromLoadBalancerRuleParams struct {
+	p map[string]interface{}
+}
+
+func (p *RemoveFromLoadBalancerRuleParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["virtualmachineids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("virtualmachineids", vv)
+	}
+	if v, found := p.p["vmidipmap"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
+			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
+			i++
+		}
+	}
+	return u
+}
+
+func (p *RemoveFromLoadBalancerRuleParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *RemoveFromLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineids"] = v
+}
+
+func (p *RemoveFromLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vmidipmap"] = v
+}
+
+// You should always use this function to get a new RemoveFromLoadBalancerRuleParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewRemoveFromLoadBalancerRuleParams(id string) *RemoveFromLoadBalancerRuleParams {
+	p := &RemoveFromLoadBalancerRuleParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Removes a virtual machine or a list of virtual machines from a load balancer rule.
+func (s *LoadBalancerService) RemoveFromLoadBalancerRule(p *RemoveFromLoadBalancerRuleParams) (*RemoveFromLoadBalancerRuleResponse, error) {
+	resp, err := s.cs.newRequest("removeFromLoadBalancerRule", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RemoveFromLoadBalancerRuleResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type RemoveFromLoadBalancerRuleResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListLBHealthCheckPoliciesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListLBHealthCheckPoliciesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListLBHealthCheckPoliciesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListLBHealthCheckPoliciesParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewListLBHealthCheckPoliciesParams() *ListLBHealthCheckPoliciesParams {
+	p := &ListLBHealthCheckPoliciesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLBHealthCheckPolicyByID(id string, opts ...OptionFunc) (*LBHealthCheckPolicy, int, error) {
+	p := &ListLBHealthCheckPoliciesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListLBHealthCheckPolicies(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.LBHealthCheckPolicies[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for LBHealthCheckPolicy UUID: %s!", id)
+}
+
+// Lists load balancer health check policies.
+func (s *LoadBalancerService) ListLBHealthCheckPolicies(p *ListLBHealthCheckPoliciesParams) (*ListLBHealthCheckPoliciesResponse, error) {
+	var r, l ListLBHealthCheckPoliciesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLBHealthCheckPolicies", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LBHealthCheckPolicies = append(r.LBHealthCheckPolicies, l.LBHealthCheckPolicies...)
+
+		if r.Count != len(r.LBHealthCheckPolicies) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LBHealthCheckPolicies))
+		p.SetPage(page)
+	}
+}
+
+type ListLBHealthCheckPoliciesResponse struct {
+	Count                 int                    `json:"count"`
+	LBHealthCheckPolicies []*LBHealthCheckPolicy `json:"lbhealthcheckpolicy"`
+}
+
+type LBHealthCheckPolicy struct {
+	Account           string `json:"account,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Healthcheckpolicy []struct {
+		Description             string `json:"description,omitempty"`
+		Fordisplay              bool   `json:"fordisplay,omitempty"`
+		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
+		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
+		Id                      string `json:"id,omitempty"`
+		Pingpath                string `json:"pingpath,omitempty"`
+		Responsetime            int    `json:"responsetime,omitempty"`
+		State                   string `json:"state,omitempty"`
+		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
+	} `json:"healthcheckpolicy,omitempty"`
+	Lbruleid string `json:"lbruleid,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+}
+
+type CreateLBHealthCheckPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateLBHealthCheckPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["description"]; found {
+		u.Set("description", v.(string))
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["healthythreshold"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("healthythreshold", vv)
+	}
+	if v, found := p.p["intervaltime"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("intervaltime", vv)
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	if v, found := p.p["pingpath"]; found {
+		u.Set("pingpath", v.(string))
+	}
+	if v, found := p.p["responsetimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("responsetimeout", vv)
+	}
+	if v, found := p.p["unhealthythreshold"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("unhealthythreshold", vv)
+	}
+	return u
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetHealthythreshold(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["healthythreshold"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetIntervaltime(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["intervaltime"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetPingpath(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pingpath"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetResponsetimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["responsetimeout"] = v
+}
+
+func (p *CreateLBHealthCheckPolicyParams) SetUnhealthythreshold(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["unhealthythreshold"] = v
+}
+
+// You should always use this function to get a new CreateLBHealthCheckPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewCreateLBHealthCheckPolicyParams(lbruleid string) *CreateLBHealthCheckPolicyParams {
+	p := &CreateLBHealthCheckPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["lbruleid"] = lbruleid
+	return p
+}
+
+// Creates a load balancer health check policy
+func (s *LoadBalancerService) CreateLBHealthCheckPolicy(p *CreateLBHealthCheckPolicyParams) (*CreateLBHealthCheckPolicyResponse, error) {
+	resp, err := s.cs.newRequest("createLBHealthCheckPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateLBHealthCheckPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type CreateLBHealthCheckPolicyResponse struct {
+	JobID             string `json:"jobid,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Healthcheckpolicy []struct {
+		Description             string `json:"description,omitempty"`
+		Fordisplay              bool   `json:"fordisplay,omitempty"`
+		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
+		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
+		Id                      string `json:"id,omitempty"`
+		Pingpath                string `json:"pingpath,omitempty"`
+		Responsetime            int    `json:"responsetime,omitempty"`
+		State                   string `json:"state,omitempty"`
+		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
+	} `json:"healthcheckpolicy,omitempty"`
+	Lbruleid string `json:"lbruleid,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+}
+
+type DeleteLBHealthCheckPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteLBHealthCheckPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteLBHealthCheckPolicyParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteLBHealthCheckPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeleteLBHealthCheckPolicyParams(id string) *DeleteLBHealthCheckPolicyParams {
+	p := &DeleteLBHealthCheckPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a load balancer health check policy.
+func (s *LoadBalancerService) DeleteLBHealthCheckPolicy(p *DeleteLBHealthCheckPolicyParams) (*DeleteLBHealthCheckPolicyResponse, error) {
+	resp, err := s.cs.newRequest("deleteLBHealthCheckPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteLBHealthCheckPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteLBHealthCheckPolicyResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type UpdateLBHealthCheckPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateLBHealthCheckPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateLBHealthCheckPolicyParams) SetCustomid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customid"] = v
+}
+
+func (p *UpdateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *UpdateLBHealthCheckPolicyParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new UpdateLBHealthCheckPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewUpdateLBHealthCheckPolicyParams(id string) *UpdateLBHealthCheckPolicyParams {
+	p := &UpdateLBHealthCheckPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates load balancer health check policy
+func (s *LoadBalancerService) UpdateLBHealthCheckPolicy(p *UpdateLBHealthCheckPolicyParams) (*UpdateLBHealthCheckPolicyResponse, error) {
+	resp, err := s.cs.newRequest("updateLBHealthCheckPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateLBHealthCheckPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdateLBHealthCheckPolicyResponse struct {
+	JobID             string `json:"jobid,omitempty"`
+	Account           string `json:"account,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Healthcheckpolicy []struct {
+		Description             string `json:"description,omitempty"`
+		Fordisplay              bool   `json:"fordisplay,omitempty"`
+		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
+		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
+		Id                      string `json:"id,omitempty"`
+		Pingpath                string `json:"pingpath,omitempty"`
+		Responsetime            int    `json:"responsetime,omitempty"`
+		State                   string `json:"state,omitempty"`
+		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
+	} `json:"healthcheckpolicy,omitempty"`
+	Lbruleid string `json:"lbruleid,omitempty"`
+	Zoneid   string `json:"zoneid,omitempty"`
+}
+
+type ListLBStickinessPoliciesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListLBStickinessPoliciesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListLBStickinessPoliciesParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *ListLBStickinessPoliciesParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ListLBStickinessPoliciesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListLBStickinessPoliciesParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+func (p *ListLBStickinessPoliciesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListLBStickinessPoliciesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListLBStickinessPoliciesParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewListLBStickinessPoliciesParams() *ListLBStickinessPoliciesParams {
+	p := &ListLBStickinessPoliciesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLBStickinessPolicyByID(id string, opts ...OptionFunc) (*LBStickinessPolicy, int, error) {
+	p := &ListLBStickinessPoliciesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListLBStickinessPolicies(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.LBStickinessPolicies[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for LBStickinessPolicy UUID: %s!", id)
+}
+
+// Lists load balancer stickiness policies.
+func (s *LoadBalancerService) ListLBStickinessPolicies(p *ListLBStickinessPoliciesParams) (*ListLBStickinessPoliciesResponse, error) {
+	var r, l ListLBStickinessPoliciesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLBStickinessPolicies", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LBStickinessPolicies = append(r.LBStickinessPolicies, l.LBStickinessPolicies...)
+
+		if r.Count != len(r.LBStickinessPolicies) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LBStickinessPolicies))
+		p.SetPage(page)
+	}
+}
+
+type ListLBStickinessPoliciesResponse struct {
+	Count                int                   `json:"count"`
+	LBStickinessPolicies []*LBStickinessPolicy `json:"lbstickinesspolicy"`
+}
+
+type LBStickinessPolicy struct {
+	Account          string `json:"account,omitempty"`
+	Description      string `json:"description,omitempty"`
+	Domain           string `json:"domain,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Lbruleid         string `json:"lbruleid,omitempty"`
+	Name             string `json:"name,omitempty"`
+	State            string `json:"state,omitempty"`
+	Stickinesspolicy []struct {
+		Description string            `json:"description,omitempty"`
+		Fordisplay  bool              `json:"fordisplay,omitempty"`
+		Id          string            `json:"id,omitempty"`
+		Methodname  string            `json:"methodname,omitempty"`
+		Name        string            `json:"name,omitempty"`
+		Params      map[string]string `json:"params,omitempty"`
+		State       string            `json:"state,omitempty"`
+	} `json:"stickinesspolicy,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
+}
+
+type CreateLBStickinessPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *CreateLBStickinessPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["description"]; found {
+		u.Set("description", v.(string))
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["lbruleid"]; found {
+		u.Set("lbruleid", v.(string))
+	}
+	if v, found := p.p["methodname"]; found {
+		u.Set("methodname", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["param"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("param[%d].key", i), k)
+			u.Set(fmt.Sprintf("param[%d].value", i), vv)
+			i++
+		}
+	}
+	return u
+}
+
+func (p *CreateLBStickinessPolicyParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+}
+
+func (p *CreateLBStickinessPolicyParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *CreateLBStickinessPolicyParams) SetLbruleid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbruleid"] = v
+}
+
+func (p *CreateLBStickinessPolicyParams) SetMethodname(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["methodname"] = v
+}
+
+func (p *CreateLBStickinessPolicyParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *CreateLBStickinessPolicyParams) SetParam(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["param"] = v
+}
+
+// You should always use this function to get a new CreateLBStickinessPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewCreateLBStickinessPolicyParams(lbruleid string, methodname string, name string) *CreateLBStickinessPolicyParams {
+	p := &CreateLBStickinessPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["lbruleid"] = lbruleid
+	p.p["methodname"] = methodname
+	p.p["name"] = name
+	return p
+}
+
+// Creates a load balancer stickiness policy
+func (s *LoadBalancerService) CreateLBStickinessPolicy(p *CreateLBStickinessPolicyParams) (*CreateLBStickinessPolicyResponse, error) {
+	resp, err := s.cs.newRequest("createLBStickinessPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CreateLBStickinessPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type CreateLBStickinessPolicyResponse struct {
+	JobID            string `json:"jobid,omitempty"`
+	Account          string `json:"account,omitempty"`
+	Description      string `json:"description,omitempty"`
+	Domain           string `json:"domain,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Lbruleid         string `json:"lbruleid,omitempty"`
+	Name             string `json:"name,omitempty"`
+	State            string `json:"state,omitempty"`
+	Stickinesspolicy []struct {
+		Description string            `json:"description,omitempty"`
+		Fordisplay  bool              `json:"fordisplay,omitempty"`
+		Id          string            `json:"id,omitempty"`
+		Methodname  string            `json:"methodname,omitempty"`
+		Name        string            `json:"name,omitempty"`
+		Params      map[string]string `json:"params,omitempty"`
+		State       string            `json:"state,omitempty"`
+	} `json:"stickinesspolicy,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
+}
+
+type DeleteLBStickinessPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteLBStickinessPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteLBStickinessPolicyParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteLBStickinessPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewDeleteLBStickinessPolicyParams(id string) *DeleteLBStickinessPolicyParams {
+	p := &DeleteLBStickinessPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a load balancer stickiness policy.
+func (s *LoadBalancerService) DeleteLBStickinessPolicy(p *DeleteLBStickinessPolicyParams) (*DeleteLBStickinessPolicyResponse, error) {
+	resp, err := s.cs.newRequest("deleteLBStickinessPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteLBStickinessPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteLBStickinessPolicyResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type UpdateLBStickinessPolicyParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateLBStickinessPolicyParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateLBStickinessPolicyParams) SetCustomid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customid"] = v
+}
+
+func (p *UpdateLBStickinessPolicyParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *UpdateLBStickinessPolicyParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new UpdateLBStickinessPolicyParams instance,
+// as then you are sure you have configured all required params
+func (s *LoadBalancerService) NewUpdateLBStickinessPolicyParams(id string) *UpdateLBStickinessPolicyParams {
+	p := &UpdateLBStickinessPolicyParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates load balancer stickiness policy
+func (s *LoadBalancerService) UpdateLBStickinessPolicy(p *UpdateLBStickinessPolicyParams) (*UpdateLBStickinessPolicyResponse, error) {
+	resp, err := s.cs.newRequest("updateLBStickinessPolicy", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateLBStickinessPolicyResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdateLBStickinessPolicyResponse struct {
+	JobID            string `json:"jobid,omitempty"`
+	Account          string `json:"account,omitempty"`
+	Description      string `json:"description,omitempty"`
+	Domain           string `json:"domain,omitempty"`
+	Domainid         string `json:"domainid,omitempty"`
+	Lbruleid         string `json:"lbruleid,omitempty"`
+	Name             string `json:"name,omitempty"`
+	State            string `json:"state,omitempty"`
+	Stickinesspolicy []struct {
+		Description string            `json:"description,omitempty"`
+		Fordisplay  bool              `json:"fordisplay,omitempty"`
+		Id          string            `json:"id,omitempty"`
+		Methodname  string            `json:"methodname,omitempty"`
+		Name        string            `json:"name,omitempty"`
+		Params      map[string]string `json:"params,omitempty"`
+		State       string            `json:"state,omitempty"`
+	} `json:"stickinesspolicy,omitempty"`
+	Zoneid string `json:"zoneid,omitempty"`
+}
+
 type CreateLoadBalancerRuleParams struct {
 	p map[string]interface{}
 }
@@ -352,198 +1567,24 @@ type DeleteLoadBalancerRuleResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
-type RemoveFromLoadBalancerRuleParams struct {
+type UpdateLoadBalancerRuleParams struct {
 	p map[string]interface{}
 }
 
-func (p *RemoveFromLoadBalancerRuleParams) toURLValues() url.Values {
+func (p *UpdateLoadBalancerRuleParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["algorithm"]; found {
+		u.Set("algorithm", v.(string))
 	}
-	if v, found := p.p["virtualmachineids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("virtualmachineids", vv)
+	if v, found := p.p["clienttimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("clienttimeout", vv)
 	}
-	if v, found := p.p["vmidipmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *RemoveFromLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *RemoveFromLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineids"] = v
-}
-
-func (p *RemoveFromLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vmidipmap"] = v
-}
-
-// You should always use this function to get a new RemoveFromLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewRemoveFromLoadBalancerRuleParams(id string) *RemoveFromLoadBalancerRuleParams {
-	p := &RemoveFromLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Removes a virtual machine or a list of virtual machines from a load balancer rule.
-func (s *LoadBalancerService) RemoveFromLoadBalancerRule(p *RemoveFromLoadBalancerRuleParams) (*RemoveFromLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("removeFromLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RemoveFromLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type RemoveFromLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type AssignToLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *AssignToLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["virtualmachineids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("virtualmachineids", vv)
-	}
-	if v, found := p.p["vmidipmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *AssignToLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *AssignToLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineids"] = v
-}
-
-func (p *AssignToLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vmidipmap"] = v
-}
-
-// You should always use this function to get a new AssignToLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewAssignToLoadBalancerRuleParams(id string) *AssignToLoadBalancerRuleParams {
-	p := &AssignToLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Assigns virtual machine or a list of virtual machines to a load balancer rule.
-func (s *LoadBalancerService) AssignToLoadBalancerRule(p *AssignToLoadBalancerRuleParams) (*AssignToLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("assignToLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AssignToLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AssignToLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type CreateLBStickinessPolicyParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateLBStickinessPolicyParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
 	}
 	if v, found := p.p["description"]; found {
 		u.Set("description", v.(string))
@@ -552,194 +1593,92 @@ func (p *CreateLBStickinessPolicyParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("fordisplay", vv)
 	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	if v, found := p.p["methodname"]; found {
-		u.Set("methodname", v.(string))
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
 	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
 	}
-	if v, found := p.p["param"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("param[%d].key", i), k)
-			u.Set(fmt.Sprintf("param[%d].value", i), vv)
-			i++
-		}
+	if v, found := p.p["servertimeout"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("servertimeout", vv)
 	}
 	return u
 }
 
-func (p *CreateLBStickinessPolicyParams) SetDescription(v string) {
+func (p *UpdateLoadBalancerRuleParams) SetAlgorithm(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["description"] = v
+	p.p["algorithm"] = v
 }
 
-func (p *CreateLBStickinessPolicyParams) SetFordisplay(v bool) {
+func (p *UpdateLoadBalancerRuleParams) SetClienttimeout(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["fordisplay"] = v
+	p.p["clienttimeout"] = v
 }
 
-func (p *CreateLBStickinessPolicyParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-func (p *CreateLBStickinessPolicyParams) SetMethodname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["methodname"] = v
-}
-
-func (p *CreateLBStickinessPolicyParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *CreateLBStickinessPolicyParams) SetParam(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["param"] = v
-}
-
-// You should always use this function to get a new CreateLBStickinessPolicyParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewCreateLBStickinessPolicyParams(lbruleid string, methodname string, name string) *CreateLBStickinessPolicyParams {
-	p := &CreateLBStickinessPolicyParams{}
-	p.p = make(map[string]interface{})
-	p.p["lbruleid"] = lbruleid
-	p.p["methodname"] = methodname
-	p.p["name"] = name
-	return p
-}
-
-// Creates a load balancer stickiness policy
-func (s *LoadBalancerService) CreateLBStickinessPolicy(p *CreateLBStickinessPolicyParams) (*CreateLBStickinessPolicyResponse, error) {
-	resp, err := s.cs.newRequest("createLBStickinessPolicy", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CreateLBStickinessPolicyResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type CreateLBStickinessPolicyResponse struct {
-	JobID            string `json:"jobid,omitempty"`
-	Account          string `json:"account,omitempty"`
-	Description      string `json:"description,omitempty"`
-	Domain           string `json:"domain,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	Lbruleid         string `json:"lbruleid,omitempty"`
-	Name             string `json:"name,omitempty"`
-	State            string `json:"state,omitempty"`
-	Stickinesspolicy []struct {
-		Description string            `json:"description,omitempty"`
-		Fordisplay  bool              `json:"fordisplay,omitempty"`
-		Id          string            `json:"id,omitempty"`
-		Methodname  string            `json:"methodname,omitempty"`
-		Name        string            `json:"name,omitempty"`
-		Params      map[string]string `json:"params,omitempty"`
-		State       string            `json:"state,omitempty"`
-	} `json:"stickinesspolicy,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
-}
-
-type UpdateLBStickinessPolicyParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateLBStickinessPolicyParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateLBStickinessPolicyParams) SetCustomid(v string) {
+func (p *UpdateLoadBalancerRuleParams) SetCustomid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["customid"] = v
 }
 
-func (p *UpdateLBStickinessPolicyParams) SetFordisplay(v bool) {
+func (p *UpdateLoadBalancerRuleParams) SetDescription(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["description"] = v
+}
+
+func (p *UpdateLoadBalancerRuleParams) SetFordisplay(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
 }
 
-func (p *UpdateLBStickinessPolicyParams) SetId(v string) {
+func (p *UpdateLoadBalancerRuleParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new UpdateLBStickinessPolicyParams instance,
+func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *UpdateLoadBalancerRuleParams) SetServertimeout(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servertimeout"] = v
+}
+
+// You should always use this function to get a new UpdateLoadBalancerRuleParams instance,
 // as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUpdateLBStickinessPolicyParams(id string) *UpdateLBStickinessPolicyParams {
-	p := &UpdateLBStickinessPolicyParams{}
+func (s *LoadBalancerService) NewUpdateLoadBalancerRuleParams(id string) *UpdateLoadBalancerRuleParams {
+	p := &UpdateLoadBalancerRuleParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Updates load balancer stickiness policy
-func (s *LoadBalancerService) UpdateLBStickinessPolicy(p *UpdateLBStickinessPolicyParams) (*UpdateLBStickinessPolicyResponse, error) {
-	resp, err := s.cs.newRequest("updateLBStickinessPolicy", p.toURLValues())
+// Updates load balancer
+func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRuleParams) (*UpdateLoadBalancerRuleResponse, error) {
+	resp, err := s.cs.newRequest("updateLoadBalancerRule", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r UpdateLBStickinessPolicyResponse
+	var r UpdateLoadBalancerRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -766,91 +1705,195 @@ func (s *LoadBalancerService) UpdateLBStickinessPolicy(p *UpdateLBStickinessPoli
 	return &r, nil
 }
 
-type UpdateLBStickinessPolicyResponse struct {
-	JobID            string `json:"jobid,omitempty"`
-	Account          string `json:"account,omitempty"`
-	Description      string `json:"description,omitempty"`
-	Domain           string `json:"domain,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	Lbruleid         string `json:"lbruleid,omitempty"`
-	Name             string `json:"name,omitempty"`
-	State            string `json:"state,omitempty"`
-	Stickinesspolicy []struct {
-		Description string            `json:"description,omitempty"`
-		Fordisplay  bool              `json:"fordisplay,omitempty"`
-		Id          string            `json:"id,omitempty"`
-		Methodname  string            `json:"methodname,omitempty"`
-		Name        string            `json:"name,omitempty"`
-		Params      map[string]string `json:"params,omitempty"`
-		State       string            `json:"state,omitempty"`
-	} `json:"stickinesspolicy,omitempty"`
+type UpdateLoadBalancerRuleResponse struct {
+	JobID         string `json:"jobid,omitempty"`
+	Account       string `json:"account,omitempty"`
+	Algorithm     string `json:"algorithm,omitempty"`
+	Cidrlist      string `json:"cidrlist,omitempty"`
+	Clienttimeout int    `json:"clienttimeout,omitempty"`
+	Description   string `json:"description,omitempty"`
+	Domain        string `json:"domain,omitempty"`
+	Domainid      string `json:"domainid,omitempty"`
+	Fordisplay    bool   `json:"fordisplay,omitempty"`
+	Id            string `json:"id,omitempty"`
+	Name          string `json:"name,omitempty"`
+	Networkid     string `json:"networkid,omitempty"`
+	Privateport   string `json:"privateport,omitempty"`
+	Project       string `json:"project,omitempty"`
+	Projectid     string `json:"projectid,omitempty"`
+	Protocol      string `json:"protocol,omitempty"`
+	Publicip      string `json:"publicip,omitempty"`
+	Publicipid    string `json:"publicipid,omitempty"`
+	Publicport    string `json:"publicport,omitempty"`
+	Servertimeout int    `json:"servertimeout,omitempty"`
+	State         string `json:"state,omitempty"`
+	Tags          []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
 	Zoneid string `json:"zoneid,omitempty"`
 }
 
-type DeleteLBStickinessPolicyParams struct {
+type ListLoadBalancerRuleInstancesParams struct {
 	p map[string]interface{}
 }
 
-func (p *DeleteLBStickinessPolicyParams) toURLValues() url.Values {
+func (p *ListLoadBalancerRuleInstancesParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["applied"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("applied", vv)
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["lbvmips"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("lbvmips", vv)
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
 	}
 	return u
 }
 
-func (p *DeleteLBStickinessPolicyParams) SetId(v string) {
+func (p *ListLoadBalancerRuleInstancesParams) SetApplied(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["applied"] = v
+}
+
+func (p *ListLoadBalancerRuleInstancesParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new DeleteLBStickinessPolicyParams instance,
+func (p *ListLoadBalancerRuleInstancesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListLoadBalancerRuleInstancesParams) SetLbvmips(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["lbvmips"] = v
+}
+
+func (p *ListLoadBalancerRuleInstancesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListLoadBalancerRuleInstancesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListLoadBalancerRuleInstancesParams instance,
 // as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewDeleteLBStickinessPolicyParams(id string) *DeleteLBStickinessPolicyParams {
-	p := &DeleteLBStickinessPolicyParams{}
+func (s *LoadBalancerService) NewListLoadBalancerRuleInstancesParams(id string) *ListLoadBalancerRuleInstancesParams {
+	p := &ListLoadBalancerRuleInstancesParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Deletes a load balancer stickiness policy.
-func (s *LoadBalancerService) DeleteLBStickinessPolicy(p *DeleteLBStickinessPolicyParams) (*DeleteLBStickinessPolicyResponse, error) {
-	resp, err := s.cs.newRequest("deleteLBStickinessPolicy", p.toURLValues())
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ...OptionFunc) (*VirtualMachine, int, error) {
+	p := &ListLoadBalancerRuleInstancesParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListLoadBalancerRuleInstances(p)
 	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteLBStickinessPolicyResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
+		return nil, -1, err
 	}
-	return &r, nil
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.LoadBalancerRuleInstances[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancerRuleInstance UUID: %s!", id)
 }
 
-type DeleteLBStickinessPolicyResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+// List all virtual machine instances that are assigned to a load balancer rule.
+func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerRuleInstancesParams) (*ListLoadBalancerRuleInstancesResponse, error) {
+	var r, l ListLoadBalancerRuleInstancesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listLoadBalancerRuleInstances", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.LoadBalancerRuleInstances = append(r.LoadBalancerRuleInstances, l.LoadBalancerRuleInstances...)
+
+		if r.Count != len(r.LoadBalancerRuleInstances) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.LoadBalancerRuleInstances))
+		p.SetPage(page)
+	}
+}
+
+type ListLoadBalancerRuleInstancesResponse struct {
+	Count                     int                         `json:"count"`
+	LBRuleVMIDIPs             []*LoadBalancerRuleInstance `json:"lbrulevmidip,omitempty"`
+	LoadBalancerRuleInstances []*VirtualMachine           `json:"loadbalancerruleinstance,omitempty"`
+}
+
+type LoadBalancerRuleInstance struct {
+	Lbvmipaddresses          []string        `json:"lbvmipaddresses,omitempty"`
+	Loadbalancerruleinstance *VirtualMachine `json:"loadbalancerruleinstance,omitempty"`
 }
 
 type ListLoadBalancerRulesParams struct {
@@ -1192,996 +2235,54 @@ type LoadBalancerRule struct {
 	Zoneid string `json:"zoneid,omitempty"`
 }
 
-type ListLBStickinessPoliciesParams struct {
+type DeleteSslCertParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListLBStickinessPoliciesParams) toURLValues() url.Values {
+func (p *DeleteSslCertParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
 	}
 	return u
 }
 
-func (p *ListLBStickinessPoliciesParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *ListLBStickinessPoliciesParams) SetId(v string) {
+func (p *DeleteSslCertParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *ListLBStickinessPoliciesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListLBStickinessPoliciesParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-func (p *ListLBStickinessPoliciesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLBStickinessPoliciesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListLBStickinessPoliciesParams instance,
+// You should always use this function to get a new DeleteSslCertParams instance,
 // as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewListLBStickinessPoliciesParams() *ListLBStickinessPoliciesParams {
-	p := &ListLBStickinessPoliciesParams{}
+func (s *LoadBalancerService) NewDeleteSslCertParams(id string) *DeleteSslCertParams {
+	p := &DeleteSslCertParams{}
 	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLBStickinessPolicyByID(id string, opts ...OptionFunc) (*LBStickinessPolicy, int, error) {
-	p := &ListLBStickinessPoliciesParams{}
-	p.p = make(map[string]interface{})
-
 	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListLBStickinessPolicies(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.LBStickinessPolicies[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for LBStickinessPolicy UUID: %s!", id)
-}
-
-// Lists load balancer stickiness policies.
-func (s *LoadBalancerService) ListLBStickinessPolicies(p *ListLBStickinessPoliciesParams) (*ListLBStickinessPoliciesResponse, error) {
-	var r, l ListLBStickinessPoliciesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLBStickinessPolicies", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LBStickinessPolicies = append(r.LBStickinessPolicies, l.LBStickinessPolicies...)
-
-		if r.Count != len(r.LBStickinessPolicies) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LBStickinessPolicies))
-		p.SetPage(page)
-	}
-}
-
-type ListLBStickinessPoliciesResponse struct {
-	Count                int                   `json:"count"`
-	LBStickinessPolicies []*LBStickinessPolicy `json:"lbstickinesspolicy"`
-}
-
-type LBStickinessPolicy struct {
-	Account          string `json:"account,omitempty"`
-	Description      string `json:"description,omitempty"`
-	Domain           string `json:"domain,omitempty"`
-	Domainid         string `json:"domainid,omitempty"`
-	Lbruleid         string `json:"lbruleid,omitempty"`
-	Name             string `json:"name,omitempty"`
-	State            string `json:"state,omitempty"`
-	Stickinesspolicy []struct {
-		Description string            `json:"description,omitempty"`
-		Fordisplay  bool              `json:"fordisplay,omitempty"`
-		Id          string            `json:"id,omitempty"`
-		Methodname  string            `json:"methodname,omitempty"`
-		Name        string            `json:"name,omitempty"`
-		Params      map[string]string `json:"params,omitempty"`
-		State       string            `json:"state,omitempty"`
-	} `json:"stickinesspolicy,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
-}
-
-type ListLBHealthCheckPoliciesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListLBHealthCheckPoliciesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLBHealthCheckPoliciesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListLBHealthCheckPoliciesParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewListLBHealthCheckPoliciesParams() *ListLBHealthCheckPoliciesParams {
-	p := &ListLBHealthCheckPoliciesParams{}
-	p.p = make(map[string]interface{})
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLBHealthCheckPolicyByID(id string, opts ...OptionFunc) (*LBHealthCheckPolicy, int, error) {
-	p := &ListLBHealthCheckPoliciesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListLBHealthCheckPolicies(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.LBHealthCheckPolicies[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for LBHealthCheckPolicy UUID: %s!", id)
-}
-
-// Lists load balancer health check policies.
-func (s *LoadBalancerService) ListLBHealthCheckPolicies(p *ListLBHealthCheckPoliciesParams) (*ListLBHealthCheckPoliciesResponse, error) {
-	var r, l ListLBHealthCheckPoliciesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLBHealthCheckPolicies", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LBHealthCheckPolicies = append(r.LBHealthCheckPolicies, l.LBHealthCheckPolicies...)
-
-		if r.Count != len(r.LBHealthCheckPolicies) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LBHealthCheckPolicies))
-		p.SetPage(page)
-	}
-}
-
-type ListLBHealthCheckPoliciesResponse struct {
-	Count                 int                    `json:"count"`
-	LBHealthCheckPolicies []*LBHealthCheckPolicy `json:"lbhealthcheckpolicy"`
-}
-
-type LBHealthCheckPolicy struct {
-	Account           string `json:"account,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Healthcheckpolicy []struct {
-		Description             string `json:"description,omitempty"`
-		Fordisplay              bool   `json:"fordisplay,omitempty"`
-		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
-		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
-		Id                      string `json:"id,omitempty"`
-		Pingpath                string `json:"pingpath,omitempty"`
-		Responsetime            int    `json:"responsetime,omitempty"`
-		State                   string `json:"state,omitempty"`
-		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
-	} `json:"healthcheckpolicy,omitempty"`
-	Lbruleid string `json:"lbruleid,omitempty"`
-	Zoneid   string `json:"zoneid,omitempty"`
-}
-
-type CreateLBHealthCheckPolicyParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateLBHealthCheckPolicyParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["healthythreshold"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("healthythreshold", vv)
-	}
-	if v, found := p.p["intervaltime"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("intervaltime", vv)
-	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	if v, found := p.p["pingpath"]; found {
-		u.Set("pingpath", v.(string))
-	}
-	if v, found := p.p["responsetimeout"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("responsetimeout", vv)
-	}
-	if v, found := p.p["unhealthythreshold"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("unhealthythreshold", vv)
-	}
-	return u
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetHealthythreshold(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["healthythreshold"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetIntervaltime(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["intervaltime"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetPingpath(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pingpath"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetResponsetimeout(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["responsetimeout"] = v
-}
-
-func (p *CreateLBHealthCheckPolicyParams) SetUnhealthythreshold(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["unhealthythreshold"] = v
-}
-
-// You should always use this function to get a new CreateLBHealthCheckPolicyParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewCreateLBHealthCheckPolicyParams(lbruleid string) *CreateLBHealthCheckPolicyParams {
-	p := &CreateLBHealthCheckPolicyParams{}
-	p.p = make(map[string]interface{})
-	p.p["lbruleid"] = lbruleid
-	return p
-}
-
-// Creates a load balancer health check policy
-func (s *LoadBalancerService) CreateLBHealthCheckPolicy(p *CreateLBHealthCheckPolicyParams) (*CreateLBHealthCheckPolicyResponse, error) {
-	resp, err := s.cs.newRequest("createLBHealthCheckPolicy", p.toURLValues())
+// Delete a certificate to CloudStack
+func (s *LoadBalancerService) DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslCertResponse, error) {
+	resp, err := s.cs.newRequest("deleteSslCert", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r CreateLBHealthCheckPolicyResponse
+	var r DeleteSslCertResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
 	}
 	return &r, nil
 }
 
-type CreateLBHealthCheckPolicyResponse struct {
-	JobID             string `json:"jobid,omitempty"`
-	Account           string `json:"account,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Healthcheckpolicy []struct {
-		Description             string `json:"description,omitempty"`
-		Fordisplay              bool   `json:"fordisplay,omitempty"`
-		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
-		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
-		Id                      string `json:"id,omitempty"`
-		Pingpath                string `json:"pingpath,omitempty"`
-		Responsetime            int    `json:"responsetime,omitempty"`
-		State                   string `json:"state,omitempty"`
-		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
-	} `json:"healthcheckpolicy,omitempty"`
-	Lbruleid string `json:"lbruleid,omitempty"`
-	Zoneid   string `json:"zoneid,omitempty"`
-}
-
-type UpdateLBHealthCheckPolicyParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateLBHealthCheckPolicyParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateLBHealthCheckPolicyParams) SetCustomid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["customid"] = v
-}
-
-func (p *UpdateLBHealthCheckPolicyParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *UpdateLBHealthCheckPolicyParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new UpdateLBHealthCheckPolicyParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUpdateLBHealthCheckPolicyParams(id string) *UpdateLBHealthCheckPolicyParams {
-	p := &UpdateLBHealthCheckPolicyParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates load balancer health check policy
-func (s *LoadBalancerService) UpdateLBHealthCheckPolicy(p *UpdateLBHealthCheckPolicyParams) (*UpdateLBHealthCheckPolicyResponse, error) {
-	resp, err := s.cs.newRequest("updateLBHealthCheckPolicy", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateLBHealthCheckPolicyResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateLBHealthCheckPolicyResponse struct {
-	JobID             string `json:"jobid,omitempty"`
-	Account           string `json:"account,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Healthcheckpolicy []struct {
-		Description             string `json:"description,omitempty"`
-		Fordisplay              bool   `json:"fordisplay,omitempty"`
-		Healthcheckinterval     int    `json:"healthcheckinterval,omitempty"`
-		Healthcheckthresshold   int    `json:"healthcheckthresshold,omitempty"`
-		Id                      string `json:"id,omitempty"`
-		Pingpath                string `json:"pingpath,omitempty"`
-		Responsetime            int    `json:"responsetime,omitempty"`
-		State                   string `json:"state,omitempty"`
-		Unhealthcheckthresshold int    `json:"unhealthcheckthresshold,omitempty"`
-	} `json:"healthcheckpolicy,omitempty"`
-	Lbruleid string `json:"lbruleid,omitempty"`
-	Zoneid   string `json:"zoneid,omitempty"`
-}
-
-type DeleteLBHealthCheckPolicyParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteLBHealthCheckPolicyParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteLBHealthCheckPolicyParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteLBHealthCheckPolicyParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewDeleteLBHealthCheckPolicyParams(id string) *DeleteLBHealthCheckPolicyParams {
-	p := &DeleteLBHealthCheckPolicyParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a load balancer health check policy.
-func (s *LoadBalancerService) DeleteLBHealthCheckPolicy(p *DeleteLBHealthCheckPolicyParams) (*DeleteLBHealthCheckPolicyResponse, error) {
-	resp, err := s.cs.newRequest("deleteLBHealthCheckPolicy", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteLBHealthCheckPolicyResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteLBHealthCheckPolicyResponse struct {
-	JobID       string `json:"jobid,omitempty"`
+type DeleteSslCertResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListLoadBalancerRuleInstancesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["applied"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("applied", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["lbvmips"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("lbvmips", vv)
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetApplied(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["applied"] = v
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetLbvmips(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbvmips"] = v
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLoadBalancerRuleInstancesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListLoadBalancerRuleInstancesParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewListLoadBalancerRuleInstancesParams(id string) *ListLoadBalancerRuleInstancesParams {
-	p := &ListLoadBalancerRuleInstancesParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ...OptionFunc) (*VirtualMachine, int, error) {
-	p := &ListLoadBalancerRuleInstancesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListLoadBalancerRuleInstances(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.LoadBalancerRuleInstances[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancerRuleInstance UUID: %s!", id)
-}
-
-// List all virtual machine instances that are assigned to a load balancer rule.
-func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerRuleInstancesParams) (*ListLoadBalancerRuleInstancesResponse, error) {
-	var r, l ListLoadBalancerRuleInstancesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLoadBalancerRuleInstances", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LoadBalancerRuleInstances = append(r.LoadBalancerRuleInstances, l.LoadBalancerRuleInstances...)
-
-		if r.Count != len(r.LoadBalancerRuleInstances) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LoadBalancerRuleInstances))
-		p.SetPage(page)
-	}
-}
-
-type ListLoadBalancerRuleInstancesResponse struct {
-	Count                     int                         `json:"count"`
-	LBRuleVMIDIPs             []*LoadBalancerRuleInstance `json:"lbrulevmidip,omitempty"`
-	LoadBalancerRuleInstances []*VirtualMachine           `json:"loadbalancerruleinstance,omitempty"`
-}
-
-type LoadBalancerRuleInstance struct {
-	Lbvmipaddresses          []string        `json:"lbvmipaddresses,omitempty"`
-	Loadbalancerruleinstance *VirtualMachine `json:"loadbalancerruleinstance,omitempty"`
-}
-
-type UpdateLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["algorithm"]; found {
-		u.Set("algorithm", v.(string))
-	}
-	if v, found := p.p["clienttimeout"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("clienttimeout", vv)
-	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["servertimeout"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("servertimeout", vv)
-	}
-	return u
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetAlgorithm(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["algorithm"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetClienttimeout(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clienttimeout"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetCustomid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["customid"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *UpdateLoadBalancerRuleParams) SetServertimeout(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["servertimeout"] = v
-}
-
-// You should always use this function to get a new UpdateLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUpdateLoadBalancerRuleParams(id string) *UpdateLoadBalancerRuleParams {
-	p := &UpdateLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates load balancer
-func (s *LoadBalancerService) UpdateLoadBalancerRule(p *UpdateLoadBalancerRuleParams) (*UpdateLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("updateLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateLoadBalancerRuleResponse struct {
-	JobID         string `json:"jobid,omitempty"`
-	Account       string `json:"account,omitempty"`
-	Algorithm     string `json:"algorithm,omitempty"`
-	Cidrlist      string `json:"cidrlist,omitempty"`
-	Clienttimeout int    `json:"clienttimeout,omitempty"`
-	Description   string `json:"description,omitempty"`
-	Domain        string `json:"domain,omitempty"`
-	Domainid      string `json:"domainid,omitempty"`
-	Fordisplay    bool   `json:"fordisplay,omitempty"`
-	Id            string `json:"id,omitempty"`
-	Name          string `json:"name,omitempty"`
-	Networkid     string `json:"networkid,omitempty"`
-	Privateport   string `json:"privateport,omitempty"`
-	Project       string `json:"project,omitempty"`
-	Projectid     string `json:"projectid,omitempty"`
-	Protocol      string `json:"protocol,omitempty"`
-	Publicip      string `json:"publicip,omitempty"`
-	Publicipid    string `json:"publicipid,omitempty"`
-	Publicport    string `json:"publicport,omitempty"`
-	Servertimeout int    `json:"servertimeout,omitempty"`
-	State         string `json:"state,omitempty"`
-	Tags          []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Zoneid string `json:"zoneid,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UploadSslCertParams struct {
@@ -2303,56 +2404,6 @@ type UploadSslCertResponse struct {
 	Projectid            string   `json:"projectid,omitempty"`
 }
 
-type DeleteSslCertParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteSslCertParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteSslCertParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteSslCertParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewDeleteSslCertParams(id string) *DeleteSslCertParams {
-	p := &DeleteSslCertParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Delete a certificate to CloudStack
-func (s *LoadBalancerService) DeleteSslCert(p *DeleteSslCertParams) (*DeleteSslCertResponse, error) {
-	resp, err := s.cs.newRequest("deleteSslCert", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteSslCertResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteSslCertResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
 type ListSslCertsParams struct {
 	p map[string]interface{}
 }
@@ -2445,355 +2496,11 @@ type SslCert struct {
 	Projectid            string   `json:"projectid,omitempty"`
 }
 
-type AssignCertToLoadBalancerParams struct {
+type AssignToLoadBalancerRuleParams struct {
 	p map[string]interface{}
 }
 
-func (p *AssignCertToLoadBalancerParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["certid"]; found {
-		u.Set("certid", v.(string))
-	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	return u
-}
-
-func (p *AssignCertToLoadBalancerParams) SetCertid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["certid"] = v
-}
-
-func (p *AssignCertToLoadBalancerParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-// You should always use this function to get a new AssignCertToLoadBalancerParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewAssignCertToLoadBalancerParams(certid string, lbruleid string) *AssignCertToLoadBalancerParams {
-	p := &AssignCertToLoadBalancerParams{}
-	p.p = make(map[string]interface{})
-	p.p["certid"] = certid
-	p.p["lbruleid"] = lbruleid
-	return p
-}
-
-// Assigns a certificate to a load balancer rule
-func (s *LoadBalancerService) AssignCertToLoadBalancer(p *AssignCertToLoadBalancerParams) (*AssignCertToLoadBalancerResponse, error) {
-	resp, err := s.cs.newRequest("assignCertToLoadBalancer", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AssignCertToLoadBalancerResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AssignCertToLoadBalancerResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type RemoveCertFromLoadBalancerParams struct {
-	p map[string]interface{}
-}
-
-func (p *RemoveCertFromLoadBalancerParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["lbruleid"]; found {
-		u.Set("lbruleid", v.(string))
-	}
-	return u
-}
-
-func (p *RemoveCertFromLoadBalancerParams) SetLbruleid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["lbruleid"] = v
-}
-
-// You should always use this function to get a new RemoveCertFromLoadBalancerParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewRemoveCertFromLoadBalancerParams(lbruleid string) *RemoveCertFromLoadBalancerParams {
-	p := &RemoveCertFromLoadBalancerParams{}
-	p.p = make(map[string]interface{})
-	p.p["lbruleid"] = lbruleid
-	return p
-}
-
-// Removes a certificate from a load balancer rule
-func (s *LoadBalancerService) RemoveCertFromLoadBalancer(p *RemoveCertFromLoadBalancerParams) (*RemoveCertFromLoadBalancerResponse, error) {
-	resp, err := s.cs.newRequest("removeCertFromLoadBalancer", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RemoveCertFromLoadBalancerResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type RemoveCertFromLoadBalancerResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type CreateGlobalLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["gslbdomainname"]; found {
-		u.Set("gslbdomainname", v.(string))
-	}
-	if v, found := p.p["gslblbmethod"]; found {
-		u.Set("gslblbmethod", v.(string))
-	}
-	if v, found := p.p["gslbservicetype"]; found {
-		u.Set("gslbservicetype", v.(string))
-	}
-	if v, found := p.p["gslbstickysessionmethodname"]; found {
-		u.Set("gslbstickysessionmethodname", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["regionid"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("regionid", vv)
-	}
-	return u
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetGslbdomainname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslbdomainname"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslblbmethod"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetGslbservicetype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslbservicetype"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslbstickysessionmethodname"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *CreateGlobalLoadBalancerRuleParams) SetRegionid(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["regionid"] = v
-}
-
-// You should always use this function to get a new CreateGlobalLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewCreateGlobalLoadBalancerRuleParams(gslbdomainname string, gslbservicetype string, name string, regionid int) *CreateGlobalLoadBalancerRuleParams {
-	p := &CreateGlobalLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["gslbdomainname"] = gslbdomainname
-	p.p["gslbservicetype"] = gslbservicetype
-	p.p["name"] = name
-	p.p["regionid"] = regionid
-	return p
-}
-
-// Creates a global load balancer rule
-func (s *LoadBalancerService) CreateGlobalLoadBalancerRule(p *CreateGlobalLoadBalancerRuleParams) (*CreateGlobalLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("createGlobalLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CreateGlobalLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type CreateGlobalLoadBalancerRuleResponse struct {
-	JobID                       string `json:"jobid,omitempty"`
-	Account                     string `json:"account,omitempty"`
-	Description                 string `json:"description,omitempty"`
-	Domain                      string `json:"domain,omitempty"`
-	Domainid                    string `json:"domainid,omitempty"`
-	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
-	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
-	Gslbservicetype             string `json:"gslbservicetype,omitempty"`
-	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
-	Id                          string `json:"id,omitempty"`
-	Loadbalancerrule            []struct {
-		Account       string `json:"account,omitempty"`
-		Algorithm     string `json:"algorithm,omitempty"`
-		Cidrlist      string `json:"cidrlist,omitempty"`
-		Clienttimeout int    `json:"clienttimeout,omitempty"`
-		Description   string `json:"description,omitempty"`
-		Domain        string `json:"domain,omitempty"`
-		Domainid      string `json:"domainid,omitempty"`
-		Fordisplay    bool   `json:"fordisplay,omitempty"`
-		Id            string `json:"id,omitempty"`
-		Name          string `json:"name,omitempty"`
-		Networkid     string `json:"networkid,omitempty"`
-		Privateport   string `json:"privateport,omitempty"`
-		Project       string `json:"project,omitempty"`
-		Projectid     string `json:"projectid,omitempty"`
-		Protocol      string `json:"protocol,omitempty"`
-		Publicip      string `json:"publicip,omitempty"`
-		Publicipid    string `json:"publicipid,omitempty"`
-		Publicport    string `json:"publicport,omitempty"`
-		Servertimeout int    `json:"servertimeout,omitempty"`
-		State         string `json:"state,omitempty"`
-		Tags          []struct {
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Zoneid string `json:"zoneid,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Regionid  int    `json:"regionid,omitempty"`
-}
-
-type DeleteGlobalLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteGlobalLoadBalancerRuleParams) toURLValues() url.Values {
+func (p *AssignToLoadBalancerRuleParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -2801,1267 +2508,59 @@ func (p *DeleteGlobalLoadBalancerRuleParams) toURLValues() url.Values {
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
-	return u
-}
-
-func (p *DeleteGlobalLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteGlobalLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewDeleteGlobalLoadBalancerRuleParams(id string) *DeleteGlobalLoadBalancerRuleParams {
-	p := &DeleteGlobalLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a global load balancer rule.
-func (s *LoadBalancerService) DeleteGlobalLoadBalancerRule(p *DeleteGlobalLoadBalancerRuleParams) (*DeleteGlobalLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("deleteGlobalLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteGlobalLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type UpdateGlobalLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateGlobalLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["gslblbmethod"]; found {
-		u.Set("gslblbmethod", v.(string))
-	}
-	if v, found := p.p["gslbstickysessionmethodname"]; found {
-		u.Set("gslbstickysessionmethodname", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateGlobalLoadBalancerRuleParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-}
-
-func (p *UpdateGlobalLoadBalancerRuleParams) SetGslblbmethod(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslblbmethod"] = v
-}
-
-func (p *UpdateGlobalLoadBalancerRuleParams) SetGslbstickysessionmethodname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslbstickysessionmethodname"] = v
-}
-
-func (p *UpdateGlobalLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new UpdateGlobalLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUpdateGlobalLoadBalancerRuleParams(id string) *UpdateGlobalLoadBalancerRuleParams {
-	p := &UpdateGlobalLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// update global load balancer rules.
-func (s *LoadBalancerService) UpdateGlobalLoadBalancerRule(p *UpdateGlobalLoadBalancerRuleParams) (*UpdateGlobalLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("updateGlobalLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateGlobalLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateGlobalLoadBalancerRuleResponse struct {
-	JobID                       string `json:"jobid,omitempty"`
-	Account                     string `json:"account,omitempty"`
-	Description                 string `json:"description,omitempty"`
-	Domain                      string `json:"domain,omitempty"`
-	Domainid                    string `json:"domainid,omitempty"`
-	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
-	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
-	Gslbservicetype             string `json:"gslbservicetype,omitempty"`
-	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
-	Id                          string `json:"id,omitempty"`
-	Loadbalancerrule            []struct {
-		Account       string `json:"account,omitempty"`
-		Algorithm     string `json:"algorithm,omitempty"`
-		Cidrlist      string `json:"cidrlist,omitempty"`
-		Clienttimeout int    `json:"clienttimeout,omitempty"`
-		Description   string `json:"description,omitempty"`
-		Domain        string `json:"domain,omitempty"`
-		Domainid      string `json:"domainid,omitempty"`
-		Fordisplay    bool   `json:"fordisplay,omitempty"`
-		Id            string `json:"id,omitempty"`
-		Name          string `json:"name,omitempty"`
-		Networkid     string `json:"networkid,omitempty"`
-		Privateport   string `json:"privateport,omitempty"`
-		Project       string `json:"project,omitempty"`
-		Projectid     string `json:"projectid,omitempty"`
-		Protocol      string `json:"protocol,omitempty"`
-		Publicip      string `json:"publicip,omitempty"`
-		Publicipid    string `json:"publicipid,omitempty"`
-		Publicport    string `json:"publicport,omitempty"`
-		Servertimeout int    `json:"servertimeout,omitempty"`
-		State         string `json:"state,omitempty"`
-		Tags          []struct {
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Zoneid string `json:"zoneid,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Regionid  int    `json:"regionid,omitempty"`
-}
-
-type ListGlobalLoadBalancerRulesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isrecursive"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrecursive", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listall"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("listall", vv)
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["regionid"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("regionid", vv)
-	}
-	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
-		}
-	}
-	return u
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetIsrecursive(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isrecursive"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetListall(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listall"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetRegionid(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["regionid"] = v
-}
-
-func (p *ListGlobalLoadBalancerRulesParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-// You should always use this function to get a new ListGlobalLoadBalancerRulesParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewListGlobalLoadBalancerRulesParams() *ListGlobalLoadBalancerRulesParams {
-	p := &ListGlobalLoadBalancerRulesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetGlobalLoadBalancerRuleID(keyword string, opts ...OptionFunc) (string, int, error) {
-	p := &ListGlobalLoadBalancerRulesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListGlobalLoadBalancerRules(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
-	}
-
-	if l.Count == 1 {
-		return l.GlobalLoadBalancerRules[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.GlobalLoadBalancerRules {
-			if v.Name == keyword {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByName(name string, opts ...OptionFunc) (*GlobalLoadBalancerRule, int, error) {
-	id, count, err := s.GetGlobalLoadBalancerRuleID(name, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-
-	r, count, err := s.GetGlobalLoadBalancerRuleByID(id, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-	return r, count, nil
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetGlobalLoadBalancerRuleByID(id string, opts ...OptionFunc) (*GlobalLoadBalancerRule, int, error) {
-	p := &ListGlobalLoadBalancerRulesParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListGlobalLoadBalancerRules(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.GlobalLoadBalancerRules[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for GlobalLoadBalancerRule UUID: %s!", id)
-}
-
-// Lists load balancer rules.
-func (s *LoadBalancerService) ListGlobalLoadBalancerRules(p *ListGlobalLoadBalancerRulesParams) (*ListGlobalLoadBalancerRulesResponse, error) {
-	var r, l ListGlobalLoadBalancerRulesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listGlobalLoadBalancerRules", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.GlobalLoadBalancerRules = append(r.GlobalLoadBalancerRules, l.GlobalLoadBalancerRules...)
-
-		if r.Count != len(r.GlobalLoadBalancerRules) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.GlobalLoadBalancerRules))
-		p.SetPage(page)
-	}
-}
-
-type ListGlobalLoadBalancerRulesResponse struct {
-	Count                   int                       `json:"count"`
-	GlobalLoadBalancerRules []*GlobalLoadBalancerRule `json:"globalloadbalancerrule"`
-}
-
-type GlobalLoadBalancerRule struct {
-	Account                     string `json:"account,omitempty"`
-	Description                 string `json:"description,omitempty"`
-	Domain                      string `json:"domain,omitempty"`
-	Domainid                    string `json:"domainid,omitempty"`
-	Gslbdomainname              string `json:"gslbdomainname,omitempty"`
-	Gslblbmethod                string `json:"gslblbmethod,omitempty"`
-	Gslbservicetype             string `json:"gslbservicetype,omitempty"`
-	Gslbstickysessionmethodname string `json:"gslbstickysessionmethodname,omitempty"`
-	Id                          string `json:"id,omitempty"`
-	Loadbalancerrule            []struct {
-		Account       string `json:"account,omitempty"`
-		Algorithm     string `json:"algorithm,omitempty"`
-		Cidrlist      string `json:"cidrlist,omitempty"`
-		Clienttimeout int    `json:"clienttimeout,omitempty"`
-		Description   string `json:"description,omitempty"`
-		Domain        string `json:"domain,omitempty"`
-		Domainid      string `json:"domainid,omitempty"`
-		Fordisplay    bool   `json:"fordisplay,omitempty"`
-		Id            string `json:"id,omitempty"`
-		Name          string `json:"name,omitempty"`
-		Networkid     string `json:"networkid,omitempty"`
-		Privateport   string `json:"privateport,omitempty"`
-		Project       string `json:"project,omitempty"`
-		Projectid     string `json:"projectid,omitempty"`
-		Protocol      string `json:"protocol,omitempty"`
-		Publicip      string `json:"publicip,omitempty"`
-		Publicipid    string `json:"publicipid,omitempty"`
-		Publicport    string `json:"publicport,omitempty"`
-		Servertimeout int    `json:"servertimeout,omitempty"`
-		State         string `json:"state,omitempty"`
-		Tags          []struct {
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Zoneid string `json:"zoneid,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	Regionid  int    `json:"regionid,omitempty"`
-}
-
-type AssignToGlobalLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *AssignToGlobalLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["gslblbruleweightsmap"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("gslblbruleweightsmap[%d].key", i), k)
-			u.Set(fmt.Sprintf("gslblbruleweightsmap[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["loadbalancerrulelist"]; found {
+	if v, found := p.p["virtualmachineids"]; found {
 		vv := strings.Join(v.([]string), ",")
-		u.Set("loadbalancerrulelist", vv)
+		u.Set("virtualmachineids", vv)
 	}
-	return u
-}
-
-func (p *AssignToGlobalLoadBalancerRuleParams) SetGslblbruleweightsmap(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["gslblbruleweightsmap"] = v
-}
-
-func (p *AssignToGlobalLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *AssignToGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["loadbalancerrulelist"] = v
-}
-
-// You should always use this function to get a new AssignToGlobalLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewAssignToGlobalLoadBalancerRuleParams(id string, loadbalancerrulelist []string) *AssignToGlobalLoadBalancerRuleParams {
-	p := &AssignToGlobalLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["loadbalancerrulelist"] = loadbalancerrulelist
-	return p
-}
-
-// Assign load balancer rule or list of load balancer rules to a global load balancer rules.
-func (s *LoadBalancerService) AssignToGlobalLoadBalancerRule(p *AssignToGlobalLoadBalancerRuleParams) (*AssignToGlobalLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("assignToGlobalLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AssignToGlobalLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AssignToGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type RemoveFromGlobalLoadBalancerRuleParams struct {
-	p map[string]interface{}
-}
-
-func (p *RemoveFromGlobalLoadBalancerRuleParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["loadbalancerrulelist"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("loadbalancerrulelist", vv)
-	}
-	return u
-}
-
-func (p *RemoveFromGlobalLoadBalancerRuleParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *RemoveFromGlobalLoadBalancerRuleParams) SetLoadbalancerrulelist(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["loadbalancerrulelist"] = v
-}
-
-// You should always use this function to get a new RemoveFromGlobalLoadBalancerRuleParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewRemoveFromGlobalLoadBalancerRuleParams(id string, loadbalancerrulelist []string) *RemoveFromGlobalLoadBalancerRuleParams {
-	p := &RemoveFromGlobalLoadBalancerRuleParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["loadbalancerrulelist"] = loadbalancerrulelist
-	return p
-}
-
-// Removes a load balancer rule association with global load balancer rule
-func (s *LoadBalancerService) RemoveFromGlobalLoadBalancerRule(p *RemoveFromGlobalLoadBalancerRuleParams) (*RemoveFromGlobalLoadBalancerRuleResponse, error) {
-	resp, err := s.cs.newRequest("removeFromGlobalLoadBalancerRule", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RemoveFromGlobalLoadBalancerRuleResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type RemoveFromGlobalLoadBalancerRuleResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type CreateLoadBalancerParams struct {
-	p map[string]interface{}
-}
-
-func (p *CreateLoadBalancerParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["algorithm"]; found {
-		u.Set("algorithm", v.(string))
-	}
-	if v, found := p.p["description"]; found {
-		u.Set("description", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["instanceport"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("instanceport", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["networkid"]; found {
-		u.Set("networkid", v.(string))
-	}
-	if v, found := p.p["scheme"]; found {
-		u.Set("scheme", v.(string))
-	}
-	if v, found := p.p["sourceipaddress"]; found {
-		u.Set("sourceipaddress", v.(string))
-	}
-	if v, found := p.p["sourceipaddressnetworkid"]; found {
-		u.Set("sourceipaddressnetworkid", v.(string))
-	}
-	if v, found := p.p["sourceport"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("sourceport", vv)
-	}
-	return u
-}
-
-func (p *CreateLoadBalancerParams) SetAlgorithm(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["algorithm"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetDescription(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["description"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetInstanceport(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["instanceport"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetNetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkid"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetScheme(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["scheme"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetSourceipaddress(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourceipaddress"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetSourceipaddressnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourceipaddressnetworkid"] = v
-}
-
-func (p *CreateLoadBalancerParams) SetSourceport(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourceport"] = v
-}
-
-// You should always use this function to get a new CreateLoadBalancerParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewCreateLoadBalancerParams(algorithm string, instanceport int, name string, networkid string, scheme string, sourceipaddressnetworkid string, sourceport int) *CreateLoadBalancerParams {
-	p := &CreateLoadBalancerParams{}
-	p.p = make(map[string]interface{})
-	p.p["algorithm"] = algorithm
-	p.p["instanceport"] = instanceport
-	p.p["name"] = name
-	p.p["networkid"] = networkid
-	p.p["scheme"] = scheme
-	p.p["sourceipaddressnetworkid"] = sourceipaddressnetworkid
-	p.p["sourceport"] = sourceport
-	return p
-}
-
-// Creates a load balancer
-func (s *LoadBalancerService) CreateLoadBalancer(p *CreateLoadBalancerParams) (*CreateLoadBalancerResponse, error) {
-	resp, err := s.cs.newRequest("createLoadBalancer", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CreateLoadBalancerResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type CreateLoadBalancerResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Account              string `json:"account,omitempty"`
-	Algorithm            string `json:"algorithm,omitempty"`
-	Description          string `json:"description,omitempty"`
-	Domain               string `json:"domain,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
-	Fordisplay           bool   `json:"fordisplay,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Loadbalancerinstance []struct {
-		Id        string `json:"id,omitempty"`
-		Ipaddress string `json:"ipaddress,omitempty"`
-		Name      string `json:"name,omitempty"`
-		State     string `json:"state,omitempty"`
-	} `json:"loadbalancerinstance,omitempty"`
-	Loadbalancerrule []struct {
-		Instanceport int    `json:"instanceport,omitempty"`
-		Sourceport   int    `json:"sourceport,omitempty"`
-		State        string `json:"state,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Networkid                string `json:"networkid,omitempty"`
-	Project                  string `json:"project,omitempty"`
-	Projectid                string `json:"projectid,omitempty"`
-	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
-	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
-	Tags                     []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-}
-
-type ListLoadBalancersParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListLoadBalancersParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isrecursive"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrecursive", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listall"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("listall", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["networkid"]; found {
-		u.Set("networkid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["scheme"]; found {
-		u.Set("scheme", v.(string))
-	}
-	if v, found := p.p["sourceipaddress"]; found {
-		u.Set("sourceipaddress", v.(string))
-	}
-	if v, found := p.p["sourceipaddressnetworkid"]; found {
-		u.Set("sourceipaddressnetworkid", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
+	if v, found := p.p["vmidipmap"]; found {
 		i := 0
 		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
+			u.Set(fmt.Sprintf("vmidipmap[%d].key", i), k)
+			u.Set(fmt.Sprintf("vmidipmap[%d].value", i), vv)
 			i++
 		}
 	}
 	return u
 }
 
-func (p *ListLoadBalancersParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListLoadBalancersParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListLoadBalancersParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *ListLoadBalancersParams) SetId(v string) {
+func (p *AssignToLoadBalancerRuleParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *ListLoadBalancersParams) SetIsrecursive(v bool) {
+func (p *AssignToLoadBalancerRuleParams) SetVirtualmachineids(v []string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["isrecursive"] = v
+	p.p["virtualmachineids"] = v
 }
 
-func (p *ListLoadBalancersParams) SetKeyword(v string) {
+func (p *AssignToLoadBalancerRuleParams) SetVmidipmap(v map[string]string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["keyword"] = v
+	p.p["vmidipmap"] = v
 }
 
-func (p *ListLoadBalancersParams) SetListall(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listall"] = v
-}
-
-func (p *ListLoadBalancersParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *ListLoadBalancersParams) SetNetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkid"] = v
-}
-
-func (p *ListLoadBalancersParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLoadBalancersParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListLoadBalancersParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *ListLoadBalancersParams) SetScheme(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["scheme"] = v
-}
-
-func (p *ListLoadBalancersParams) SetSourceipaddress(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourceipaddress"] = v
-}
-
-func (p *ListLoadBalancersParams) SetSourceipaddressnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourceipaddressnetworkid"] = v
-}
-
-func (p *ListLoadBalancersParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-// You should always use this function to get a new ListLoadBalancersParams instance,
+// You should always use this function to get a new AssignToLoadBalancerRuleParams instance,
 // as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewListLoadBalancersParams() *ListLoadBalancersParams {
-	p := &ListLoadBalancersParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerID(name string, opts ...OptionFunc) (string, int, error) {
-	p := &ListLoadBalancersParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["name"] = name
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListLoadBalancers(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
-	}
-
-	if l.Count == 1 {
-		return l.LoadBalancers[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.LoadBalancers {
-			if v.Name == name {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerByName(name string, opts ...OptionFunc) (*LoadBalancer, int, error) {
-	id, count, err := s.GetLoadBalancerID(name, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-
-	r, count, err := s.GetLoadBalancerByID(id, opts...)
-	if err != nil {
-		return nil, count, err
-	}
-	return r, count, nil
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *LoadBalancerService) GetLoadBalancerByID(id string, opts ...OptionFunc) (*LoadBalancer, int, error) {
-	p := &ListLoadBalancersParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListLoadBalancers(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.LoadBalancers[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancer UUID: %s!", id)
-}
-
-// Lists load balancers
-func (s *LoadBalancerService) ListLoadBalancers(p *ListLoadBalancersParams) (*ListLoadBalancersResponse, error) {
-	var r, l ListLoadBalancersResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLoadBalancers", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LoadBalancers = append(r.LoadBalancers, l.LoadBalancers...)
-
-		if r.Count != len(r.LoadBalancers) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LoadBalancers))
-		p.SetPage(page)
-	}
-}
-
-type ListLoadBalancersResponse struct {
-	Count         int             `json:"count"`
-	LoadBalancers []*LoadBalancer `json:"loadbalancer"`
-}
-
-type LoadBalancer struct {
-	Account              string `json:"account,omitempty"`
-	Algorithm            string `json:"algorithm,omitempty"`
-	Description          string `json:"description,omitempty"`
-	Domain               string `json:"domain,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
-	Fordisplay           bool   `json:"fordisplay,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Loadbalancerinstance []struct {
-		Id        string `json:"id,omitempty"`
-		Ipaddress string `json:"ipaddress,omitempty"`
-		Name      string `json:"name,omitempty"`
-		State     string `json:"state,omitempty"`
-	} `json:"loadbalancerinstance,omitempty"`
-	Loadbalancerrule []struct {
-		Instanceport int    `json:"instanceport,omitempty"`
-		Sourceport   int    `json:"sourceport,omitempty"`
-		State        string `json:"state,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Networkid                string `json:"networkid,omitempty"`
-	Project                  string `json:"project,omitempty"`
-	Projectid                string `json:"projectid,omitempty"`
-	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
-	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
-	Tags                     []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-}
-
-type DeleteLoadBalancerParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteLoadBalancerParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteLoadBalancerParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteLoadBalancerParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewDeleteLoadBalancerParams(id string) *DeleteLoadBalancerParams {
-	p := &DeleteLoadBalancerParams{}
+func (s *LoadBalancerService) NewAssignToLoadBalancerRuleParams(id string) *AssignToLoadBalancerRuleParams {
+	p := &AssignToLoadBalancerRuleParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Deletes a load balancer
-func (s *LoadBalancerService) DeleteLoadBalancer(p *DeleteLoadBalancerParams) (*DeleteLoadBalancerResponse, error) {
-	resp, err := s.cs.newRequest("deleteLoadBalancer", p.toURLValues())
+// Assigns virtual machine or a list of virtual machines to a load balancer rule.
+func (s *LoadBalancerService) AssignToLoadBalancerRule(p *AssignToLoadBalancerRuleParams) (*AssignToLoadBalancerRuleResponse, error) {
+	resp, err := s.cs.newRequest("assignToLoadBalancerRule", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r DeleteLoadBalancerResponse
+	var r AssignToLoadBalancerRuleResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -4083,134 +2582,8 @@ func (s *LoadBalancerService) DeleteLoadBalancer(p *DeleteLoadBalancerParams) (*
 	return &r, nil
 }
 
-type DeleteLoadBalancerResponse struct {
+type AssignToLoadBalancerRuleResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
-}
-
-type UpdateLoadBalancerParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateLoadBalancerParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateLoadBalancerParams) SetCustomid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["customid"] = v
-}
-
-func (p *UpdateLoadBalancerParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *UpdateLoadBalancerParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new UpdateLoadBalancerParams instance,
-// as then you are sure you have configured all required params
-func (s *LoadBalancerService) NewUpdateLoadBalancerParams(id string) *UpdateLoadBalancerParams {
-	p := &UpdateLoadBalancerParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a load balancer
-func (s *LoadBalancerService) UpdateLoadBalancer(p *UpdateLoadBalancerParams) (*UpdateLoadBalancerResponse, error) {
-	resp, err := s.cs.newRequest("updateLoadBalancer", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateLoadBalancerResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateLoadBalancerResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Account              string `json:"account,omitempty"`
-	Algorithm            string `json:"algorithm,omitempty"`
-	Description          string `json:"description,omitempty"`
-	Domain               string `json:"domain,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
-	Fordisplay           bool   `json:"fordisplay,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Loadbalancerinstance []struct {
-		Id        string `json:"id,omitempty"`
-		Ipaddress string `json:"ipaddress,omitempty"`
-		Name      string `json:"name,omitempty"`
-		State     string `json:"state,omitempty"`
-	} `json:"loadbalancerinstance,omitempty"`
-	Loadbalancerrule []struct {
-		Instanceport int    `json:"instanceport,omitempty"`
-		Sourceport   int    `json:"sourceport,omitempty"`
-		State        string `json:"state,omitempty"`
-	} `json:"loadbalancerrule,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Networkid                string `json:"networkid,omitempty"`
-	Project                  string `json:"project,omitempty"`
-	Projectid                string `json:"projectid,omitempty"`
-	Sourceipaddress          string `json:"sourceipaddress,omitempty"`
-	Sourceipaddressnetworkid string `json:"sourceipaddressnetworkid,omitempty"`
-	Tags                     []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
 }

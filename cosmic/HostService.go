@@ -24,6 +24,205 @@ import (
 	"strings"
 )
 
+type ReleaseDedicatedHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseDedicatedHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseDedicatedHostParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+// You should always use this function to get a new ReleaseDedicatedHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewReleaseDedicatedHostParams(hostid string) *ReleaseDedicatedHostParams {
+	p := &ReleaseDedicatedHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["hostid"] = hostid
+	return p
+}
+
+// Release the dedication for host
+func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*ReleaseDedicatedHostResponse, error) {
+	resp, err := s.cs.newRequest("releaseDedicatedHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseDedicatedHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ReleaseDedicatedHostResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListDedicatedHostsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListDedicatedHostsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["affinitygroupid"]; found {
+		u.Set("affinitygroupid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListDedicatedHostsParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetAffinitygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["affinitygroupid"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListDedicatedHostsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListDedicatedHostsParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewListDedicatedHostsParams() *ListDedicatedHostsParams {
+	p := &ListDedicatedHostsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists dedicated hosts.
+func (s *HostService) ListDedicatedHosts(p *ListDedicatedHostsParams) (*ListDedicatedHostsResponse, error) {
+	var r, l ListDedicatedHostsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDedicatedHosts", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DedicatedHosts = append(r.DedicatedHosts, l.DedicatedHosts...)
+
+		if r.Count != len(r.DedicatedHosts) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DedicatedHosts))
+		p.SetPage(page)
+	}
+}
+
+type ListDedicatedHostsResponse struct {
+	Count          int              `json:"count"`
+	DedicatedHosts []*DedicatedHost `json:"dedicatedhost"`
+}
+
+type DedicatedHost struct {
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Hostid          string `json:"hostid,omitempty"`
+	Hostname        string `json:"hostname,omitempty"`
+	Id              string `json:"id,omitempty"`
+}
+
 type AddHostParams struct {
 	p map[string]interface{}
 }
@@ -166,6 +365,10 @@ func (s *HostService) AddHost(p *AddHostParams) (*AddHostResponse, error) {
 }
 
 type AddHostResponse struct {
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -178,10 +381,13 @@ type AddHostResponse struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -224,6 +430,176 @@ type AddHostResponse struct {
 	Version              string `json:"version,omitempty"`
 	Zoneid               string `json:"zoneid,omitempty"`
 	Zonename             string `json:"zonename,omitempty"`
+}
+
+type DedicateHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *DedicateHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	return u
+}
+
+func (p *DedicateHostParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DedicateHostParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *DedicateHostParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+// You should always use this function to get a new DedicateHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewDedicateHostParams(domainid string, hostid string) *DedicateHostParams {
+	p := &DedicateHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["domainid"] = domainid
+	p.p["hostid"] = hostid
+	return p
+}
+
+// Dedicates a host.
+func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse, error) {
+	resp, err := s.cs.newRequest("dedicateHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DedicateHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DedicateHostResponse struct {
+	JobID           string `json:"jobid,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Hostid          string `json:"hostid,omitempty"`
+	Hostname        string `json:"hostname,omitempty"`
+	Id              string `json:"id,omitempty"`
+}
+
+type DeleteHostParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteHostParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["forced"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forced", vv)
+	}
+	if v, found := p.p["forcedestroylocalstorage"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("forcedestroylocalstorage", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteHostParams) SetForced(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forced"] = v
+}
+
+func (p *DeleteHostParams) SetForcedestroylocalstorage(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["forcedestroylocalstorage"] = v
+}
+
+func (p *DeleteHostParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteHostParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewDeleteHostParams(id string) *DeleteHostParams {
+	p := &DeleteHostParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a host.
+func (s *HostService) DeleteHost(p *DeleteHostParams) (*DeleteHostResponse, error) {
+	resp, err := s.cs.newRequest("deleteHost", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteHostResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteHostResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ReconnectHostParams struct {
@@ -293,6 +669,10 @@ func (s *HostService) ReconnectHost(p *ReconnectHostParams) (*ReconnectHostRespo
 
 type ReconnectHostResponse struct {
 	JobID                   string            `json:"jobid,omitempty"`
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -305,10 +685,13 @@ type ReconnectHostResponse struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -440,6 +823,10 @@ func (s *HostService) UpdateHost(p *UpdateHostParams) (*UpdateHostResponse, erro
 }
 
 type UpdateHostResponse struct {
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -452,10 +839,13 @@ type UpdateHostResponse struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -498,78 +888,6 @@ type UpdateHostResponse struct {
 	Version              string `json:"version,omitempty"`
 	Zoneid               string `json:"zoneid,omitempty"`
 	Zonename             string `json:"zonename,omitempty"`
-}
-
-type DeleteHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["forced"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("forced", vv)
-	}
-	if v, found := p.p["forcedestroylocalstorage"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("forcedestroylocalstorage", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteHostParams) SetForced(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["forced"] = v
-}
-
-func (p *DeleteHostParams) SetForcedestroylocalstorage(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["forcedestroylocalstorage"] = v
-}
-
-func (p *DeleteHostParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewDeleteHostParams(id string) *DeleteHostParams {
-	p := &DeleteHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a host.
-func (s *HostService) DeleteHost(p *DeleteHostParams) (*DeleteHostResponse, error) {
-	resp, err := s.cs.newRequest("deleteHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteHostResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }
 
 type PrepareHostForMaintenanceParams struct {
@@ -639,6 +957,10 @@ func (s *HostService) PrepareHostForMaintenance(p *PrepareHostForMaintenancePara
 
 type PrepareHostForMaintenanceResponse struct {
 	JobID                   string            `json:"jobid,omitempty"`
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -651,10 +973,13 @@ type PrepareHostForMaintenanceResponse struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -766,6 +1091,10 @@ func (s *HostService) CancelHostMaintenance(p *CancelHostMaintenanceParams) (*Ca
 
 type CancelHostMaintenanceResponse struct {
 	JobID                   string            `json:"jobid,omitempty"`
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -778,10 +1107,13 @@ type CancelHostMaintenanceResponse struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -824,6 +1156,288 @@ type CancelHostMaintenanceResponse struct {
 	Version              string `json:"version,omitempty"`
 	Zoneid               string `json:"zoneid,omitempty"`
 	Zonename             string `json:"zonename,omitempty"`
+}
+
+type UpdateHostPasswordParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateHostPasswordParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["password"]; found {
+		u.Set("password", v.(string))
+	}
+	if v, found := p.p["update_passwd_on_host"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("update_passwd_on_host", vv)
+	}
+	if v, found := p.p["username"]; found {
+		u.Set("username", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateHostPasswordParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+}
+
+func (p *UpdateHostPasswordParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *UpdateHostPasswordParams) SetPassword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["password"] = v
+}
+
+func (p *UpdateHostPasswordParams) SetUpdate_passwd_on_host(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["update_passwd_on_host"] = v
+}
+
+func (p *UpdateHostPasswordParams) SetUsername(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["username"] = v
+}
+
+// You should always use this function to get a new UpdateHostPasswordParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewUpdateHostPasswordParams(password string, username string) *UpdateHostPasswordParams {
+	p := &UpdateHostPasswordParams{}
+	p.p = make(map[string]interface{})
+	p.p["password"] = password
+	p.p["username"] = username
+	return p
+}
+
+// Update password of a host/pool on management server.
+func (s *HostService) UpdateHostPassword(p *UpdateHostPasswordParams) (*UpdateHostPasswordResponse, error) {
+	resp, err := s.cs.newRequest("updateHostPassword", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateHostPasswordResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type UpdateHostPasswordResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
+type ReleaseHostReservationParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseHostReservationParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseHostReservationParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new ReleaseHostReservationParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewReleaseHostReservationParams(id string) *ReleaseHostReservationParams {
+	p := &ReleaseHostReservationParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Releases host reservation.
+func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*ReleaseHostReservationResponse, error) {
+	resp, err := s.cs.newRequest("releaseHostReservation", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseHostReservationResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ReleaseHostReservationResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListHostTagsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListHostTagsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListHostTagsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListHostTagsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListHostTagsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListHostTagsParams instance,
+// as then you are sure you have configured all required params
+func (s *HostService) NewListHostTagsParams() *ListHostTagsParams {
+	p := &ListHostTagsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *HostService) GetHostTagID(keyword string, opts ...OptionFunc) (string, int, error) {
+	p := &ListHostTagsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["keyword"] = keyword
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListHostTags(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
+	}
+
+	if l.Count == 1 {
+		return l.HostTags[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.HostTags {
+			if v.Name == keyword {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
+}
+
+// Lists host tags
+func (s *HostService) ListHostTags(p *ListHostTagsParams) (*ListHostTagsResponse, error) {
+	var r, l ListHostTagsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listHostTags", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.HostTags = append(r.HostTags, l.HostTags...)
+
+		if r.Count != len(r.HostTags) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.HostTags))
+		p.SetPage(page)
+	}
+}
+
+type ListHostTagsResponse struct {
+	Count    int        `json:"count"`
+	HostTags []*HostTag `json:"hosttag"`
+}
+
+type HostTag struct {
+	Hostid int64  `json:"hostid,omitempty"`
+	Id     string `json:"id,omitempty"`
+	Name   string `json:"name,omitempty"`
 }
 
 type ListHostsParams struct {
@@ -1114,6 +1728,10 @@ type ListHostsResponse struct {
 }
 
 type Host struct {
+	Accountid               string            `json:"accountid,omitempty"`
+	Accountname             string            `json:"accountname,omitempty"`
+	Affinitygroupid         string            `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string            `json:"affinitygroupname,omitempty"`
 	Averageload             int64             `json:"averageload,omitempty"`
 	Capabilities            string            `json:"capabilities,omitempty"`
 	Clusterid               string            `json:"clusterid,omitempty"`
@@ -1126,10 +1744,13 @@ type Host struct {
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
+	Dedicated               bool              `json:"dedicated,omitempty"`
 	Details                 map[string]string `json:"details,omitempty"`
 	Disconnected            string            `json:"disconnected,omitempty"`
 	Disksizeallocated       int64             `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64             `json:"disksizetotal,omitempty"`
+	Domainid                string            `json:"domainid,omitempty"`
+	Domainname              string            `json:"domainname,omitempty"`
 	Events                  string            `json:"events,omitempty"`
 	Gpugroup                []struct {
 		Gpugroupname string `json:"gpugroupname,omitempty"`
@@ -1172,130 +1793,6 @@ type Host struct {
 	Version              string `json:"version,omitempty"`
 	Zoneid               string `json:"zoneid,omitempty"`
 	Zonename             string `json:"zonename,omitempty"`
-}
-
-type ListHostTagsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListHostTagsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListHostTagsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListHostTagsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListHostTagsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListHostTagsParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewListHostTagsParams() *ListHostTagsParams {
-	p := &ListHostTagsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *HostService) GetHostTagID(keyword string, opts ...OptionFunc) (string, int, error) {
-	p := &ListHostTagsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListHostTags(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
-	}
-
-	if l.Count == 1 {
-		return l.HostTags[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.HostTags {
-			if v.Name == keyword {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
-}
-
-// Lists host tags
-func (s *HostService) ListHostTags(p *ListHostTagsParams) (*ListHostTagsResponse, error) {
-	var r, l ListHostTagsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listHostTags", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.HostTags = append(r.HostTags, l.HostTags...)
-
-		if r.Count != len(r.HostTags) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.HostTags))
-		p.SetPage(page)
-	}
-}
-
-type ListHostTagsResponse struct {
-	Count    int        `json:"count"`
-	HostTags []*HostTag `json:"hosttag"`
-}
-
-type HostTag struct {
-	Hostid int64  `json:"hostid,omitempty"`
-	Id     string `json:"id,omitempty"`
-	Name   string `json:"name,omitempty"`
 }
 
 type FindHostsForMigrationParams struct {
@@ -1376,6 +1873,10 @@ func (s *HostService) FindHostsForMigration(p *FindHostsForMigrationParams) (*Fi
 }
 
 type FindHostsForMigrationResponse struct {
+	Accountid               string `json:"accountid,omitempty"`
+	Accountname             string `json:"accountname,omitempty"`
+	Affinitygroupid         string `json:"affinitygroupid,omitempty"`
+	Affinitygroupname       string `json:"affinitygroupname,omitempty"`
 	Averageload             int64  `json:"averageload,omitempty"`
 	Capabilities            string `json:"capabilities,omitempty"`
 	Clusterid               string `json:"clusterid,omitempty"`
@@ -1387,9 +1888,12 @@ type FindHostsForMigrationResponse struct {
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`
+	Dedicated               bool   `json:"dedicated,omitempty"`
 	Disconnected            string `json:"disconnected,omitempty"`
 	Disksizeallocated       int64  `json:"disksizeallocated,omitempty"`
 	Disksizetotal           int64  `json:"disksizetotal,omitempty"`
+	Domainid                string `json:"domainid,omitempty"`
+	Domainname              string `json:"domainname,omitempty"`
 	Events                  string `json:"events,omitempty"`
 	Hahost                  bool   `json:"hahost,omitempty"`
 	Hasenoughcapacity       bool   `json:"hasenoughcapacity,omitempty"`
@@ -1487,455 +1991,4 @@ type AddSecondaryStorageResponse struct {
 	Url          string   `json:"url,omitempty"`
 	Zoneid       string   `json:"zoneid,omitempty"`
 	Zonename     string   `json:"zonename,omitempty"`
-}
-
-type UpdateHostPasswordParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateHostPasswordParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	if v, found := p.p["password"]; found {
-		u.Set("password", v.(string))
-	}
-	if v, found := p.p["update_passwd_on_host"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("update_passwd_on_host", vv)
-	}
-	if v, found := p.p["username"]; found {
-		u.Set("username", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateHostPasswordParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-}
-
-func (p *UpdateHostPasswordParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-func (p *UpdateHostPasswordParams) SetPassword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["password"] = v
-}
-
-func (p *UpdateHostPasswordParams) SetUpdate_passwd_on_host(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["update_passwd_on_host"] = v
-}
-
-func (p *UpdateHostPasswordParams) SetUsername(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["username"] = v
-}
-
-// You should always use this function to get a new UpdateHostPasswordParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewUpdateHostPasswordParams(password string, username string) *UpdateHostPasswordParams {
-	p := &UpdateHostPasswordParams{}
-	p.p = make(map[string]interface{})
-	p.p["password"] = password
-	p.p["username"] = username
-	return p
-}
-
-// Update password of a host/pool on management server.
-func (s *HostService) UpdateHostPassword(p *UpdateHostPasswordParams) (*UpdateHostPasswordResponse, error) {
-	resp, err := s.cs.newRequest("updateHostPassword", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateHostPasswordResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type UpdateHostPasswordResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type ReleaseHostReservationParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseHostReservationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseHostReservationParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new ReleaseHostReservationParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewReleaseHostReservationParams(id string) *ReleaseHostReservationParams {
-	p := &ReleaseHostReservationParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Releases host reservation.
-func (s *HostService) ReleaseHostReservation(p *ReleaseHostReservationParams) (*ReleaseHostReservationResponse, error) {
-	resp, err := s.cs.newRequest("releaseHostReservation", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseHostReservationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ReleaseHostReservationResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type DedicateHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicateHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicateHostParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DedicateHostParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *DedicateHostParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-// You should always use this function to get a new DedicateHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewDedicateHostParams(domainid string, hostid string) *DedicateHostParams {
-	p := &DedicateHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["domainid"] = domainid
-	p.p["hostid"] = hostid
-	return p
-}
-
-// Dedicates a host.
-func (s *HostService) DedicateHost(p *DedicateHostParams) (*DedicateHostResponse, error) {
-	resp, err := s.cs.newRequest("dedicateHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicateHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DedicateHostResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Hostid          string `json:"hostid,omitempty"`
-	Hostname        string `json:"hostname,omitempty"`
-	Id              string `json:"id,omitempty"`
-}
-
-type ReleaseDedicatedHostParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseDedicatedHostParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseDedicatedHostParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-// You should always use this function to get a new ReleaseDedicatedHostParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewReleaseDedicatedHostParams(hostid string) *ReleaseDedicatedHostParams {
-	p := &ReleaseDedicatedHostParams{}
-	p.p = make(map[string]interface{})
-	p.p["hostid"] = hostid
-	return p
-}
-
-// Release the dedication for host
-func (s *HostService) ReleaseDedicatedHost(p *ReleaseDedicatedHostParams) (*ReleaseDedicatedHostResponse, error) {
-	resp, err := s.cs.newRequest("releaseDedicatedHost", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseDedicatedHostResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ReleaseDedicatedHostResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListDedicatedHostsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListDedicatedHostsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["affinitygroupid"]; found {
-		u.Set("affinitygroupid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListDedicatedHostsParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetAffinitygroupid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["affinitygroupid"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListDedicatedHostsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListDedicatedHostsParams instance,
-// as then you are sure you have configured all required params
-func (s *HostService) NewListDedicatedHostsParams() *ListDedicatedHostsParams {
-	p := &ListDedicatedHostsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists dedicated hosts.
-func (s *HostService) ListDedicatedHosts(p *ListDedicatedHostsParams) (*ListDedicatedHostsResponse, error) {
-	var r, l ListDedicatedHostsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listDedicatedHosts", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.DedicatedHosts = append(r.DedicatedHosts, l.DedicatedHosts...)
-
-		if r.Count != len(r.DedicatedHosts) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.DedicatedHosts))
-		p.SetPage(page)
-	}
-}
-
-type ListDedicatedHostsResponse struct {
-	Count          int              `json:"count"`
-	DedicatedHosts []*DedicatedHost `json:"dedicatedhost"`
-}
-
-type DedicatedHost struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Hostid          string `json:"hostid,omitempty"`
-	Hostname        string `json:"hostname,omitempty"`
-	Id              string `json:"id,omitempty"`
 }

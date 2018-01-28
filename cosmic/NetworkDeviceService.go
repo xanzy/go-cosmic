@@ -86,6 +86,56 @@ type AddNetworkDeviceResponse struct {
 	Id string `json:"id,omitempty"`
 }
 
+type DeleteNetworkDeviceParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteNetworkDeviceParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteNetworkDeviceParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteNetworkDeviceParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkDeviceService) NewDeleteNetworkDeviceParams(id string) *DeleteNetworkDeviceParams {
+	p := &DeleteNetworkDeviceParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes network device.
+func (s *NetworkDeviceService) DeleteNetworkDevice(p *DeleteNetworkDeviceParams) (*DeleteNetworkDeviceResponse, error) {
+	resp, err := s.cs.newRequest("deleteNetworkDevice", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteNetworkDeviceResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteNetworkDeviceResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
 type ListNetworkDeviceParams struct {
 	p map[string]interface{}
 }
@@ -195,54 +245,4 @@ type ListNetworkDeviceResponse struct {
 
 type NetworkDevice struct {
 	Id string `json:"id,omitempty"`
-}
-
-type DeleteNetworkDeviceParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteNetworkDeviceParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteNetworkDeviceParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteNetworkDeviceParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkDeviceService) NewDeleteNetworkDeviceParams(id string) *DeleteNetworkDeviceParams {
-	p := &DeleteNetworkDeviceParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes network device.
-func (s *NetworkDeviceService) DeleteNetworkDevice(p *DeleteNetworkDeviceParams) (*DeleteNetworkDeviceResponse, error) {
-	resp, err := s.cs.newRequest("deleteNetworkDevice", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteNetworkDeviceResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteNetworkDeviceResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }

@@ -24,157 +24,6 @@ import (
 	"strings"
 )
 
-type DedicatePublicIpRangeParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicatePublicIpRangeParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicatePublicIpRangeParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DedicatePublicIpRangeParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *DedicatePublicIpRangeParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *DedicatePublicIpRangeParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-// You should always use this function to get a new DedicatePublicIpRangeParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewDedicatePublicIpRangeParams(domainid string, id string) *DedicatePublicIpRangeParams {
-	p := &DedicatePublicIpRangeParams{}
-	p.p = make(map[string]interface{})
-	p.p["domainid"] = domainid
-	p.p["id"] = id
-	return p
-}
-
-// Dedicates a Public IP range to an account
-func (s *NetworkService) DedicatePublicIpRange(p *DedicatePublicIpRangeParams) (*DedicatePublicIpRangeResponse, error) {
-	resp, err := s.cs.newRequest("dedicatePublicIpRange", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicatePublicIpRangeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DedicatePublicIpRangeResponse struct {
-	Account           string `json:"account,omitempty"`
-	Description       string `json:"description,omitempty"`
-	Domain            string `json:"domain,omitempty"`
-	Domainid          string `json:"domainid,omitempty"`
-	Endip             string `json:"endip,omitempty"`
-	Endipv6           string `json:"endipv6,omitempty"`
-	Forvirtualnetwork bool   `json:"forvirtualnetwork,omitempty"`
-	Gateway           string `json:"gateway,omitempty"`
-	Id                string `json:"id,omitempty"`
-	Ip6cidr           string `json:"ip6cidr,omitempty"`
-	Ip6gateway        string `json:"ip6gateway,omitempty"`
-	Netmask           string `json:"netmask,omitempty"`
-	Networkid         string `json:"networkid,omitempty"`
-	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
-	Podid             string `json:"podid,omitempty"`
-	Podname           string `json:"podname,omitempty"`
-	Project           string `json:"project,omitempty"`
-	Projectid         string `json:"projectid,omitempty"`
-	Startip           string `json:"startip,omitempty"`
-	Startipv6         string `json:"startipv6,omitempty"`
-	Vlan              string `json:"vlan,omitempty"`
-	Zoneid            string `json:"zoneid,omitempty"`
-}
-
-type ReleasePublicIpRangeParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleasePublicIpRangeParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *ReleasePublicIpRangeParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new ReleasePublicIpRangeParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewReleasePublicIpRangeParams(id string) *ReleasePublicIpRangeParams {
-	p := &ReleasePublicIpRangeParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Releases a Public IP range back to the system pool
-func (s *NetworkService) ReleasePublicIpRange(p *ReleasePublicIpRangeParams) (*ReleasePublicIpRangeResponse, error) {
-	resp, err := s.cs.newRequest("releasePublicIpRange", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleasePublicIpRangeResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ReleasePublicIpRangeResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
 type CreateNetworkParams struct {
 	p map[string]interface{}
 }
@@ -573,6 +422,7 @@ type CreateNetworkResponse struct {
 	Type              string   `json:"type,omitempty"`
 	Vlan              string   `json:"vlan,omitempty"`
 	Vpcid             string   `json:"vpcid,omitempty"`
+	Vpcname           string   `json:"vpcname,omitempty"`
 	Zoneid            string   `json:"zoneid,omitempty"`
 	Zonename          string   `json:"zonename,omitempty"`
 	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
@@ -653,6 +503,900 @@ type DeleteNetworkResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+}
+
+type RestartNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *RestartNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["cleanup"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("cleanup", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *RestartNetworkParams) SetCleanup(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cleanup"] = v
+}
+
+func (p *RestartNetworkParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new RestartNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewRestartNetworkParams(id string) *RestartNetworkParams {
+	p := &RestartNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Restarts the network; includes 1) restarting network elements - virtual routers, DHCP servers 2) reapplying all public IPs 3) reapplying loadBalancing/portForwarding rules
+func (s *NetworkService) RestartNetwork(p *RestartNetworkParams) (*RestartNetworkResponse, error) {
+	resp, err := s.cs.newRequest("restartNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RestartNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type RestartNetworkResponse struct {
+	JobID                 string `json:"jobid,omitempty"`
+	Account               string `json:"account,omitempty"`
+	Aclid                 string `json:"aclid,omitempty"`
+	Allocated             string `json:"allocated,omitempty"`
+	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
+	Associatednetworkname string `json:"associatednetworkname,omitempty"`
+	Domain                string `json:"domain,omitempty"`
+	Domainid              string `json:"domainid,omitempty"`
+	Fordisplay            bool   `json:"fordisplay,omitempty"`
+	Forvirtualnetwork     bool   `json:"forvirtualnetwork,omitempty"`
+	Id                    string `json:"id,omitempty"`
+	Ipaddress             string `json:"ipaddress,omitempty"`
+	Issourcenat           bool   `json:"issourcenat,omitempty"`
+	Isstaticnat           bool   `json:"isstaticnat,omitempty"`
+	Issystem              bool   `json:"issystem,omitempty"`
+	Networkid             string `json:"networkid,omitempty"`
+	Physicalnetworkid     string `json:"physicalnetworkid,omitempty"`
+	Project               string `json:"project,omitempty"`
+	Projectid             string `json:"projectid,omitempty"`
+	Purpose               string `json:"purpose,omitempty"`
+	State                 string `json:"state,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
+	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
+	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
+	Vlanid                    string `json:"vlanid,omitempty"`
+	Vlanname                  string `json:"vlanname,omitempty"`
+	Vmipaddress               string `json:"vmipaddress,omitempty"`
+	Vpcid                     string `json:"vpcid,omitempty"`
+	Zoneid                    string `json:"zoneid,omitempty"`
+	Zonename                  string `json:"zonename,omitempty"`
+}
+
+type UpdateNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["changecidr"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("changecidr", vv)
+	}
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
+	}
+	if v, found := p.p["displaynetwork"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("displaynetwork", vv)
+	}
+	if v, found := p.p["displaytext"]; found {
+		u.Set("displaytext", v.(string))
+	}
+	if v, found := p.p["dns1"]; found {
+		u.Set("dns1", v.(string))
+	}
+	if v, found := p.p["dns2"]; found {
+		u.Set("dns2", v.(string))
+	}
+	if v, found := p.p["guestvmcidr"]; found {
+		u.Set("guestvmcidr", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["ipexclusionlist"]; found {
+		u.Set("ipexclusionlist", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["networkdomain"]; found {
+		u.Set("networkdomain", v.(string))
+	}
+	if v, found := p.p["networkofferingid"]; found {
+		u.Set("networkofferingid", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateNetworkParams) SetChangecidr(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["changecidr"] = v
+}
+
+func (p *UpdateNetworkParams) SetCustomid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customid"] = v
+}
+
+func (p *UpdateNetworkParams) SetDisplaynetwork(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaynetwork"] = v
+}
+
+func (p *UpdateNetworkParams) SetDisplaytext(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaytext"] = v
+}
+
+func (p *UpdateNetworkParams) SetDns1(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns1"] = v
+}
+
+func (p *UpdateNetworkParams) SetDns2(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["dns2"] = v
+}
+
+func (p *UpdateNetworkParams) SetGuestvmcidr(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["guestvmcidr"] = v
+}
+
+func (p *UpdateNetworkParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateNetworkParams) SetIpexclusionlist(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ipexclusionlist"] = v
+}
+
+func (p *UpdateNetworkParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *UpdateNetworkParams) SetNetworkdomain(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkdomain"] = v
+}
+
+func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkofferingid"] = v
+}
+
+// You should always use this function to get a new UpdateNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewUpdateNetworkParams(id string) *UpdateNetworkParams {
+	p := &UpdateNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a network
+func (s *NetworkService) UpdateNetwork(p *UpdateNetworkParams) (*UpdateNetworkResponse, error) {
+	resp, err := s.cs.newRequest("updateNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdateNetworkResponse struct {
+	JobID                       string `json:"jobid,omitempty"`
+	Account                     string `json:"account,omitempty"`
+	Aclid                       string `json:"aclid,omitempty"`
+	Acltype                     string `json:"acltype,omitempty"`
+	Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
+	Broadcasturi                string `json:"broadcasturi,omitempty"`
+	Canusefordeploy             bool   `json:"canusefordeploy,omitempty"`
+	Cidr                        string `json:"cidr,omitempty"`
+	Displaynetwork              bool   `json:"displaynetwork,omitempty"`
+	Displaytext                 string `json:"displaytext,omitempty"`
+	Dns1                        string `json:"dns1,omitempty"`
+	Dns2                        string `json:"dns2,omitempty"`
+	Domain                      string `json:"domain,omitempty"`
+	Domainid                    string `json:"domainid,omitempty"`
+	Gateway                     string `json:"gateway,omitempty"`
+	Id                          string `json:"id,omitempty"`
+	Ip6cidr                     string `json:"ip6cidr,omitempty"`
+	Ip6gateway                  string `json:"ip6gateway,omitempty"`
+	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
+	Isdefault                   bool   `json:"isdefault,omitempty"`
+	Ispersistent                bool   `json:"ispersistent,omitempty"`
+	Issystem                    bool   `json:"issystem,omitempty"`
+	Name                        string `json:"name,omitempty"`
+	Netmask                     string `json:"netmask,omitempty"`
+	Networkcidr                 string `json:"networkcidr,omitempty"`
+	Networkdomain               string `json:"networkdomain,omitempty"`
+	Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
+	Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
+	Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
+	Networkofferingid           string `json:"networkofferingid,omitempty"`
+	Networkofferingname         string `json:"networkofferingname,omitempty"`
+	Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
+	Project                     string `json:"project,omitempty"`
+	Projectid                   string `json:"projectid,omitempty"`
+	Related                     string `json:"related,omitempty"`
+	Reservediprange             string `json:"reservediprange,omitempty"`
+	Restartrequired             bool   `json:"restartrequired,omitempty"`
+	Service                     []struct {
+		Capability []struct {
+			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+			Name                       string `json:"name,omitempty"`
+			Value                      string `json:"value,omitempty"`
+		} `json:"capability,omitempty"`
+		Name     string `json:"name,omitempty"`
+		Provider []struct {
+			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+			Id                           string   `json:"id,omitempty"`
+			Name                         string   `json:"name,omitempty"`
+			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+			Servicelist                  []string `json:"servicelist,omitempty"`
+			State                        string   `json:"state,omitempty"`
+		} `json:"provider,omitempty"`
+	} `json:"service,omitempty"`
+	Specifyipranges  bool   `json:"specifyipranges,omitempty"`
+	State            string `json:"state,omitempty"`
+	Strechedl2subnet bool   `json:"strechedl2subnet,omitempty"`
+	Subdomainaccess  bool   `json:"subdomainaccess,omitempty"`
+	Tags             []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Traffictype       string   `json:"traffictype,omitempty"`
+	Type              string   `json:"type,omitempty"`
+	Vlan              string   `json:"vlan,omitempty"`
+	Vpcid             string   `json:"vpcid,omitempty"`
+	Vpcname           string   `json:"vpcname,omitempty"`
+	Zoneid            string   `json:"zoneid,omitempty"`
+	Zonename          string   `json:"zonename,omitempty"`
+	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
+}
+
+type ListNetworkIsolationMethodsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListNetworkIsolationMethodsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListNetworkIsolationMethodsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListNetworkIsolationMethodsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListNetworkIsolationMethodsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListNetworkIsolationMethodsParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewListNetworkIsolationMethodsParams() *ListNetworkIsolationMethodsParams {
+	p := &ListNetworkIsolationMethodsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists supported methods of network isolation
+func (s *NetworkService) ListNetworkIsolationMethods(p *ListNetworkIsolationMethodsParams) (*ListNetworkIsolationMethodsResponse, error) {
+	var r, l ListNetworkIsolationMethodsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkIsolationMethods", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkIsolationMethods = append(r.NetworkIsolationMethods, l.NetworkIsolationMethods...)
+
+		if r.Count != len(r.NetworkIsolationMethods) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkIsolationMethods))
+		p.SetPage(page)
+	}
+}
+
+type ListNetworkIsolationMethodsResponse struct {
+	Count                   int                       `json:"count"`
+	NetworkIsolationMethods []*NetworkIsolationMethod `json:"networkisolationmethod"`
+}
+
+type NetworkIsolationMethod struct {
+	Name string `json:"name,omitempty"`
+}
+
+type AddNetworkServiceProviderParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddNetworkServiceProviderParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["destinationphysicalnetworkid"]; found {
+		u.Set("destinationphysicalnetworkid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["physicalnetworkid"]; found {
+		u.Set("physicalnetworkid", v.(string))
+	}
+	if v, found := p.p["servicelist"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("servicelist", vv)
+	}
+	return u
+}
+
+func (p *AddNetworkServiceProviderParams) SetDestinationphysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destinationphysicalnetworkid"] = v
+}
+
+func (p *AddNetworkServiceProviderParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *AddNetworkServiceProviderParams) SetPhysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["physicalnetworkid"] = v
+}
+
+func (p *AddNetworkServiceProviderParams) SetServicelist(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servicelist"] = v
+}
+
+// You should always use this function to get a new AddNetworkServiceProviderParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewAddNetworkServiceProviderParams(name string, physicalnetworkid string) *AddNetworkServiceProviderParams {
+	p := &AddNetworkServiceProviderParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["physicalnetworkid"] = physicalnetworkid
+	return p
+}
+
+// Adds a network serviceProvider to a physical network
+func (s *NetworkService) AddNetworkServiceProvider(p *AddNetworkServiceProviderParams) (*AddNetworkServiceProviderResponse, error) {
+	resp, err := s.cs.newRequest("addNetworkServiceProvider", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddNetworkServiceProviderResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type AddNetworkServiceProviderResponse struct {
+	JobID                        string   `json:"jobid,omitempty"`
+	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+	Id                           string   `json:"id,omitempty"`
+	Name                         string   `json:"name,omitempty"`
+	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+	Servicelist                  []string `json:"servicelist,omitempty"`
+	State                        string   `json:"state,omitempty"`
+}
+
+type DeleteNetworkServiceProviderParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteNetworkServiceProviderParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteNetworkServiceProviderParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteNetworkServiceProviderParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewDeleteNetworkServiceProviderParams(id string) *DeleteNetworkServiceProviderParams {
+	p := &DeleteNetworkServiceProviderParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a Network Service Provider.
+func (s *NetworkService) DeleteNetworkServiceProvider(p *DeleteNetworkServiceProviderParams) (*DeleteNetworkServiceProviderResponse, error) {
+	resp, err := s.cs.newRequest("deleteNetworkServiceProvider", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteNetworkServiceProviderResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteNetworkServiceProviderResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type UpdateNetworkServiceProviderParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateNetworkServiceProviderParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["servicelist"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("servicelist", vv)
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateNetworkServiceProviderParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateNetworkServiceProviderParams) SetServicelist(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["servicelist"] = v
+}
+
+func (p *UpdateNetworkServiceProviderParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+// You should always use this function to get a new UpdateNetworkServiceProviderParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewUpdateNetworkServiceProviderParams(id string) *UpdateNetworkServiceProviderParams {
+	p := &UpdateNetworkServiceProviderParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a network serviceProvider of a physical network
+func (s *NetworkService) UpdateNetworkServiceProvider(p *UpdateNetworkServiceProviderParams) (*UpdateNetworkServiceProviderResponse, error) {
+	resp, err := s.cs.newRequest("updateNetworkServiceProvider", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateNetworkServiceProviderResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdateNetworkServiceProviderResponse struct {
+	JobID                        string   `json:"jobid,omitempty"`
+	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+	Id                           string   `json:"id,omitempty"`
+	Name                         string   `json:"name,omitempty"`
+	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+	Servicelist                  []string `json:"servicelist,omitempty"`
+	State                        string   `json:"state,omitempty"`
+}
+
+type ListNetworkServiceProvidersParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListNetworkServiceProvidersParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["physicalnetworkid"]; found {
+		u.Set("physicalnetworkid", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	return u
+}
+
+func (p *ListNetworkServiceProvidersParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListNetworkServiceProvidersParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *ListNetworkServiceProvidersParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListNetworkServiceProvidersParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListNetworkServiceProvidersParams) SetPhysicalnetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["physicalnetworkid"] = v
+}
+
+func (p *ListNetworkServiceProvidersParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+// You should always use this function to get a new ListNetworkServiceProvidersParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewListNetworkServiceProvidersParams() *ListNetworkServiceProvidersParams {
+	p := &ListNetworkServiceProvidersParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkService) GetNetworkServiceProviderID(name string, opts ...OptionFunc) (string, int, error) {
+	p := &ListNetworkServiceProvidersParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["name"] = name
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListNetworkServiceProviders(p)
+	if err != nil {
+		return "", -1, err
+	}
+
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
+	}
+
+	if l.Count == 1 {
+		return l.NetworkServiceProviders[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.NetworkServiceProviders {
+			if v.Name == name {
+				return v.Id, l.Count, nil
+			}
+		}
+	}
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
+}
+
+// Lists network serviceproviders for a given physical network.
+func (s *NetworkService) ListNetworkServiceProviders(p *ListNetworkServiceProvidersParams) (*ListNetworkServiceProvidersResponse, error) {
+	var r, l ListNetworkServiceProvidersResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkServiceProviders", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkServiceProviders = append(r.NetworkServiceProviders, l.NetworkServiceProviders...)
+
+		if r.Count != len(r.NetworkServiceProviders) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkServiceProviders))
+		p.SetPage(page)
+	}
+}
+
+type ListNetworkServiceProvidersResponse struct {
+	Count                   int                       `json:"count"`
+	NetworkServiceProviders []*NetworkServiceProvider `json:"networkserviceprovider"`
+}
+
+type NetworkServiceProvider struct {
+	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+	Id                           string   `json:"id,omitempty"`
+	Name                         string   `json:"name,omitempty"`
+	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+	Servicelist                  []string `json:"servicelist,omitempty"`
+	State                        string   `json:"state,omitempty"`
 }
 
 type ListNetworksParams struct {
@@ -1108,312 +1852,143 @@ type Network struct {
 	Type              string   `json:"type,omitempty"`
 	Vlan              string   `json:"vlan,omitempty"`
 	Vpcid             string   `json:"vpcid,omitempty"`
+	Vpcname           string   `json:"vpcname,omitempty"`
 	Zoneid            string   `json:"zoneid,omitempty"`
 	Zonename          string   `json:"zonename,omitempty"`
 	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
 }
 
-type RestartNetworkParams struct {
+type ListNiciraNvpDeviceNetworksParams struct {
 	p map[string]interface{}
 }
 
-func (p *RestartNetworkParams) toURLValues() url.Values {
+func (p *ListNiciraNvpDeviceNetworksParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["cleanup"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("cleanup", vv)
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["nvpdeviceid"]; found {
+		u.Set("nvpdeviceid", v.(string))
 	}
-	return u
-}
-
-func (p *RestartNetworkParams) SetCleanup(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
 	}
-	p.p["cleanup"] = v
-}
-
-func (p *RestartNetworkParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new RestartNetworkParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewRestartNetworkParams(id string) *RestartNetworkParams {
-	p := &RestartNetworkParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Restarts the network; includes 1) restarting network elements - virtual routers, DHCP servers 2) reapplying all public IPs 3) reapplying loadBalancing/portForwarding rules
-func (s *NetworkService) RestartNetwork(p *RestartNetworkParams) (*RestartNetworkResponse, error) {
-	resp, err := s.cs.newRequest("restartNetwork", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RestartNetworkResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type RestartNetworkResponse struct {
-	JobID                 string `json:"jobid,omitempty"`
-	Account               string `json:"account,omitempty"`
-	Aclid                 string `json:"aclid,omitempty"`
-	Allocated             string `json:"allocated,omitempty"`
-	Associatednetworkid   string `json:"associatednetworkid,omitempty"`
-	Associatednetworkname string `json:"associatednetworkname,omitempty"`
-	Domain                string `json:"domain,omitempty"`
-	Domainid              string `json:"domainid,omitempty"`
-	Fordisplay            bool   `json:"fordisplay,omitempty"`
-	Forvirtualnetwork     bool   `json:"forvirtualnetwork,omitempty"`
-	Id                    string `json:"id,omitempty"`
-	Ipaddress             string `json:"ipaddress,omitempty"`
-	Isportable            bool   `json:"isportable,omitempty"`
-	Issourcenat           bool   `json:"issourcenat,omitempty"`
-	Isstaticnat           bool   `json:"isstaticnat,omitempty"`
-	Issystem              bool   `json:"issystem,omitempty"`
-	Networkid             string `json:"networkid,omitempty"`
-	Physicalnetworkid     string `json:"physicalnetworkid,omitempty"`
-	Project               string `json:"project,omitempty"`
-	Projectid             string `json:"projectid,omitempty"`
-	Purpose               string `json:"purpose,omitempty"`
-	State                 string `json:"state,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Virtualmachinedisplayname string `json:"virtualmachinedisplayname,omitempty"`
-	Virtualmachineid          string `json:"virtualmachineid,omitempty"`
-	Virtualmachinename        string `json:"virtualmachinename,omitempty"`
-	Vlanid                    string `json:"vlanid,omitempty"`
-	Vlanname                  string `json:"vlanname,omitempty"`
-	Vmipaddress               string `json:"vmipaddress,omitempty"`
-	Vpcid                     string `json:"vpcid,omitempty"`
-	Zoneid                    string `json:"zoneid,omitempty"`
-	Zonename                  string `json:"zonename,omitempty"`
-}
-
-type UpdateNetworkParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateNetworkParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["changecidr"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("changecidr", vv)
-	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
-	}
-	if v, found := p.p["displaynetwork"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("displaynetwork", vv)
-	}
-	if v, found := p.p["displaytext"]; found {
-		u.Set("displaytext", v.(string))
-	}
-	if v, found := p.p["dns1"]; found {
-		u.Set("dns1", v.(string))
-	}
-	if v, found := p.p["dns2"]; found {
-		u.Set("dns2", v.(string))
-	}
-	if v, found := p.p["guestvmcidr"]; found {
-		u.Set("guestvmcidr", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["ipexclusionlist"]; found {
-		u.Set("ipexclusionlist", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["networkdomain"]; found {
-		u.Set("networkdomain", v.(string))
-	}
-	if v, found := p.p["networkofferingid"]; found {
-		u.Set("networkofferingid", v.(string))
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
 	}
 	return u
 }
 
-func (p *UpdateNetworkParams) SetChangecidr(v bool) {
+func (p *ListNiciraNvpDeviceNetworksParams) SetKeyword(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["changecidr"] = v
+	p.p["keyword"] = v
 }
 
-func (p *UpdateNetworkParams) SetCustomid(v string) {
+func (p *ListNiciraNvpDeviceNetworksParams) SetNvpdeviceid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["customid"] = v
+	p.p["nvpdeviceid"] = v
 }
 
-func (p *UpdateNetworkParams) SetDisplaynetwork(v bool) {
+func (p *ListNiciraNvpDeviceNetworksParams) SetPage(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["displaynetwork"] = v
+	p.p["page"] = v
 }
 
-func (p *UpdateNetworkParams) SetDisplaytext(v string) {
+func (p *ListNiciraNvpDeviceNetworksParams) SetPagesize(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["displaytext"] = v
+	p.p["pagesize"] = v
 }
 
-func (p *UpdateNetworkParams) SetDns1(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["dns1"] = v
-}
-
-func (p *UpdateNetworkParams) SetDns2(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["dns2"] = v
-}
-
-func (p *UpdateNetworkParams) SetGuestvmcidr(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["guestvmcidr"] = v
-}
-
-func (p *UpdateNetworkParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateNetworkParams) SetIpexclusionlist(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ipexclusionlist"] = v
-}
-
-func (p *UpdateNetworkParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *UpdateNetworkParams) SetNetworkdomain(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkdomain"] = v
-}
-
-func (p *UpdateNetworkParams) SetNetworkofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkofferingid"] = v
-}
-
-// You should always use this function to get a new UpdateNetworkParams instance,
+// You should always use this function to get a new ListNiciraNvpDeviceNetworksParams instance,
 // as then you are sure you have configured all required params
-func (s *NetworkService) NewUpdateNetworkParams(id string) *UpdateNetworkParams {
-	p := &UpdateNetworkParams{}
+func (s *NetworkService) NewListNiciraNvpDeviceNetworksParams(nvpdeviceid string) *ListNiciraNvpDeviceNetworksParams {
+	p := &ListNiciraNvpDeviceNetworksParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["nvpdeviceid"] = nvpdeviceid
 	return p
 }
 
-// Updates a network
-func (s *NetworkService) UpdateNetwork(p *UpdateNetworkParams) (*UpdateNetworkResponse, error) {
-	resp, err := s.cs.newRequest("updateNetwork", p.toURLValues())
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkService) GetNiciraNvpDeviceNetworkID(keyword string, nvpdeviceid string, opts ...OptionFunc) (string, int, error) {
+	p := &ListNiciraNvpDeviceNetworksParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["keyword"] = keyword
+	p.p["nvpdeviceid"] = nvpdeviceid
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return "", -1, err
+		}
+	}
+
+	l, err := s.ListNiciraNvpDeviceNetworks(p)
 	if err != nil {
-		return nil, err
+		return "", -1, err
 	}
 
-	var r UpdateNetworkResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
+	if l.Count == 0 {
+		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
 	}
 
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
+	if l.Count == 1 {
+		return l.NiciraNvpDeviceNetworks[0].Id, l.Count, nil
+	}
+
+	if l.Count > 1 {
+		for _, v := range l.NiciraNvpDeviceNetworks {
+			if v.Name == keyword {
+				return v.Id, l.Count, nil
 			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
 		}
 	}
-	return &r, nil
+	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
 }
 
-type UpdateNetworkResponse struct {
-	JobID                       string `json:"jobid,omitempty"`
+// lists network that are using a nicira nvp device
+func (s *NetworkService) ListNiciraNvpDeviceNetworks(p *ListNiciraNvpDeviceNetworksParams) (*ListNiciraNvpDeviceNetworksResponse, error) {
+	var r, l ListNiciraNvpDeviceNetworksResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNiciraNvpDeviceNetworks", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NiciraNvpDeviceNetworks = append(r.NiciraNvpDeviceNetworks, l.NiciraNvpDeviceNetworks...)
+
+		if r.Count != len(r.NiciraNvpDeviceNetworks) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NiciraNvpDeviceNetworks))
+		p.SetPage(page)
+	}
+}
+
+type ListNiciraNvpDeviceNetworksResponse struct {
+	Count                   int                       `json:"count"`
+	NiciraNvpDeviceNetworks []*NiciraNvpDeviceNetwork `json:"niciranvpdevicenetwork"`
+}
+
+type NiciraNvpDeviceNetwork struct {
 	Account                     string `json:"account,omitempty"`
 	Aclid                       string `json:"aclid,omitempty"`
 	Acltype                     string `json:"acltype,omitempty"`
@@ -1487,6 +2062,7 @@ type UpdateNetworkResponse struct {
 	Type              string   `json:"type,omitempty"`
 	Vlan              string   `json:"vlan,omitempty"`
 	Vpcid             string   `json:"vpcid,omitempty"`
+	Vpcname           string   `json:"vpcname,omitempty"`
 	Zoneid            string   `json:"zoneid,omitempty"`
 	Zonename          string   `json:"zonename,omitempty"`
 	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
@@ -1710,6 +2286,126 @@ type DeletePhysicalNetworkResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
+type UpdatePhysicalNetworkParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdatePhysicalNetworkParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["networkspeed"]; found {
+		u.Set("networkspeed", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("tags", vv)
+	}
+	if v, found := p.p["vlan"]; found {
+		u.Set("vlan", v.(string))
+	}
+	return u
+}
+
+func (p *UpdatePhysicalNetworkParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdatePhysicalNetworkParams) SetNetworkspeed(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkspeed"] = v
+}
+
+func (p *UpdatePhysicalNetworkParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+func (p *UpdatePhysicalNetworkParams) SetTags(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+}
+
+func (p *UpdatePhysicalNetworkParams) SetVlan(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vlan"] = v
+}
+
+// You should always use this function to get a new UpdatePhysicalNetworkParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkService) NewUpdatePhysicalNetworkParams(id string) *UpdatePhysicalNetworkParams {
+	p := &UpdatePhysicalNetworkParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a physical network
+func (s *NetworkService) UpdatePhysicalNetwork(p *UpdatePhysicalNetworkParams) (*UpdatePhysicalNetworkResponse, error) {
+	resp, err := s.cs.newRequest("updatePhysicalNetwork", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdatePhysicalNetworkResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdatePhysicalNetworkResponse struct {
+	JobID                string `json:"jobid,omitempty"`
+	Broadcastdomainrange string `json:"broadcastdomainrange,omitempty"`
+	Domainid             string `json:"domainid,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Isolationmethods     string `json:"isolationmethods,omitempty"`
+	Name                 string `json:"name,omitempty"`
+	Networkspeed         string `json:"networkspeed,omitempty"`
+	State                string `json:"state,omitempty"`
+	Tags                 string `json:"tags,omitempty"`
+	Vlan                 string `json:"vlan,omitempty"`
+	Zoneid               string `json:"zoneid,omitempty"`
+}
+
 type ListPhysicalNetworksParams struct {
 	p map[string]interface{}
 }
@@ -1918,359 +2614,112 @@ type PhysicalNetwork struct {
 	Zoneid               string `json:"zoneid,omitempty"`
 }
 
-type UpdatePhysicalNetworkParams struct {
+type DedicatePublicIpRangeParams struct {
 	p map[string]interface{}
 }
 
-func (p *UpdatePhysicalNetworkParams) toURLValues() url.Values {
+func (p *DedicatePublicIpRangeParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
-	if v, found := p.p["networkspeed"]; found {
-		u.Set("networkspeed", v.(string))
-	}
-	if v, found := p.p["state"]; found {
-		u.Set("state", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("tags", vv)
-	}
-	if v, found := p.p["vlan"]; found {
-		u.Set("vlan", v.(string))
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
 	}
 	return u
 }
 
-func (p *UpdatePhysicalNetworkParams) SetId(v string) {
+func (p *DedicatePublicIpRangeParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DedicatePublicIpRangeParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *DedicatePublicIpRangeParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *UpdatePhysicalNetworkParams) SetNetworkspeed(v string) {
+func (p *DedicatePublicIpRangeParams) SetProjectid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["networkspeed"] = v
+	p.p["projectid"] = v
 }
 
-func (p *UpdatePhysicalNetworkParams) SetState(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["state"] = v
-}
-
-func (p *UpdatePhysicalNetworkParams) SetTags(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-func (p *UpdatePhysicalNetworkParams) SetVlan(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vlan"] = v
-}
-
-// You should always use this function to get a new UpdatePhysicalNetworkParams instance,
+// You should always use this function to get a new DedicatePublicIpRangeParams instance,
 // as then you are sure you have configured all required params
-func (s *NetworkService) NewUpdatePhysicalNetworkParams(id string) *UpdatePhysicalNetworkParams {
-	p := &UpdatePhysicalNetworkParams{}
+func (s *NetworkService) NewDedicatePublicIpRangeParams(domainid string, id string) *DedicatePublicIpRangeParams {
+	p := &DedicatePublicIpRangeParams{}
 	p.p = make(map[string]interface{})
+	p.p["domainid"] = domainid
 	p.p["id"] = id
 	return p
 }
 
-// Updates a physical network
-func (s *NetworkService) UpdatePhysicalNetwork(p *UpdatePhysicalNetworkParams) (*UpdatePhysicalNetworkResponse, error) {
-	resp, err := s.cs.newRequest("updatePhysicalNetwork", p.toURLValues())
+// Dedicates a Public IP range to an account
+func (s *NetworkService) DedicatePublicIpRange(p *DedicatePublicIpRangeParams) (*DedicatePublicIpRangeResponse, error) {
+	resp, err := s.cs.newRequest("dedicatePublicIpRange", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r UpdatePhysicalNetworkResponse
+	var r DedicatePublicIpRangeResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
 	}
 	return &r, nil
 }
 
-type UpdatePhysicalNetworkResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Broadcastdomainrange string `json:"broadcastdomainrange,omitempty"`
-	Domainid             string `json:"domainid,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Isolationmethods     string `json:"isolationmethods,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkspeed         string `json:"networkspeed,omitempty"`
-	State                string `json:"state,omitempty"`
-	Tags                 string `json:"tags,omitempty"`
-	Vlan                 string `json:"vlan,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
+type DedicatePublicIpRangeResponse struct {
+	Account           string `json:"account,omitempty"`
+	Description       string `json:"description,omitempty"`
+	Domain            string `json:"domain,omitempty"`
+	Domainid          string `json:"domainid,omitempty"`
+	Endip             string `json:"endip,omitempty"`
+	Endipv6           string `json:"endipv6,omitempty"`
+	Forvirtualnetwork bool   `json:"forvirtualnetwork,omitempty"`
+	Gateway           string `json:"gateway,omitempty"`
+	Id                string `json:"id,omitempty"`
+	Ip6cidr           string `json:"ip6cidr,omitempty"`
+	Ip6gateway        string `json:"ip6gateway,omitempty"`
+	Netmask           string `json:"netmask,omitempty"`
+	Networkid         string `json:"networkid,omitempty"`
+	Physicalnetworkid string `json:"physicalnetworkid,omitempty"`
+	Podid             string `json:"podid,omitempty"`
+	Podname           string `json:"podname,omitempty"`
+	Project           string `json:"project,omitempty"`
+	Projectid         string `json:"projectid,omitempty"`
+	Startip           string `json:"startip,omitempty"`
+	Startipv6         string `json:"startipv6,omitempty"`
+	Vlan              string `json:"vlan,omitempty"`
+	Zoneid            string `json:"zoneid,omitempty"`
 }
 
-type ListSupportedNetworkServicesParams struct {
+type ReleasePublicIpRangeParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListSupportedNetworkServicesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["provider"]; found {
-		u.Set("provider", v.(string))
-	}
-	if v, found := p.p["service"]; found {
-		u.Set("service", v.(string))
-	}
-	return u
-}
-
-func (p *ListSupportedNetworkServicesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListSupportedNetworkServicesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListSupportedNetworkServicesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListSupportedNetworkServicesParams) SetProvider(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["provider"] = v
-}
-
-func (p *ListSupportedNetworkServicesParams) SetService(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["service"] = v
-}
-
-// You should always use this function to get a new ListSupportedNetworkServicesParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewListSupportedNetworkServicesParams() *ListSupportedNetworkServicesParams {
-	p := &ListSupportedNetworkServicesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists all network services provided by CloudStack or for the given Provider.
-func (s *NetworkService) ListSupportedNetworkServices(p *ListSupportedNetworkServicesParams) (*ListSupportedNetworkServicesResponse, error) {
-	var r, l ListSupportedNetworkServicesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listSupportedNetworkServices", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.SupportedNetworkServices = append(r.SupportedNetworkServices, l.SupportedNetworkServices...)
-
-		if r.Count != len(r.SupportedNetworkServices) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.SupportedNetworkServices))
-		p.SetPage(page)
-	}
-}
-
-type ListSupportedNetworkServicesResponse struct {
-	Count                    int                        `json:"count"`
-	SupportedNetworkServices []*SupportedNetworkService `json:"supportednetworkservice"`
-}
-
-type SupportedNetworkService struct {
-	Capability []struct {
-		Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-		Name                       string `json:"name,omitempty"`
-		Value                      string `json:"value,omitempty"`
-	} `json:"capability,omitempty"`
-	Name     string `json:"name,omitempty"`
-	Provider []struct {
-		Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-		Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-		Id                           string   `json:"id,omitempty"`
-		Name                         string   `json:"name,omitempty"`
-		Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-		Servicelist                  []string `json:"servicelist,omitempty"`
-		State                        string   `json:"state,omitempty"`
-	} `json:"provider,omitempty"`
-}
-
-type AddNetworkServiceProviderParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddNetworkServiceProviderParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["destinationphysicalnetworkid"]; found {
-		u.Set("destinationphysicalnetworkid", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["physicalnetworkid"]; found {
-		u.Set("physicalnetworkid", v.(string))
-	}
-	if v, found := p.p["servicelist"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("servicelist", vv)
-	}
-	return u
-}
-
-func (p *AddNetworkServiceProviderParams) SetDestinationphysicalnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["destinationphysicalnetworkid"] = v
-}
-
-func (p *AddNetworkServiceProviderParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *AddNetworkServiceProviderParams) SetPhysicalnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["physicalnetworkid"] = v
-}
-
-func (p *AddNetworkServiceProviderParams) SetServicelist(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["servicelist"] = v
-}
-
-// You should always use this function to get a new AddNetworkServiceProviderParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewAddNetworkServiceProviderParams(name string, physicalnetworkid string) *AddNetworkServiceProviderParams {
-	p := &AddNetworkServiceProviderParams{}
-	p.p = make(map[string]interface{})
-	p.p["name"] = name
-	p.p["physicalnetworkid"] = physicalnetworkid
-	return p
-}
-
-// Adds a network serviceProvider to a physical network
-func (s *NetworkService) AddNetworkServiceProvider(p *AddNetworkServiceProviderParams) (*AddNetworkServiceProviderResponse, error) {
-	resp, err := s.cs.newRequest("addNetworkServiceProvider", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AddNetworkServiceProviderResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AddNetworkServiceProviderResponse struct {
-	JobID                        string   `json:"jobid,omitempty"`
-	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-	Id                           string   `json:"id,omitempty"`
-	Name                         string   `json:"name,omitempty"`
-	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-	Servicelist                  []string `json:"servicelist,omitempty"`
-	State                        string   `json:"state,omitempty"`
-}
-
-type DeleteNetworkServiceProviderParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteNetworkServiceProviderParams) toURLValues() url.Values {
+func (p *ReleasePublicIpRangeParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -2281,310 +2730,39 @@ func (p *DeleteNetworkServiceProviderParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *DeleteNetworkServiceProviderParams) SetId(v string) {
+func (p *ReleasePublicIpRangeParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new DeleteNetworkServiceProviderParams instance,
+// You should always use this function to get a new ReleasePublicIpRangeParams instance,
 // as then you are sure you have configured all required params
-func (s *NetworkService) NewDeleteNetworkServiceProviderParams(id string) *DeleteNetworkServiceProviderParams {
-	p := &DeleteNetworkServiceProviderParams{}
+func (s *NetworkService) NewReleasePublicIpRangeParams(id string) *ReleasePublicIpRangeParams {
+	p := &ReleasePublicIpRangeParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Deletes a Network Service Provider.
-func (s *NetworkService) DeleteNetworkServiceProvider(p *DeleteNetworkServiceProviderParams) (*DeleteNetworkServiceProviderResponse, error) {
-	resp, err := s.cs.newRequest("deleteNetworkServiceProvider", p.toURLValues())
+// Releases a Public IP range back to the system pool
+func (s *NetworkService) ReleasePublicIpRange(p *ReleasePublicIpRangeParams) (*ReleasePublicIpRangeResponse, error) {
+	resp, err := s.cs.newRequest("releasePublicIpRange", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r DeleteNetworkServiceProviderResponse
+	var r ReleasePublicIpRangeResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
 	}
 	return &r, nil
 }
 
-type DeleteNetworkServiceProviderResponse struct {
-	JobID       string `json:"jobid,omitempty"`
+type ReleasePublicIpRangeResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListNetworkServiceProvidersParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListNetworkServiceProvidersParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["physicalnetworkid"]; found {
-		u.Set("physicalnetworkid", v.(string))
-	}
-	if v, found := p.p["state"]; found {
-		u.Set("state", v.(string))
-	}
-	return u
-}
-
-func (p *ListNetworkServiceProvidersParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListNetworkServiceProvidersParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *ListNetworkServiceProvidersParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListNetworkServiceProvidersParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListNetworkServiceProvidersParams) SetPhysicalnetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["physicalnetworkid"] = v
-}
-
-func (p *ListNetworkServiceProvidersParams) SetState(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["state"] = v
-}
-
-// You should always use this function to get a new ListNetworkServiceProvidersParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewListNetworkServiceProvidersParams() *ListNetworkServiceProvidersParams {
-	p := &ListNetworkServiceProvidersParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NetworkService) GetNetworkServiceProviderID(name string, opts ...OptionFunc) (string, int, error) {
-	p := &ListNetworkServiceProvidersParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["name"] = name
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListNetworkServiceProviders(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", name, l)
-	}
-
-	if l.Count == 1 {
-		return l.NetworkServiceProviders[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.NetworkServiceProviders {
-			if v.Name == name {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", name, l)
-}
-
-// Lists network serviceproviders for a given physical network.
-func (s *NetworkService) ListNetworkServiceProviders(p *ListNetworkServiceProvidersParams) (*ListNetworkServiceProvidersResponse, error) {
-	var r, l ListNetworkServiceProvidersResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listNetworkServiceProviders", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.NetworkServiceProviders = append(r.NetworkServiceProviders, l.NetworkServiceProviders...)
-
-		if r.Count != len(r.NetworkServiceProviders) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.NetworkServiceProviders))
-		p.SetPage(page)
-	}
-}
-
-type ListNetworkServiceProvidersResponse struct {
-	Count                   int                       `json:"count"`
-	NetworkServiceProviders []*NetworkServiceProvider `json:"networkserviceprovider"`
-}
-
-type NetworkServiceProvider struct {
-	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-	Id                           string   `json:"id,omitempty"`
-	Name                         string   `json:"name,omitempty"`
-	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-	Servicelist                  []string `json:"servicelist,omitempty"`
-	State                        string   `json:"state,omitempty"`
-}
-
-type UpdateNetworkServiceProviderParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateNetworkServiceProviderParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["servicelist"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("servicelist", vv)
-	}
-	if v, found := p.p["state"]; found {
-		u.Set("state", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateNetworkServiceProviderParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateNetworkServiceProviderParams) SetServicelist(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["servicelist"] = v
-}
-
-func (p *UpdateNetworkServiceProviderParams) SetState(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["state"] = v
-}
-
-// You should always use this function to get a new UpdateNetworkServiceProviderParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewUpdateNetworkServiceProviderParams(id string) *UpdateNetworkServiceProviderParams {
-	p := &UpdateNetworkServiceProviderParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a network serviceProvider of a physical network
-func (s *NetworkService) UpdateNetworkServiceProvider(p *UpdateNetworkServiceProviderParams) (*UpdateNetworkServiceProviderResponse, error) {
-	resp, err := s.cs.newRequest("updateNetworkServiceProvider", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateNetworkServiceProviderResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateNetworkServiceProviderResponse struct {
-	JobID                        string   `json:"jobid,omitempty"`
-	Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-	Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-	Id                           string   `json:"id,omitempty"`
-	Name                         string   `json:"name,omitempty"`
-	Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-	Servicelist                  []string `json:"servicelist,omitempty"`
-	State                        string   `json:"state,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type CreateStorageNetworkIpRangeParams struct {
@@ -3061,220 +3239,11 @@ type UpdateStorageNetworkIpRangeResponse struct {
 	Zoneid    string `json:"zoneid,omitempty"`
 }
 
-type ListNiciraNvpDeviceNetworksParams struct {
+type ListSupportedNetworkServicesParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListNiciraNvpDeviceNetworksParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["nvpdeviceid"]; found {
-		u.Set("nvpdeviceid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListNiciraNvpDeviceNetworksParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListNiciraNvpDeviceNetworksParams) SetNvpdeviceid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["nvpdeviceid"] = v
-}
-
-func (p *ListNiciraNvpDeviceNetworksParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListNiciraNvpDeviceNetworksParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListNiciraNvpDeviceNetworksParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkService) NewListNiciraNvpDeviceNetworksParams(nvpdeviceid string) *ListNiciraNvpDeviceNetworksParams {
-	p := &ListNiciraNvpDeviceNetworksParams{}
-	p.p = make(map[string]interface{})
-	p.p["nvpdeviceid"] = nvpdeviceid
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NetworkService) GetNiciraNvpDeviceNetworkID(keyword string, nvpdeviceid string, opts ...OptionFunc) (string, int, error) {
-	p := &ListNiciraNvpDeviceNetworksParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["keyword"] = keyword
-	p.p["nvpdeviceid"] = nvpdeviceid
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return "", -1, err
-		}
-	}
-
-	l, err := s.ListNiciraNvpDeviceNetworks(p)
-	if err != nil {
-		return "", -1, err
-	}
-
-	if l.Count == 0 {
-		return "", l.Count, fmt.Errorf("No match found for %s: %+v", keyword, l)
-	}
-
-	if l.Count == 1 {
-		return l.NiciraNvpDeviceNetworks[0].Id, l.Count, nil
-	}
-
-	if l.Count > 1 {
-		for _, v := range l.NiciraNvpDeviceNetworks {
-			if v.Name == keyword {
-				return v.Id, l.Count, nil
-			}
-		}
-	}
-	return "", l.Count, fmt.Errorf("Could not find an exact match for %s: %+v", keyword, l)
-}
-
-// lists network that are using a nicira nvp device
-func (s *NetworkService) ListNiciraNvpDeviceNetworks(p *ListNiciraNvpDeviceNetworksParams) (*ListNiciraNvpDeviceNetworksResponse, error) {
-	var r, l ListNiciraNvpDeviceNetworksResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listNiciraNvpDeviceNetworks", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.NiciraNvpDeviceNetworks = append(r.NiciraNvpDeviceNetworks, l.NiciraNvpDeviceNetworks...)
-
-		if r.Count != len(r.NiciraNvpDeviceNetworks) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.NiciraNvpDeviceNetworks))
-		p.SetPage(page)
-	}
-}
-
-type ListNiciraNvpDeviceNetworksResponse struct {
-	Count                   int                       `json:"count"`
-	NiciraNvpDeviceNetworks []*NiciraNvpDeviceNetwork `json:"niciranvpdevicenetwork"`
-}
-
-type NiciraNvpDeviceNetwork struct {
-	Account                     string `json:"account,omitempty"`
-	Aclid                       string `json:"aclid,omitempty"`
-	Acltype                     string `json:"acltype,omitempty"`
-	Broadcastdomaintype         string `json:"broadcastdomaintype,omitempty"`
-	Broadcasturi                string `json:"broadcasturi,omitempty"`
-	Canusefordeploy             bool   `json:"canusefordeploy,omitempty"`
-	Cidr                        string `json:"cidr,omitempty"`
-	Displaynetwork              bool   `json:"displaynetwork,omitempty"`
-	Displaytext                 string `json:"displaytext,omitempty"`
-	Dns1                        string `json:"dns1,omitempty"`
-	Dns2                        string `json:"dns2,omitempty"`
-	Domain                      string `json:"domain,omitempty"`
-	Domainid                    string `json:"domainid,omitempty"`
-	Gateway                     string `json:"gateway,omitempty"`
-	Id                          string `json:"id,omitempty"`
-	Ip6cidr                     string `json:"ip6cidr,omitempty"`
-	Ip6gateway                  string `json:"ip6gateway,omitempty"`
-	Ipexclusionlist             string `json:"ipexclusionlist,omitempty"`
-	Isdefault                   bool   `json:"isdefault,omitempty"`
-	Ispersistent                bool   `json:"ispersistent,omitempty"`
-	Issystem                    bool   `json:"issystem,omitempty"`
-	Name                        string `json:"name,omitempty"`
-	Netmask                     string `json:"netmask,omitempty"`
-	Networkcidr                 string `json:"networkcidr,omitempty"`
-	Networkdomain               string `json:"networkdomain,omitempty"`
-	Networkofferingavailability string `json:"networkofferingavailability,omitempty"`
-	Networkofferingconservemode bool   `json:"networkofferingconservemode,omitempty"`
-	Networkofferingdisplaytext  string `json:"networkofferingdisplaytext,omitempty"`
-	Networkofferingid           string `json:"networkofferingid,omitempty"`
-	Networkofferingname         string `json:"networkofferingname,omitempty"`
-	Physicalnetworkid           string `json:"physicalnetworkid,omitempty"`
-	Project                     string `json:"project,omitempty"`
-	Projectid                   string `json:"projectid,omitempty"`
-	Related                     string `json:"related,omitempty"`
-	Reservediprange             string `json:"reservediprange,omitempty"`
-	Restartrequired             bool   `json:"restartrequired,omitempty"`
-	Service                     []struct {
-		Capability []struct {
-			Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
-			Name                       string `json:"name,omitempty"`
-			Value                      string `json:"value,omitempty"`
-		} `json:"capability,omitempty"`
-		Name     string `json:"name,omitempty"`
-		Provider []struct {
-			Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
-			Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
-			Id                           string   `json:"id,omitempty"`
-			Name                         string   `json:"name,omitempty"`
-			Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
-			Servicelist                  []string `json:"servicelist,omitempty"`
-			State                        string   `json:"state,omitempty"`
-		} `json:"provider,omitempty"`
-	} `json:"service,omitempty"`
-	Specifyipranges  bool   `json:"specifyipranges,omitempty"`
-	State            string `json:"state,omitempty"`
-	Strechedl2subnet bool   `json:"strechedl2subnet,omitempty"`
-	Subdomainaccess  bool   `json:"subdomainaccess,omitempty"`
-	Tags             []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Traffictype       string   `json:"traffictype,omitempty"`
-	Type              string   `json:"type,omitempty"`
-	Vlan              string   `json:"vlan,omitempty"`
-	Vpcid             string   `json:"vpcid,omitempty"`
-	Zoneid            string   `json:"zoneid,omitempty"`
-	Zonename          string   `json:"zonename,omitempty"`
-	Zonesnetworkspans []string `json:"zonesnetworkspans,omitempty"`
-}
-
-type ListNetworkIsolationMethodsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListNetworkIsolationMethodsParams) toURLValues() url.Values {
+func (p *ListSupportedNetworkServicesParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -3290,43 +3259,63 @@ func (p *ListNetworkIsolationMethodsParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("pagesize", vv)
 	}
+	if v, found := p.p["provider"]; found {
+		u.Set("provider", v.(string))
+	}
+	if v, found := p.p["service"]; found {
+		u.Set("service", v.(string))
+	}
 	return u
 }
 
-func (p *ListNetworkIsolationMethodsParams) SetKeyword(v string) {
+func (p *ListSupportedNetworkServicesParams) SetKeyword(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["keyword"] = v
 }
 
-func (p *ListNetworkIsolationMethodsParams) SetPage(v int) {
+func (p *ListSupportedNetworkServicesParams) SetPage(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["page"] = v
 }
 
-func (p *ListNetworkIsolationMethodsParams) SetPagesize(v int) {
+func (p *ListSupportedNetworkServicesParams) SetPagesize(v int) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["pagesize"] = v
 }
 
-// You should always use this function to get a new ListNetworkIsolationMethodsParams instance,
+func (p *ListSupportedNetworkServicesParams) SetProvider(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["provider"] = v
+}
+
+func (p *ListSupportedNetworkServicesParams) SetService(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["service"] = v
+}
+
+// You should always use this function to get a new ListSupportedNetworkServicesParams instance,
 // as then you are sure you have configured all required params
-func (s *NetworkService) NewListNetworkIsolationMethodsParams() *ListNetworkIsolationMethodsParams {
-	p := &ListNetworkIsolationMethodsParams{}
+func (s *NetworkService) NewListSupportedNetworkServicesParams() *ListSupportedNetworkServicesParams {
+	p := &ListSupportedNetworkServicesParams{}
 	p.p = make(map[string]interface{})
 	return p
 }
 
-// Lists supported methods of network isolation
-func (s *NetworkService) ListNetworkIsolationMethods(p *ListNetworkIsolationMethodsParams) (*ListNetworkIsolationMethodsResponse, error) {
-	var r, l ListNetworkIsolationMethodsResponse
+// Lists all network services provided by CloudStack or for the given Provider.
+func (s *NetworkService) ListSupportedNetworkServices(p *ListSupportedNetworkServicesParams) (*ListSupportedNetworkServicesResponse, error) {
+	var r, l ListSupportedNetworkServicesResponse
 	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listNetworkIsolationMethods", p.toURLValues())
+		resp, err := s.cs.newRequest("listSupportedNetworkServices", p.toURLValues())
 		if err != nil {
 			return nil, err
 		}
@@ -3336,22 +3325,36 @@ func (s *NetworkService) ListNetworkIsolationMethods(p *ListNetworkIsolationMeth
 		}
 
 		r.Count = l.Count
-		r.NetworkIsolationMethods = append(r.NetworkIsolationMethods, l.NetworkIsolationMethods...)
+		r.SupportedNetworkServices = append(r.SupportedNetworkServices, l.SupportedNetworkServices...)
 
-		if r.Count != len(r.NetworkIsolationMethods) {
+		if r.Count != len(r.SupportedNetworkServices) {
 			return &r, nil
 		}
 
-		p.SetPagesize(len(l.NetworkIsolationMethods))
+		p.SetPagesize(len(l.SupportedNetworkServices))
 		p.SetPage(page)
 	}
 }
 
-type ListNetworkIsolationMethodsResponse struct {
-	Count                   int                       `json:"count"`
-	NetworkIsolationMethods []*NetworkIsolationMethod `json:"networkisolationmethod"`
+type ListSupportedNetworkServicesResponse struct {
+	Count                    int                        `json:"count"`
+	SupportedNetworkServices []*SupportedNetworkService `json:"supportednetworkservice"`
 }
 
-type NetworkIsolationMethod struct {
-	Name string `json:"name,omitempty"`
+type SupportedNetworkService struct {
+	Capability []struct {
+		Canchooseservicecapability bool   `json:"canchooseservicecapability,omitempty"`
+		Name                       string `json:"name,omitempty"`
+		Value                      string `json:"value,omitempty"`
+	} `json:"capability,omitempty"`
+	Name     string `json:"name,omitempty"`
+	Provider []struct {
+		Canenableindividualservice   bool     `json:"canenableindividualservice,omitempty"`
+		Destinationphysicalnetworkid string   `json:"destinationphysicalnetworkid,omitempty"`
+		Id                           string   `json:"id,omitempty"`
+		Name                         string   `json:"name,omitempty"`
+		Physicalnetworkid            string   `json:"physicalnetworkid,omitempty"`
+		Servicelist                  []string `json:"servicelist,omitempty"`
+		State                        string   `json:"state,omitempty"`
+	} `json:"provider,omitempty"`
 }

@@ -67,16 +67,13 @@ type CosmicClient struct {
 	async   bool         // Wait for async calls to finish
 	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds
 
-	APIDiscovery     *APIDiscoveryService
 	Account          *AccountService
-	Address          *AddressService
 	AffinityGroup    *AffinityGroupService
 	Alert            *AlertService
 	Asyncjob         *AsyncjobService
 	Authentication   *AuthenticationService
-	AutoScale        *AutoScaleService
 	Certificate      *CertificateService
-	CloudIdentifier  *CloudIdentifierService
+	CloudOps         *CloudOpsService
 	Cluster          *ClusterService
 	Configuration    *ConfigurationService
 	DiskOffering     *DiskOfferingService
@@ -88,8 +85,6 @@ type CosmicClient struct {
 	Hypervisor       *HypervisorService
 	ISO              *ISOService
 	ImageStore       *ImageStoreService
-	InternalLB       *InternalLBService
-	LDAP             *LDAPService
 	Limit            *LimitService
 	LoadBalancer     *LoadBalancerService
 	NAT              *NATService
@@ -100,9 +95,8 @@ type CosmicClient struct {
 	Nic              *NicService
 	NiciraNVP        *NiciraNVPService
 	Pod              *PodService
-	Pool             *PoolService
-	PortableIP       *PortableIPService
 	Project          *ProjectService
+	PublicIPAddress  *PublicIPAddressService
 	Region           *RegionService
 	Resourcemetadata *ResourcemetadataService
 	Resourcetags     *ResourcetagsService
@@ -112,8 +106,7 @@ type CosmicClient struct {
 	ServiceOffering  *ServiceOfferingService
 	Snapshot         *SnapshotService
 	StoragePool      *StoragePoolService
-	Swift            *SwiftService
-	SystemCapacity   *SystemCapacityService
+	System           *SystemService
 	SystemVM         *SystemVMService
 	Template         *TemplateService
 	Usage            *UsageService
@@ -143,16 +136,13 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 		async:   async,
 		timeout: 300,
 	}
-	cs.APIDiscovery = NewAPIDiscoveryService(cs)
 	cs.Account = NewAccountService(cs)
-	cs.Address = NewAddressService(cs)
 	cs.AffinityGroup = NewAffinityGroupService(cs)
 	cs.Alert = NewAlertService(cs)
 	cs.Asyncjob = NewAsyncjobService(cs)
 	cs.Authentication = NewAuthenticationService(cs)
-	cs.AutoScale = NewAutoScaleService(cs)
 	cs.Certificate = NewCertificateService(cs)
-	cs.CloudIdentifier = NewCloudIdentifierService(cs)
+	cs.CloudOps = NewCloudOpsService(cs)
 	cs.Cluster = NewClusterService(cs)
 	cs.Configuration = NewConfigurationService(cs)
 	cs.DiskOffering = NewDiskOfferingService(cs)
@@ -164,8 +154,6 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Hypervisor = NewHypervisorService(cs)
 	cs.ISO = NewISOService(cs)
 	cs.ImageStore = NewImageStoreService(cs)
-	cs.InternalLB = NewInternalLBService(cs)
-	cs.LDAP = NewLDAPService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
 	cs.NAT = NewNATService(cs)
@@ -176,9 +164,8 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.Nic = NewNicService(cs)
 	cs.NiciraNVP = NewNiciraNVPService(cs)
 	cs.Pod = NewPodService(cs)
-	cs.Pool = NewPoolService(cs)
-	cs.PortableIP = NewPortableIPService(cs)
 	cs.Project = NewProjectService(cs)
+	cs.PublicIPAddress = NewPublicIPAddressService(cs)
 	cs.Region = NewRegionService(cs)
 	cs.Resourcemetadata = NewResourcemetadataService(cs)
 	cs.Resourcetags = NewResourcetagsService(cs)
@@ -188,8 +175,7 @@ func newClient(apiurl string, apikey string, secret string, async bool, verifyss
 	cs.ServiceOffering = NewServiceOfferingService(cs)
 	cs.Snapshot = NewSnapshotService(cs)
 	cs.StoragePool = NewStoragePoolService(cs)
-	cs.Swift = NewSwiftService(cs)
-	cs.SystemCapacity = NewSystemCapacityService(cs)
+	cs.System = NewSystemService(cs)
 	cs.SystemVM = NewSystemVMService(cs)
 	cs.Template = NewTemplateService(cs)
 	cs.Usage = NewUsageService(cs)
@@ -421,28 +407,12 @@ func WithVPCID(id string) OptionFunc {
 	}
 }
 
-type APIDiscoveryService struct {
-	cs *CosmicClient
-}
-
-func NewAPIDiscoveryService(cs *CosmicClient) *APIDiscoveryService {
-	return &APIDiscoveryService{cs: cs}
-}
-
 type AccountService struct {
 	cs *CosmicClient
 }
 
 func NewAccountService(cs *CosmicClient) *AccountService {
 	return &AccountService{cs: cs}
-}
-
-type AddressService struct {
-	cs *CosmicClient
-}
-
-func NewAddressService(cs *CosmicClient) *AddressService {
-	return &AddressService{cs: cs}
 }
 
 type AffinityGroupService struct {
@@ -477,14 +447,6 @@ func NewAuthenticationService(cs *CosmicClient) *AuthenticationService {
 	return &AuthenticationService{cs: cs}
 }
 
-type AutoScaleService struct {
-	cs *CosmicClient
-}
-
-func NewAutoScaleService(cs *CosmicClient) *AutoScaleService {
-	return &AutoScaleService{cs: cs}
-}
-
 type CertificateService struct {
 	cs *CosmicClient
 }
@@ -493,12 +455,12 @@ func NewCertificateService(cs *CosmicClient) *CertificateService {
 	return &CertificateService{cs: cs}
 }
 
-type CloudIdentifierService struct {
+type CloudOpsService struct {
 	cs *CosmicClient
 }
 
-func NewCloudIdentifierService(cs *CosmicClient) *CloudIdentifierService {
-	return &CloudIdentifierService{cs: cs}
+func NewCloudOpsService(cs *CosmicClient) *CloudOpsService {
+	return &CloudOpsService{cs: cs}
 }
 
 type ClusterService struct {
@@ -589,22 +551,6 @@ func NewImageStoreService(cs *CosmicClient) *ImageStoreService {
 	return &ImageStoreService{cs: cs}
 }
 
-type InternalLBService struct {
-	cs *CosmicClient
-}
-
-func NewInternalLBService(cs *CosmicClient) *InternalLBService {
-	return &InternalLBService{cs: cs}
-}
-
-type LDAPService struct {
-	cs *CosmicClient
-}
-
-func NewLDAPService(cs *CosmicClient) *LDAPService {
-	return &LDAPService{cs: cs}
-}
-
 type LimitService struct {
 	cs *CosmicClient
 }
@@ -685,28 +631,20 @@ func NewPodService(cs *CosmicClient) *PodService {
 	return &PodService{cs: cs}
 }
 
-type PoolService struct {
-	cs *CosmicClient
-}
-
-func NewPoolService(cs *CosmicClient) *PoolService {
-	return &PoolService{cs: cs}
-}
-
-type PortableIPService struct {
-	cs *CosmicClient
-}
-
-func NewPortableIPService(cs *CosmicClient) *PortableIPService {
-	return &PortableIPService{cs: cs}
-}
-
 type ProjectService struct {
 	cs *CosmicClient
 }
 
 func NewProjectService(cs *CosmicClient) *ProjectService {
 	return &ProjectService{cs: cs}
+}
+
+type PublicIPAddressService struct {
+	cs *CosmicClient
+}
+
+func NewPublicIPAddressService(cs *CosmicClient) *PublicIPAddressService {
+	return &PublicIPAddressService{cs: cs}
 }
 
 type RegionService struct {
@@ -781,20 +719,12 @@ func NewStoragePoolService(cs *CosmicClient) *StoragePoolService {
 	return &StoragePoolService{cs: cs}
 }
 
-type SwiftService struct {
+type SystemService struct {
 	cs *CosmicClient
 }
 
-func NewSwiftService(cs *CosmicClient) *SwiftService {
-	return &SwiftService{cs: cs}
-}
-
-type SystemCapacityService struct {
-	cs *CosmicClient
-}
-
-func NewSystemCapacityService(cs *CosmicClient) *SystemCapacityService {
-	return &SystemCapacityService{cs: cs}
+func NewSystemService(cs *CosmicClient) *SystemService {
+	return &SystemService{cs: cs}
 }
 
 type SystemVMService struct {

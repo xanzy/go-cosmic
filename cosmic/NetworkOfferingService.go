@@ -335,6 +335,56 @@ type CreateNetworkOfferingResponse struct {
 	Traffictype              string `json:"traffictype,omitempty"`
 }
 
+type DeleteNetworkOfferingParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteNetworkOfferingParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteNetworkOfferingParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteNetworkOfferingParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkOfferingService) NewDeleteNetworkOfferingParams(id string) *DeleteNetworkOfferingParams {
+	p := &DeleteNetworkOfferingParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a network offering.
+func (s *NetworkOfferingService) DeleteNetworkOffering(p *DeleteNetworkOfferingParams) (*DeleteNetworkOfferingResponse, error) {
+	resp, err := s.cs.newRequest("deleteNetworkOffering", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteNetworkOfferingResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteNetworkOfferingResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
 type UpdateNetworkOfferingParams struct {
 	p map[string]interface{}
 }
@@ -494,56 +544,6 @@ type UpdateNetworkOfferingResponse struct {
 	Supportsstrechedl2subnet bool   `json:"supportsstrechedl2subnet,omitempty"`
 	Tags                     string `json:"tags,omitempty"`
 	Traffictype              string `json:"traffictype,omitempty"`
-}
-
-type DeleteNetworkOfferingParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteNetworkOfferingParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteNetworkOfferingParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteNetworkOfferingParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkOfferingService) NewDeleteNetworkOfferingParams(id string) *DeleteNetworkOfferingParams {
-	p := &DeleteNetworkOfferingParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a network offering.
-func (s *NetworkOfferingService) DeleteNetworkOffering(p *DeleteNetworkOfferingParams) (*DeleteNetworkOfferingResponse, error) {
-	resp, err := s.cs.newRequest("deleteNetworkOffering", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteNetworkOfferingResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteNetworkOfferingResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }
 
 type ListNetworkOfferingsParams struct {

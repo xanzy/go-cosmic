@@ -24,11 +24,11 @@ import (
 	"strings"
 )
 
-type StartRouterParams struct {
+type DestroyRouterParams struct {
 	p map[string]interface{}
 }
 
-func (p *StartRouterParams) toURLValues() url.Values {
+func (p *DestroyRouterParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -39,30 +39,30 @@ func (p *StartRouterParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *StartRouterParams) SetId(v string) {
+func (p *DestroyRouterParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new StartRouterParams instance,
+// You should always use this function to get a new DestroyRouterParams instance,
 // as then you are sure you have configured all required params
-func (s *RouterService) NewStartRouterParams(id string) *StartRouterParams {
-	p := &StartRouterParams{}
+func (s *RouterService) NewDestroyRouterParams(id string) *DestroyRouterParams {
+	p := &DestroyRouterParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Starts a router.
-func (s *RouterService) StartRouter(p *StartRouterParams) (*StartRouterResponse, error) {
-	resp, err := s.cs.newRequest("startRouter", p.toURLValues())
+// Destroys a router.
+func (s *RouterService) DestroyRouter(p *DestroyRouterParams) (*DestroyRouterResponse, error) {
+	resp, err := s.cs.newRequest("destroyRouter", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r StartRouterResponse
+	var r DestroyRouterResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (s *RouterService) StartRouter(p *StartRouterParams) (*StartRouterResponse,
 	return &r, nil
 }
 
-type StartRouterResponse struct {
+type DestroyRouterResponse struct {
 	JobID               string `json:"jobid,omitempty"`
 	Account             string `json:"account,omitempty"`
 	Created             string `json:"created,omitempty"`
@@ -298,6 +298,143 @@ type RebootRouterResponse struct {
 	Zonename            string `json:"zonename,omitempty"`
 }
 
+type StartRouterParams struct {
+	p map[string]interface{}
+}
+
+func (p *StartRouterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *StartRouterParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new StartRouterParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewStartRouterParams(id string) *StartRouterParams {
+	p := &StartRouterParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Starts a router.
+func (s *RouterService) StartRouter(p *StartRouterParams) (*StartRouterResponse, error) {
+	resp, err := s.cs.newRequest("startRouter", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r StartRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type StartRouterResponse struct {
+	JobID               string `json:"jobid,omitempty"`
+	Account             string `json:"account,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Guestnetworkname    string `json:"guestnetworkname,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Hypervisor          string `json:"hypervisor,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
+	Nic                 []struct {
+		Broadcasturi string `json:"broadcasturi,omitempty"`
+		Deviceid     string `json:"deviceid,omitempty"`
+		Gateway      string `json:"gateway,omitempty"`
+		Id           string `json:"id,omitempty"`
+		Ip6address   string `json:"ip6address,omitempty"`
+		Ip6cidr      string `json:"ip6cidr,omitempty"`
+		Ip6gateway   string `json:"ip6gateway,omitempty"`
+		Ipaddress    string `json:"ipaddress,omitempty"`
+		Isdefault    bool   `json:"isdefault,omitempty"`
+		Isolationuri string `json:"isolationuri,omitempty"`
+		Macaddress   string `json:"macaddress,omitempty"`
+		Netmask      string `json:"netmask,omitempty"`
+		Networkid    string `json:"networkid,omitempty"`
+		Networkname  string `json:"networkname,omitempty"`
+		Secondaryip  []struct {
+			Id        string `json:"id,omitempty"`
+			Ipaddress string `json:"ipaddress,omitempty"`
+		} `json:"secondaryip,omitempty"`
+		Traffictype      string `json:"traffictype,omitempty"`
+		Type             string `json:"type,omitempty"`
+		Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	} `json:"nic,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Vpcname             string `json:"vpcname,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
+}
+
 type StopRouterParams struct {
 	p map[string]interface{}
 }
@@ -376,270 +513,6 @@ func (s *RouterService) StopRouter(p *StopRouterParams) (*StopRouterResponse, er
 
 type StopRouterResponse struct {
 	JobID               string `json:"jobid,omitempty"`
-	Account             string `json:"account,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Dns1                string `json:"dns1,omitempty"`
-	Dns2                string `json:"dns2,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Gateway             string `json:"gateway,omitempty"`
-	Guestipaddress      string `json:"guestipaddress,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Guestnetmask        string `json:"guestnetmask,omitempty"`
-	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
-	Guestnetworkname    string `json:"guestnetworkname,omitempty"`
-	Hostid              string `json:"hostid,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Hypervisor          string `json:"hypervisor,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Ip6dns2             string `json:"ip6dns2,omitempty"`
-	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Nic                 []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
-			Id        string `json:"id,omitempty"`
-			Ipaddress string `json:"ipaddress,omitempty"`
-		} `json:"secondaryip,omitempty"`
-		Traffictype      string `json:"traffictype,omitempty"`
-		Type             string `json:"type,omitempty"`
-		Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	} `json:"nic,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
-	Publicip            string `json:"publicip,omitempty"`
-	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
-	Redundantstate      string `json:"redundantstate,omitempty"`
-	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
-	Role                string `json:"role,omitempty"`
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	State               string `json:"state,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Version             string `json:"version,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
-	Vpcname             string `json:"vpcname,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-}
-
-type DestroyRouterParams struct {
-	p map[string]interface{}
-}
-
-func (p *DestroyRouterParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DestroyRouterParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DestroyRouterParams instance,
-// as then you are sure you have configured all required params
-func (s *RouterService) NewDestroyRouterParams(id string) *DestroyRouterParams {
-	p := &DestroyRouterParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Destroys a router.
-func (s *RouterService) DestroyRouter(p *DestroyRouterParams) (*DestroyRouterResponse, error) {
-	resp, err := s.cs.newRequest("destroyRouter", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DestroyRouterResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DestroyRouterResponse struct {
-	JobID               string `json:"jobid,omitempty"`
-	Account             string `json:"account,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Dns1                string `json:"dns1,omitempty"`
-	Dns2                string `json:"dns2,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Gateway             string `json:"gateway,omitempty"`
-	Guestipaddress      string `json:"guestipaddress,omitempty"`
-	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
-	Guestnetmask        string `json:"guestnetmask,omitempty"`
-	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
-	Guestnetworkname    string `json:"guestnetworkname,omitempty"`
-	Hostid              string `json:"hostid,omitempty"`
-	Hostname            string `json:"hostname,omitempty"`
-	Hypervisor          string `json:"hypervisor,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Ip6dns1             string `json:"ip6dns1,omitempty"`
-	Ip6dns2             string `json:"ip6dns2,omitempty"`
-	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
-	Linklocalip         string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
-	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
-	Name                string `json:"name,omitempty"`
-	Networkdomain       string `json:"networkdomain,omitempty"`
-	Nic                 []struct {
-		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
-		Gateway      string `json:"gateway,omitempty"`
-		Id           string `json:"id,omitempty"`
-		Ip6address   string `json:"ip6address,omitempty"`
-		Ip6cidr      string `json:"ip6cidr,omitempty"`
-		Ip6gateway   string `json:"ip6gateway,omitempty"`
-		Ipaddress    string `json:"ipaddress,omitempty"`
-		Isdefault    bool   `json:"isdefault,omitempty"`
-		Isolationuri string `json:"isolationuri,omitempty"`
-		Macaddress   string `json:"macaddress,omitempty"`
-		Netmask      string `json:"netmask,omitempty"`
-		Networkid    string `json:"networkid,omitempty"`
-		Networkname  string `json:"networkname,omitempty"`
-		Secondaryip  []struct {
-			Id        string `json:"id,omitempty"`
-			Ipaddress string `json:"ipaddress,omitempty"`
-		} `json:"secondaryip,omitempty"`
-		Traffictype      string `json:"traffictype,omitempty"`
-		Type             string `json:"type,omitempty"`
-		Virtualmachineid string `json:"virtualmachineid,omitempty"`
-	} `json:"nic,omitempty"`
-	Podid               string `json:"podid,omitempty"`
-	Project             string `json:"project,omitempty"`
-	Projectid           string `json:"projectid,omitempty"`
-	Publicip            string `json:"publicip,omitempty"`
-	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
-	Publicnetmask       string `json:"publicnetmask,omitempty"`
-	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
-	Redundantstate      string `json:"redundantstate,omitempty"`
-	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
-	Role                string `json:"role,omitempty"`
-	Scriptsversion      string `json:"scriptsversion,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	State               string `json:"state,omitempty"`
-	Templateid          string `json:"templateid,omitempty"`
-	Version             string `json:"version,omitempty"`
-	Vpcid               string `json:"vpcid,omitempty"`
-	Vpcname             string `json:"vpcname,omitempty"`
-	Zoneid              string `json:"zoneid,omitempty"`
-	Zonename            string `json:"zonename,omitempty"`
-}
-
-type ChangeServiceForRouterParams struct {
-	p map[string]interface{}
-}
-
-func (p *ChangeServiceForRouterParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["serviceofferingid"]; found {
-		u.Set("serviceofferingid", v.(string))
-	}
-	return u
-}
-
-func (p *ChangeServiceForRouterParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ChangeServiceForRouterParams) SetServiceofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["serviceofferingid"] = v
-}
-
-// You should always use this function to get a new ChangeServiceForRouterParams instance,
-// as then you are sure you have configured all required params
-func (s *RouterService) NewChangeServiceForRouterParams(id string, serviceofferingid string) *ChangeServiceForRouterParams {
-	p := &ChangeServiceForRouterParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["serviceofferingid"] = serviceofferingid
-	return p
-}
-
-// Upgrades domain router to a new service offering
-func (s *RouterService) ChangeServiceForRouter(p *ChangeServiceForRouterParams) (*ChangeServiceForRouterResponse, error) {
-	resp, err := s.cs.newRequest("changeServiceForRouter", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ChangeServiceForRouterResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ChangeServiceForRouterResponse struct {
 	Account             string `json:"account,omitempty"`
 	Created             string `json:"created,omitempty"`
 	Dns1                string `json:"dns1,omitempty"`
@@ -1109,161 +982,131 @@ type Router struct {
 	Zonename            string `json:"zonename,omitempty"`
 }
 
-type ListVirtualRouterElementsParams struct {
+type ChangeServiceForRouterParams struct {
 	p map[string]interface{}
 }
 
-func (p *ListVirtualRouterElementsParams) toURLValues() url.Values {
+func (p *ChangeServiceForRouterParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["enabled"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("enabled", vv)
-	}
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["nspid"]; found {
-		u.Set("nspid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
+	if v, found := p.p["serviceofferingid"]; found {
+		u.Set("serviceofferingid", v.(string))
 	}
 	return u
 }
 
-func (p *ListVirtualRouterElementsParams) SetEnabled(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enabled"] = v
-}
-
-func (p *ListVirtualRouterElementsParams) SetId(v string) {
+func (p *ChangeServiceForRouterParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-func (p *ListVirtualRouterElementsParams) SetKeyword(v string) {
+func (p *ChangeServiceForRouterParams) SetServiceofferingid(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["keyword"] = v
+	p.p["serviceofferingid"] = v
 }
 
-func (p *ListVirtualRouterElementsParams) SetNspid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["nspid"] = v
-}
-
-func (p *ListVirtualRouterElementsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListVirtualRouterElementsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListVirtualRouterElementsParams instance,
+// You should always use this function to get a new ChangeServiceForRouterParams instance,
 // as then you are sure you have configured all required params
-func (s *RouterService) NewListVirtualRouterElementsParams() *ListVirtualRouterElementsParams {
-	p := &ListVirtualRouterElementsParams{}
+func (s *RouterService) NewChangeServiceForRouterParams(id string, serviceofferingid string) *ChangeServiceForRouterParams {
+	p := &ChangeServiceForRouterParams{}
 	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["serviceofferingid"] = serviceofferingid
 	return p
 }
 
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *RouterService) GetVirtualRouterElementByID(id string, opts ...OptionFunc) (*VirtualRouterElement, int, error) {
-	p := &ListVirtualRouterElementsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListVirtualRouterElements(p)
+// Upgrades domain router to a new service offering
+func (s *RouterService) ChangeServiceForRouter(p *ChangeServiceForRouterParams) (*ChangeServiceForRouterResponse, error) {
+	resp, err := s.cs.newRequest("changeServiceForRouter", p.toURLValues())
 	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
+		return nil, err
 	}
 
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	var r ChangeServiceForRouterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
 	}
-
-	if l.Count == 1 {
-		return l.VirtualRouterElements[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for VirtualRouterElement UUID: %s!", id)
+	return &r, nil
 }
 
-// Lists all available virtual router elements.
-func (s *RouterService) ListVirtualRouterElements(p *ListVirtualRouterElementsParams) (*ListVirtualRouterElementsResponse, error) {
-	var r, l ListVirtualRouterElementsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listVirtualRouterElements", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.VirtualRouterElements = append(r.VirtualRouterElements, l.VirtualRouterElements...)
-
-		if r.Count != len(r.VirtualRouterElements) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.VirtualRouterElements))
-		p.SetPage(page)
-	}
-}
-
-type ListVirtualRouterElementsResponse struct {
-	Count                 int                     `json:"count"`
-	VirtualRouterElements []*VirtualRouterElement `json:"virtualrouterelement"`
-}
-
-type VirtualRouterElement struct {
-	Account   string `json:"account,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Enabled   bool   `json:"enabled,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Nspid     string `json:"nspid,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
+type ChangeServiceForRouterResponse struct {
+	Account             string `json:"account,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Dns1                string `json:"dns1,omitempty"`
+	Dns2                string `json:"dns2,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Gateway             string `json:"gateway,omitempty"`
+	Guestipaddress      string `json:"guestipaddress,omitempty"`
+	Guestmacaddress     string `json:"guestmacaddress,omitempty"`
+	Guestnetmask        string `json:"guestnetmask,omitempty"`
+	Guestnetworkid      string `json:"guestnetworkid,omitempty"`
+	Guestnetworkname    string `json:"guestnetworkname,omitempty"`
+	Hostid              string `json:"hostid,omitempty"`
+	Hostname            string `json:"hostname,omitempty"`
+	Hypervisor          string `json:"hypervisor,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Ip6dns1             string `json:"ip6dns1,omitempty"`
+	Ip6dns2             string `json:"ip6dns2,omitempty"`
+	Isredundantrouter   bool   `json:"isredundantrouter,omitempty"`
+	Linklocalip         string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask    string `json:"linklocalnetmask,omitempty"`
+	Linklocalnetworkid  string `json:"linklocalnetworkid,omitempty"`
+	Name                string `json:"name,omitempty"`
+	Networkdomain       string `json:"networkdomain,omitempty"`
+	Nic                 []struct {
+		Broadcasturi string `json:"broadcasturi,omitempty"`
+		Deviceid     string `json:"deviceid,omitempty"`
+		Gateway      string `json:"gateway,omitempty"`
+		Id           string `json:"id,omitempty"`
+		Ip6address   string `json:"ip6address,omitempty"`
+		Ip6cidr      string `json:"ip6cidr,omitempty"`
+		Ip6gateway   string `json:"ip6gateway,omitempty"`
+		Ipaddress    string `json:"ipaddress,omitempty"`
+		Isdefault    bool   `json:"isdefault,omitempty"`
+		Isolationuri string `json:"isolationuri,omitempty"`
+		Macaddress   string `json:"macaddress,omitempty"`
+		Netmask      string `json:"netmask,omitempty"`
+		Networkid    string `json:"networkid,omitempty"`
+		Networkname  string `json:"networkname,omitempty"`
+		Secondaryip  []struct {
+			Id        string `json:"id,omitempty"`
+			Ipaddress string `json:"ipaddress,omitempty"`
+		} `json:"secondaryip,omitempty"`
+		Traffictype      string `json:"traffictype,omitempty"`
+		Type             string `json:"type,omitempty"`
+		Virtualmachineid string `json:"virtualmachineid,omitempty"`
+	} `json:"nic,omitempty"`
+	Podid               string `json:"podid,omitempty"`
+	Project             string `json:"project,omitempty"`
+	Projectid           string `json:"projectid,omitempty"`
+	Publicip            string `json:"publicip,omitempty"`
+	Publicmacaddress    string `json:"publicmacaddress,omitempty"`
+	Publicnetmask       string `json:"publicnetmask,omitempty"`
+	Publicnetworkid     string `json:"publicnetworkid,omitempty"`
+	Redundantstate      string `json:"redundantstate,omitempty"`
+	Requiresupgrade     bool   `json:"requiresupgrade,omitempty"`
+	Role                string `json:"role,omitempty"`
+	Scriptsversion      string `json:"scriptsversion,omitempty"`
+	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname string `json:"serviceofferingname,omitempty"`
+	State               string `json:"state,omitempty"`
+	Templateid          string `json:"templateid,omitempty"`
+	Version             string `json:"version,omitempty"`
+	Vpcid               string `json:"vpcid,omitempty"`
+	Vpcname             string `json:"vpcname,omitempty"`
+	Zoneid              string `json:"zoneid,omitempty"`
+	Zonename            string `json:"zonename,omitempty"`
 }
 
 type ConfigureVirtualRouterElementParams struct {
@@ -1432,6 +1275,163 @@ func (s *RouterService) CreateVirtualRouterElement(p *CreateVirtualRouterElement
 
 type CreateVirtualRouterElementResponse struct {
 	JobID     string `json:"jobid,omitempty"`
+	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Enabled   bool   `json:"enabled,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Nspid     string `json:"nspid,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+}
+
+type ListVirtualRouterElementsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListVirtualRouterElementsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["enabled"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("enabled", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["nspid"]; found {
+		u.Set("nspid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	return u
+}
+
+func (p *ListVirtualRouterElementsParams) SetEnabled(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["enabled"] = v
+}
+
+func (p *ListVirtualRouterElementsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ListVirtualRouterElementsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListVirtualRouterElementsParams) SetNspid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["nspid"] = v
+}
+
+func (p *ListVirtualRouterElementsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListVirtualRouterElementsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+// You should always use this function to get a new ListVirtualRouterElementsParams instance,
+// as then you are sure you have configured all required params
+func (s *RouterService) NewListVirtualRouterElementsParams() *ListVirtualRouterElementsParams {
+	p := &ListVirtualRouterElementsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *RouterService) GetVirtualRouterElementByID(id string, opts ...OptionFunc) (*VirtualRouterElement, int, error) {
+	p := &ListVirtualRouterElementsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListVirtualRouterElements(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.VirtualRouterElements[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for VirtualRouterElement UUID: %s!", id)
+}
+
+// Lists all available virtual router elements.
+func (s *RouterService) ListVirtualRouterElements(p *ListVirtualRouterElementsParams) (*ListVirtualRouterElementsResponse, error) {
+	var r, l ListVirtualRouterElementsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listVirtualRouterElements", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.VirtualRouterElements = append(r.VirtualRouterElements, l.VirtualRouterElements...)
+
+		if r.Count != len(r.VirtualRouterElements) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.VirtualRouterElements))
+		p.SetPage(page)
+	}
+}
+
+type ListVirtualRouterElementsResponse struct {
+	Count                 int                     `json:"count"`
+	VirtualRouterElements []*VirtualRouterElement `json:"virtualrouterelement"`
+}
+
+type VirtualRouterElement struct {
 	Account   string `json:"account,omitempty"`
 	Domain    string `json:"domain,omitempty"`
 	Domainid  string `json:"domainid,omitempty"`

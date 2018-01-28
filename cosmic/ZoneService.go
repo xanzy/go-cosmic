@@ -24,6 +24,205 @@ import (
 	"strings"
 )
 
+type ReleaseDedicatedZoneParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseDedicatedZoneParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseDedicatedZoneParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new ReleaseDedicatedZoneParams instance,
+// as then you are sure you have configured all required params
+func (s *ZoneService) NewReleaseDedicatedZoneParams(zoneid string) *ReleaseDedicatedZoneParams {
+	p := &ReleaseDedicatedZoneParams{}
+	p.p = make(map[string]interface{})
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Release dedication of zone
+func (s *ZoneService) ReleaseDedicatedZone(p *ReleaseDedicatedZoneParams) (*ReleaseDedicatedZoneResponse, error) {
+	resp, err := s.cs.newRequest("releaseDedicatedZone", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseDedicatedZoneResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ReleaseDedicatedZoneResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListDedicatedZonesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListDedicatedZonesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["affinitygroupid"]; found {
+		u.Set("affinitygroupid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ListDedicatedZonesParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetAffinitygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["affinitygroupid"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListDedicatedZonesParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new ListDedicatedZonesParams instance,
+// as then you are sure you have configured all required params
+func (s *ZoneService) NewListDedicatedZonesParams() *ListDedicatedZonesParams {
+	p := &ListDedicatedZonesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// List dedicated zones.
+func (s *ZoneService) ListDedicatedZones(p *ListDedicatedZonesParams) (*ListDedicatedZonesResponse, error) {
+	var r, l ListDedicatedZonesResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDedicatedZones", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DedicatedZones = append(r.DedicatedZones, l.DedicatedZones...)
+
+		if r.Count != len(r.DedicatedZones) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DedicatedZones))
+		p.SetPage(page)
+	}
+}
+
+type ListDedicatedZonesResponse struct {
+	Count          int              `json:"count"`
+	DedicatedZones []*DedicatedZone `json:"dedicatedzone"`
+}
+
+type DedicatedZone struct {
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Zoneid          string `json:"zoneid,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
+}
+
 type CreateZoneParams struct {
 	p map[string]interface{}
 }
@@ -250,6 +449,154 @@ type CreateZoneResponse struct {
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
 	Zonetoken string `json:"zonetoken,omitempty"`
+}
+
+type DedicateZoneParams struct {
+	p map[string]interface{}
+}
+
+func (p *DedicateZoneParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DedicateZoneParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DedicateZoneParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *DedicateZoneParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new DedicateZoneParams instance,
+// as then you are sure you have configured all required params
+func (s *ZoneService) NewDedicateZoneParams(domainid string, zoneid string) *DedicateZoneParams {
+	p := &DedicateZoneParams{}
+	p.p = make(map[string]interface{})
+	p.p["domainid"] = domainid
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Dedicates a zones.
+func (s *ZoneService) DedicateZone(p *DedicateZoneParams) (*DedicateZoneResponse, error) {
+	resp, err := s.cs.newRequest("dedicateZone", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DedicateZoneResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DedicateZoneResponse struct {
+	JobID           string `json:"jobid,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Zoneid          string `json:"zoneid,omitempty"`
+	Zonename        string `json:"zonename,omitempty"`
+}
+
+type DeleteZoneParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteZoneParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteZoneParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteZoneParams instance,
+// as then you are sure you have configured all required params
+func (s *ZoneService) NewDeleteZoneParams(id string) *DeleteZoneParams {
+	p := &DeleteZoneParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a Zone.
+func (s *ZoneService) DeleteZone(p *DeleteZoneParams) (*DeleteZoneResponse, error) {
+	resp, err := s.cs.newRequest("deleteZone", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteZoneResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteZoneResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UpdateZoneParams struct {
@@ -501,56 +848,6 @@ type UpdateZoneResponse struct {
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
 	Zonetoken string `json:"zonetoken,omitempty"`
-}
-
-type DeleteZoneParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteZoneParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteZoneParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteZoneParams instance,
-// as then you are sure you have configured all required params
-func (s *ZoneService) NewDeleteZoneParams(id string) *DeleteZoneParams {
-	p := &DeleteZoneParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a Zone.
-func (s *ZoneService) DeleteZone(p *DeleteZoneParams) (*DeleteZoneResponse, error) {
-	resp, err := s.cs.newRequest("deleteZone", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteZoneResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteZoneResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }
 
 type ListZonesParams struct {
@@ -841,297 +1138,4 @@ type Zone struct {
 		Value        string `json:"value,omitempty"`
 	} `json:"tags,omitempty"`
 	Zonetoken string `json:"zonetoken,omitempty"`
-}
-
-type DedicateZoneParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicateZoneParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicateZoneParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DedicateZoneParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *DedicateZoneParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new DedicateZoneParams instance,
-// as then you are sure you have configured all required params
-func (s *ZoneService) NewDedicateZoneParams(domainid string, zoneid string) *DedicateZoneParams {
-	p := &DedicateZoneParams{}
-	p.p = make(map[string]interface{})
-	p.p["domainid"] = domainid
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Dedicates a zones.
-func (s *ZoneService) DedicateZone(p *DedicateZoneParams) (*DedicateZoneResponse, error) {
-	resp, err := s.cs.newRequest("dedicateZone", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicateZoneResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DedicateZoneResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
-}
-
-type ReleaseDedicatedZoneParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseDedicatedZoneParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseDedicatedZoneParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new ReleaseDedicatedZoneParams instance,
-// as then you are sure you have configured all required params
-func (s *ZoneService) NewReleaseDedicatedZoneParams(zoneid string) *ReleaseDedicatedZoneParams {
-	p := &ReleaseDedicatedZoneParams{}
-	p.p = make(map[string]interface{})
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Release dedication of zone
-func (s *ZoneService) ReleaseDedicatedZone(p *ReleaseDedicatedZoneParams) (*ReleaseDedicatedZoneResponse, error) {
-	resp, err := s.cs.newRequest("releaseDedicatedZone", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseDedicatedZoneResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ReleaseDedicatedZoneResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListDedicatedZonesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListDedicatedZonesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["affinitygroupid"]; found {
-		u.Set("affinitygroupid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *ListDedicatedZonesParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetAffinitygroupid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["affinitygroupid"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListDedicatedZonesParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new ListDedicatedZonesParams instance,
-// as then you are sure you have configured all required params
-func (s *ZoneService) NewListDedicatedZonesParams() *ListDedicatedZonesParams {
-	p := &ListDedicatedZonesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// List dedicated zones.
-func (s *ZoneService) ListDedicatedZones(p *ListDedicatedZonesParams) (*ListDedicatedZonesResponse, error) {
-	var r, l ListDedicatedZonesResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listDedicatedZones", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.DedicatedZones = append(r.DedicatedZones, l.DedicatedZones...)
-
-		if r.Count != len(r.DedicatedZones) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.DedicatedZones))
-		p.SetPage(page)
-	}
-}
-
-type ListDedicatedZonesResponse struct {
-	Count          int              `json:"count"`
-	DedicatedZones []*DedicatedZone `json:"dedicatedzone"`
-}
-
-type DedicatedZone struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Zoneid          string `json:"zoneid,omitempty"`
-	Zonename        string `json:"zonename,omitempty"`
 }

@@ -22,6 +22,72 @@ import (
 	"strconv"
 )
 
+type RemoveIpFromNicParams struct {
+	p map[string]interface{}
+}
+
+func (p *RemoveIpFromNicParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *RemoveIpFromNicParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new RemoveIpFromNicParams instance,
+// as then you are sure you have configured all required params
+func (s *NicService) NewRemoveIpFromNicParams(id string) *RemoveIpFromNicParams {
+	p := &RemoveIpFromNicParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Removes secondary IP from the NIC.
+func (s *NicService) RemoveIpFromNic(p *RemoveIpFromNicParams) (*RemoveIpFromNicResponse, error) {
+	resp, err := s.cs.newRequest("removeIpFromNic", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RemoveIpFromNicResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type RemoveIpFromNicResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
 type AddIpToNicParams struct {
 	p map[string]interface{}
 }
@@ -106,70 +172,152 @@ type AddIpToNicResponse struct {
 	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 }
 
-type RemoveIpFromNicParams struct {
+type ListNicsParams struct {
 	p map[string]interface{}
 }
 
-func (p *RemoveIpFromNicParams) toURLValues() url.Values {
+func (p *ListNicsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["nicid"]; found {
+		u.Set("nicid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["virtualmachineid"]; found {
+		u.Set("virtualmachineid", v.(string))
 	}
 	return u
 }
 
-func (p *RemoveIpFromNicParams) SetId(v string) {
+func (p *ListNicsParams) SetFordisplay(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["id"] = v
+	p.p["fordisplay"] = v
 }
 
-// You should always use this function to get a new RemoveIpFromNicParams instance,
+func (p *ListNicsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListNicsParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+}
+
+func (p *ListNicsParams) SetNicid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["nicid"] = v
+}
+
+func (p *ListNicsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListNicsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListNicsParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+}
+
+// You should always use this function to get a new ListNicsParams instance,
 // as then you are sure you have configured all required params
-func (s *NicService) NewRemoveIpFromNicParams(id string) *RemoveIpFromNicParams {
-	p := &RemoveIpFromNicParams{}
+func (s *NicService) NewListNicsParams(virtualmachineid string) *ListNicsParams {
+	p := &ListNicsParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["virtualmachineid"] = virtualmachineid
 	return p
 }
 
-// Removes secondary IP from the NIC.
-func (s *NicService) RemoveIpFromNic(p *RemoveIpFromNicParams) (*RemoveIpFromNicResponse, error) {
-	resp, err := s.cs.newRequest("removeIpFromNic", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RemoveIpFromNicResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+// list the vm nics  IP to NIC
+func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
+	var r, l ListNicsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNics", p.toURLValues())
 		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
 			return nil, err
 		}
 
-		if err := json.Unmarshal(b, &r); err != nil {
+		if err := json.Unmarshal(resp, &l); err != nil {
 			return nil, err
 		}
+
+		r.Count = l.Count
+		r.Nics = append(r.Nics, l.Nics...)
+
+		if r.Count != len(r.Nics) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.Nics))
+		p.SetPage(page)
 	}
-	return &r, nil
 }
 
-type RemoveIpFromNicResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+type ListNicsResponse struct {
+	Count int    `json:"count"`
+	Nics  []*Nic `json:"nic"`
+}
+
+type Nic struct {
+	Broadcasturi string `json:"broadcasturi,omitempty"`
+	Deviceid     string `json:"deviceid,omitempty"`
+	Gateway      string `json:"gateway,omitempty"`
+	Id           string `json:"id,omitempty"`
+	Ip6address   string `json:"ip6address,omitempty"`
+	Ip6cidr      string `json:"ip6cidr,omitempty"`
+	Ip6gateway   string `json:"ip6gateway,omitempty"`
+	Ipaddress    string `json:"ipaddress,omitempty"`
+	Isdefault    bool   `json:"isdefault,omitempty"`
+	Isolationuri string `json:"isolationuri,omitempty"`
+	Macaddress   string `json:"macaddress,omitempty"`
+	Netmask      string `json:"netmask,omitempty"`
+	Networkid    string `json:"networkid,omitempty"`
+	Networkname  string `json:"networkname,omitempty"`
+	Secondaryip  []struct {
+		Id        string `json:"id,omitempty"`
+		Ipaddress string `json:"ipaddress,omitempty"`
+	} `json:"secondaryip,omitempty"`
+	Traffictype      string `json:"traffictype,omitempty"`
+	Type             string `json:"type,omitempty"`
+	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 }
 
 type UpdateVmNicIpParams struct {
@@ -422,152 +570,4 @@ type UpdateVmNicIpResponse struct {
 	Vgpu                string `json:"vgpu,omitempty"`
 	Zoneid              string `json:"zoneid,omitempty"`
 	Zonename            string `json:"zonename,omitempty"`
-}
-
-type ListNicsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListNicsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["networkid"]; found {
-		u.Set("networkid", v.(string))
-	}
-	if v, found := p.p["nicid"]; found {
-		u.Set("nicid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["virtualmachineid"]; found {
-		u.Set("virtualmachineid", v.(string))
-	}
-	return u
-}
-
-func (p *ListNicsParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *ListNicsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListNicsParams) SetNetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkid"] = v
-}
-
-func (p *ListNicsParams) SetNicid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["nicid"] = v
-}
-
-func (p *ListNicsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListNicsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListNicsParams) SetVirtualmachineid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineid"] = v
-}
-
-// You should always use this function to get a new ListNicsParams instance,
-// as then you are sure you have configured all required params
-func (s *NicService) NewListNicsParams(virtualmachineid string) *ListNicsParams {
-	p := &ListNicsParams{}
-	p.p = make(map[string]interface{})
-	p.p["virtualmachineid"] = virtualmachineid
-	return p
-}
-
-// list the vm nics  IP to NIC
-func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
-	var r, l ListNicsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listNics", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.Nics = append(r.Nics, l.Nics...)
-
-		if r.Count != len(r.Nics) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.Nics))
-		p.SetPage(page)
-	}
-}
-
-type ListNicsResponse struct {
-	Count int    `json:"count"`
-	Nics  []*Nic `json:"nic"`
-}
-
-type Nic struct {
-	Broadcasturi string `json:"broadcasturi,omitempty"`
-	Deviceid     string `json:"deviceid,omitempty"`
-	Gateway      string `json:"gateway,omitempty"`
-	Id           string `json:"id,omitempty"`
-	Ip6address   string `json:"ip6address,omitempty"`
-	Ip6cidr      string `json:"ip6cidr,omitempty"`
-	Ip6gateway   string `json:"ip6gateway,omitempty"`
-	Ipaddress    string `json:"ipaddress,omitempty"`
-	Isdefault    bool   `json:"isdefault,omitempty"`
-	Isolationuri string `json:"isolationuri,omitempty"`
-	Macaddress   string `json:"macaddress,omitempty"`
-	Netmask      string `json:"netmask,omitempty"`
-	Networkid    string `json:"networkid,omitempty"`
-	Networkname  string `json:"networkname,omitempty"`
-	Secondaryip  []struct {
-		Id        string `json:"id,omitempty"`
-		Ipaddress string `json:"ipaddress,omitempty"`
-	} `json:"secondaryip,omitempty"`
-	Traffictype      string `json:"traffictype,omitempty"`
-	Type             string `json:"type,omitempty"`
-	Virtualmachineid string `json:"virtualmachineid,omitempty"`
 }

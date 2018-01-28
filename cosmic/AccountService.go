@@ -339,179 +339,6 @@ type DeleteAccountResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
-type UpdateAccountParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateAccountParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["accountdetails"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
-			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["networkdomain"]; found {
-		u.Set("networkdomain", v.(string))
-	}
-	if v, found := p.p["newname"]; found {
-		u.Set("newname", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateAccountParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *UpdateAccountParams) SetAccountdetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["accountdetails"] = v
-}
-
-func (p *UpdateAccountParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *UpdateAccountParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateAccountParams) SetNetworkdomain(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkdomain"] = v
-}
-
-func (p *UpdateAccountParams) SetNewname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["newname"] = v
-}
-
-// You should always use this function to get a new UpdateAccountParams instance,
-// as then you are sure you have configured all required params
-func (s *AccountService) NewUpdateAccountParams(newname string) *UpdateAccountParams {
-	p := &UpdateAccountParams{}
-	p.p = make(map[string]interface{})
-	p.p["newname"] = newname
-	return p
-}
-
-// Updates account information for the authenticated user
-func (s *AccountService) UpdateAccount(p *UpdateAccountParams) (*UpdateAccountResponse, error) {
-	resp, err := s.cs.newRequest("updateAccount", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateAccountResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type UpdateAccountResponse struct {
-	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
-	Accounttype               int               `json:"accounttype,omitempty"`
-	Cpuavailable              string            `json:"cpuavailable,omitempty"`
-	Cpulimit                  string            `json:"cpulimit,omitempty"`
-	Cputotal                  int64             `json:"cputotal,omitempty"`
-	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
-	Domain                    string            `json:"domain,omitempty"`
-	Domainid                  string            `json:"domainid,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Ipavailable               string            `json:"ipavailable,omitempty"`
-	Iplimit                   string            `json:"iplimit,omitempty"`
-	Iptotal                   int64             `json:"iptotal,omitempty"`
-	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
-	Isdefault                 bool              `json:"isdefault,omitempty"`
-	Memoryavailable           string            `json:"memoryavailable,omitempty"`
-	Memorylimit               string            `json:"memorylimit,omitempty"`
-	Memorytotal               int64             `json:"memorytotal,omitempty"`
-	Name                      string            `json:"name,omitempty"`
-	Networkavailable          string            `json:"networkavailable,omitempty"`
-	Networkdomain             string            `json:"networkdomain,omitempty"`
-	Networklimit              string            `json:"networklimit,omitempty"`
-	Networktotal              int64             `json:"networktotal,omitempty"`
-	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
-	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
-	Primarystoragetotal       int64             `json:"primarystoragetotal,omitempty"`
-	Projectavailable          string            `json:"projectavailable,omitempty"`
-	Projectlimit              string            `json:"projectlimit,omitempty"`
-	Projecttotal              int64             `json:"projecttotal,omitempty"`
-	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
-	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
-	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
-	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
-	Sentbytes                 int64             `json:"sentbytes,omitempty"`
-	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
-	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
-	Snapshottotal             int64             `json:"snapshottotal,omitempty"`
-	State                     string            `json:"state,omitempty"`
-	Templateavailable         string            `json:"templateavailable,omitempty"`
-	Templatelimit             string            `json:"templatelimit,omitempty"`
-	Templatetotal             int64             `json:"templatetotal,omitempty"`
-	User                      []struct {
-		Account             string `json:"account,omitempty"`
-		Accountid           string `json:"accountid,omitempty"`
-		Accounttype         int    `json:"accounttype,omitempty"`
-		Apikey              string `json:"apikey,omitempty"`
-		Created             string `json:"created,omitempty"`
-		Domain              string `json:"domain,omitempty"`
-		Domainid            string `json:"domainid,omitempty"`
-		Email               string `json:"email,omitempty"`
-		Firstname           string `json:"firstname,omitempty"`
-		Id                  string `json:"id,omitempty"`
-		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-		Isdefault           bool   `json:"isdefault,omitempty"`
-		Lastname            string `json:"lastname,omitempty"`
-		Secretkey           string `json:"secretkey,omitempty"`
-		State               string `json:"state,omitempty"`
-		Timezone            string `json:"timezone,omitempty"`
-		Username            string `json:"username,omitempty"`
-	} `json:"user,omitempty"`
-	Vmavailable     string `json:"vmavailable,omitempty"`
-	Vmlimit         string `json:"vmlimit,omitempty"`
-	Vmrunning       int    `json:"vmrunning,omitempty"`
-	Vmstopped       int    `json:"vmstopped,omitempty"`
-	Vmtotal         int64  `json:"vmtotal,omitempty"`
-	Volumeavailable string `json:"volumeavailable,omitempty"`
-	Volumelimit     string `json:"volumelimit,omitempty"`
-	Volumetotal     int64  `json:"volumetotal,omitempty"`
-	Vpcavailable    string `json:"vpcavailable,omitempty"`
-	Vpclimit        string `json:"vpclimit,omitempty"`
-	Vpctotal        int64  `json:"vpctotal,omitempty"`
-}
-
 type DisableAccountParams struct {
 	p map[string]interface{}
 }
@@ -946,6 +773,342 @@ type LockAccountResponse struct {
 	Vpcavailable    string `json:"vpcavailable,omitempty"`
 	Vpclimit        string `json:"vpclimit,omitempty"`
 	Vpctotal        int64  `json:"vpctotal,omitempty"`
+}
+
+type UpdateAccountParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateAccountParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["accountdetails"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
+			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["networkdomain"]; found {
+		u.Set("networkdomain", v.(string))
+	}
+	if v, found := p.p["newname"]; found {
+		u.Set("newname", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateAccountParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *UpdateAccountParams) SetAccountdetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["accountdetails"] = v
+}
+
+func (p *UpdateAccountParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *UpdateAccountParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateAccountParams) SetNetworkdomain(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkdomain"] = v
+}
+
+func (p *UpdateAccountParams) SetNewname(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["newname"] = v
+}
+
+// You should always use this function to get a new UpdateAccountParams instance,
+// as then you are sure you have configured all required params
+func (s *AccountService) NewUpdateAccountParams(newname string) *UpdateAccountParams {
+	p := &UpdateAccountParams{}
+	p.p = make(map[string]interface{})
+	p.p["newname"] = newname
+	return p
+}
+
+// Updates account information for the authenticated user
+func (s *AccountService) UpdateAccount(p *UpdateAccountParams) (*UpdateAccountResponse, error) {
+	resp, err := s.cs.newRequest("updateAccount", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateAccountResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type UpdateAccountResponse struct {
+	Accountdetails            map[string]string `json:"accountdetails,omitempty"`
+	Accounttype               int               `json:"accounttype,omitempty"`
+	Cpuavailable              string            `json:"cpuavailable,omitempty"`
+	Cpulimit                  string            `json:"cpulimit,omitempty"`
+	Cputotal                  int64             `json:"cputotal,omitempty"`
+	Defaultzoneid             string            `json:"defaultzoneid,omitempty"`
+	Domain                    string            `json:"domain,omitempty"`
+	Domainid                  string            `json:"domainid,omitempty"`
+	Id                        string            `json:"id,omitempty"`
+	Ipavailable               string            `json:"ipavailable,omitempty"`
+	Iplimit                   string            `json:"iplimit,omitempty"`
+	Iptotal                   int64             `json:"iptotal,omitempty"`
+	Iscleanuprequired         bool              `json:"iscleanuprequired,omitempty"`
+	Isdefault                 bool              `json:"isdefault,omitempty"`
+	Memoryavailable           string            `json:"memoryavailable,omitempty"`
+	Memorylimit               string            `json:"memorylimit,omitempty"`
+	Memorytotal               int64             `json:"memorytotal,omitempty"`
+	Name                      string            `json:"name,omitempty"`
+	Networkavailable          string            `json:"networkavailable,omitempty"`
+	Networkdomain             string            `json:"networkdomain,omitempty"`
+	Networklimit              string            `json:"networklimit,omitempty"`
+	Networktotal              int64             `json:"networktotal,omitempty"`
+	Primarystorageavailable   string            `json:"primarystorageavailable,omitempty"`
+	Primarystoragelimit       string            `json:"primarystoragelimit,omitempty"`
+	Primarystoragetotal       int64             `json:"primarystoragetotal,omitempty"`
+	Projectavailable          string            `json:"projectavailable,omitempty"`
+	Projectlimit              string            `json:"projectlimit,omitempty"`
+	Projecttotal              int64             `json:"projecttotal,omitempty"`
+	Receivedbytes             int64             `json:"receivedbytes,omitempty"`
+	Secondarystorageavailable string            `json:"secondarystorageavailable,omitempty"`
+	Secondarystoragelimit     string            `json:"secondarystoragelimit,omitempty"`
+	Secondarystoragetotal     int64             `json:"secondarystoragetotal,omitempty"`
+	Sentbytes                 int64             `json:"sentbytes,omitempty"`
+	Snapshotavailable         string            `json:"snapshotavailable,omitempty"`
+	Snapshotlimit             string            `json:"snapshotlimit,omitempty"`
+	Snapshottotal             int64             `json:"snapshottotal,omitempty"`
+	State                     string            `json:"state,omitempty"`
+	Templateavailable         string            `json:"templateavailable,omitempty"`
+	Templatelimit             string            `json:"templatelimit,omitempty"`
+	Templatetotal             int64             `json:"templatetotal,omitempty"`
+	User                      []struct {
+		Account             string `json:"account,omitempty"`
+		Accountid           string `json:"accountid,omitempty"`
+		Accounttype         int    `json:"accounttype,omitempty"`
+		Apikey              string `json:"apikey,omitempty"`
+		Created             string `json:"created,omitempty"`
+		Domain              string `json:"domain,omitempty"`
+		Domainid            string `json:"domainid,omitempty"`
+		Email               string `json:"email,omitempty"`
+		Firstname           string `json:"firstname,omitempty"`
+		Id                  string `json:"id,omitempty"`
+		Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+		Isdefault           bool   `json:"isdefault,omitempty"`
+		Lastname            string `json:"lastname,omitempty"`
+		Secretkey           string `json:"secretkey,omitempty"`
+		State               string `json:"state,omitempty"`
+		Timezone            string `json:"timezone,omitempty"`
+		Username            string `json:"username,omitempty"`
+	} `json:"user,omitempty"`
+	Vmavailable     string `json:"vmavailable,omitempty"`
+	Vmlimit         string `json:"vmlimit,omitempty"`
+	Vmrunning       int    `json:"vmrunning,omitempty"`
+	Vmstopped       int    `json:"vmstopped,omitempty"`
+	Vmtotal         int64  `json:"vmtotal,omitempty"`
+	Volumeavailable string `json:"volumeavailable,omitempty"`
+	Volumelimit     string `json:"volumelimit,omitempty"`
+	Volumetotal     int64  `json:"volumetotal,omitempty"`
+	Vpcavailable    string `json:"vpcavailable,omitempty"`
+	Vpclimit        string `json:"vpclimit,omitempty"`
+	Vpctotal        int64  `json:"vpctotal,omitempty"`
+}
+
+type DeleteAccountFromProjectParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteAccountFromProjectParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteAccountFromProjectParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DeleteAccountFromProjectParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+// You should always use this function to get a new DeleteAccountFromProjectParams instance,
+// as then you are sure you have configured all required params
+func (s *AccountService) NewDeleteAccountFromProjectParams(account string, projectid string) *DeleteAccountFromProjectParams {
+	p := &DeleteAccountFromProjectParams{}
+	p.p = make(map[string]interface{})
+	p.p["account"] = account
+	p.p["projectid"] = projectid
+	return p
+}
+
+// Deletes account from the project
+func (s *AccountService) DeleteAccountFromProject(p *DeleteAccountFromProjectParams) (*DeleteAccountFromProjectResponse, error) {
+	resp, err := s.cs.newRequest("deleteAccountFromProject", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteAccountFromProjectResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteAccountFromProjectResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type AddAccountToProjectParams struct {
+	p map[string]interface{}
+}
+
+func (p *AddAccountToProjectParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["email"]; found {
+		u.Set("email", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	return u
+}
+
+func (p *AddAccountToProjectParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *AddAccountToProjectParams) SetEmail(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["email"] = v
+}
+
+func (p *AddAccountToProjectParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+// You should always use this function to get a new AddAccountToProjectParams instance,
+// as then you are sure you have configured all required params
+func (s *AccountService) NewAddAccountToProjectParams(projectid string) *AddAccountToProjectParams {
+	p := &AddAccountToProjectParams{}
+	p.p = make(map[string]interface{})
+	p.p["projectid"] = projectid
+	return p
+}
+
+// Adds account to a project
+func (s *AccountService) AddAccountToProject(p *AddAccountToProjectParams) (*AddAccountToProjectResponse, error) {
+	resp, err := s.cs.newRequest("addAccountToProject", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r AddAccountToProjectResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type AddAccountToProjectResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
 type ListAccountsParams struct {
@@ -1429,169 +1592,6 @@ type MarkDefaultZoneForAccountResponse struct {
 	Vpcavailable    string `json:"vpcavailable,omitempty"`
 	Vpclimit        string `json:"vpclimit,omitempty"`
 	Vpctotal        int64  `json:"vpctotal,omitempty"`
-}
-
-type AddAccountToProjectParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddAccountToProjectParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["email"]; found {
-		u.Set("email", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	return u
-}
-
-func (p *AddAccountToProjectParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *AddAccountToProjectParams) SetEmail(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["email"] = v
-}
-
-func (p *AddAccountToProjectParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-// You should always use this function to get a new AddAccountToProjectParams instance,
-// as then you are sure you have configured all required params
-func (s *AccountService) NewAddAccountToProjectParams(projectid string) *AddAccountToProjectParams {
-	p := &AddAccountToProjectParams{}
-	p.p = make(map[string]interface{})
-	p.p["projectid"] = projectid
-	return p
-}
-
-// Adds account to a project
-func (s *AccountService) AddAccountToProject(p *AddAccountToProjectParams) (*AddAccountToProjectResponse, error) {
-	resp, err := s.cs.newRequest("addAccountToProject", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AddAccountToProjectResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type AddAccountToProjectResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type DeleteAccountFromProjectParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteAccountFromProjectParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteAccountFromProjectParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DeleteAccountFromProjectParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-// You should always use this function to get a new DeleteAccountFromProjectParams instance,
-// as then you are sure you have configured all required params
-func (s *AccountService) NewDeleteAccountFromProjectParams(account string, projectid string) *DeleteAccountFromProjectParams {
-	p := &DeleteAccountFromProjectParams{}
-	p.p = make(map[string]interface{})
-	p.p["account"] = account
-	p.p["projectid"] = projectid
-	return p
-}
-
-// Deletes account from the project
-func (s *AccountService) DeleteAccountFromProject(p *DeleteAccountFromProjectParams) (*DeleteAccountFromProjectResponse, error) {
-	resp, err := s.cs.newRequest("deleteAccountFromProject", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteAccountFromProjectResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteAccountFromProjectResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }
 
 type ListProjectAccountsParams struct {
