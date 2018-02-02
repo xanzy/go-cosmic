@@ -29,16 +29,13 @@ import (
 	"sort"
 	"strings"
 	"unicode"
+
 	"github.com/fatih/camelcase"
 )
 
 type apiInfo map[string][]string
 
 const pkg = "cosmic"
-
-type allServices struct {
-	services services
-}
 
 type apiInfoNotFoundError struct {
 	api string
@@ -68,39 +65,44 @@ func (e *goimportError) Error() string {
 type apis []*API
 
 // Add functions for the Sort interface
-func (a apis) Len() int {
-	return len(a)
+func (s apis) Len() int {
+	return len(s)
 }
 
 func remove(slice []string, s int) []string {
 	return append(slice[:s], slice[s+1:]...)
 }
 
-func (a apis) Less(i, j int) bool {
-	aa := camelcase.Split(a[i].Name)
-	bb := camelcase.Split(a[j].Name)
-	a0 := aa[0]
-	a1 := a0
-	b0 := bb[0]
-	b1 := b0
-	if len(aa) > 1 {
-		aa = remove(aa, 0)
-		a1 = strings.Join(aa, "")
+func (s apis) Less(i, j int) bool {
+	a := camelcase.Split(s[i].Name)
+	b := camelcase.Split(s[j].Name)
+
+	// a[0] is either the function name or the api name. a[1:] is
+	// always the api name (if it exists):
+	//
+	// login					   => a[0] = login
+	// createNetwork		 => a[0] = create | a[1:] = Network
+	// createVPCOffering => a[0] = create | a[1:] = VPCOffering
+
+	nameA := a[0]
+	if len(a) > 1 {
+		nameA = strings.Join(a[1:], "")
 	}
-	if len(bb) > 1 {
-		bb = remove(bb, 0)
-		b1 = strings.Join(bb, "")
+
+	nameB := b[0]
+	if len(b) > 1 {
+		nameB = strings.Join(b[1:], "")
 	}
-	fmt.Printf("a0:%s a1:%s\n", a0, a1)
-	fmt.Printf("b0:%s b1:%s\n", b0, b1)
-	if a1 == b1 {
-		return a0 < b0
+
+	if nameA == nameB {
+		return a[0] < b[0]
 	}
-	return a1 < b1
+
+	return nameA < nameB
 }
 
-func (a apis) Swap(i, j int) {
-	a[i], a[j] = a[j], a[i]
+func (s apis) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
 }
 
 type service struct {
@@ -112,19 +114,6 @@ type service struct {
 }
 
 type services []*service
-
-// Add functions for the Sort interface
-func (s services) Len() int {
-	return len(s)
-}
-
-func (s services) Less(i, j int) bool {
-	return s[i].name < s[j].name
-}
-
-func (s services) Swap(i, j int) {
-	s[i], s[j] = s[j], s[i]
-}
 
 // APIParams represents a list of API params
 type APIParams []*APIParam
@@ -146,7 +135,7 @@ func (s APIParams) Swap(i, j int) {
 type API struct {
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
-	ServiceName string       `json:"groupname"`
+	GroupName   string       `json:"groupname"`
 	Isasync     bool         `json:"isasync"`
 	Params      APIParams    `json:"params"`
 	Response    APIResponses `json:"response"`
@@ -189,20 +178,20 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("outdir:%s\n", outdir)
 
 	os.RemoveAll(outdir)
-	as, errors, err := getAllServices()
+	allServices, err := getAllServices()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := as.WriteGeneralCode(); err != nil {
+	if err = allServices.WriteGeneralCode(); err != nil {
 		log.Fatal(err)
 	}
 
-	for _, s := range as.services {
-		if err := s.WriteGeneratedCode(); err != nil {
+	var errors []error
+	for _, s := range allServices {
+		if err = s.WriteGeneratedCode(); err != nil {
 			errors = append(errors, &generateError{s, err})
 		}
 	}
@@ -221,7 +210,7 @@ func main() {
 	}
 }
 
-func (as *allServices) WriteGeneralCode() error {
+func (as services) WriteGeneralCode() error {
 	outdir, err := sourceDir()
 	if err != nil {
 		log.Fatalf("Failed to get source dir: %s", err)
@@ -236,7 +225,7 @@ func (as *allServices) WriteGeneralCode() error {
 	return ioutil.WriteFile(file, code, 0644)
 }
 
-func (as *allServices) GeneralCode() ([]byte, error) {
+func (as services) GeneralCode() ([]byte, error) {
 	// Buffer the output in memory, for gofmt'ing later in the defer.
 	var buf bytes.Buffer
 	p := func(format string, args ...interface{}) {
@@ -299,7 +288,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	async   bool         // Wait for async calls to finish")
 	pn("	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds")
 	pn("")
-	for _, s := range as.services {
+	for _, s := range as {
 		pn("  %s *%s", strings.TrimSuffix(s.name, "Service"), s.name)
 	}
 	pn("}")
@@ -320,7 +309,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("		async:   async,")
 	pn("		timeout: 300,")
 	pn("	}")
-	for _, s := range as.services {
+	for _, s := range as {
 		pn("	cs.%s = New%s(cs)", strings.TrimSuffix(s.name, "Service"), s.name)
 	}
 	pn("	return cs")
@@ -543,7 +532,7 @@ func (as *allServices) GeneralCode() ([]byte, error) {
 	pn("	}")
 	pn("}")
 	pn("")
-	for _, s := range as.services {
+	for _, s := range as {
 		pn("type %s struct {", s.name)
 		pn("  cs *CosmicClient")
 		pn("}")
@@ -1305,68 +1294,36 @@ func (s *service) recursiveGenerateResponseType(resp APIResponses, async bool) (
 	return
 }
 
-func getAllServices() (*allServices, []error, error) {
-	// Get a map with all API info
-	ai, err := getAPIInfo()
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// Generate a complete set of services with their methods (APIs)
-	as := &allServices{}
-	errors := []error{}
-	for _, api := range ai {
-		sn := api.ServiceName
-		var s *service
-		i := len(as.services)
-		//i := sort.Search(len(as.services), func(i int) bool { return as.services[i].name == sn })
-		for x := range as.services {
-			if as.services[x].name == sn {
-				i = x
-				break
-			}
-		}
-
-		fmt.Printf("ServiceIndex\\ServicesLen:%3d\\%3d\tService: %s\tApi: %s\n", i, len(as.services), sn, api.Name)
-		if i == len(as.services) {
-			s = &service{name: sn}
-			as.services = append(as.services, s)
-		} else {
-			s = as.services[i]
-		}
-		s.apis = append(s.apis, api)
-		sort.Sort(s.apis)
-		for _, apis := range s.apis {
-			sort.Sort(apis.Params)
-		}
-	}
-	sort.Sort(as.services)
-	for x, api := range as.services {
-		fmt.Printf("Service:%d %s\n", x, as.services[x].name)
-		for i, a := range api.apis {
-			fmt.Printf("\tCmd:%d %s\n", i, a.Name)
-		}
-	}
-	return as, errors, nil
-}
-
-func getAPIInfo() (map[string]*API, error) {
-	var ar struct {
+func getAllServices() (services, error) {
+	var raw struct {
 		ListAPIsResponse struct {
 			Count int    `json:"count"`
 			APIs  []*API `json:"api"`
 		} `json:"listapisresponse"`
 	}
-	if err := json.Unmarshal([]byte(api), &ar); err != nil {
+	if err := json.Unmarshal([]byte(api), &raw); err != nil {
 		return nil, err
 	}
 
-	// Make a map of all retrieved APIs
-	ai := make(map[string]*API)
-	for _, api := range ar.ListAPIsResponse.APIs {
-		ai[api.Name] = api
+	// Make a map of all retrieved Services and their APIs
+	allAPIs := make(map[string]apis)
+	for _, api := range raw.ListAPIsResponse.APIs {
+		sort.Sort(api.Params)
+		allAPIs[api.GroupName] = append(allAPIs[api.GroupName], api)
 	}
-	return ai, nil
+
+	var allServices services
+	for group, apis := range allAPIs {
+		sort.Sort(apis)
+		allServices = append(allServices, &service{
+			name: group,
+			apis: apis,
+		})
+	}
+
+	sort.Slice(allServices, func(i, j int) bool { return allServices[i].name < allServices[j].name })
+
+	return allServices, nil
 }
 
 func sourceDir() (string, error) {
