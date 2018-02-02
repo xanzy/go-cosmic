@@ -24,6 +24,129 @@ import (
 	"strings"
 )
 
+type ActivateProjectParams struct {
+	p map[string]interface{}
+}
+
+func (p *ActivateProjectParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ActivateProjectParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new ActivateProjectParams instance,
+// as then you are sure you have configured all required params
+func (s *ProjectService) NewActivateProjectParams(id string) *ActivateProjectParams {
+	p := &ActivateProjectParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Activates a project
+func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivateProjectResponse, error) {
+	resp, err := s.cs.newRequest("activateProject", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ActivateProjectResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ActivateProjectResponse struct {
+	JobID                     string `json:"jobid,omitempty"`
+	Account                   string `json:"account,omitempty"`
+	Cpuavailable              string `json:"cpuavailable,omitempty"`
+	Cpulimit                  string `json:"cpulimit,omitempty"`
+	Cputotal                  int64  `json:"cputotal,omitempty"`
+	Displaytext               string `json:"displaytext,omitempty"`
+	Domain                    string `json:"domain,omitempty"`
+	Domainid                  string `json:"domainid,omitempty"`
+	Id                        string `json:"id,omitempty"`
+	Ipavailable               string `json:"ipavailable,omitempty"`
+	Iplimit                   string `json:"iplimit,omitempty"`
+	Iptotal                   int64  `json:"iptotal,omitempty"`
+	Memoryavailable           string `json:"memoryavailable,omitempty"`
+	Memorylimit               string `json:"memorylimit,omitempty"`
+	Memorytotal               int64  `json:"memorytotal,omitempty"`
+	Name                      string `json:"name,omitempty"`
+	Networkavailable          string `json:"networkavailable,omitempty"`
+	Networklimit              string `json:"networklimit,omitempty"`
+	Networktotal              int64  `json:"networktotal,omitempty"`
+	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
+	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
+	Primarystoragetotal       int64  `json:"primarystoragetotal,omitempty"`
+	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
+	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
+	Secondarystoragetotal     int64  `json:"secondarystoragetotal,omitempty"`
+	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
+	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
+	Snapshottotal             int64  `json:"snapshottotal,omitempty"`
+	State                     string `json:"state,omitempty"`
+	Tags                      []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templateavailable string `json:"templateavailable,omitempty"`
+	Templatelimit     string `json:"templatelimit,omitempty"`
+	Templatetotal     int64  `json:"templatetotal,omitempty"`
+	Vmavailable       string `json:"vmavailable,omitempty"`
+	Vmlimit           string `json:"vmlimit,omitempty"`
+	Vmrunning         int    `json:"vmrunning,omitempty"`
+	Vmstopped         int    `json:"vmstopped,omitempty"`
+	Vmtotal           int64  `json:"vmtotal,omitempty"`
+	Volumeavailable   string `json:"volumeavailable,omitempty"`
+	Volumelimit       string `json:"volumelimit,omitempty"`
+	Volumetotal       int64  `json:"volumetotal,omitempty"`
+	Vpcavailable      string `json:"vpcavailable,omitempty"`
+	Vpclimit          string `json:"vpclimit,omitempty"`
+	Vpctotal          int64  `json:"vpctotal,omitempty"`
+}
+
 type CreateProjectParams struct {
 	p map[string]interface{}
 }
@@ -244,6 +367,129 @@ type DeleteProjectResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
+type SuspendProjectParams struct {
+	p map[string]interface{}
+}
+
+func (p *SuspendProjectParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *SuspendProjectParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new SuspendProjectParams instance,
+// as then you are sure you have configured all required params
+func (s *ProjectService) NewSuspendProjectParams(id string) *SuspendProjectParams {
+	p := &SuspendProjectParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Suspends a project
+func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjectResponse, error) {
+	resp, err := s.cs.newRequest("suspendProject", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r SuspendProjectResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type SuspendProjectResponse struct {
+	JobID                     string `json:"jobid,omitempty"`
+	Account                   string `json:"account,omitempty"`
+	Cpuavailable              string `json:"cpuavailable,omitempty"`
+	Cpulimit                  string `json:"cpulimit,omitempty"`
+	Cputotal                  int64  `json:"cputotal,omitempty"`
+	Displaytext               string `json:"displaytext,omitempty"`
+	Domain                    string `json:"domain,omitempty"`
+	Domainid                  string `json:"domainid,omitempty"`
+	Id                        string `json:"id,omitempty"`
+	Ipavailable               string `json:"ipavailable,omitempty"`
+	Iplimit                   string `json:"iplimit,omitempty"`
+	Iptotal                   int64  `json:"iptotal,omitempty"`
+	Memoryavailable           string `json:"memoryavailable,omitempty"`
+	Memorylimit               string `json:"memorylimit,omitempty"`
+	Memorytotal               int64  `json:"memorytotal,omitempty"`
+	Name                      string `json:"name,omitempty"`
+	Networkavailable          string `json:"networkavailable,omitempty"`
+	Networklimit              string `json:"networklimit,omitempty"`
+	Networktotal              int64  `json:"networktotal,omitempty"`
+	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
+	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
+	Primarystoragetotal       int64  `json:"primarystoragetotal,omitempty"`
+	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
+	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
+	Secondarystoragetotal     int64  `json:"secondarystoragetotal,omitempty"`
+	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
+	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
+	Snapshottotal             int64  `json:"snapshottotal,omitempty"`
+	State                     string `json:"state,omitempty"`
+	Tags                      []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templateavailable string `json:"templateavailable,omitempty"`
+	Templatelimit     string `json:"templatelimit,omitempty"`
+	Templatetotal     int64  `json:"templatetotal,omitempty"`
+	Vmavailable       string `json:"vmavailable,omitempty"`
+	Vmlimit           string `json:"vmlimit,omitempty"`
+	Vmrunning         int    `json:"vmrunning,omitempty"`
+	Vmstopped         int    `json:"vmstopped,omitempty"`
+	Vmtotal           int64  `json:"vmtotal,omitempty"`
+	Volumeavailable   string `json:"volumeavailable,omitempty"`
+	Volumelimit       string `json:"volumelimit,omitempty"`
+	Volumetotal       int64  `json:"volumetotal,omitempty"`
+	Vpcavailable      string `json:"vpcavailable,omitempty"`
+	Vpclimit          string `json:"vpclimit,omitempty"`
+	Vpctotal          int64  `json:"vpctotal,omitempty"`
+}
+
 type UpdateProjectParams struct {
 	p map[string]interface{}
 }
@@ -387,11 +633,11 @@ type UpdateProjectResponse struct {
 	Vpctotal          int64  `json:"vpctotal,omitempty"`
 }
 
-type ActivateProjectParams struct {
+type DeleteProjectInvitationParams struct {
 	p map[string]interface{}
 }
 
-func (p *ActivateProjectParams) toURLValues() url.Values {
+func (p *DeleteProjectInvitationParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -402,30 +648,30 @@ func (p *ActivateProjectParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *ActivateProjectParams) SetId(v string) {
+func (p *DeleteProjectInvitationParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new ActivateProjectParams instance,
+// You should always use this function to get a new DeleteProjectInvitationParams instance,
 // as then you are sure you have configured all required params
-func (s *ProjectService) NewActivateProjectParams(id string) *ActivateProjectParams {
-	p := &ActivateProjectParams{}
+func (s *ProjectService) NewDeleteProjectInvitationParams(id string) *DeleteProjectInvitationParams {
+	p := &DeleteProjectInvitationParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Activates a project
-func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivateProjectResponse, error) {
-	resp, err := s.cs.newRequest("activateProject", p.toURLValues())
+// Deletes project invitation
+func (s *ProjectService) DeleteProjectInvitation(p *DeleteProjectInvitationParams) (*DeleteProjectInvitationResponse, error) {
+	resp, err := s.cs.newRequest("deleteProjectInvitation", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r ActivateProjectResponse
+	var r DeleteProjectInvitationResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -440,11 +686,6 @@ func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivatePro
 			return nil, err
 		}
 
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
@@ -452,103 +693,82 @@ func (s *ProjectService) ActivateProject(p *ActivateProjectParams) (*ActivatePro
 	return &r, nil
 }
 
-type ActivateProjectResponse struct {
-	JobID                     string `json:"jobid,omitempty"`
-	Account                   string `json:"account,omitempty"`
-	Cpuavailable              string `json:"cpuavailable,omitempty"`
-	Cpulimit                  string `json:"cpulimit,omitempty"`
-	Cputotal                  int64  `json:"cputotal,omitempty"`
-	Displaytext               string `json:"displaytext,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Ipavailable               string `json:"ipavailable,omitempty"`
-	Iplimit                   string `json:"iplimit,omitempty"`
-	Iptotal                   int64  `json:"iptotal,omitempty"`
-	Memoryavailable           string `json:"memoryavailable,omitempty"`
-	Memorylimit               string `json:"memorylimit,omitempty"`
-	Memorytotal               int64  `json:"memorytotal,omitempty"`
-	Name                      string `json:"name,omitempty"`
-	Networkavailable          string `json:"networkavailable,omitempty"`
-	Networklimit              string `json:"networklimit,omitempty"`
-	Networktotal              int64  `json:"networktotal,omitempty"`
-	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
-	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
-	Primarystoragetotal       int64  `json:"primarystoragetotal,omitempty"`
-	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
-	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
-	Secondarystoragetotal     int64  `json:"secondarystoragetotal,omitempty"`
-	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
-	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
-	Snapshottotal             int64  `json:"snapshottotal,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Tags                      []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templateavailable string `json:"templateavailable,omitempty"`
-	Templatelimit     string `json:"templatelimit,omitempty"`
-	Templatetotal     int64  `json:"templatetotal,omitempty"`
-	Vmavailable       string `json:"vmavailable,omitempty"`
-	Vmlimit           string `json:"vmlimit,omitempty"`
-	Vmrunning         int    `json:"vmrunning,omitempty"`
-	Vmstopped         int    `json:"vmstopped,omitempty"`
-	Vmtotal           int64  `json:"vmtotal,omitempty"`
-	Volumeavailable   string `json:"volumeavailable,omitempty"`
-	Volumelimit       string `json:"volumelimit,omitempty"`
-	Volumetotal       int64  `json:"volumetotal,omitempty"`
-	Vpcavailable      string `json:"vpcavailable,omitempty"`
-	Vpclimit          string `json:"vpclimit,omitempty"`
-	Vpctotal          int64  `json:"vpctotal,omitempty"`
+type DeleteProjectInvitationResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
 }
 
-type SuspendProjectParams struct {
+type UpdateProjectInvitationParams struct {
 	p map[string]interface{}
 }
 
-func (p *SuspendProjectParams) toURLValues() url.Values {
+func (p *UpdateProjectInvitationParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
+	if v, found := p.p["accept"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("accept", vv)
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["token"]; found {
+		u.Set("token", v.(string))
 	}
 	return u
 }
 
-func (p *SuspendProjectParams) SetId(v string) {
+func (p *UpdateProjectInvitationParams) SetAccept(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["id"] = v
+	p.p["accept"] = v
 }
 
-// You should always use this function to get a new SuspendProjectParams instance,
+func (p *UpdateProjectInvitationParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *UpdateProjectInvitationParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *UpdateProjectInvitationParams) SetToken(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["token"] = v
+}
+
+// You should always use this function to get a new UpdateProjectInvitationParams instance,
 // as then you are sure you have configured all required params
-func (s *ProjectService) NewSuspendProjectParams(id string) *SuspendProjectParams {
-	p := &SuspendProjectParams{}
+func (s *ProjectService) NewUpdateProjectInvitationParams(projectid string) *UpdateProjectInvitationParams {
+	p := &UpdateProjectInvitationParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
+	p.p["projectid"] = projectid
 	return p
 }
 
-// Suspends a project
-func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjectResponse, error) {
-	resp, err := s.cs.newRequest("suspendProject", p.toURLValues())
+// Accepts or declines project invitation
+func (s *ProjectService) UpdateProjectInvitation(p *UpdateProjectInvitationParams) (*UpdateProjectInvitationResponse, error) {
+	resp, err := s.cs.newRequest("updateProjectInvitation", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r SuspendProjectResponse
+	var r UpdateProjectInvitationResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -563,11 +783,6 @@ func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjec
 			return nil, err
 		}
 
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
 		if err := json.Unmarshal(b, &r); err != nil {
 			return nil, err
 		}
@@ -575,62 +790,219 @@ func (s *ProjectService) SuspendProject(p *SuspendProjectParams) (*SuspendProjec
 	return &r, nil
 }
 
-type SuspendProjectResponse struct {
-	JobID                     string `json:"jobid,omitempty"`
-	Account                   string `json:"account,omitempty"`
-	Cpuavailable              string `json:"cpuavailable,omitempty"`
-	Cpulimit                  string `json:"cpulimit,omitempty"`
-	Cputotal                  int64  `json:"cputotal,omitempty"`
-	Displaytext               string `json:"displaytext,omitempty"`
-	Domain                    string `json:"domain,omitempty"`
-	Domainid                  string `json:"domainid,omitempty"`
-	Id                        string `json:"id,omitempty"`
-	Ipavailable               string `json:"ipavailable,omitempty"`
-	Iplimit                   string `json:"iplimit,omitempty"`
-	Iptotal                   int64  `json:"iptotal,omitempty"`
-	Memoryavailable           string `json:"memoryavailable,omitempty"`
-	Memorylimit               string `json:"memorylimit,omitempty"`
-	Memorytotal               int64  `json:"memorytotal,omitempty"`
-	Name                      string `json:"name,omitempty"`
-	Networkavailable          string `json:"networkavailable,omitempty"`
-	Networklimit              string `json:"networklimit,omitempty"`
-	Networktotal              int64  `json:"networktotal,omitempty"`
-	Primarystorageavailable   string `json:"primarystorageavailable,omitempty"`
-	Primarystoragelimit       string `json:"primarystoragelimit,omitempty"`
-	Primarystoragetotal       int64  `json:"primarystoragetotal,omitempty"`
-	Secondarystorageavailable string `json:"secondarystorageavailable,omitempty"`
-	Secondarystoragelimit     string `json:"secondarystoragelimit,omitempty"`
-	Secondarystoragetotal     int64  `json:"secondarystoragetotal,omitempty"`
-	Snapshotavailable         string `json:"snapshotavailable,omitempty"`
-	Snapshotlimit             string `json:"snapshotlimit,omitempty"`
-	Snapshottotal             int64  `json:"snapshottotal,omitempty"`
-	State                     string `json:"state,omitempty"`
-	Tags                      []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templateavailable string `json:"templateavailable,omitempty"`
-	Templatelimit     string `json:"templatelimit,omitempty"`
-	Templatetotal     int64  `json:"templatetotal,omitempty"`
-	Vmavailable       string `json:"vmavailable,omitempty"`
-	Vmlimit           string `json:"vmlimit,omitempty"`
-	Vmrunning         int    `json:"vmrunning,omitempty"`
-	Vmstopped         int    `json:"vmstopped,omitempty"`
-	Vmtotal           int64  `json:"vmtotal,omitempty"`
-	Volumeavailable   string `json:"volumeavailable,omitempty"`
-	Volumelimit       string `json:"volumelimit,omitempty"`
-	Volumetotal       int64  `json:"volumetotal,omitempty"`
-	Vpcavailable      string `json:"vpcavailable,omitempty"`
-	Vpclimit          string `json:"vpclimit,omitempty"`
-	Vpctotal          int64  `json:"vpctotal,omitempty"`
+type UpdateProjectInvitationResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListProjectInvitationsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListProjectInvitationsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["activeonly"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("activeonly", vv)
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["isrecursive"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isrecursive", vv)
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listall"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("listall", vv)
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["state"]; found {
+		u.Set("state", v.(string))
+	}
+	return u
+}
+
+func (p *ListProjectInvitationsParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetActiveonly(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["activeonly"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetIsrecursive(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isrecursive"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetListall(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listall"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *ListProjectInvitationsParams) SetState(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["state"] = v
+}
+
+// You should always use this function to get a new ListProjectInvitationsParams instance,
+// as then you are sure you have configured all required params
+func (s *ProjectService) NewListProjectInvitationsParams() *ListProjectInvitationsParams {
+	p := &ListProjectInvitationsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ProjectService) GetProjectInvitationByID(id string, opts ...OptionFunc) (*ProjectInvitation, int, error) {
+	p := &ListProjectInvitationsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListProjectInvitations(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.ProjectInvitations[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for ProjectInvitation UUID: %s!", id)
+}
+
+// Lists project invitations and provides detailed information for listed invitations
+func (s *ProjectService) ListProjectInvitations(p *ListProjectInvitationsParams) (*ListProjectInvitationsResponse, error) {
+	var r, l ListProjectInvitationsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listProjectInvitations", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.ProjectInvitations = append(r.ProjectInvitations, l.ProjectInvitations...)
+
+		if r.Count != len(r.ProjectInvitations) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.ProjectInvitations))
+		p.SetPage(page)
+	}
+}
+
+type ListProjectInvitationsResponse struct {
+	Count              int                  `json:"count"`
+	ProjectInvitations []*ProjectInvitation `json:"projectinvitation"`
+}
+
+type ProjectInvitation struct {
+	Account   string `json:"account,omitempty"`
+	Domain    string `json:"domain,omitempty"`
+	Domainid  string `json:"domainid,omitempty"`
+	Email     string `json:"email,omitempty"`
+	Id        string `json:"id,omitempty"`
+	Project   string `json:"project,omitempty"`
+	Projectid string `json:"projectid,omitempty"`
+	State     string `json:"state,omitempty"`
 }
 
 type ListProjectsParams struct {
@@ -950,376 +1322,4 @@ type Project struct {
 	Vpcavailable      string `json:"vpcavailable,omitempty"`
 	Vpclimit          string `json:"vpclimit,omitempty"`
 	Vpctotal          int64  `json:"vpctotal,omitempty"`
-}
-
-type ListProjectInvitationsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListProjectInvitationsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["activeonly"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("activeonly", vv)
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isrecursive"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrecursive", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listall"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("listall", vv)
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["state"]; found {
-		u.Set("state", v.(string))
-	}
-	return u
-}
-
-func (p *ListProjectInvitationsParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetActiveonly(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["activeonly"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetIsrecursive(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isrecursive"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetListall(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listall"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *ListProjectInvitationsParams) SetState(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["state"] = v
-}
-
-// You should always use this function to get a new ListProjectInvitationsParams instance,
-// as then you are sure you have configured all required params
-func (s *ProjectService) NewListProjectInvitationsParams() *ListProjectInvitationsParams {
-	p := &ListProjectInvitationsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *ProjectService) GetProjectInvitationByID(id string, opts ...OptionFunc) (*ProjectInvitation, int, error) {
-	p := &ListProjectInvitationsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListProjectInvitations(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.ProjectInvitations[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for ProjectInvitation UUID: %s!", id)
-}
-
-// Lists project invitations and provides detailed information for listed invitations
-func (s *ProjectService) ListProjectInvitations(p *ListProjectInvitationsParams) (*ListProjectInvitationsResponse, error) {
-	var r, l ListProjectInvitationsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listProjectInvitations", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.ProjectInvitations = append(r.ProjectInvitations, l.ProjectInvitations...)
-
-		if r.Count != len(r.ProjectInvitations) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.ProjectInvitations))
-		p.SetPage(page)
-	}
-}
-
-type ListProjectInvitationsResponse struct {
-	Count              int                  `json:"count"`
-	ProjectInvitations []*ProjectInvitation `json:"projectinvitation"`
-}
-
-type ProjectInvitation struct {
-	Account   string `json:"account,omitempty"`
-	Domain    string `json:"domain,omitempty"`
-	Domainid  string `json:"domainid,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Id        string `json:"id,omitempty"`
-	Project   string `json:"project,omitempty"`
-	Projectid string `json:"projectid,omitempty"`
-	State     string `json:"state,omitempty"`
-}
-
-type UpdateProjectInvitationParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateProjectInvitationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["accept"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("accept", vv)
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["token"]; found {
-		u.Set("token", v.(string))
-	}
-	return u
-}
-
-func (p *UpdateProjectInvitationParams) SetAccept(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["accept"] = v
-}
-
-func (p *UpdateProjectInvitationParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *UpdateProjectInvitationParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *UpdateProjectInvitationParams) SetToken(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["token"] = v
-}
-
-// You should always use this function to get a new UpdateProjectInvitationParams instance,
-// as then you are sure you have configured all required params
-func (s *ProjectService) NewUpdateProjectInvitationParams(projectid string) *UpdateProjectInvitationParams {
-	p := &UpdateProjectInvitationParams{}
-	p.p = make(map[string]interface{})
-	p.p["projectid"] = projectid
-	return p
-}
-
-// Accepts or declines project invitation
-func (s *ProjectService) UpdateProjectInvitation(p *UpdateProjectInvitationParams) (*UpdateProjectInvitationResponse, error) {
-	resp, err := s.cs.newRequest("updateProjectInvitation", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateProjectInvitationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type UpdateProjectInvitationResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type DeleteProjectInvitationParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteProjectInvitationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteProjectInvitationParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteProjectInvitationParams instance,
-// as then you are sure you have configured all required params
-func (s *ProjectService) NewDeleteProjectInvitationParams(id string) *DeleteProjectInvitationParams {
-	p := &DeleteProjectInvitationParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes project invitation
-func (s *ProjectService) DeleteProjectInvitation(p *DeleteProjectInvitationParams) (*DeleteProjectInvitationResponse, error) {
-	resp, err := s.cs.newRequest("deleteProjectInvitation", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteProjectInvitationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteProjectInvitationResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
 }

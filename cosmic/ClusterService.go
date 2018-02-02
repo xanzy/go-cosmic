@@ -180,6 +180,104 @@ type AddClusterResponse struct {
 	Zonename              string `json:"zonename,omitempty"`
 }
 
+type DedicateClusterParams struct {
+	p map[string]interface{}
+}
+
+func (p *DedicateClusterParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["clusterid"]; found {
+		u.Set("clusterid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	return u
+}
+
+func (p *DedicateClusterParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DedicateClusterParams) SetClusterid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["clusterid"] = v
+}
+
+func (p *DedicateClusterParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+// You should always use this function to get a new DedicateClusterParams instance,
+// as then you are sure you have configured all required params
+func (s *ClusterService) NewDedicateClusterParams(clusterid string, domainid string) *DedicateClusterParams {
+	p := &DedicateClusterParams{}
+	p.p = make(map[string]interface{})
+	p.p["clusterid"] = clusterid
+	p.p["domainid"] = domainid
+	return p
+}
+
+// Dedicate an existing cluster
+func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClusterResponse, error) {
+	resp, err := s.cs.newRequest("dedicateCluster", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DedicateClusterResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DedicateClusterResponse struct {
+	JobID           string `json:"jobid,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Clusterid       string `json:"clusterid,omitempty"`
+	Clustername     string `json:"clustername,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Id              string `json:"id,omitempty"`
+}
+
 type DeleteClusterParams struct {
 	p map[string]interface{}
 }
@@ -635,102 +733,6 @@ type Cluster struct {
 	Zonename              string `json:"zonename,omitempty"`
 }
 
-type DedicateClusterParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicateClusterParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["clusterid"]; found {
-		u.Set("clusterid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicateClusterParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DedicateClusterParams) SetClusterid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["clusterid"] = v
-}
-
-func (p *DedicateClusterParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-// You should always use this function to get a new DedicateClusterParams instance,
-// as then you are sure you have configured all required params
-func (s *ClusterService) NewDedicateClusterParams(clusterid string, domainid string) *DedicateClusterParams {
-	p := &DedicateClusterParams{}
-	p.p = make(map[string]interface{})
-	p.p["clusterid"] = clusterid
-	p.p["domainid"] = domainid
-	return p
-}
-
-// Dedicate an existing cluster
-func (s *ClusterService) DedicateCluster(p *DedicateClusterParams) (*DedicateClusterResponse, error) {
-	resp, err := s.cs.newRequest("dedicateCluster", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicateClusterResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DedicateClusterResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Clusterid       string `json:"clusterid,omitempty"`
-	Clustername     string `json:"clustername,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
-}
-
 type ReleaseDedicatedClusterParams struct {
 	p map[string]interface{}
 }
@@ -921,9 +923,11 @@ type ListDedicatedClustersResponse struct {
 
 type DedicatedCluster struct {
 	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
 	Affinitygroupid string `json:"affinitygroupid,omitempty"`
 	Clusterid       string `json:"clusterid,omitempty"`
 	Clustername     string `json:"clustername,omitempty"`
 	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
 	Id              string `json:"id,omitempty"`
 }

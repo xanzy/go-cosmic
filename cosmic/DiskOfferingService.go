@@ -265,6 +265,56 @@ type CreateDiskOfferingResponse struct {
 	Tags                      string `json:"tags,omitempty"`
 }
 
+type DeleteDiskOfferingParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteDiskOfferingParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteDiskOfferingParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteDiskOfferingParams instance,
+// as then you are sure you have configured all required params
+func (s *DiskOfferingService) NewDeleteDiskOfferingParams(id string) *DeleteDiskOfferingParams {
+	p := &DeleteDiskOfferingParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates a disk offering.
+func (s *DiskOfferingService) DeleteDiskOffering(p *DeleteDiskOfferingParams) (*DeleteDiskOfferingResponse, error) {
+	resp, err := s.cs.newRequest("deleteDiskOffering", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteDiskOfferingResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteDiskOfferingResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
 type UpdateDiskOfferingParams struct {
 	p map[string]interface{}
 }
@@ -374,56 +424,6 @@ type UpdateDiskOfferingResponse struct {
 	Provisioningtype          string `json:"provisioningtype,omitempty"`
 	Storagetype               string `json:"storagetype,omitempty"`
 	Tags                      string `json:"tags,omitempty"`
-}
-
-type DeleteDiskOfferingParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteDiskOfferingParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteDiskOfferingParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteDiskOfferingParams instance,
-// as then you are sure you have configured all required params
-func (s *DiskOfferingService) NewDeleteDiskOfferingParams(id string) *DeleteDiskOfferingParams {
-	p := &DeleteDiskOfferingParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates a disk offering.
-func (s *DiskOfferingService) DeleteDiskOffering(p *DeleteDiskOfferingParams) (*DeleteDiskOfferingResponse, error) {
-	resp, err := s.cs.newRequest("deleteDiskOffering", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteDiskOfferingResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteDiskOfferingResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }
 
 type ListDiskOfferingsParams struct {

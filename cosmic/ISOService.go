@@ -277,6 +277,220 @@ type AttachIsoResponse struct {
 	Zonename            string `json:"zonename,omitempty"`
 }
 
+type CopyIsoParams struct {
+	p map[string]interface{}
+}
+
+func (p *CopyIsoParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["destzoneid"]; found {
+		u.Set("destzoneid", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["sourcezoneid"]; found {
+		u.Set("sourcezoneid", v.(string))
+	}
+	return u
+}
+
+func (p *CopyIsoParams) SetDestzoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["destzoneid"] = v
+}
+
+func (p *CopyIsoParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *CopyIsoParams) SetSourcezoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sourcezoneid"] = v
+}
+
+// You should always use this function to get a new CopyIsoParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoParams {
+	p := &CopyIsoParams{}
+	p.p = make(map[string]interface{})
+	p.p["destzoneid"] = destzoneid
+	p.p["id"] = id
+	return p
+}
+
+// Copies an ISO from one zone to another.
+func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
+	resp, err := s.cs.newRequest("copyIso", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r CopyIsoResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type CopyIsoResponse struct {
+	JobID                 string            `json:"jobid,omitempty"`
+	Account               string            `json:"account,omitempty"`
+	Accountid             string            `json:"accountid,omitempty"`
+	Bootable              bool              `json:"bootable,omitempty"`
+	Checksum              string            `json:"checksum,omitempty"`
+	Created               string            `json:"created,omitempty"`
+	CrossZones            bool              `json:"crossZones,omitempty"`
+	Details               map[string]string `json:"details,omitempty"`
+	Displaytext           string            `json:"displaytext,omitempty"`
+	Domain                string            `json:"domain,omitempty"`
+	Domainid              string            `json:"domainid,omitempty"`
+	Format                string            `json:"format,omitempty"`
+	Hostid                string            `json:"hostid,omitempty"`
+	Hostname              string            `json:"hostname,omitempty"`
+	Hypervisor            string            `json:"hypervisor,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
+	Isextractable         bool              `json:"isextractable,omitempty"`
+	Isfeatured            bool              `json:"isfeatured,omitempty"`
+	Ispublic              bool              `json:"ispublic,omitempty"`
+	Isready               bool              `json:"isready,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ostypeid              string            `json:"ostypeid,omitempty"`
+	Ostypename            string            `json:"ostypename,omitempty"`
+	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
+	Project               string            `json:"project,omitempty"`
+	Projectid             string            `json:"projectid,omitempty"`
+	Removed               string            `json:"removed,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
+	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
+	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
+	Status                string            `json:"status,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templatetag  string `json:"templatetag,omitempty"`
+	Templatetype string `json:"templatetype,omitempty"`
+	Url          string `json:"url,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Zonename     string `json:"zonename,omitempty"`
+}
+
+type DeleteIsoParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteIsoParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteIsoParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *DeleteIsoParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new DeleteIsoParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewDeleteIsoParams(id string) *DeleteIsoParams {
+	p := &DeleteIsoParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes an ISO file.
+func (s *ISOService) DeleteIso(p *DeleteIsoParams) (*DeleteIsoResponse, error) {
+	resp, err := s.cs.newRequest("deleteIso", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteIsoResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteIsoResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
 type DetachIsoParams struct {
 	p map[string]interface{}
 }
@@ -517,6 +731,797 @@ type DetachIsoResponse struct {
 	Vgpu                string `json:"vgpu,omitempty"`
 	Zoneid              string `json:"zoneid,omitempty"`
 	Zonename            string `json:"zonename,omitempty"`
+}
+
+type ExtractIsoParams struct {
+	p map[string]interface{}
+}
+
+func (p *ExtractIsoParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["mode"]; found {
+		u.Set("mode", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *ExtractIsoParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ExtractIsoParams) SetMode(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["mode"] = v
+}
+
+func (p *ExtractIsoParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+}
+
+func (p *ExtractIsoParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new ExtractIsoParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewExtractIsoParams(id string, mode string) *ExtractIsoParams {
+	p := &ExtractIsoParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["mode"] = mode
+	return p
+}
+
+// Extracts an ISO
+func (s *ISOService) ExtractIso(p *ExtractIsoParams) (*ExtractIsoResponse, error) {
+	resp, err := s.cs.newRequest("extractIso", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ExtractIsoResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ExtractIsoResponse struct {
+	JobID            string `json:"jobid,omitempty"`
+	Accountid        string `json:"accountid,omitempty"`
+	Created          string `json:"created,omitempty"`
+	ExtractId        string `json:"extractId,omitempty"`
+	ExtractMode      string `json:"extractMode,omitempty"`
+	Id               string `json:"id,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Resultstring     string `json:"resultstring,omitempty"`
+	State            string `json:"state,omitempty"`
+	Status           string `json:"status,omitempty"`
+	Storagetype      string `json:"storagetype,omitempty"`
+	Uploadpercentage int    `json:"uploadpercentage,omitempty"`
+	Url              string `json:"url,omitempty"`
+	Zoneid           string `json:"zoneid,omitempty"`
+	Zonename         string `json:"zonename,omitempty"`
+}
+
+type RegisterIsoParams struct {
+	p map[string]interface{}
+}
+
+func (p *RegisterIsoParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["bootable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("bootable", vv)
+	}
+	if v, found := p.p["checksum"]; found {
+		u.Set("checksum", v.(string))
+	}
+	if v, found := p.p["displaytext"]; found {
+		u.Set("displaytext", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["imagestoreuuid"]; found {
+		u.Set("imagestoreuuid", v.(string))
+	}
+	if v, found := p.p["isdynamicallyscalable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isdynamicallyscalable", vv)
+	}
+	if v, found := p.p["isextractable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isextractable", vv)
+	}
+	if v, found := p.p["isfeatured"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isfeatured", vv)
+	}
+	if v, found := p.p["ispublic"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("ispublic", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["ostypeid"]; found {
+		u.Set("ostypeid", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	if v, found := p.p["zoneid"]; found {
+		u.Set("zoneid", v.(string))
+	}
+	return u
+}
+
+func (p *RegisterIsoParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *RegisterIsoParams) SetBootable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["bootable"] = v
+}
+
+func (p *RegisterIsoParams) SetChecksum(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["checksum"] = v
+}
+
+func (p *RegisterIsoParams) SetDisplaytext(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaytext"] = v
+}
+
+func (p *RegisterIsoParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *RegisterIsoParams) SetImagestoreuuid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["imagestoreuuid"] = v
+}
+
+func (p *RegisterIsoParams) SetIsdynamicallyscalable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isdynamicallyscalable"] = v
+}
+
+func (p *RegisterIsoParams) SetIsextractable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isextractable"] = v
+}
+
+func (p *RegisterIsoParams) SetIsfeatured(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isfeatured"] = v
+}
+
+func (p *RegisterIsoParams) SetIspublic(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ispublic"] = v
+}
+
+func (p *RegisterIsoParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *RegisterIsoParams) SetOstypeid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ostypeid"] = v
+}
+
+func (p *RegisterIsoParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *RegisterIsoParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+}
+
+func (p *RegisterIsoParams) SetZoneid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["zoneid"] = v
+}
+
+// You should always use this function to get a new RegisterIsoParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewRegisterIsoParams(displaytext string, name string, url string, zoneid string) *RegisterIsoParams {
+	p := &RegisterIsoParams{}
+	p.p = make(map[string]interface{})
+	p.p["displaytext"] = displaytext
+	p.p["name"] = name
+	p.p["url"] = url
+	p.p["zoneid"] = zoneid
+	return p
+}
+
+// Registers an existing ISO into the CloudStack Cloud.
+func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, error) {
+	resp, err := s.cs.newRequest("registerIso", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RegisterIsoResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type RegisterIsoResponse struct {
+	Account               string            `json:"account,omitempty"`
+	Accountid             string            `json:"accountid,omitempty"`
+	Bootable              bool              `json:"bootable,omitempty"`
+	Checksum              string            `json:"checksum,omitempty"`
+	Created               string            `json:"created,omitempty"`
+	CrossZones            bool              `json:"crossZones,omitempty"`
+	Details               map[string]string `json:"details,omitempty"`
+	Displaytext           string            `json:"displaytext,omitempty"`
+	Domain                string            `json:"domain,omitempty"`
+	Domainid              string            `json:"domainid,omitempty"`
+	Format                string            `json:"format,omitempty"`
+	Hostid                string            `json:"hostid,omitempty"`
+	Hostname              string            `json:"hostname,omitempty"`
+	Hypervisor            string            `json:"hypervisor,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
+	Isextractable         bool              `json:"isextractable,omitempty"`
+	Isfeatured            bool              `json:"isfeatured,omitempty"`
+	Ispublic              bool              `json:"ispublic,omitempty"`
+	Isready               bool              `json:"isready,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ostypeid              string            `json:"ostypeid,omitempty"`
+	Ostypename            string            `json:"ostypename,omitempty"`
+	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
+	Project               string            `json:"project,omitempty"`
+	Projectid             string            `json:"projectid,omitempty"`
+	Removed               string            `json:"removed,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
+	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
+	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
+	Status                string            `json:"status,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templatetag  string `json:"templatetag,omitempty"`
+	Templatetype string `json:"templatetype,omitempty"`
+	Url          string `json:"url,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Zonename     string `json:"zonename,omitempty"`
+}
+
+type UpdateIsoParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateIsoParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["bootable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("bootable", vv)
+	}
+	if v, found := p.p["details"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("details[%d].key", i), k)
+			u.Set(fmt.Sprintf("details[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["displaytext"]; found {
+		u.Set("displaytext", v.(string))
+	}
+	if v, found := p.p["format"]; found {
+		u.Set("format", v.(string))
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["isdynamicallyscalable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isdynamicallyscalable", vv)
+	}
+	if v, found := p.p["isrouting"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isrouting", vv)
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["ostypeid"]; found {
+		u.Set("ostypeid", v.(string))
+	}
+	if v, found := p.p["passwordenabled"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("passwordenabled", vv)
+	}
+	if v, found := p.p["requireshvm"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("requireshvm", vv)
+	}
+	if v, found := p.p["sortkey"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("sortkey", vv)
+	}
+	if v, found := p.p["url"]; found {
+		u.Set("url", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateIsoParams) SetBootable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["bootable"] = v
+}
+
+func (p *UpdateIsoParams) SetDetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+}
+
+func (p *UpdateIsoParams) SetDisplaytext(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["displaytext"] = v
+}
+
+func (p *UpdateIsoParams) SetFormat(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["format"] = v
+}
+
+func (p *UpdateIsoParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateIsoParams) SetIsdynamicallyscalable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isdynamicallyscalable"] = v
+}
+
+func (p *UpdateIsoParams) SetIsrouting(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isrouting"] = v
+}
+
+func (p *UpdateIsoParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *UpdateIsoParams) SetOstypeid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ostypeid"] = v
+}
+
+func (p *UpdateIsoParams) SetPasswordenabled(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["passwordenabled"] = v
+}
+
+func (p *UpdateIsoParams) SetRequireshvm(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["requireshvm"] = v
+}
+
+func (p *UpdateIsoParams) SetSortkey(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["sortkey"] = v
+}
+
+func (p *UpdateIsoParams) SetUrl(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["url"] = v
+}
+
+// You should always use this function to get a new UpdateIsoParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewUpdateIsoParams(id string) *UpdateIsoParams {
+	p := &UpdateIsoParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates an ISO file.
+func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
+	resp, err := s.cs.newRequest("updateIso", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateIsoResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type UpdateIsoResponse struct {
+	Account               string            `json:"account,omitempty"`
+	Accountid             string            `json:"accountid,omitempty"`
+	Bootable              bool              `json:"bootable,omitempty"`
+	Checksum              string            `json:"checksum,omitempty"`
+	Created               string            `json:"created,omitempty"`
+	CrossZones            bool              `json:"crossZones,omitempty"`
+	Details               map[string]string `json:"details,omitempty"`
+	Displaytext           string            `json:"displaytext,omitempty"`
+	Domain                string            `json:"domain,omitempty"`
+	Domainid              string            `json:"domainid,omitempty"`
+	Format                string            `json:"format,omitempty"`
+	Hostid                string            `json:"hostid,omitempty"`
+	Hostname              string            `json:"hostname,omitempty"`
+	Hypervisor            string            `json:"hypervisor,omitempty"`
+	Id                    string            `json:"id,omitempty"`
+	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
+	Isextractable         bool              `json:"isextractable,omitempty"`
+	Isfeatured            bool              `json:"isfeatured,omitempty"`
+	Ispublic              bool              `json:"ispublic,omitempty"`
+	Isready               bool              `json:"isready,omitempty"`
+	Name                  string            `json:"name,omitempty"`
+	Ostypeid              string            `json:"ostypeid,omitempty"`
+	Ostypename            string            `json:"ostypename,omitempty"`
+	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
+	Project               string            `json:"project,omitempty"`
+	Projectid             string            `json:"projectid,omitempty"`
+	Removed               string            `json:"removed,omitempty"`
+	Size                  int64             `json:"size,omitempty"`
+	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
+	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
+	Status                string            `json:"status,omitempty"`
+	Tags                  []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Templatetag  string `json:"templatetag,omitempty"`
+	Templatetype string `json:"templatetype,omitempty"`
+	Url          string `json:"url,omitempty"`
+	Zoneid       string `json:"zoneid,omitempty"`
+	Zonename     string `json:"zonename,omitempty"`
+}
+
+type ListIsoPermissionsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListIsoPermissionsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *ListIsoPermissionsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new ListIsoPermissionsParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewListIsoPermissionsParams(id string) *ListIsoPermissionsParams {
+	p := &ListIsoPermissionsParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPermission, int, error) {
+	p := &ListIsoPermissionsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListIsoPermissions(p)
+	if err != nil {
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
+		}
+		return nil, -1, err
+	}
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.IsoPermissions[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
+}
+
+// List ISO visibility and all accounts that have permissions to view this ISO.
+func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
+	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListIsoPermissionsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ListIsoPermissionsResponse struct {
+	Count          int              `json:"count"`
+	IsoPermissions []*IsoPermission `json:"isopermission"`
+}
+
+type IsoPermission struct {
+	Account    []string `json:"account,omitempty"`
+	Domainid   string   `json:"domainid,omitempty"`
+	Id         string   `json:"id,omitempty"`
+	Ispublic   bool     `json:"ispublic,omitempty"`
+	Projectids []string `json:"projectids,omitempty"`
+}
+
+type UpdateIsoPermissionsParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateIsoPermissionsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["accounts"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("accounts", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["isextractable"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isextractable", vv)
+	}
+	if v, found := p.p["isfeatured"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isfeatured", vv)
+	}
+	if v, found := p.p["ispublic"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("ispublic", vv)
+	}
+	if v, found := p.p["op"]; found {
+		u.Set("op", v.(string))
+	}
+	if v, found := p.p["projectids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("projectids", vv)
+	}
+	return u
+}
+
+func (p *UpdateIsoPermissionsParams) SetAccounts(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["accounts"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetIsextractable(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isextractable"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetIsfeatured(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isfeatured"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetIspublic(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ispublic"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetOp(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["op"] = v
+}
+
+func (p *UpdateIsoPermissionsParams) SetProjectids(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectids"] = v
+}
+
+// You should always use this function to get a new UpdateIsoPermissionsParams instance,
+// as then you are sure you have configured all required params
+func (s *ISOService) NewUpdateIsoPermissionsParams(id string) *UpdateIsoPermissionsParams {
+	p := &UpdateIsoPermissionsParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates ISO permissions
+func (s *ISOService) UpdateIsoPermissions(p *UpdateIsoPermissionsParams) (*UpdateIsoPermissionsResponse, error) {
+	resp, err := s.cs.newRequest("updateIsoPermissions", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateIsoPermissionsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type UpdateIsoPermissionsResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type ListIsosParams struct {
@@ -893,998 +1898,7 @@ type Iso struct {
 	} `json:"tags,omitempty"`
 	Templatetag  string `json:"templatetag,omitempty"`
 	Templatetype string `json:"templatetype,omitempty"`
+	Url          string `json:"url,omitempty"`
 	Zoneid       string `json:"zoneid,omitempty"`
 	Zonename     string `json:"zonename,omitempty"`
-}
-
-type RegisterIsoParams struct {
-	p map[string]interface{}
-}
-
-func (p *RegisterIsoParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["bootable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("bootable", vv)
-	}
-	if v, found := p.p["checksum"]; found {
-		u.Set("checksum", v.(string))
-	}
-	if v, found := p.p["displaytext"]; found {
-		u.Set("displaytext", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["imagestoreuuid"]; found {
-		u.Set("imagestoreuuid", v.(string))
-	}
-	if v, found := p.p["isdynamicallyscalable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isdynamicallyscalable", vv)
-	}
-	if v, found := p.p["isextractable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isextractable", vv)
-	}
-	if v, found := p.p["isfeatured"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isfeatured", vv)
-	}
-	if v, found := p.p["ispublic"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("ispublic", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["ostypeid"]; found {
-		u.Set("ostypeid", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *RegisterIsoParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *RegisterIsoParams) SetBootable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["bootable"] = v
-}
-
-func (p *RegisterIsoParams) SetChecksum(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["checksum"] = v
-}
-
-func (p *RegisterIsoParams) SetDisplaytext(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["displaytext"] = v
-}
-
-func (p *RegisterIsoParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *RegisterIsoParams) SetImagestoreuuid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["imagestoreuuid"] = v
-}
-
-func (p *RegisterIsoParams) SetIsdynamicallyscalable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isdynamicallyscalable"] = v
-}
-
-func (p *RegisterIsoParams) SetIsextractable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isextractable"] = v
-}
-
-func (p *RegisterIsoParams) SetIsfeatured(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isfeatured"] = v
-}
-
-func (p *RegisterIsoParams) SetIspublic(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ispublic"] = v
-}
-
-func (p *RegisterIsoParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *RegisterIsoParams) SetOstypeid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ostypeid"] = v
-}
-
-func (p *RegisterIsoParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *RegisterIsoParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-}
-
-func (p *RegisterIsoParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new RegisterIsoParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewRegisterIsoParams(displaytext string, name string, url string, zoneid string) *RegisterIsoParams {
-	p := &RegisterIsoParams{}
-	p.p = make(map[string]interface{})
-	p.p["displaytext"] = displaytext
-	p.p["name"] = name
-	p.p["url"] = url
-	p.p["zoneid"] = zoneid
-	return p
-}
-
-// Registers an existing ISO into the CloudStack Cloud.
-func (s *ISOService) RegisterIso(p *RegisterIsoParams) (*RegisterIsoResponse, error) {
-	resp, err := s.cs.newRequest("registerIso", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RegisterIsoResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type RegisterIsoResponse struct {
-	Account               string            `json:"account,omitempty"`
-	Accountid             string            `json:"accountid,omitempty"`
-	Bootable              bool              `json:"bootable,omitempty"`
-	Checksum              string            `json:"checksum,omitempty"`
-	Created               string            `json:"created,omitempty"`
-	CrossZones            bool              `json:"crossZones,omitempty"`
-	Details               map[string]string `json:"details,omitempty"`
-	Displaytext           string            `json:"displaytext,omitempty"`
-	Domain                string            `json:"domain,omitempty"`
-	Domainid              string            `json:"domainid,omitempty"`
-	Format                string            `json:"format,omitempty"`
-	Hostid                string            `json:"hostid,omitempty"`
-	Hostname              string            `json:"hostname,omitempty"`
-	Hypervisor            string            `json:"hypervisor,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
-	Isextractable         bool              `json:"isextractable,omitempty"`
-	Isfeatured            bool              `json:"isfeatured,omitempty"`
-	Ispublic              bool              `json:"ispublic,omitempty"`
-	Isready               bool              `json:"isready,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ostypeid              string            `json:"ostypeid,omitempty"`
-	Ostypename            string            `json:"ostypename,omitempty"`
-	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
-	Project               string            `json:"project,omitempty"`
-	Projectid             string            `json:"projectid,omitempty"`
-	Removed               string            `json:"removed,omitempty"`
-	Size                  int64             `json:"size,omitempty"`
-	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
-	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
-	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
-}
-
-type UpdateIsoParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateIsoParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["bootable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("bootable", vv)
-	}
-	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].key", i), k)
-			u.Set(fmt.Sprintf("details[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["displaytext"]; found {
-		u.Set("displaytext", v.(string))
-	}
-	if v, found := p.p["format"]; found {
-		u.Set("format", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isdynamicallyscalable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isdynamicallyscalable", vv)
-	}
-	if v, found := p.p["isrouting"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrouting", vv)
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["ostypeid"]; found {
-		u.Set("ostypeid", v.(string))
-	}
-	if v, found := p.p["passwordenabled"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("passwordenabled", vv)
-	}
-	if v, found := p.p["requireshvm"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("requireshvm", vv)
-	}
-	if v, found := p.p["sortkey"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("sortkey", vv)
-	}
-	return u
-}
-
-func (p *UpdateIsoParams) SetBootable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["bootable"] = v
-}
-
-func (p *UpdateIsoParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-}
-
-func (p *UpdateIsoParams) SetDisplaytext(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["displaytext"] = v
-}
-
-func (p *UpdateIsoParams) SetFormat(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["format"] = v
-}
-
-func (p *UpdateIsoParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateIsoParams) SetIsdynamicallyscalable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isdynamicallyscalable"] = v
-}
-
-func (p *UpdateIsoParams) SetIsrouting(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isrouting"] = v
-}
-
-func (p *UpdateIsoParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *UpdateIsoParams) SetOstypeid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ostypeid"] = v
-}
-
-func (p *UpdateIsoParams) SetPasswordenabled(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["passwordenabled"] = v
-}
-
-func (p *UpdateIsoParams) SetRequireshvm(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["requireshvm"] = v
-}
-
-func (p *UpdateIsoParams) SetSortkey(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sortkey"] = v
-}
-
-// You should always use this function to get a new UpdateIsoParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewUpdateIsoParams(id string) *UpdateIsoParams {
-	p := &UpdateIsoParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates an ISO file.
-func (s *ISOService) UpdateIso(p *UpdateIsoParams) (*UpdateIsoResponse, error) {
-	resp, err := s.cs.newRequest("updateIso", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateIsoResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type UpdateIsoResponse struct {
-	Account               string            `json:"account,omitempty"`
-	Accountid             string            `json:"accountid,omitempty"`
-	Bootable              bool              `json:"bootable,omitempty"`
-	Checksum              string            `json:"checksum,omitempty"`
-	Created               string            `json:"created,omitempty"`
-	CrossZones            bool              `json:"crossZones,omitempty"`
-	Details               map[string]string `json:"details,omitempty"`
-	Displaytext           string            `json:"displaytext,omitempty"`
-	Domain                string            `json:"domain,omitempty"`
-	Domainid              string            `json:"domainid,omitempty"`
-	Format                string            `json:"format,omitempty"`
-	Hostid                string            `json:"hostid,omitempty"`
-	Hostname              string            `json:"hostname,omitempty"`
-	Hypervisor            string            `json:"hypervisor,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
-	Isextractable         bool              `json:"isextractable,omitempty"`
-	Isfeatured            bool              `json:"isfeatured,omitempty"`
-	Ispublic              bool              `json:"ispublic,omitempty"`
-	Isready               bool              `json:"isready,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ostypeid              string            `json:"ostypeid,omitempty"`
-	Ostypename            string            `json:"ostypename,omitempty"`
-	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
-	Project               string            `json:"project,omitempty"`
-	Projectid             string            `json:"projectid,omitempty"`
-	Removed               string            `json:"removed,omitempty"`
-	Size                  int64             `json:"size,omitempty"`
-	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
-	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
-	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
-}
-
-type DeleteIsoParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteIsoParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteIsoParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *DeleteIsoParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new DeleteIsoParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewDeleteIsoParams(id string) *DeleteIsoParams {
-	p := &DeleteIsoParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes an ISO file.
-func (s *ISOService) DeleteIso(p *DeleteIsoParams) (*DeleteIsoResponse, error) {
-	resp, err := s.cs.newRequest("deleteIso", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteIsoResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteIsoResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type CopyIsoParams struct {
-	p map[string]interface{}
-}
-
-func (p *CopyIsoParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["destzoneid"]; found {
-		u.Set("destzoneid", v.(string))
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["sourcezoneid"]; found {
-		u.Set("sourcezoneid", v.(string))
-	}
-	return u
-}
-
-func (p *CopyIsoParams) SetDestzoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["destzoneid"] = v
-}
-
-func (p *CopyIsoParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *CopyIsoParams) SetSourcezoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["sourcezoneid"] = v
-}
-
-// You should always use this function to get a new CopyIsoParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewCopyIsoParams(destzoneid string, id string) *CopyIsoParams {
-	p := &CopyIsoParams{}
-	p.p = make(map[string]interface{})
-	p.p["destzoneid"] = destzoneid
-	p.p["id"] = id
-	return p
-}
-
-// Copies an iso from one zone to another.
-func (s *ISOService) CopyIso(p *CopyIsoParams) (*CopyIsoResponse, error) {
-	resp, err := s.cs.newRequest("copyIso", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r CopyIsoResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type CopyIsoResponse struct {
-	JobID                 string            `json:"jobid,omitempty"`
-	Account               string            `json:"account,omitempty"`
-	Accountid             string            `json:"accountid,omitempty"`
-	Bootable              bool              `json:"bootable,omitempty"`
-	Checksum              string            `json:"checksum,omitempty"`
-	Created               string            `json:"created,omitempty"`
-	CrossZones            bool              `json:"crossZones,omitempty"`
-	Details               map[string]string `json:"details,omitempty"`
-	Displaytext           string            `json:"displaytext,omitempty"`
-	Domain                string            `json:"domain,omitempty"`
-	Domainid              string            `json:"domainid,omitempty"`
-	Format                string            `json:"format,omitempty"`
-	Hostid                string            `json:"hostid,omitempty"`
-	Hostname              string            `json:"hostname,omitempty"`
-	Hypervisor            string            `json:"hypervisor,omitempty"`
-	Id                    string            `json:"id,omitempty"`
-	Isdynamicallyscalable bool              `json:"isdynamicallyscalable,omitempty"`
-	Isextractable         bool              `json:"isextractable,omitempty"`
-	Isfeatured            bool              `json:"isfeatured,omitempty"`
-	Ispublic              bool              `json:"ispublic,omitempty"`
-	Isready               bool              `json:"isready,omitempty"`
-	Name                  string            `json:"name,omitempty"`
-	Ostypeid              string            `json:"ostypeid,omitempty"`
-	Ostypename            string            `json:"ostypename,omitempty"`
-	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
-	Project               string            `json:"project,omitempty"`
-	Projectid             string            `json:"projectid,omitempty"`
-	Removed               string            `json:"removed,omitempty"`
-	Size                  int64             `json:"size,omitempty"`
-	Sourcetemplateid      string            `json:"sourcetemplateid,omitempty"`
-	Sshkeyenabled         bool              `json:"sshkeyenabled,omitempty"`
-	Status                string            `json:"status,omitempty"`
-	Tags                  []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Templatetag  string `json:"templatetag,omitempty"`
-	Templatetype string `json:"templatetype,omitempty"`
-	Zoneid       string `json:"zoneid,omitempty"`
-	Zonename     string `json:"zonename,omitempty"`
-}
-
-type UpdateIsoPermissionsParams struct {
-	p map[string]interface{}
-}
-
-func (p *UpdateIsoPermissionsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["accounts"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("accounts", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isextractable"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isextractable", vv)
-	}
-	if v, found := p.p["isfeatured"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isfeatured", vv)
-	}
-	if v, found := p.p["ispublic"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("ispublic", vv)
-	}
-	if v, found := p.p["op"]; found {
-		u.Set("op", v.(string))
-	}
-	if v, found := p.p["projectids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("projectids", vv)
-	}
-	return u
-}
-
-func (p *UpdateIsoPermissionsParams) SetAccounts(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["accounts"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetIsextractable(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isextractable"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetIsfeatured(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isfeatured"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetIspublic(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ispublic"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetOp(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["op"] = v
-}
-
-func (p *UpdateIsoPermissionsParams) SetProjectids(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectids"] = v
-}
-
-// You should always use this function to get a new UpdateIsoPermissionsParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewUpdateIsoPermissionsParams(id string) *UpdateIsoPermissionsParams {
-	p := &UpdateIsoPermissionsParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Updates ISO permissions
-func (s *ISOService) UpdateIsoPermissions(p *UpdateIsoPermissionsParams) (*UpdateIsoPermissionsResponse, error) {
-	resp, err := s.cs.newRequest("updateIsoPermissions", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateIsoPermissionsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type UpdateIsoPermissionsResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type ListIsoPermissionsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListIsoPermissionsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *ListIsoPermissionsParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new ListIsoPermissionsParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewListIsoPermissionsParams(id string) *ListIsoPermissionsParams {
-	p := &ListIsoPermissionsParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPermission, int, error) {
-	p := &ListIsoPermissionsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListIsoPermissions(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.IsoPermissions[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
-}
-
-// List ISO visibility and all accounts that have permissions to view this ISO.
-func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
-	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListIsoPermissionsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ListIsoPermissionsResponse struct {
-	Count          int              `json:"count"`
-	IsoPermissions []*IsoPermission `json:"isopermission"`
-}
-
-type IsoPermission struct {
-	Account    []string `json:"account,omitempty"`
-	Domainid   string   `json:"domainid,omitempty"`
-	Id         string   `json:"id,omitempty"`
-	Ispublic   bool     `json:"ispublic,omitempty"`
-	Projectids []string `json:"projectids,omitempty"`
-}
-
-type ExtractIsoParams struct {
-	p map[string]interface{}
-}
-
-func (p *ExtractIsoParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["mode"]; found {
-		u.Set("mode", v.(string))
-	}
-	if v, found := p.p["url"]; found {
-		u.Set("url", v.(string))
-	}
-	if v, found := p.p["zoneid"]; found {
-		u.Set("zoneid", v.(string))
-	}
-	return u
-}
-
-func (p *ExtractIsoParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ExtractIsoParams) SetMode(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["mode"] = v
-}
-
-func (p *ExtractIsoParams) SetUrl(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["url"] = v
-}
-
-func (p *ExtractIsoParams) SetZoneid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["zoneid"] = v
-}
-
-// You should always use this function to get a new ExtractIsoParams instance,
-// as then you are sure you have configured all required params
-func (s *ISOService) NewExtractIsoParams(id string, mode string) *ExtractIsoParams {
-	p := &ExtractIsoParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["mode"] = mode
-	return p
-}
-
-// Extracts an ISO
-func (s *ISOService) ExtractIso(p *ExtractIsoParams) (*ExtractIsoResponse, error) {
-	resp, err := s.cs.newRequest("extractIso", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ExtractIsoResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ExtractIsoResponse struct {
-	JobID            string `json:"jobid,omitempty"`
-	Accountid        string `json:"accountid,omitempty"`
-	Created          string `json:"created,omitempty"`
-	ExtractId        string `json:"extractId,omitempty"`
-	ExtractMode      string `json:"extractMode,omitempty"`
-	Id               string `json:"id,omitempty"`
-	Name             string `json:"name,omitempty"`
-	Resultstring     string `json:"resultstring,omitempty"`
-	State            string `json:"state,omitempty"`
-	Status           string `json:"status,omitempty"`
-	Storagetype      string `json:"storagetype,omitempty"`
-	Uploadpercentage int    `json:"uploadpercentage,omitempty"`
-	Url              string `json:"url,omitempty"`
-	Zoneid           string `json:"zoneid,omitempty"`
-	Zonename         string `json:"zonename,omitempty"`
 }

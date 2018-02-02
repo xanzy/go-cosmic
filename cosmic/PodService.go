@@ -24,6 +24,205 @@ import (
 	"strings"
 )
 
+type ReleaseDedicatedPodParams struct {
+	p map[string]interface{}
+}
+
+func (p *ReleaseDedicatedPodParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	return u
+}
+
+func (p *ReleaseDedicatedPodParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+// You should always use this function to get a new ReleaseDedicatedPodParams instance,
+// as then you are sure you have configured all required params
+func (s *PodService) NewReleaseDedicatedPodParams(podid string) *ReleaseDedicatedPodParams {
+	p := &ReleaseDedicatedPodParams{}
+	p.p = make(map[string]interface{})
+	p.p["podid"] = podid
+	return p
+}
+
+// Release the dedication for the pod
+func (s *PodService) ReleaseDedicatedPod(p *ReleaseDedicatedPodParams) (*ReleaseDedicatedPodResponse, error) {
+	resp, err := s.cs.newRequest("releaseDedicatedPod", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ReleaseDedicatedPodResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ReleaseDedicatedPodResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
+type ListDedicatedPodsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListDedicatedPodsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["affinitygroupid"]; found {
+		u.Set("affinitygroupid", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	return u
+}
+
+func (p *ListDedicatedPodsParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetAffinitygroupid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["affinitygroupid"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListDedicatedPodsParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+// You should always use this function to get a new ListDedicatedPodsParams instance,
+// as then you are sure you have configured all required params
+func (s *PodService) NewListDedicatedPodsParams() *ListDedicatedPodsParams {
+	p := &ListDedicatedPodsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists dedicated pods.
+func (s *PodService) ListDedicatedPods(p *ListDedicatedPodsParams) (*ListDedicatedPodsResponse, error) {
+	var r, l ListDedicatedPodsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listDedicatedPods", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.DedicatedPods = append(r.DedicatedPods, l.DedicatedPods...)
+
+		if r.Count != len(r.DedicatedPods) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.DedicatedPods))
+		p.SetPage(page)
+	}
+}
+
+type ListDedicatedPodsResponse struct {
+	Count         int             `json:"count"`
+	DedicatedPods []*DedicatedPod `json:"dedicatedpod"`
+}
+
+type DedicatedPod struct {
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Podid           string `json:"podid,omitempty"`
+	Podname         string `json:"podname,omitempty"`
+}
+
 type CreatePodParams struct {
 	p map[string]interface{}
 }
@@ -157,6 +356,154 @@ type CreatePodResponse struct {
 	Zonename string `json:"zonename,omitempty"`
 }
 
+type DedicatePodParams struct {
+	p map[string]interface{}
+}
+
+func (p *DedicatePodParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["podid"]; found {
+		u.Set("podid", v.(string))
+	}
+	return u
+}
+
+func (p *DedicatePodParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *DedicatePodParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *DedicatePodParams) SetPodid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["podid"] = v
+}
+
+// You should always use this function to get a new DedicatePodParams instance,
+// as then you are sure you have configured all required params
+func (s *PodService) NewDedicatePodParams(domainid string, podid string) *DedicatePodParams {
+	p := &DedicatePodParams{}
+	p.p = make(map[string]interface{})
+	p.p["domainid"] = domainid
+	p.p["podid"] = podid
+	return p
+}
+
+// Dedicates a Pod.
+func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, error) {
+	resp, err := s.cs.newRequest("dedicatePod", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DedicatePodResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DedicatePodResponse struct {
+	JobID           string `json:"jobid,omitempty"`
+	Accountid       string `json:"accountid,omitempty"`
+	Accountname     string `json:"accountname,omitempty"`
+	Affinitygroupid string `json:"affinitygroupid,omitempty"`
+	Domainid        string `json:"domainid,omitempty"`
+	Domainname      string `json:"domainname,omitempty"`
+	Id              string `json:"id,omitempty"`
+	Podid           string `json:"podid,omitempty"`
+	Podname         string `json:"podname,omitempty"`
+}
+
+type DeletePodParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeletePodParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeletePodParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeletePodParams instance,
+// as then you are sure you have configured all required params
+func (s *PodService) NewDeletePodParams(id string) *DeletePodParams {
+	p := &DeletePodParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a Pod.
+func (s *PodService) DeletePod(p *DeletePodParams) (*DeletePodResponse, error) {
+	resp, err := s.cs.newRequest("deletePod", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeletePodResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeletePodResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
 type UpdatePodParams struct {
 	p map[string]interface{}
 }
@@ -284,56 +631,6 @@ type UpdatePodResponse struct {
 	Startip  string `json:"startip,omitempty"`
 	Zoneid   string `json:"zoneid,omitempty"`
 	Zonename string `json:"zonename,omitempty"`
-}
-
-type DeletePodParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeletePodParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeletePodParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeletePodParams instance,
-// as then you are sure you have configured all required params
-func (s *PodService) NewDeletePodParams(id string) *DeletePodParams {
-	p := &DeletePodParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a Pod.
-func (s *PodService) DeletePod(p *DeletePodParams) (*DeletePodResponse, error) {
-	resp, err := s.cs.newRequest("deletePod", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeletePodResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeletePodResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }
 
 type ListPodsParams struct {
@@ -574,297 +871,4 @@ type Pod struct {
 	Startip  string `json:"startip,omitempty"`
 	Zoneid   string `json:"zoneid,omitempty"`
 	Zonename string `json:"zonename,omitempty"`
-}
-
-type DedicatePodParams struct {
-	p map[string]interface{}
-}
-
-func (p *DedicatePodParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	return u
-}
-
-func (p *DedicatePodParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *DedicatePodParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *DedicatePodParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-// You should always use this function to get a new DedicatePodParams instance,
-// as then you are sure you have configured all required params
-func (s *PodService) NewDedicatePodParams(domainid string, podid string) *DedicatePodParams {
-	p := &DedicatePodParams{}
-	p.p = make(map[string]interface{})
-	p.p["domainid"] = domainid
-	p.p["podid"] = podid
-	return p
-}
-
-// Dedicates a Pod.
-func (s *PodService) DedicatePod(p *DedicatePodParams) (*DedicatePodResponse, error) {
-	resp, err := s.cs.newRequest("dedicatePod", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DedicatePodResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DedicatePodResponse struct {
-	JobID           string `json:"jobid,omitempty"`
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Podid           string `json:"podid,omitempty"`
-	Podname         string `json:"podname,omitempty"`
-}
-
-type ReleaseDedicatedPodParams struct {
-	p map[string]interface{}
-}
-
-func (p *ReleaseDedicatedPodParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	return u
-}
-
-func (p *ReleaseDedicatedPodParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-// You should always use this function to get a new ReleaseDedicatedPodParams instance,
-// as then you are sure you have configured all required params
-func (s *PodService) NewReleaseDedicatedPodParams(podid string) *ReleaseDedicatedPodParams {
-	p := &ReleaseDedicatedPodParams{}
-	p.p = make(map[string]interface{})
-	p.p["podid"] = podid
-	return p
-}
-
-// Release the dedication for the pod
-func (s *PodService) ReleaseDedicatedPod(p *ReleaseDedicatedPodParams) (*ReleaseDedicatedPodResponse, error) {
-	resp, err := s.cs.newRequest("releaseDedicatedPod", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ReleaseDedicatedPodResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ReleaseDedicatedPodResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListDedicatedPodsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListDedicatedPodsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["affinitygroupid"]; found {
-		u.Set("affinitygroupid", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
-	return u
-}
-
-func (p *ListDedicatedPodsParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetAffinitygroupid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["affinitygroupid"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListDedicatedPodsParams) SetPodid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["podid"] = v
-}
-
-// You should always use this function to get a new ListDedicatedPodsParams instance,
-// as then you are sure you have configured all required params
-func (s *PodService) NewListDedicatedPodsParams() *ListDedicatedPodsParams {
-	p := &ListDedicatedPodsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists dedicated pods.
-func (s *PodService) ListDedicatedPods(p *ListDedicatedPodsParams) (*ListDedicatedPodsResponse, error) {
-	var r, l ListDedicatedPodsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listDedicatedPods", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.DedicatedPods = append(r.DedicatedPods, l.DedicatedPods...)
-
-		if r.Count != len(r.DedicatedPods) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.DedicatedPods))
-		p.SetPage(page)
-	}
-}
-
-type ListDedicatedPodsResponse struct {
-	Count         int             `json:"count"`
-	DedicatedPods []*DedicatedPod `json:"dedicatedpod"`
-}
-
-type DedicatedPod struct {
-	Accountid       string `json:"accountid,omitempty"`
-	Affinitygroupid string `json:"affinitygroupid,omitempty"`
-	Domainid        string `json:"domainid,omitempty"`
-	Id              string `json:"id,omitempty"`
-	Podid           string `json:"podid,omitempty"`
-	Podname         string `json:"podname,omitempty"`
 }

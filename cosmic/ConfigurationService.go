@@ -22,6 +22,65 @@ import (
 	"strconv"
 )
 
+type ListCapabilitiesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListCapabilitiesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	return u
+}
+
+// You should always use this function to get a new ListCapabilitiesParams instance,
+// as then you are sure you have configured all required params
+func (s *ConfigurationService) NewListCapabilitiesParams() *ListCapabilitiesParams {
+	p := &ListCapabilitiesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Lists capabilities
+func (s *ConfigurationService) ListCapabilities(p *ListCapabilitiesParams) (*ListCapabilitiesResponse, error) {
+	resp, err := s.cs.newRequest("listCapabilities", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListCapabilitiesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ListCapabilitiesResponse struct {
+	Count        int         `json:"count"`
+	Capabilities *Capability `json:"capability"`
+}
+
+type Capability struct {
+	Allowusercreateprojects     bool   `json:"allowusercreateprojects,omitempty"`
+	Allowuserexpungerecovervm   bool   `json:"allowuserexpungerecovervm,omitempty"`
+	Allowuserviewdestroyedvm    bool   `json:"allowuserviewdestroyedvm,omitempty"`
+	Apilimitinterval            int    `json:"apilimitinterval,omitempty"`
+	Apilimitmax                 int    `json:"apilimitmax,omitempty"`
+	Cloudstackversion           string `json:"cloudstackversion,omitempty"`
+	Cosmic                      bool   `json:"cosmic,omitempty"`
+	Customdiskofferingmaxsize   int64  `json:"customdiskofferingmaxsize,omitempty"`
+	Customdiskofferingminsize   int64  `json:"customdiskofferingminsize,omitempty"`
+	Kvmdeploymentsenabled       bool   `json:"kvmdeploymentsenabled,omitempty"`
+	Kvmsnapshotenabled          bool   `json:"kvmsnapshotenabled,omitempty"`
+	Projectinviterequired       bool   `json:"projectinviterequired,omitempty"`
+	Regionsecondaryenabled      bool   `json:"regionsecondaryenabled,omitempty"`
+	Securitygroupsenabled       bool   `json:"securitygroupsenabled,omitempty"`
+	SupportELB                  string `json:"supportELB,omitempty"`
+	Userpublictemplateenabled   bool   `json:"userpublictemplateenabled,omitempty"`
+	Xenserverdeploymentsenabled bool   `json:"xenserverdeploymentsenabled,omitempty"`
+}
+
 type UpdateConfigurationParams struct {
 	p map[string]interface{}
 }
@@ -277,63 +336,6 @@ type Configuration struct {
 	Value       string `json:"value,omitempty"`
 }
 
-type ListCapabilitiesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListCapabilitiesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	return u
-}
-
-// You should always use this function to get a new ListCapabilitiesParams instance,
-// as then you are sure you have configured all required params
-func (s *ConfigurationService) NewListCapabilitiesParams() *ListCapabilitiesParams {
-	p := &ListCapabilitiesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists capabilities
-func (s *ConfigurationService) ListCapabilities(p *ListCapabilitiesParams) (*ListCapabilitiesResponse, error) {
-	resp, err := s.cs.newRequest("listCapabilities", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListCapabilitiesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ListCapabilitiesResponse struct {
-	Count        int         `json:"count"`
-	Capabilities *Capability `json:"capability"`
-}
-
-type Capability struct {
-	Allowusercreateprojects   bool   `json:"allowusercreateprojects,omitempty"`
-	Allowuserexpungerecovervm bool   `json:"allowuserexpungerecovervm,omitempty"`
-	Allowuserviewdestroyedvm  bool   `json:"allowuserviewdestroyedvm,omitempty"`
-	Apilimitinterval          int    `json:"apilimitinterval,omitempty"`
-	Apilimitmax               int    `json:"apilimitmax,omitempty"`
-	Cloudstackversion         string `json:"cloudstackversion,omitempty"`
-	Cosmic                    bool   `json:"cosmic,omitempty"`
-	Customdiskofferingmaxsize int64  `json:"customdiskofferingmaxsize,omitempty"`
-	Customdiskofferingminsize int64  `json:"customdiskofferingminsize,omitempty"`
-	Kvmsnapshotenabled        bool   `json:"kvmsnapshotenabled,omitempty"`
-	Projectinviterequired     bool   `json:"projectinviterequired,omitempty"`
-	Regionsecondaryenabled    bool   `json:"regionsecondaryenabled,omitempty"`
-	Securitygroupsenabled     bool   `json:"securitygroupsenabled,omitempty"`
-	SupportELB                string `json:"supportELB,omitempty"`
-	Userpublictemplateenabled bool   `json:"userpublictemplateenabled,omitempty"`
-}
-
 type ListDeploymentPlannersParams struct {
 	p map[string]interface{}
 }
@@ -418,224 +420,4 @@ type ListDeploymentPlannersResponse struct {
 
 type DeploymentPlanner struct {
 	Name string `json:"name,omitempty"`
-}
-
-type ListLdapConfigurationsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListLdapConfigurationsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostname"]; found {
-		u.Set("hostname", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["port"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("port", vv)
-	}
-	return u
-}
-
-func (p *ListLdapConfigurationsParams) SetHostname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostname"] = v
-}
-
-func (p *ListLdapConfigurationsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListLdapConfigurationsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLdapConfigurationsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListLdapConfigurationsParams) SetPort(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["port"] = v
-}
-
-// You should always use this function to get a new ListLdapConfigurationsParams instance,
-// as then you are sure you have configured all required params
-func (s *ConfigurationService) NewListLdapConfigurationsParams() *ListLdapConfigurationsParams {
-	p := &ListLdapConfigurationsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists all LDAP configurations
-func (s *ConfigurationService) ListLdapConfigurations(p *ListLdapConfigurationsParams) (*ListLdapConfigurationsResponse, error) {
-	var r, l ListLdapConfigurationsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLdapConfigurations", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LdapConfigurations = append(r.LdapConfigurations, l.LdapConfigurations...)
-
-		if r.Count != len(r.LdapConfigurations) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LdapConfigurations))
-		p.SetPage(page)
-	}
-}
-
-type ListLdapConfigurationsResponse struct {
-	Count              int                  `json:"count"`
-	LdapConfigurations []*LdapConfiguration `json:"ldapconfiguration"`
-}
-
-type LdapConfiguration struct {
-	Hostname string `json:"hostname,omitempty"`
-	Port     int    `json:"port,omitempty"`
-}
-
-type AddLdapConfigurationParams struct {
-	p map[string]interface{}
-}
-
-func (p *AddLdapConfigurationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostname"]; found {
-		u.Set("hostname", v.(string))
-	}
-	if v, found := p.p["port"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("port", vv)
-	}
-	return u
-}
-
-func (p *AddLdapConfigurationParams) SetHostname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostname"] = v
-}
-
-func (p *AddLdapConfigurationParams) SetPort(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["port"] = v
-}
-
-// You should always use this function to get a new AddLdapConfigurationParams instance,
-// as then you are sure you have configured all required params
-func (s *ConfigurationService) NewAddLdapConfigurationParams(hostname string, port int) *AddLdapConfigurationParams {
-	p := &AddLdapConfigurationParams{}
-	p.p = make(map[string]interface{})
-	p.p["hostname"] = hostname
-	p.p["port"] = port
-	return p
-}
-
-// Add a new Ldap Configuration
-func (s *ConfigurationService) AddLdapConfiguration(p *AddLdapConfigurationParams) (*AddLdapConfigurationResponse, error) {
-	resp, err := s.cs.newRequest("addLdapConfiguration", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r AddLdapConfigurationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type AddLdapConfigurationResponse struct {
-	Hostname string `json:"hostname,omitempty"`
-	Port     int    `json:"port,omitempty"`
-}
-
-type DeleteLdapConfigurationParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteLdapConfigurationParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostname"]; found {
-		u.Set("hostname", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteLdapConfigurationParams) SetHostname(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostname"] = v
-}
-
-// You should always use this function to get a new DeleteLdapConfigurationParams instance,
-// as then you are sure you have configured all required params
-func (s *ConfigurationService) NewDeleteLdapConfigurationParams(hostname string) *DeleteLdapConfigurationParams {
-	p := &DeleteLdapConfigurationParams{}
-	p.p = make(map[string]interface{})
-	p.p["hostname"] = hostname
-	return p
-}
-
-// Remove an Ldap Configuration
-func (s *ConfigurationService) DeleteLdapConfiguration(p *DeleteLdapConfigurationParams) (*DeleteLdapConfigurationResponse, error) {
-	resp, err := s.cs.newRequest("deleteLdapConfiguration", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteLdapConfigurationResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteLdapConfigurationResponse struct {
-	Hostname string `json:"hostname,omitempty"`
-	Port     int    `json:"port,omitempty"`
 }

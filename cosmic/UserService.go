@@ -225,6 +225,287 @@ type DeleteUserResponse struct {
 	Success     string `json:"success,omitempty"`
 }
 
+type DisableUserParams struct {
+	p map[string]interface{}
+}
+
+func (p *DisableUserParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DisableUserParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DisableUserParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewDisableUserParams(id string) *DisableUserParams {
+	p := &DisableUserParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Disables a user account
+func (s *UserService) DisableUser(p *DisableUserParams) (*DisableUserResponse, error) {
+	resp, err := s.cs.newRequest("disableUser", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DisableUserResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DisableUserResponse struct {
+	JobID               string `json:"jobid,omitempty"`
+	Account             string `json:"account,omitempty"`
+	Accountid           string `json:"accountid,omitempty"`
+	Accounttype         int    `json:"accounttype,omitempty"`
+	Apikey              string `json:"apikey,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Email               string `json:"email,omitempty"`
+	Firstname           string `json:"firstname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+	Isdefault           bool   `json:"isdefault,omitempty"`
+	Lastname            string `json:"lastname,omitempty"`
+	Secretkey           string `json:"secretkey,omitempty"`
+	State               string `json:"state,omitempty"`
+	Timezone            string `json:"timezone,omitempty"`
+	Username            string `json:"username,omitempty"`
+}
+
+type EnableUserParams struct {
+	p map[string]interface{}
+}
+
+func (p *EnableUserParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *EnableUserParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new EnableUserParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewEnableUserParams(id string) *EnableUserParams {
+	p := &EnableUserParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Enables a user account
+func (s *UserService) EnableUser(p *EnableUserParams) (*EnableUserResponse, error) {
+	resp, err := s.cs.newRequest("enableUser", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r EnableUserResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type EnableUserResponse struct {
+	Account             string `json:"account,omitempty"`
+	Accountid           string `json:"accountid,omitempty"`
+	Accounttype         int    `json:"accounttype,omitempty"`
+	Apikey              string `json:"apikey,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Email               string `json:"email,omitempty"`
+	Firstname           string `json:"firstname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+	Isdefault           bool   `json:"isdefault,omitempty"`
+	Lastname            string `json:"lastname,omitempty"`
+	Secretkey           string `json:"secretkey,omitempty"`
+	State               string `json:"state,omitempty"`
+	Timezone            string `json:"timezone,omitempty"`
+	Username            string `json:"username,omitempty"`
+}
+
+type GetUserParams struct {
+	p map[string]interface{}
+}
+
+func (p *GetUserParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["userapikey"]; found {
+		u.Set("userapikey", v.(string))
+	}
+	return u
+}
+
+func (p *GetUserParams) SetUserapikey(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["userapikey"] = v
+}
+
+// You should always use this function to get a new GetUserParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewGetUserParams(userapikey string) *GetUserParams {
+	p := &GetUserParams{}
+	p.p = make(map[string]interface{})
+	p.p["userapikey"] = userapikey
+	return p
+}
+
+// Find user account by API key
+func (s *UserService) GetUser(p *GetUserParams) (*GetUserResponse, error) {
+	resp, err := s.cs.newRequest("getUser", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GetUserResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type GetUserResponse struct {
+	Account             string `json:"account,omitempty"`
+	Accountid           string `json:"accountid,omitempty"`
+	Accounttype         int    `json:"accounttype,omitempty"`
+	Apikey              string `json:"apikey,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Email               string `json:"email,omitempty"`
+	Firstname           string `json:"firstname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+	Isdefault           bool   `json:"isdefault,omitempty"`
+	Lastname            string `json:"lastname,omitempty"`
+	Secretkey           string `json:"secretkey,omitempty"`
+	State               string `json:"state,omitempty"`
+	Timezone            string `json:"timezone,omitempty"`
+	Username            string `json:"username,omitempty"`
+}
+
+type LockUserParams struct {
+	p map[string]interface{}
+}
+
+func (p *LockUserParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *LockUserParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new LockUserParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewLockUserParams(id string) *LockUserParams {
+	p := &LockUserParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Locks a user account
+func (s *UserService) LockUser(p *LockUserParams) (*LockUserResponse, error) {
+	resp, err := s.cs.newRequest("lockUser", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r LockUserResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type LockUserResponse struct {
+	Account             string `json:"account,omitempty"`
+	Accountid           string `json:"accountid,omitempty"`
+	Accounttype         int    `json:"accounttype,omitempty"`
+	Apikey              string `json:"apikey,omitempty"`
+	Created             string `json:"created,omitempty"`
+	Domain              string `json:"domain,omitempty"`
+	Domainid            string `json:"domainid,omitempty"`
+	Email               string `json:"email,omitempty"`
+	Firstname           string `json:"firstname,omitempty"`
+	Id                  string `json:"id,omitempty"`
+	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
+	Isdefault           bool   `json:"isdefault,omitempty"`
+	Lastname            string `json:"lastname,omitempty"`
+	Secretkey           string `json:"secretkey,omitempty"`
+	State               string `json:"state,omitempty"`
+	Timezone            string `json:"timezone,omitempty"`
+	Username            string `json:"username,omitempty"`
+}
+
 type UpdateUserParams struct {
 	p map[string]interface{}
 }
@@ -368,6 +649,56 @@ type UpdateUserResponse struct {
 	State               string `json:"state,omitempty"`
 	Timezone            string `json:"timezone,omitempty"`
 	Username            string `json:"username,omitempty"`
+}
+
+type RegisterUserKeysParams struct {
+	p map[string]interface{}
+}
+
+func (p *RegisterUserKeysParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *RegisterUserKeysParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new RegisterUserKeysParams instance,
+// as then you are sure you have configured all required params
+func (s *UserService) NewRegisterUserKeysParams(id string) *RegisterUserKeysParams {
+	p := &RegisterUserKeysParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// This command allows a user to register for the developer API, returning a secret key and an API key. This request is made through the integration API port, so it is a privileged command and must be made on behalf of a user. It is up to the implementer just how the username and password are entered, and then how that translates to an integration API request. Both secret key and API key should be returned to the user
+func (s *UserService) RegisterUserKeys(p *RegisterUserKeysParams) (*RegisterUserKeysResponse, error) {
+	resp, err := s.cs.newRequest("registerUserKeys", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RegisterUserKeysResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type RegisterUserKeysResponse struct {
+	Apikey    string `json:"apikey,omitempty"`
+	Secretkey string `json:"secretkey,omitempty"`
 }
 
 type ListUsersParams struct {
@@ -588,287 +919,6 @@ type User struct {
 	Username            string `json:"username,omitempty"`
 }
 
-type LockUserParams struct {
-	p map[string]interface{}
-}
-
-func (p *LockUserParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *LockUserParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new LockUserParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewLockUserParams(id string) *LockUserParams {
-	p := &LockUserParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Locks a user account
-func (s *UserService) LockUser(p *LockUserParams) (*LockUserResponse, error) {
-	resp, err := s.cs.newRequest("lockUser", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r LockUserResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type LockUserResponse struct {
-	Account             string `json:"account,omitempty"`
-	Accountid           string `json:"accountid,omitempty"`
-	Accounttype         int    `json:"accounttype,omitempty"`
-	Apikey              string `json:"apikey,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Email               string `json:"email,omitempty"`
-	Firstname           string `json:"firstname,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-	Isdefault           bool   `json:"isdefault,omitempty"`
-	Lastname            string `json:"lastname,omitempty"`
-	Secretkey           string `json:"secretkey,omitempty"`
-	State               string `json:"state,omitempty"`
-	Timezone            string `json:"timezone,omitempty"`
-	Username            string `json:"username,omitempty"`
-}
-
-type DisableUserParams struct {
-	p map[string]interface{}
-}
-
-func (p *DisableUserParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DisableUserParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DisableUserParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewDisableUserParams(id string) *DisableUserParams {
-	p := &DisableUserParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Disables a user account
-func (s *UserService) DisableUser(p *DisableUserParams) (*DisableUserResponse, error) {
-	resp, err := s.cs.newRequest("disableUser", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DisableUserResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DisableUserResponse struct {
-	JobID               string `json:"jobid,omitempty"`
-	Account             string `json:"account,omitempty"`
-	Accountid           string `json:"accountid,omitempty"`
-	Accounttype         int    `json:"accounttype,omitempty"`
-	Apikey              string `json:"apikey,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Email               string `json:"email,omitempty"`
-	Firstname           string `json:"firstname,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-	Isdefault           bool   `json:"isdefault,omitempty"`
-	Lastname            string `json:"lastname,omitempty"`
-	Secretkey           string `json:"secretkey,omitempty"`
-	State               string `json:"state,omitempty"`
-	Timezone            string `json:"timezone,omitempty"`
-	Username            string `json:"username,omitempty"`
-}
-
-type EnableUserParams struct {
-	p map[string]interface{}
-}
-
-func (p *EnableUserParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *EnableUserParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new EnableUserParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewEnableUserParams(id string) *EnableUserParams {
-	p := &EnableUserParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Enables a user account
-func (s *UserService) EnableUser(p *EnableUserParams) (*EnableUserResponse, error) {
-	resp, err := s.cs.newRequest("enableUser", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r EnableUserResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type EnableUserResponse struct {
-	Account             string `json:"account,omitempty"`
-	Accountid           string `json:"accountid,omitempty"`
-	Accounttype         int    `json:"accounttype,omitempty"`
-	Apikey              string `json:"apikey,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Email               string `json:"email,omitempty"`
-	Firstname           string `json:"firstname,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-	Isdefault           bool   `json:"isdefault,omitempty"`
-	Lastname            string `json:"lastname,omitempty"`
-	Secretkey           string `json:"secretkey,omitempty"`
-	State               string `json:"state,omitempty"`
-	Timezone            string `json:"timezone,omitempty"`
-	Username            string `json:"username,omitempty"`
-}
-
-type GetUserParams struct {
-	p map[string]interface{}
-}
-
-func (p *GetUserParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["userapikey"]; found {
-		u.Set("userapikey", v.(string))
-	}
-	return u
-}
-
-func (p *GetUserParams) SetUserapikey(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["userapikey"] = v
-}
-
-// You should always use this function to get a new GetUserParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewGetUserParams(userapikey string) *GetUserParams {
-	p := &GetUserParams{}
-	p.p = make(map[string]interface{})
-	p.p["userapikey"] = userapikey
-	return p
-}
-
-// Find user account by API key
-func (s *UserService) GetUser(p *GetUserParams) (*GetUserResponse, error) {
-	resp, err := s.cs.newRequest("getUser", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r GetUserResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type GetUserResponse struct {
-	Account             string `json:"account,omitempty"`
-	Accountid           string `json:"accountid,omitempty"`
-	Accounttype         int    `json:"accounttype,omitempty"`
-	Apikey              string `json:"apikey,omitempty"`
-	Created             string `json:"created,omitempty"`
-	Domain              string `json:"domain,omitempty"`
-	Domainid            string `json:"domainid,omitempty"`
-	Email               string `json:"email,omitempty"`
-	Firstname           string `json:"firstname,omitempty"`
-	Id                  string `json:"id,omitempty"`
-	Iscallerchilddomain bool   `json:"iscallerchilddomain,omitempty"`
-	Isdefault           bool   `json:"isdefault,omitempty"`
-	Lastname            string `json:"lastname,omitempty"`
-	Secretkey           string `json:"secretkey,omitempty"`
-	State               string `json:"state,omitempty"`
-	Timezone            string `json:"timezone,omitempty"`
-	Username            string `json:"username,omitempty"`
-}
-
 type GetVirtualMachineUserDataParams struct {
 	p map[string]interface{}
 }
@@ -917,297 +967,4 @@ func (s *UserService) GetVirtualMachineUserData(p *GetVirtualMachineUserDataPara
 type GetVirtualMachineUserDataResponse struct {
 	Userdata         string `json:"userdata,omitempty"`
 	Virtualmachineid string `json:"virtualmachineid,omitempty"`
-}
-
-type RegisterUserKeysParams struct {
-	p map[string]interface{}
-}
-
-func (p *RegisterUserKeysParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *RegisterUserKeysParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new RegisterUserKeysParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewRegisterUserKeysParams(id string) *RegisterUserKeysParams {
-	p := &RegisterUserKeysParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// This command allows a user to register for the developer API, returning a secret key and an API key. This request is made through the integration API port, so it is a privileged command and must be made on behalf of a user. It is up to the implementer just how the username and password are entered, and then how that translates to an integration API request. Both secret key and API key should be returned to the user
-func (s *UserService) RegisterUserKeys(p *RegisterUserKeysParams) (*RegisterUserKeysResponse, error) {
-	resp, err := s.cs.newRequest("registerUserKeys", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RegisterUserKeysResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type RegisterUserKeysResponse struct {
-	Apikey    string `json:"apikey,omitempty"`
-	Secretkey string `json:"secretkey,omitempty"`
-}
-
-type ListLdapUsersParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListLdapUsersParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listtype"]; found {
-		u.Set("listtype", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListLdapUsersParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListLdapUsersParams) SetListtype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listtype"] = v
-}
-
-func (p *ListLdapUsersParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListLdapUsersParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListLdapUsersParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewListLdapUsersParams() *ListLdapUsersParams {
-	p := &ListLdapUsersParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists all LDAP Users
-func (s *UserService) ListLdapUsers(p *ListLdapUsersParams) (*ListLdapUsersResponse, error) {
-	var r, l ListLdapUsersResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listLdapUsers", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.LdapUsers = append(r.LdapUsers, l.LdapUsers...)
-
-		if r.Count != len(r.LdapUsers) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.LdapUsers))
-		p.SetPage(page)
-	}
-}
-
-type ListLdapUsersResponse struct {
-	Count     int         `json:"count"`
-	LdapUsers []*LdapUser `json:"ldapuser"`
-}
-
-type LdapUser struct {
-	Domain    string `json:"domain,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Firstname string `json:"firstname,omitempty"`
-	Lastname  string `json:"lastname,omitempty"`
-	Principal string `json:"principal,omitempty"`
-	Username  string `json:"username,omitempty"`
-}
-
-type ImportLdapUsersParams struct {
-	p map[string]interface{}
-}
-
-func (p *ImportLdapUsersParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["accountdetails"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("accountdetails[%d].key", i), k)
-			u.Set(fmt.Sprintf("accountdetails[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["accounttype"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("accounttype", vv)
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["group"]; found {
-		u.Set("group", v.(string))
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["timezone"]; found {
-		u.Set("timezone", v.(string))
-	}
-	return u
-}
-
-func (p *ImportLdapUsersParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ImportLdapUsersParams) SetAccountdetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["accountdetails"] = v
-}
-
-func (p *ImportLdapUsersParams) SetAccounttype(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["accounttype"] = v
-}
-
-func (p *ImportLdapUsersParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ImportLdapUsersParams) SetGroup(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["group"] = v
-}
-
-func (p *ImportLdapUsersParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ImportLdapUsersParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ImportLdapUsersParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ImportLdapUsersParams) SetTimezone(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["timezone"] = v
-}
-
-// You should always use this function to get a new ImportLdapUsersParams instance,
-// as then you are sure you have configured all required params
-func (s *UserService) NewImportLdapUsersParams(accounttype int) *ImportLdapUsersParams {
-	p := &ImportLdapUsersParams{}
-	p.p = make(map[string]interface{})
-	p.p["accounttype"] = accounttype
-	return p
-}
-
-// Import LDAP users
-func (s *UserService) ImportLdapUsers(p *ImportLdapUsersParams) (*ImportLdapUsersResponse, error) {
-	resp, err := s.cs.newRequest("importLdapUsers", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ImportLdapUsersResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ImportLdapUsersResponse struct {
-	Domain    string `json:"domain,omitempty"`
-	Email     string `json:"email,omitempty"`
-	Firstname string `json:"firstname,omitempty"`
-	Lastname  string `json:"lastname,omitempty"`
-	Principal string `json:"principal,omitempty"`
-	Username  string `json:"username,omitempty"`
 }

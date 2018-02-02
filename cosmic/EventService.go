@@ -24,6 +24,209 @@ import (
 	"strings"
 )
 
+type ListEventTypesParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListEventTypesParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	return u
+}
+
+// You should always use this function to get a new ListEventTypesParams instance,
+// as then you are sure you have configured all required params
+func (s *EventService) NewListEventTypesParams() *ListEventTypesParams {
+	p := &ListEventTypesParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// List Event Types
+func (s *EventService) ListEventTypes(p *ListEventTypesParams) (*ListEventTypesResponse, error) {
+	resp, err := s.cs.newRequest("listEventTypes", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListEventTypesResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ListEventTypesResponse struct {
+	Count      int          `json:"count"`
+	EventTypes []*EventType `json:"eventtype"`
+}
+
+type EventType struct {
+	Name string `json:"name,omitempty"`
+}
+
+type ArchiveEventsParams struct {
+	p map[string]interface{}
+}
+
+func (p *ArchiveEventsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["enddate"]; found {
+		u.Set("enddate", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
+	}
+	if v, found := p.p["startdate"]; found {
+		u.Set("startdate", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	return u
+}
+
+func (p *ArchiveEventsParams) SetEnddate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["enddate"] = v
+}
+
+func (p *ArchiveEventsParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
+}
+
+func (p *ArchiveEventsParams) SetStartdate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startdate"] = v
+}
+
+func (p *ArchiveEventsParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+}
+
+// You should always use this function to get a new ArchiveEventsParams instance,
+// as then you are sure you have configured all required params
+func (s *EventService) NewArchiveEventsParams() *ArchiveEventsParams {
+	p := &ArchiveEventsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Archive one or more events.
+func (s *EventService) ArchiveEvents(p *ArchiveEventsParams) (*ArchiveEventsResponse, error) {
+	resp, err := s.cs.newRequest("archiveEvents", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ArchiveEventsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ArchiveEventsResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
+type DeleteEventsParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteEventsParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["enddate"]; found {
+		u.Set("enddate", v.(string))
+	}
+	if v, found := p.p["ids"]; found {
+		vv := strings.Join(v.([]string), ",")
+		u.Set("ids", vv)
+	}
+	if v, found := p.p["startdate"]; found {
+		u.Set("startdate", v.(string))
+	}
+	if v, found := p.p["type"]; found {
+		u.Set("type", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteEventsParams) SetEnddate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["enddate"] = v
+}
+
+func (p *DeleteEventsParams) SetIds(v []string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ids"] = v
+}
+
+func (p *DeleteEventsParams) SetStartdate(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["startdate"] = v
+}
+
+func (p *DeleteEventsParams) SetType(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["type"] = v
+}
+
+// You should always use this function to get a new DeleteEventsParams instance,
+// as then you are sure you have configured all required params
+func (s *EventService) NewDeleteEventsParams() *DeleteEventsParams {
+	p := &DeleteEventsParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// Delete one or more events.
+func (s *EventService) DeleteEvents(p *DeleteEventsParams) (*DeleteEventsResponse, error) {
+	resp, err := s.cs.newRequest("deleteEvents", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteEventsResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type DeleteEventsResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
+}
+
 type ListEventsParams struct {
 	p map[string]interface{}
 }
@@ -277,207 +480,4 @@ type Event struct {
 	State       string `json:"state,omitempty"`
 	Type        string `json:"type,omitempty"`
 	Username    string `json:"username,omitempty"`
-}
-
-type ListEventTypesParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListEventTypesParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	return u
-}
-
-// You should always use this function to get a new ListEventTypesParams instance,
-// as then you are sure you have configured all required params
-func (s *EventService) NewListEventTypesParams() *ListEventTypesParams {
-	p := &ListEventTypesParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// List Event Types
-func (s *EventService) ListEventTypes(p *ListEventTypesParams) (*ListEventTypesResponse, error) {
-	resp, err := s.cs.newRequest("listEventTypes", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ListEventTypesResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ListEventTypesResponse struct {
-	Count      int          `json:"count"`
-	EventTypes []*EventType `json:"eventtype"`
-}
-
-type EventType struct {
-	Name string `json:"name,omitempty"`
-}
-
-type ArchiveEventsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ArchiveEventsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["enddate"]; found {
-		u.Set("enddate", v.(string))
-	}
-	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("ids", vv)
-	}
-	if v, found := p.p["startdate"]; found {
-		u.Set("startdate", v.(string))
-	}
-	if v, found := p.p["type"]; found {
-		u.Set("type", v.(string))
-	}
-	return u
-}
-
-func (p *ArchiveEventsParams) SetEnddate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enddate"] = v
-}
-
-func (p *ArchiveEventsParams) SetIds(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ids"] = v
-}
-
-func (p *ArchiveEventsParams) SetStartdate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["startdate"] = v
-}
-
-func (p *ArchiveEventsParams) SetType(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-}
-
-// You should always use this function to get a new ArchiveEventsParams instance,
-// as then you are sure you have configured all required params
-func (s *EventService) NewArchiveEventsParams() *ArchiveEventsParams {
-	p := &ArchiveEventsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Archive one or more events.
-func (s *EventService) ArchiveEvents(p *ArchiveEventsParams) (*ArchiveEventsResponse, error) {
-	resp, err := s.cs.newRequest("archiveEvents", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ArchiveEventsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ArchiveEventsResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
-type DeleteEventsParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteEventsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["enddate"]; found {
-		u.Set("enddate", v.(string))
-	}
-	if v, found := p.p["ids"]; found {
-		vv := strings.Join(v.([]string), ",")
-		u.Set("ids", vv)
-	}
-	if v, found := p.p["startdate"]; found {
-		u.Set("startdate", v.(string))
-	}
-	if v, found := p.p["type"]; found {
-		u.Set("type", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteEventsParams) SetEnddate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["enddate"] = v
-}
-
-func (p *DeleteEventsParams) SetIds(v []string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ids"] = v
-}
-
-func (p *DeleteEventsParams) SetStartdate(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["startdate"] = v
-}
-
-func (p *DeleteEventsParams) SetType(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["type"] = v
-}
-
-// You should always use this function to get a new DeleteEventsParams instance,
-// as then you are sure you have configured all required params
-func (s *EventService) NewDeleteEventsParams() *DeleteEventsParams {
-	p := &DeleteEventsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Delete one or more events.
-func (s *EventService) DeleteEvents(p *DeleteEventsParams) (*DeleteEventsResponse, error) {
-	resp, err := s.cs.newRequest("deleteEvents", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteEventsResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type DeleteEventsResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
 }

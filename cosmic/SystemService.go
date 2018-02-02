@@ -22,6 +22,81 @@ import (
 	"strconv"
 )
 
+type ListApisParams struct {
+	p map[string]interface{}
+}
+
+func (p *ListApisParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	return u
+}
+
+func (p *ListApisParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+// You should always use this function to get a new ListApisParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemService) NewListApisParams() *ListApisParams {
+	p := &ListApisParams{}
+	p.p = make(map[string]interface{})
+	return p
+}
+
+// lists all available apis on the server, provided by the Api Discovery plugin
+func (s *SystemService) ListApis(p *ListApisParams) (*ListApisResponse, error) {
+	resp, err := s.cs.newRequest("listApis", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ListApisResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ListApisResponse struct {
+	Count int    `json:"count"`
+	Apis  []*Api `json:"api"`
+}
+
+type Api struct {
+	Description      string `json:"description,omitempty"`
+	Groupdescription string `json:"groupdescription,omitempty"`
+	Groupname        string `json:"groupname,omitempty"`
+	Isasync          bool   `json:"isasync,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Params           []struct {
+		Description string `json:"description,omitempty"`
+		Length      int    `json:"length,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Related     string `json:"related,omitempty"`
+		Required    bool   `json:"required,omitempty"`
+		Since       string `json:"since,omitempty"`
+		Type        string `json:"type,omitempty"`
+	} `json:"params,omitempty"`
+	Related  string `json:"related,omitempty"`
+	Response []struct {
+		Description string   `json:"description,omitempty"`
+		Name        string   `json:"name,omitempty"`
+		Response    []string `json:"response,omitempty"`
+		Type        string   `json:"type,omitempty"`
+	} `json:"response,omitempty"`
+	Since string `json:"since,omitempty"`
+	Type  string `json:"type,omitempty"`
+}
+
 type ListCapacityParams struct {
 	p map[string]interface{}
 }
@@ -130,14 +205,14 @@ func (p *ListCapacityParams) SetZoneid(v string) {
 
 // You should always use this function to get a new ListCapacityParams instance,
 // as then you are sure you have configured all required params
-func (s *SystemCapacityService) NewListCapacityParams() *ListCapacityParams {
+func (s *SystemService) NewListCapacityParams() *ListCapacityParams {
 	p := &ListCapacityParams{}
 	p.p = make(map[string]interface{})
 	return p
 }
 
 // Lists all the system wide capacities.
-func (s *SystemCapacityService) ListCapacity(p *ListCapacityParams) (*ListCapacityResponse, error) {
+func (s *SystemService) ListCapacity(p *ListCapacityParams) (*ListCapacityResponse, error) {
 	var r, l ListCapacityResponse
 	for page := 2; ; page++ {
 		resp, err := s.cs.newRequest("listCapacity", p.toURLValues())
@@ -177,4 +252,55 @@ type Capacity struct {
 	Type          int    `json:"type,omitempty"`
 	Zoneid        string `json:"zoneid,omitempty"`
 	Zonename      string `json:"zonename,omitempty"`
+}
+
+type GetCloudIdentifierParams struct {
+	p map[string]interface{}
+}
+
+func (p *GetCloudIdentifierParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["userid"]; found {
+		u.Set("userid", v.(string))
+	}
+	return u
+}
+
+func (p *GetCloudIdentifierParams) SetUserid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["userid"] = v
+}
+
+// You should always use this function to get a new GetCloudIdentifierParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemService) NewGetCloudIdentifierParams(userid string) *GetCloudIdentifierParams {
+	p := &GetCloudIdentifierParams{}
+	p.p = make(map[string]interface{})
+	p.p["userid"] = userid
+	return p
+}
+
+// Retrieves a cloud identifier.
+func (s *SystemService) GetCloudIdentifier(p *GetCloudIdentifierParams) (*GetCloudIdentifierResponse, error) {
+	resp, err := s.cs.newRequest("getCloudIdentifier", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r GetCloudIdentifierResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type GetCloudIdentifierResponse struct {
+	Cloudidentifier string `json:"cloudidentifier,omitempty"`
+	Signature       string `json:"signature,omitempty"`
+	Userid          string `json:"userid,omitempty"`
 }

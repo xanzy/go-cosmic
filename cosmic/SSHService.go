@@ -305,104 +305,6 @@ type ResetSSHKeyForVirtualMachineResponse struct {
 	Zonename            string `json:"zonename,omitempty"`
 }
 
-type RegisterSSHKeyPairParams struct {
-	p map[string]interface{}
-}
-
-func (p *RegisterSSHKeyPairParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["name"]; found {
-		u.Set("name", v.(string))
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["publickey"]; found {
-		u.Set("publickey", v.(string))
-	}
-	return u
-}
-
-func (p *RegisterSSHKeyPairParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *RegisterSSHKeyPairParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *RegisterSSHKeyPairParams) SetName(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["name"] = v
-}
-
-func (p *RegisterSSHKeyPairParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *RegisterSSHKeyPairParams) SetPublickey(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["publickey"] = v
-}
-
-// You should always use this function to get a new RegisterSSHKeyPairParams instance,
-// as then you are sure you have configured all required params
-func (s *SSHService) NewRegisterSSHKeyPairParams(name string, publickey string) *RegisterSSHKeyPairParams {
-	p := &RegisterSSHKeyPairParams{}
-	p.p = make(map[string]interface{})
-	p.p["name"] = name
-	p.p["publickey"] = publickey
-	return p
-}
-
-// Register a public key in a keypair under a certain name
-func (s *SSHService) RegisterSSHKeyPair(p *RegisterSSHKeyPairParams) (*RegisterSSHKeyPairResponse, error) {
-	resp, err := s.cs.newRequest("registerSSHKeyPair", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	if resp, err = getRawValue(resp); err != nil {
-		return nil, err
-	}
-
-	var r RegisterSSHKeyPairResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type RegisterSSHKeyPairResponse struct {
-	Account     string `json:"account,omitempty"`
-	Domain      string `json:"domain,omitempty"`
-	Domainid    string `json:"domainid,omitempty"`
-	Fingerprint string `json:"fingerprint,omitempty"`
-	Name        string `json:"name,omitempty"`
-}
-
 type CreateSSHKeyPairParams struct {
 	p map[string]interface{}
 }
@@ -564,6 +466,104 @@ func (s *SSHService) DeleteSSHKeyPair(p *DeleteSSHKeyPairParams) (*DeleteSSHKeyP
 type DeleteSSHKeyPairResponse struct {
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     string `json:"success,omitempty"`
+}
+
+type RegisterSSHKeyPairParams struct {
+	p map[string]interface{}
+}
+
+func (p *RegisterSSHKeyPairParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
+	}
+	if v, found := p.p["name"]; found {
+		u.Set("name", v.(string))
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["publickey"]; found {
+		u.Set("publickey", v.(string))
+	}
+	return u
+}
+
+func (p *RegisterSSHKeyPairParams) SetAccount(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["account"] = v
+}
+
+func (p *RegisterSSHKeyPairParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *RegisterSSHKeyPairParams) SetName(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["name"] = v
+}
+
+func (p *RegisterSSHKeyPairParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *RegisterSSHKeyPairParams) SetPublickey(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["publickey"] = v
+}
+
+// You should always use this function to get a new RegisterSSHKeyPairParams instance,
+// as then you are sure you have configured all required params
+func (s *SSHService) NewRegisterSSHKeyPairParams(name string, publickey string) *RegisterSSHKeyPairParams {
+	p := &RegisterSSHKeyPairParams{}
+	p.p = make(map[string]interface{})
+	p.p["name"] = name
+	p.p["publickey"] = publickey
+	return p
+}
+
+// Register a public key in a keypair under a certain name
+func (s *SSHService) RegisterSSHKeyPair(p *RegisterSSHKeyPairParams) (*RegisterSSHKeyPairResponse, error) {
+	resp, err := s.cs.newRequest("registerSSHKeyPair", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	if resp, err = getRawValue(resp); err != nil {
+		return nil, err
+	}
+
+	var r RegisterSSHKeyPairResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type RegisterSSHKeyPairResponse struct {
+	Account     string `json:"account,omitempty"`
+	Domain      string `json:"domain,omitempty"`
+	Domainid    string `json:"domainid,omitempty"`
+	Fingerprint string `json:"fingerprint,omitempty"`
+	Name        string `json:"name,omitempty"`
 }
 
 type ListSSHKeyPairsParams struct {

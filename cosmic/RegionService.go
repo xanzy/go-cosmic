@@ -91,11 +91,60 @@ func (s *RegionService) AddRegion(p *AddRegionParams) (*AddRegionResponse, error
 }
 
 type AddRegionResponse struct {
-	Endpoint                 string `json:"endpoint,omitempty"`
-	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
-	Id                       int    `json:"id,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
+	Endpoint string `json:"endpoint,omitempty"`
+	Id       int    `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
+}
+
+type RemoveRegionParams struct {
+	p map[string]interface{}
+}
+
+func (p *RemoveRegionParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("id", vv)
+	}
+	return u
+}
+
+func (p *RemoveRegionParams) SetId(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new RemoveRegionParams instance,
+// as then you are sure you have configured all required params
+func (s *RegionService) NewRemoveRegionParams(id int) *RemoveRegionParams {
+	p := &RemoveRegionParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Removes specified region
+func (s *RegionService) RemoveRegion(p *RemoveRegionParams) (*RemoveRegionResponse, error) {
+	resp, err := s.cs.newRequest("removeRegion", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r RemoveRegionResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type RemoveRegionResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }
 
 type UpdateRegionParams struct {
@@ -165,62 +214,9 @@ func (s *RegionService) UpdateRegion(p *UpdateRegionParams) (*UpdateRegionRespon
 }
 
 type UpdateRegionResponse struct {
-	Endpoint                 string `json:"endpoint,omitempty"`
-	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
-	Id                       int    `json:"id,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
-}
-
-type RemoveRegionParams struct {
-	p map[string]interface{}
-}
-
-func (p *RemoveRegionParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("id", vv)
-	}
-	return u
-}
-
-func (p *RemoveRegionParams) SetId(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new RemoveRegionParams instance,
-// as then you are sure you have configured all required params
-func (s *RegionService) NewRemoveRegionParams(id int) *RemoveRegionParams {
-	p := &RemoveRegionParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Removes specified region
-func (s *RegionService) RemoveRegion(p *RemoveRegionParams) (*RemoveRegionResponse, error) {
-	resp, err := s.cs.newRequest("removeRegion", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r RemoveRegionResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type RemoveRegionResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
+	Endpoint string `json:"endpoint,omitempty"`
+	Id       int    `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
 }
 
 type ListRegionsParams struct {
@@ -327,9 +323,7 @@ type ListRegionsResponse struct {
 }
 
 type Region struct {
-	Endpoint                 string `json:"endpoint,omitempty"`
-	Gslbserviceenabled       bool   `json:"gslbserviceenabled,omitempty"`
-	Id                       int    `json:"id,omitempty"`
-	Name                     string `json:"name,omitempty"`
-	Portableipserviceenabled bool   `json:"portableipserviceenabled,omitempty"`
+	Endpoint string `json:"endpoint,omitempty"`
+	Id       int    `json:"id,omitempty"`
+	Name     string `json:"name,omitempty"`
 }

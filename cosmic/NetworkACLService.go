@@ -235,6 +235,72 @@ type CreateNetworkACLResponse struct {
 	Traffictype string `json:"traffictype,omitempty"`
 }
 
+type DeleteNetworkACLParams struct {
+	p map[string]interface{}
+}
+
+func (p *DeleteNetworkACLParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *DeleteNetworkACLParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new DeleteNetworkACLParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkACLService) NewDeleteNetworkACLParams(id string) *DeleteNetworkACLParams {
+	p := &DeleteNetworkACLParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Deletes a network ACL
+func (s *NetworkACLService) DeleteNetworkACL(p *DeleteNetworkACLParams) (*DeleteNetworkACLResponse, error) {
+	resp, err := s.cs.newRequest("deleteNetworkACL", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r DeleteNetworkACLResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type DeleteNetworkACLResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
 type UpdateNetworkACLItemParams struct {
 	p map[string]interface{}
 }
@@ -419,353 +485,6 @@ func (s *NetworkACLService) UpdateNetworkACLItem(p *UpdateNetworkACLItemParams) 
 
 type UpdateNetworkACLItemResponse struct {
 	JobID      string `json:"jobid,omitempty"`
-	Aclid      string `json:"aclid,omitempty"`
-	Action     string `json:"action,omitempty"`
-	Cidrlist   string `json:"cidrlist,omitempty"`
-	Endport    string `json:"endport,omitempty"`
-	Fordisplay bool   `json:"fordisplay,omitempty"`
-	Icmpcode   int    `json:"icmpcode,omitempty"`
-	Icmptype   int    `json:"icmptype,omitempty"`
-	Id         string `json:"id,omitempty"`
-	Number     int    `json:"number,omitempty"`
-	Protocol   string `json:"protocol,omitempty"`
-	Startport  string `json:"startport,omitempty"`
-	State      string `json:"state,omitempty"`
-	Tags       []struct {
-		Account      string `json:"account,omitempty"`
-		Customer     string `json:"customer,omitempty"`
-		Domain       string `json:"domain,omitempty"`
-		Domainid     string `json:"domainid,omitempty"`
-		Key          string `json:"key,omitempty"`
-		Project      string `json:"project,omitempty"`
-		Projectid    string `json:"projectid,omitempty"`
-		Resourceid   string `json:"resourceid,omitempty"`
-		Resourcetype string `json:"resourcetype,omitempty"`
-		Value        string `json:"value,omitempty"`
-	} `json:"tags,omitempty"`
-	Traffictype string `json:"traffictype,omitempty"`
-}
-
-type DeleteNetworkACLParams struct {
-	p map[string]interface{}
-}
-
-func (p *DeleteNetworkACLParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DeleteNetworkACLParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DeleteNetworkACLParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkACLService) NewDeleteNetworkACLParams(id string) *DeleteNetworkACLParams {
-	p := &DeleteNetworkACLParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Deletes a network ACL
-func (s *NetworkACLService) DeleteNetworkACL(p *DeleteNetworkACLParams) (*DeleteNetworkACLResponse, error) {
-	resp, err := s.cs.newRequest("deleteNetworkACL", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DeleteNetworkACLResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DeleteNetworkACLResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
-}
-
-type ListNetworkACLsParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListNetworkACLsParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	if v, found := p.p["aclid"]; found {
-		u.Set("aclid", v.(string))
-	}
-	if v, found := p.p["action"]; found {
-		u.Set("action", v.(string))
-	}
-	if v, found := p.p["domainid"]; found {
-		u.Set("domainid", v.(string))
-	}
-	if v, found := p.p["fordisplay"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("fordisplay", vv)
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["isrecursive"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("isrecursive", vv)
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["listall"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("listall", vv)
-	}
-	if v, found := p.p["networkid"]; found {
-		u.Set("networkid", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	if v, found := p.p["projectid"]; found {
-		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["protocol"]; found {
-		u.Set("protocol", v.(string))
-	}
-	if v, found := p.p["tags"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("tags[%d].key", i), k)
-			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["traffictype"]; found {
-		u.Set("traffictype", v.(string))
-	}
-	return u
-}
-
-func (p *ListNetworkACLsParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-func (p *ListNetworkACLsParams) SetAclid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["aclid"] = v
-}
-
-func (p *ListNetworkACLsParams) SetAction(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["action"] = v
-}
-
-func (p *ListNetworkACLsParams) SetDomainid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["domainid"] = v
-}
-
-func (p *ListNetworkACLsParams) SetFordisplay(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["fordisplay"] = v
-}
-
-func (p *ListNetworkACLsParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ListNetworkACLsParams) SetIsrecursive(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["isrecursive"] = v
-}
-
-func (p *ListNetworkACLsParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListNetworkACLsParams) SetListall(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["listall"] = v
-}
-
-func (p *ListNetworkACLsParams) SetNetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkid"] = v
-}
-
-func (p *ListNetworkACLsParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListNetworkACLsParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-func (p *ListNetworkACLsParams) SetProjectid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["projectid"] = v
-}
-
-func (p *ListNetworkACLsParams) SetProtocol(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["protocol"] = v
-}
-
-func (p *ListNetworkACLsParams) SetTags(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["tags"] = v
-}
-
-func (p *ListNetworkACLsParams) SetTraffictype(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["traffictype"] = v
-}
-
-// You should always use this function to get a new ListNetworkACLsParams instance,
-// as then you are sure you have configured all required params
-func (s *NetworkACLService) NewListNetworkACLsParams() *ListNetworkACLsParams {
-	p := &ListNetworkACLsParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// This is a courtesy helper function, which in some cases may not work as expected!
-func (s *NetworkACLService) GetNetworkACLByID(id string, opts ...OptionFunc) (*NetworkACL, int, error) {
-	p := &ListNetworkACLsParams{}
-	p.p = make(map[string]interface{})
-
-	p.p["id"] = id
-
-	for _, fn := range opts {
-		if err := fn(s.cs, p); err != nil {
-			return nil, -1, err
-		}
-	}
-
-	l, err := s.ListNetworkACLs(p)
-	if err != nil {
-		if strings.Contains(err.Error(), fmt.Sprintf(
-			"Invalid parameter id value=%s due to incorrect long value format, "+
-				"or entity does not exist", id)) {
-			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
-		}
-		return nil, -1, err
-	}
-
-	if l.Count == 0 {
-		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
-	}
-
-	if l.Count == 1 {
-		return l.NetworkACLs[0], l.Count, nil
-	}
-	return nil, l.Count, fmt.Errorf("There is more then one result for NetworkACL UUID: %s!", id)
-}
-
-// Lists all network ACL items
-func (s *NetworkACLService) ListNetworkACLs(p *ListNetworkACLsParams) (*ListNetworkACLsResponse, error) {
-	var r, l ListNetworkACLsResponse
-	for page := 2; ; page++ {
-		resp, err := s.cs.newRequest("listNetworkACLs", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.NetworkACLs = append(r.NetworkACLs, l.NetworkACLs...)
-
-		if r.Count != len(r.NetworkACLs) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.NetworkACLs))
-		p.SetPage(page)
-	}
-}
-
-type ListNetworkACLsResponse struct {
-	Count       int           `json:"count"`
-	NetworkACLs []*NetworkACL `json:"networkacl"`
-}
-
-type NetworkACL struct {
 	Aclid      string `json:"aclid,omitempty"`
 	Action     string `json:"action,omitempty"`
 	Cidrlist   string `json:"cidrlist,omitempty"`
@@ -1061,6 +780,93 @@ type ReplaceNetworkACLListResponse struct {
 	Success     bool   `json:"success,omitempty"`
 }
 
+type UpdateNetworkACLListParams struct {
+	p map[string]interface{}
+}
+
+func (p *UpdateNetworkACLListParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["customid"]; found {
+		u.Set("customid", v.(string))
+	}
+	if v, found := p.p["fordisplay"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("fordisplay", vv)
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *UpdateNetworkACLListParams) SetCustomid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["customid"] = v
+}
+
+func (p *UpdateNetworkACLListParams) SetFordisplay(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["fordisplay"] = v
+}
+
+func (p *UpdateNetworkACLListParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new UpdateNetworkACLListParams instance,
+// as then you are sure you have configured all required params
+func (s *NetworkACLService) NewUpdateNetworkACLListParams(id string) *UpdateNetworkACLListParams {
+	p := &UpdateNetworkACLListParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Updates network ACL list
+func (s *NetworkACLService) UpdateNetworkACLList(p *UpdateNetworkACLListParams) (*UpdateNetworkACLListResponse, error) {
+	resp, err := s.cs.newRequest("updateNetworkACLList", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r UpdateNetworkACLListResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type UpdateNetworkACLListResponse struct {
+	JobID       string `json:"jobid,omitempty"`
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     bool   `json:"success,omitempty"`
+}
+
 type ListNetworkACLListsParams struct {
 	p map[string]interface{}
 }
@@ -1337,17 +1143,26 @@ type NetworkACLList struct {
 	Vpcid       string `json:"vpcid,omitempty"`
 }
 
-type UpdateNetworkACLListParams struct {
+type ListNetworkACLsParams struct {
 	p map[string]interface{}
 }
 
-func (p *UpdateNetworkACLListParams) toURLValues() url.Values {
+func (p *ListNetworkACLsParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
 	}
-	if v, found := p.p["customid"]; found {
-		u.Set("customid", v.(string))
+	if v, found := p.p["account"]; found {
+		u.Set("account", v.(string))
+	}
+	if v, found := p.p["aclid"]; found {
+		u.Set("aclid", v.(string))
+	}
+	if v, found := p.p["action"]; found {
+		u.Set("action", v.(string))
+	}
+	if v, found := p.p["domainid"]; found {
+		u.Set("domainid", v.(string))
 	}
 	if v, found := p.p["fordisplay"]; found {
 		vv := strconv.FormatBool(v.(bool))
@@ -1356,70 +1171,255 @@ func (p *UpdateNetworkACLListParams) toURLValues() url.Values {
 	if v, found := p.p["id"]; found {
 		u.Set("id", v.(string))
 	}
+	if v, found := p.p["isrecursive"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("isrecursive", vv)
+	}
+	if v, found := p.p["keyword"]; found {
+		u.Set("keyword", v.(string))
+	}
+	if v, found := p.p["listall"]; found {
+		vv := strconv.FormatBool(v.(bool))
+		u.Set("listall", vv)
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["page"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("page", vv)
+	}
+	if v, found := p.p["pagesize"]; found {
+		vv := strconv.Itoa(v.(int))
+		u.Set("pagesize", vv)
+	}
+	if v, found := p.p["projectid"]; found {
+		u.Set("projectid", v.(string))
+	}
+	if v, found := p.p["protocol"]; found {
+		u.Set("protocol", v.(string))
+	}
+	if v, found := p.p["tags"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("tags[%d].key", i), k)
+			u.Set(fmt.Sprintf("tags[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["traffictype"]; found {
+		u.Set("traffictype", v.(string))
+	}
 	return u
 }
 
-func (p *UpdateNetworkACLListParams) SetCustomid(v string) {
+func (p *ListNetworkACLsParams) SetAccount(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
-	p.p["customid"] = v
+	p.p["account"] = v
 }
 
-func (p *UpdateNetworkACLListParams) SetFordisplay(v bool) {
+func (p *ListNetworkACLsParams) SetAclid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["aclid"] = v
+}
+
+func (p *ListNetworkACLsParams) SetAction(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["action"] = v
+}
+
+func (p *ListNetworkACLsParams) SetDomainid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["domainid"] = v
+}
+
+func (p *ListNetworkACLsParams) SetFordisplay(v bool) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["fordisplay"] = v
 }
 
-func (p *UpdateNetworkACLListParams) SetId(v string) {
+func (p *ListNetworkACLsParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new UpdateNetworkACLListParams instance,
+func (p *ListNetworkACLsParams) SetIsrecursive(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["isrecursive"] = v
+}
+
+func (p *ListNetworkACLsParams) SetKeyword(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["keyword"] = v
+}
+
+func (p *ListNetworkACLsParams) SetListall(v bool) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["listall"] = v
+}
+
+func (p *ListNetworkACLsParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+}
+
+func (p *ListNetworkACLsParams) SetPage(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["page"] = v
+}
+
+func (p *ListNetworkACLsParams) SetPagesize(v int) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["pagesize"] = v
+}
+
+func (p *ListNetworkACLsParams) SetProjectid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["projectid"] = v
+}
+
+func (p *ListNetworkACLsParams) SetProtocol(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["protocol"] = v
+}
+
+func (p *ListNetworkACLsParams) SetTags(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["tags"] = v
+}
+
+func (p *ListNetworkACLsParams) SetTraffictype(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["traffictype"] = v
+}
+
+// You should always use this function to get a new ListNetworkACLsParams instance,
 // as then you are sure you have configured all required params
-func (s *NetworkACLService) NewUpdateNetworkACLListParams(id string) *UpdateNetworkACLListParams {
-	p := &UpdateNetworkACLListParams{}
+func (s *NetworkACLService) NewListNetworkACLsParams() *ListNetworkACLsParams {
+	p := &ListNetworkACLsParams{}
 	p.p = make(map[string]interface{})
-	p.p["id"] = id
 	return p
 }
 
-// Updates network ACL list
-func (s *NetworkACLService) UpdateNetworkACLList(p *UpdateNetworkACLListParams) (*UpdateNetworkACLListResponse, error) {
-	resp, err := s.cs.newRequest("updateNetworkACLList", p.toURLValues())
+// This is a courtesy helper function, which in some cases may not work as expected!
+func (s *NetworkACLService) GetNetworkACLByID(id string, opts ...OptionFunc) (*NetworkACL, int, error) {
+	p := &ListNetworkACLsParams{}
+	p.p = make(map[string]interface{})
+
+	p.p["id"] = id
+
+	for _, fn := range opts {
+		if err := fn(s.cs, p); err != nil {
+			return nil, -1, err
+		}
+	}
+
+	l, err := s.ListNetworkACLs(p)
 	if err != nil {
-		return nil, err
-	}
-
-	var r UpdateNetworkACLListResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
+		if strings.Contains(err.Error(), fmt.Sprintf(
+			"Invalid parameter id value=%s due to incorrect long value format, "+
+				"or entity does not exist", id)) {
+			return nil, 0, fmt.Errorf("No match found for %s: %+v", id, l)
 		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
+		return nil, -1, err
 	}
-	return &r, nil
+
+	if l.Count == 0 {
+		return nil, l.Count, fmt.Errorf("No match found for %s: %+v", id, l)
+	}
+
+	if l.Count == 1 {
+		return l.NetworkACLs[0], l.Count, nil
+	}
+	return nil, l.Count, fmt.Errorf("There is more then one result for NetworkACL UUID: %s!", id)
 }
 
-type UpdateNetworkACLListResponse struct {
-	JobID       string `json:"jobid,omitempty"`
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     bool   `json:"success,omitempty"`
+// Lists all network ACL items
+func (s *NetworkACLService) ListNetworkACLs(p *ListNetworkACLsParams) (*ListNetworkACLsResponse, error) {
+	var r, l ListNetworkACLsResponse
+	for page := 2; ; page++ {
+		resp, err := s.cs.newRequest("listNetworkACLs", p.toURLValues())
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(resp, &l); err != nil {
+			return nil, err
+		}
+
+		r.Count = l.Count
+		r.NetworkACLs = append(r.NetworkACLs, l.NetworkACLs...)
+
+		if r.Count != len(r.NetworkACLs) {
+			return &r, nil
+		}
+
+		p.SetPagesize(len(l.NetworkACLs))
+		p.SetPage(page)
+	}
+}
+
+type ListNetworkACLsResponse struct {
+	Count       int           `json:"count"`
+	NetworkACLs []*NetworkACL `json:"networkacl"`
+}
+
+type NetworkACL struct {
+	Aclid      string `json:"aclid,omitempty"`
+	Action     string `json:"action,omitempty"`
+	Cidrlist   string `json:"cidrlist,omitempty"`
+	Endport    string `json:"endport,omitempty"`
+	Fordisplay bool   `json:"fordisplay,omitempty"`
+	Icmpcode   int    `json:"icmpcode,omitempty"`
+	Icmptype   int    `json:"icmptype,omitempty"`
+	Id         string `json:"id,omitempty"`
+	Number     int    `json:"number,omitempty"`
+	Protocol   string `json:"protocol,omitempty"`
+	Startport  string `json:"startport,omitempty"`
+	State      string `json:"state,omitempty"`
+	Tags       []struct {
+		Account      string `json:"account,omitempty"`
+		Customer     string `json:"customer,omitempty"`
+		Domain       string `json:"domain,omitempty"`
+		Domainid     string `json:"domainid,omitempty"`
+		Key          string `json:"key,omitempty"`
+		Project      string `json:"project,omitempty"`
+		Projectid    string `json:"projectid,omitempty"`
+		Resourceid   string `json:"resourceid,omitempty"`
+		Resourcetype string `json:"resourcetype,omitempty"`
+		Value        string `json:"value,omitempty"`
+	} `json:"tags,omitempty"`
+	Traffictype string `json:"traffictype,omitempty"`
 }

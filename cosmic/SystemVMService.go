@@ -24,11 +24,113 @@ import (
 	"strings"
 )
 
-type StartSystemVmParams struct {
+type ChangeServiceForSystemVmParams struct {
 	p map[string]interface{}
 }
 
-func (p *StartSystemVmParams) toURLValues() url.Values {
+func (p *ChangeServiceForSystemVmParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["details"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("details[%d].key", i), k)
+			u.Set(fmt.Sprintf("details[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["serviceofferingid"]; found {
+		u.Set("serviceofferingid", v.(string))
+	}
+	return u
+}
+
+func (p *ChangeServiceForSystemVmParams) SetDetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+}
+
+func (p *ChangeServiceForSystemVmParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ChangeServiceForSystemVmParams) SetServiceofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["serviceofferingid"] = v
+}
+
+// You should always use this function to get a new ChangeServiceForSystemVmParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemVMService) NewChangeServiceForSystemVmParams(id string, serviceofferingid string) *ChangeServiceForSystemVmParams {
+	p := &ChangeServiceForSystemVmParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["serviceofferingid"] = serviceofferingid
+	return p
+}
+
+// Changes the service offering for a system vm (console proxy or secondary storage). The system vm must be in a "Stopped" state for this command to take effect.
+func (s *SystemVMService) ChangeServiceForSystemVm(p *ChangeServiceForSystemVmParams) (*ChangeServiceForSystemVmResponse, error) {
+	resp, err := s.cs.newRequest("changeServiceForSystemVm", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ChangeServiceForSystemVmResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type ChangeServiceForSystemVmResponse struct {
+	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
+	Created              string `json:"created,omitempty"`
+	Dns1                 string `json:"dns1,omitempty"`
+	Dns2                 string `json:"dns2,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Hostid               string `json:"hostid,omitempty"`
+	Hostname             string `json:"hostname,omitempty"`
+	Hypervisor           string `json:"hypervisor,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Jobid                string `json:"jobid,omitempty"`
+	Jobstatus            int    `json:"jobstatus,omitempty"`
+	Linklocalip          string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
+	Name                 string `json:"name,omitempty"`
+	Networkdomain        string `json:"networkdomain,omitempty"`
+	Podid                string `json:"podid,omitempty"`
+	Privateip            string `json:"privateip,omitempty"`
+	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
+	Privatenetmask       string `json:"privatenetmask,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
+	Publicnetmask        string `json:"publicnetmask,omitempty"`
+	State                string `json:"state,omitempty"`
+	Systemvmtype         string `json:"systemvmtype,omitempty"`
+	Templateid           string `json:"templateid,omitempty"`
+	Zoneid               string `json:"zoneid,omitempty"`
+	Zonename             string `json:"zonename,omitempty"`
+}
+
+type DestroySystemVmParams struct {
+	p map[string]interface{}
+}
+
+func (p *DestroySystemVmParams) toURLValues() url.Values {
 	u := url.Values{}
 	if p.p == nil {
 		return u
@@ -39,30 +141,30 @@ func (p *StartSystemVmParams) toURLValues() url.Values {
 	return u
 }
 
-func (p *StartSystemVmParams) SetId(v string) {
+func (p *DestroySystemVmParams) SetId(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["id"] = v
 }
 
-// You should always use this function to get a new StartSystemVmParams instance,
+// You should always use this function to get a new DestroySystemVmParams instance,
 // as then you are sure you have configured all required params
-func (s *SystemVMService) NewStartSystemVmParams(id string) *StartSystemVmParams {
-	p := &StartSystemVmParams{}
+func (s *SystemVMService) NewDestroySystemVmParams(id string) *DestroySystemVmParams {
+	p := &DestroySystemVmParams{}
 	p.p = make(map[string]interface{})
 	p.p["id"] = id
 	return p
 }
 
-// Starts a system virtual machine.
-func (s *SystemVMService) StartSystemVm(p *StartSystemVmParams) (*StartSystemVmResponse, error) {
-	resp, err := s.cs.newRequest("startSystemVm", p.toURLValues())
+// Destroyes a system virtual machine.
+func (s *SystemVMService) DestroySystemVm(p *DestroySystemVmParams) (*DestroySystemVmResponse, error) {
+	resp, err := s.cs.newRequest("destroySystemVm", p.toURLValues())
 	if err != nil {
 		return nil, err
 	}
 
-	var r StartSystemVmResponse
+	var r DestroySystemVmResponse
 	if err := json.Unmarshal(resp, &r); err != nil {
 		return nil, err
 	}
@@ -89,7 +191,115 @@ func (s *SystemVMService) StartSystemVm(p *StartSystemVmParams) (*StartSystemVmR
 	return &r, nil
 }
 
-type StartSystemVmResponse struct {
+type DestroySystemVmResponse struct {
+	JobID                string `json:"jobid,omitempty"`
+	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
+	Created              string `json:"created,omitempty"`
+	Dns1                 string `json:"dns1,omitempty"`
+	Dns2                 string `json:"dns2,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Hostid               string `json:"hostid,omitempty"`
+	Hostname             string `json:"hostname,omitempty"`
+	Hypervisor           string `json:"hypervisor,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Jobid                string `json:"jobid,omitempty"`
+	Jobstatus            int    `json:"jobstatus,omitempty"`
+	Linklocalip          string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
+	Name                 string `json:"name,omitempty"`
+	Networkdomain        string `json:"networkdomain,omitempty"`
+	Podid                string `json:"podid,omitempty"`
+	Privateip            string `json:"privateip,omitempty"`
+	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
+	Privatenetmask       string `json:"privatenetmask,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
+	Publicnetmask        string `json:"publicnetmask,omitempty"`
+	State                string `json:"state,omitempty"`
+	Systemvmtype         string `json:"systemvmtype,omitempty"`
+	Templateid           string `json:"templateid,omitempty"`
+	Zoneid               string `json:"zoneid,omitempty"`
+	Zonename             string `json:"zonename,omitempty"`
+}
+
+type MigrateSystemVmParams struct {
+	p map[string]interface{}
+}
+
+func (p *MigrateSystemVmParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["hostid"]; found {
+		u.Set("hostid", v.(string))
+	}
+	if v, found := p.p["virtualmachineid"]; found {
+		u.Set("virtualmachineid", v.(string))
+	}
+	return u
+}
+
+func (p *MigrateSystemVmParams) SetHostid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["hostid"] = v
+}
+
+func (p *MigrateSystemVmParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+}
+
+// You should always use this function to get a new MigrateSystemVmParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemVMService) NewMigrateSystemVmParams(hostid string, virtualmachineid string) *MigrateSystemVmParams {
+	p := &MigrateSystemVmParams{}
+	p.p = make(map[string]interface{})
+	p.p["hostid"] = hostid
+	p.p["virtualmachineid"] = virtualmachineid
+	return p
+}
+
+// Attempts Migration of a system virtual machine to the host specified.
+func (s *SystemVMService) MigrateSystemVm(p *MigrateSystemVmParams) (*MigrateSystemVmResponse, error) {
+	resp, err := s.cs.newRequest("migrateSystemVm", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r MigrateSystemVmResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type MigrateSystemVmResponse struct {
 	JobID                string `json:"jobid,omitempty"`
 	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
 	Created              string `json:"created,omitempty"`
@@ -218,6 +428,226 @@ type RebootSystemVmResponse struct {
 	Zonename             string `json:"zonename,omitempty"`
 }
 
+type ScaleSystemVmParams struct {
+	p map[string]interface{}
+}
+
+func (p *ScaleSystemVmParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["details"]; found {
+		i := 0
+		for k, vv := range v.(map[string]string) {
+			u.Set(fmt.Sprintf("details[%d].key", i), k)
+			u.Set(fmt.Sprintf("details[%d].value", i), vv)
+			i++
+		}
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	if v, found := p.p["serviceofferingid"]; found {
+		u.Set("serviceofferingid", v.(string))
+	}
+	return u
+}
+
+func (p *ScaleSystemVmParams) SetDetails(v map[string]string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["details"] = v
+}
+
+func (p *ScaleSystemVmParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+func (p *ScaleSystemVmParams) SetServiceofferingid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["serviceofferingid"] = v
+}
+
+// You should always use this function to get a new ScaleSystemVmParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemVMService) NewScaleSystemVmParams(id string, serviceofferingid string) *ScaleSystemVmParams {
+	p := &ScaleSystemVmParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	p.p["serviceofferingid"] = serviceofferingid
+	return p
+}
+
+// Scale the service offering for a system vm (console proxy or secondary storage). The system vm must be in a "Stopped" state for this command to take effect.
+func (s *SystemVMService) ScaleSystemVm(p *ScaleSystemVmParams) (*ScaleSystemVmResponse, error) {
+	resp, err := s.cs.newRequest("scaleSystemVm", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r ScaleSystemVmResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type ScaleSystemVmResponse struct {
+	JobID                string `json:"jobid,omitempty"`
+	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
+	Created              string `json:"created,omitempty"`
+	Dns1                 string `json:"dns1,omitempty"`
+	Dns2                 string `json:"dns2,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Hostid               string `json:"hostid,omitempty"`
+	Hostname             string `json:"hostname,omitempty"`
+	Hypervisor           string `json:"hypervisor,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Jobid                string `json:"jobid,omitempty"`
+	Jobstatus            int    `json:"jobstatus,omitempty"`
+	Linklocalip          string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
+	Name                 string `json:"name,omitempty"`
+	Networkdomain        string `json:"networkdomain,omitempty"`
+	Podid                string `json:"podid,omitempty"`
+	Privateip            string `json:"privateip,omitempty"`
+	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
+	Privatenetmask       string `json:"privatenetmask,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
+	Publicnetmask        string `json:"publicnetmask,omitempty"`
+	State                string `json:"state,omitempty"`
+	Systemvmtype         string `json:"systemvmtype,omitempty"`
+	Templateid           string `json:"templateid,omitempty"`
+	Zoneid               string `json:"zoneid,omitempty"`
+	Zonename             string `json:"zonename,omitempty"`
+}
+
+type StartSystemVmParams struct {
+	p map[string]interface{}
+}
+
+func (p *StartSystemVmParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["id"]; found {
+		u.Set("id", v.(string))
+	}
+	return u
+}
+
+func (p *StartSystemVmParams) SetId(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["id"] = v
+}
+
+// You should always use this function to get a new StartSystemVmParams instance,
+// as then you are sure you have configured all required params
+func (s *SystemVMService) NewStartSystemVmParams(id string) *StartSystemVmParams {
+	p := &StartSystemVmParams{}
+	p.p = make(map[string]interface{})
+	p.p["id"] = id
+	return p
+}
+
+// Starts a system virtual machine.
+func (s *SystemVMService) StartSystemVm(p *StartSystemVmParams) (*StartSystemVmResponse, error) {
+	resp, err := s.cs.newRequest("startSystemVm", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r StartSystemVmResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+
+	// If we have a async client, we need to wait for the async result
+	if s.cs.async {
+		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
+		if err != nil {
+			if err == AsyncTimeoutErr {
+				return &r, err
+			}
+			return nil, err
+		}
+
+		b, err = getRawValue(b)
+		if err != nil {
+			return nil, err
+		}
+
+		if err := json.Unmarshal(b, &r); err != nil {
+			return nil, err
+		}
+	}
+	return &r, nil
+}
+
+type StartSystemVmResponse struct {
+	JobID                string `json:"jobid,omitempty"`
+	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
+	Created              string `json:"created,omitempty"`
+	Dns1                 string `json:"dns1,omitempty"`
+	Dns2                 string `json:"dns2,omitempty"`
+	Gateway              string `json:"gateway,omitempty"`
+	Hostid               string `json:"hostid,omitempty"`
+	Hostname             string `json:"hostname,omitempty"`
+	Hypervisor           string `json:"hypervisor,omitempty"`
+	Id                   string `json:"id,omitempty"`
+	Jobid                string `json:"jobid,omitempty"`
+	Jobstatus            int    `json:"jobstatus,omitempty"`
+	Linklocalip          string `json:"linklocalip,omitempty"`
+	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
+	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
+	Name                 string `json:"name,omitempty"`
+	Networkdomain        string `json:"networkdomain,omitempty"`
+	Podid                string `json:"podid,omitempty"`
+	Privateip            string `json:"privateip,omitempty"`
+	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
+	Privatenetmask       string `json:"privatenetmask,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
+	Publicnetmask        string `json:"publicnetmask,omitempty"`
+	State                string `json:"state,omitempty"`
+	Systemvmtype         string `json:"systemvmtype,omitempty"`
+	Templateid           string `json:"templateid,omitempty"`
+	Zoneid               string `json:"zoneid,omitempty"`
+	Zonename             string `json:"zonename,omitempty"`
+}
+
 type StopSystemVmParams struct {
 	p map[string]interface{}
 }
@@ -295,103 +725,6 @@ func (s *SystemVMService) StopSystemVm(p *StopSystemVmParams) (*StopSystemVmResp
 }
 
 type StopSystemVmResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Dns1                 string `json:"dns1,omitempty"`
-	Dns2                 string `json:"dns2,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Hostid               string `json:"hostid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Jobid                string `json:"jobid,omitempty"`
-	Jobstatus            int    `json:"jobstatus,omitempty"`
-	Linklocalip          string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkdomain        string `json:"networkdomain,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Privateip            string `json:"privateip,omitempty"`
-	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
-	Privatenetmask       string `json:"privatenetmask,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
-	Publicnetmask        string `json:"publicnetmask,omitempty"`
-	State                string `json:"state,omitempty"`
-	Systemvmtype         string `json:"systemvmtype,omitempty"`
-	Templateid           string `json:"templateid,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
-}
-
-type DestroySystemVmParams struct {
-	p map[string]interface{}
-}
-
-func (p *DestroySystemVmParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	return u
-}
-
-func (p *DestroySystemVmParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-// You should always use this function to get a new DestroySystemVmParams instance,
-// as then you are sure you have configured all required params
-func (s *SystemVMService) NewDestroySystemVmParams(id string) *DestroySystemVmParams {
-	p := &DestroySystemVmParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	return p
-}
-
-// Destroyes a system virtual machine.
-func (s *SystemVMService) DestroySystemVm(p *DestroySystemVmParams) (*DestroySystemVmResponse, error) {
-	resp, err := s.cs.newRequest("destroySystemVm", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r DestroySystemVmResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type DestroySystemVmResponse struct {
 	JobID                string `json:"jobid,omitempty"`
 	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
 	Created              string `json:"created,omitempty"`
@@ -669,339 +1002,6 @@ type ListSystemVmsResponse struct {
 }
 
 type SystemVm struct {
-	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Dns1                 string `json:"dns1,omitempty"`
-	Dns2                 string `json:"dns2,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Hostid               string `json:"hostid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Jobid                string `json:"jobid,omitempty"`
-	Jobstatus            int    `json:"jobstatus,omitempty"`
-	Linklocalip          string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkdomain        string `json:"networkdomain,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Privateip            string `json:"privateip,omitempty"`
-	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
-	Privatenetmask       string `json:"privatenetmask,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
-	Publicnetmask        string `json:"publicnetmask,omitempty"`
-	State                string `json:"state,omitempty"`
-	Systemvmtype         string `json:"systemvmtype,omitempty"`
-	Templateid           string `json:"templateid,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
-}
-
-type MigrateSystemVmParams struct {
-	p map[string]interface{}
-}
-
-func (p *MigrateSystemVmParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["hostid"]; found {
-		u.Set("hostid", v.(string))
-	}
-	if v, found := p.p["virtualmachineid"]; found {
-		u.Set("virtualmachineid", v.(string))
-	}
-	return u
-}
-
-func (p *MigrateSystemVmParams) SetHostid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["hostid"] = v
-}
-
-func (p *MigrateSystemVmParams) SetVirtualmachineid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineid"] = v
-}
-
-// You should always use this function to get a new MigrateSystemVmParams instance,
-// as then you are sure you have configured all required params
-func (s *SystemVMService) NewMigrateSystemVmParams(hostid string, virtualmachineid string) *MigrateSystemVmParams {
-	p := &MigrateSystemVmParams{}
-	p.p = make(map[string]interface{})
-	p.p["hostid"] = hostid
-	p.p["virtualmachineid"] = virtualmachineid
-	return p
-}
-
-// Attempts Migration of a system virtual machine to the host specified.
-func (s *SystemVMService) MigrateSystemVm(p *MigrateSystemVmParams) (*MigrateSystemVmResponse, error) {
-	resp, err := s.cs.newRequest("migrateSystemVm", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r MigrateSystemVmResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type MigrateSystemVmResponse struct {
-	JobID                string `json:"jobid,omitempty"`
-	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Dns1                 string `json:"dns1,omitempty"`
-	Dns2                 string `json:"dns2,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Hostid               string `json:"hostid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Jobid                string `json:"jobid,omitempty"`
-	Jobstatus            int    `json:"jobstatus,omitempty"`
-	Linklocalip          string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkdomain        string `json:"networkdomain,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Privateip            string `json:"privateip,omitempty"`
-	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
-	Privatenetmask       string `json:"privatenetmask,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
-	Publicnetmask        string `json:"publicnetmask,omitempty"`
-	State                string `json:"state,omitempty"`
-	Systemvmtype         string `json:"systemvmtype,omitempty"`
-	Templateid           string `json:"templateid,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
-}
-
-type ChangeServiceForSystemVmParams struct {
-	p map[string]interface{}
-}
-
-func (p *ChangeServiceForSystemVmParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].key", i), k)
-			u.Set(fmt.Sprintf("details[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["serviceofferingid"]; found {
-		u.Set("serviceofferingid", v.(string))
-	}
-	return u
-}
-
-func (p *ChangeServiceForSystemVmParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-}
-
-func (p *ChangeServiceForSystemVmParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ChangeServiceForSystemVmParams) SetServiceofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["serviceofferingid"] = v
-}
-
-// You should always use this function to get a new ChangeServiceForSystemVmParams instance,
-// as then you are sure you have configured all required params
-func (s *SystemVMService) NewChangeServiceForSystemVmParams(id string, serviceofferingid string) *ChangeServiceForSystemVmParams {
-	p := &ChangeServiceForSystemVmParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["serviceofferingid"] = serviceofferingid
-	return p
-}
-
-// Changes the service offering for a system vm (console proxy or secondary storage). The system vm must be in a "Stopped" state for this command to take effect.
-func (s *SystemVMService) ChangeServiceForSystemVm(p *ChangeServiceForSystemVmParams) (*ChangeServiceForSystemVmResponse, error) {
-	resp, err := s.cs.newRequest("changeServiceForSystemVm", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ChangeServiceForSystemVmResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ChangeServiceForSystemVmResponse struct {
-	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
-	Created              string `json:"created,omitempty"`
-	Dns1                 string `json:"dns1,omitempty"`
-	Dns2                 string `json:"dns2,omitempty"`
-	Gateway              string `json:"gateway,omitempty"`
-	Hostid               string `json:"hostid,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	Hypervisor           string `json:"hypervisor,omitempty"`
-	Id                   string `json:"id,omitempty"`
-	Jobid                string `json:"jobid,omitempty"`
-	Jobstatus            int    `json:"jobstatus,omitempty"`
-	Linklocalip          string `json:"linklocalip,omitempty"`
-	Linklocalmacaddress  string `json:"linklocalmacaddress,omitempty"`
-	Linklocalnetmask     string `json:"linklocalnetmask,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	Networkdomain        string `json:"networkdomain,omitempty"`
-	Podid                string `json:"podid,omitempty"`
-	Privateip            string `json:"privateip,omitempty"`
-	Privatemacaddress    string `json:"privatemacaddress,omitempty"`
-	Privatenetmask       string `json:"privatenetmask,omitempty"`
-	Publicip             string `json:"publicip,omitempty"`
-	Publicmacaddress     string `json:"publicmacaddress,omitempty"`
-	Publicnetmask        string `json:"publicnetmask,omitempty"`
-	State                string `json:"state,omitempty"`
-	Systemvmtype         string `json:"systemvmtype,omitempty"`
-	Templateid           string `json:"templateid,omitempty"`
-	Zoneid               string `json:"zoneid,omitempty"`
-	Zonename             string `json:"zonename,omitempty"`
-}
-
-type ScaleSystemVmParams struct {
-	p map[string]interface{}
-}
-
-func (p *ScaleSystemVmParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["details"]; found {
-		i := 0
-		for k, vv := range v.(map[string]string) {
-			u.Set(fmt.Sprintf("details[%d].key", i), k)
-			u.Set(fmt.Sprintf("details[%d].value", i), vv)
-			i++
-		}
-	}
-	if v, found := p.p["id"]; found {
-		u.Set("id", v.(string))
-	}
-	if v, found := p.p["serviceofferingid"]; found {
-		u.Set("serviceofferingid", v.(string))
-	}
-	return u
-}
-
-func (p *ScaleSystemVmParams) SetDetails(v map[string]string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["details"] = v
-}
-
-func (p *ScaleSystemVmParams) SetId(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["id"] = v
-}
-
-func (p *ScaleSystemVmParams) SetServiceofferingid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["serviceofferingid"] = v
-}
-
-// You should always use this function to get a new ScaleSystemVmParams instance,
-// as then you are sure you have configured all required params
-func (s *SystemVMService) NewScaleSystemVmParams(id string, serviceofferingid string) *ScaleSystemVmParams {
-	p := &ScaleSystemVmParams{}
-	p.p = make(map[string]interface{})
-	p.p["id"] = id
-	p.p["serviceofferingid"] = serviceofferingid
-	return p
-}
-
-// Scale the service offering for a system vm (console proxy or secondary storage). The system vm must be in a "Stopped" state for this command to take effect.
-func (s *SystemVMService) ScaleSystemVm(p *ScaleSystemVmParams) (*ScaleSystemVmResponse, error) {
-	resp, err := s.cs.newRequest("scaleSystemVm", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ScaleSystemVmResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-
-	// If we have a async client, we need to wait for the async result
-	if s.cs.async {
-		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)
-		if err != nil {
-			if err == AsyncTimeoutErr {
-				return &r, err
-			}
-			return nil, err
-		}
-
-		b, err = getRawValue(b)
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(b, &r); err != nil {
-			return nil, err
-		}
-	}
-	return &r, nil
-}
-
-type ScaleSystemVmResponse struct {
-	JobID                string `json:"jobid,omitempty"`
 	Activeviewersessions int    `json:"activeviewersessions,omitempty"`
 	Created              string `json:"created,omitempty"`
 	Dns1                 string `json:"dns1,omitempty"`

@@ -24,87 +24,6 @@ import (
 	"strings"
 )
 
-type EnableStaticNatParams struct {
-	p map[string]interface{}
-}
-
-func (p *EnableStaticNatParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["ipaddressid"]; found {
-		u.Set("ipaddressid", v.(string))
-	}
-	if v, found := p.p["networkid"]; found {
-		u.Set("networkid", v.(string))
-	}
-	if v, found := p.p["virtualmachineid"]; found {
-		u.Set("virtualmachineid", v.(string))
-	}
-	if v, found := p.p["vmguestip"]; found {
-		u.Set("vmguestip", v.(string))
-	}
-	return u
-}
-
-func (p *EnableStaticNatParams) SetIpaddressid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["ipaddressid"] = v
-}
-
-func (p *EnableStaticNatParams) SetNetworkid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["networkid"] = v
-}
-
-func (p *EnableStaticNatParams) SetVirtualmachineid(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["virtualmachineid"] = v
-}
-
-func (p *EnableStaticNatParams) SetVmguestip(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["vmguestip"] = v
-}
-
-// You should always use this function to get a new EnableStaticNatParams instance,
-// as then you are sure you have configured all required params
-func (s *NATService) NewEnableStaticNatParams(ipaddressid string, virtualmachineid string) *EnableStaticNatParams {
-	p := &EnableStaticNatParams{}
-	p.p = make(map[string]interface{})
-	p.p["ipaddressid"] = ipaddressid
-	p.p["virtualmachineid"] = virtualmachineid
-	return p
-}
-
-// Enables static NAT for given IP address
-func (s *NATService) EnableStaticNat(p *EnableStaticNatParams) (*EnableStaticNatResponse, error) {
-	resp, err := s.cs.newRequest("enableStaticNat", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r EnableStaticNatResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type EnableStaticNatResponse struct {
-	Displaytext string `json:"displaytext,omitempty"`
-	Success     string `json:"success,omitempty"`
-}
-
 type CreateIpForwardingRuleParams struct {
 	p map[string]interface{}
 }
@@ -616,4 +535,85 @@ type DisableStaticNatResponse struct {
 	JobID       string `json:"jobid,omitempty"`
 	Displaytext string `json:"displaytext,omitempty"`
 	Success     bool   `json:"success,omitempty"`
+}
+
+type EnableStaticNatParams struct {
+	p map[string]interface{}
+}
+
+func (p *EnableStaticNatParams) toURLValues() url.Values {
+	u := url.Values{}
+	if p.p == nil {
+		return u
+	}
+	if v, found := p.p["ipaddressid"]; found {
+		u.Set("ipaddressid", v.(string))
+	}
+	if v, found := p.p["networkid"]; found {
+		u.Set("networkid", v.(string))
+	}
+	if v, found := p.p["virtualmachineid"]; found {
+		u.Set("virtualmachineid", v.(string))
+	}
+	if v, found := p.p["vmguestip"]; found {
+		u.Set("vmguestip", v.(string))
+	}
+	return u
+}
+
+func (p *EnableStaticNatParams) SetIpaddressid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["ipaddressid"] = v
+}
+
+func (p *EnableStaticNatParams) SetNetworkid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["networkid"] = v
+}
+
+func (p *EnableStaticNatParams) SetVirtualmachineid(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["virtualmachineid"] = v
+}
+
+func (p *EnableStaticNatParams) SetVmguestip(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["vmguestip"] = v
+}
+
+// You should always use this function to get a new EnableStaticNatParams instance,
+// as then you are sure you have configured all required params
+func (s *NATService) NewEnableStaticNatParams(ipaddressid string, virtualmachineid string) *EnableStaticNatParams {
+	p := &EnableStaticNatParams{}
+	p.p = make(map[string]interface{})
+	p.p["ipaddressid"] = ipaddressid
+	p.p["virtualmachineid"] = virtualmachineid
+	return p
+}
+
+// Enables static NAT for given IP address
+func (s *NATService) EnableStaticNat(p *EnableStaticNatParams) (*EnableStaticNatResponse, error) {
+	resp, err := s.cs.newRequest("enableStaticNat", p.toURLValues())
+	if err != nil {
+		return nil, err
+	}
+
+	var r EnableStaticNatResponse
+	if err := json.Unmarshal(resp, &r); err != nil {
+		return nil, err
+	}
+	return &r, nil
+}
+
+type EnableStaticNatResponse struct {
+	Displaytext string `json:"displaytext,omitempty"`
+	Success     string `json:"success,omitempty"`
 }

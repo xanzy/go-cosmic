@@ -29,6 +29,7 @@ import (
 	"sort"
 	"strings"
 	"unicode"
+	"github.com/fatih/camelcase"
 )
 
 type apiInfo map[string][]string
@@ -64,9 +65,47 @@ func (e *goimportError) Error() string {
 	return fmt.Sprintf("GoImport failed to format:\n%v", e.output)
 }
 
+type apis []*API
+
+// Add functions for the Sort interface
+func (a apis) Len() int {
+	return len(a)
+}
+
+func remove(slice []string, s int) []string {
+	return append(slice[:s], slice[s+1:]...)
+}
+
+func (a apis) Less(i, j int) bool {
+	aa := camelcase.Split(a[i].Name)
+	bb := camelcase.Split(a[j].Name)
+	a0 := aa[0]
+	a1 := a0
+	b0 := bb[0]
+	b1 := b0
+	if len(aa) > 1 {
+		aa = remove(aa, 0)
+		a1 = strings.Join(aa, "")
+	}
+	if len(bb) > 1 {
+		bb = remove(bb, 0)
+		b1 = strings.Join(bb, "")
+	}
+	fmt.Printf("a0:%s a1:%s\n", a0, a1)
+	fmt.Printf("b0:%s b1:%s\n", b0, b1)
+	if a1 == b1 {
+		return a0 < b0
+	}
+	return a1 < b1
+}
+
+func (a apis) Swap(i, j int) {
+	a[i], a[j] = a[j], a[i]
+}
+
 type service struct {
 	name string
-	apis []*API
+	apis apis
 
 	p  func(format string, args ...interface{}) // print raw
 	pn func(format string, args ...interface{}) // print with indent and newline
@@ -107,6 +146,7 @@ func (s APIParams) Swap(i, j int) {
 type API struct {
 	Name        string       `json:"name"`
 	Description string       `json:"description"`
+	ServiceName string       `json:"groupname"`
 	Isasync     bool         `json:"isasync"`
 	Params      APIParams    `json:"params"`
 	Response    APIResponses `json:"response"`
@@ -145,6 +185,13 @@ func (s APIResponses) Swap(i, j int) {
 }
 
 func main() {
+	outdir, err := sourceDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("outdir:%s\n", outdir)
+
+	os.RemoveAll(outdir)
 	as, errors, err := getAllServices()
 	if err != nil {
 		log.Fatal(err)
@@ -160,10 +207,6 @@ func main() {
 		}
 	}
 
-	outdir, err := sourceDir()
-	if err != nil {
-		log.Fatal(err)
-	}
 	out, err := exec.Command("goimports", "-w", outdir).CombinedOutput()
 	if err != nil {
 		errors = append(errors, &goimportError{string(out)})
@@ -1207,7 +1250,7 @@ func (s *service) generateResponseType(a *API) {
 		pn("	JobID string `json:\"jobid,omitempty\"`")
 	}
 	sort.Sort(a.Response)
-	s.recusiveGenerateResponseType(a.Response, a.Isasync)
+	s.recursiveGenerateResponseType(a.Response, a.Isasync)
 	pn("}")
 	pn("")
 	return
@@ -1223,7 +1266,7 @@ func parseSingular(n string) string {
 	return strings.TrimSuffix(n, "s")
 }
 
-func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (output string) {
+func (s *service) recursiveGenerateResponseType(resp APIResponses, async bool) (output string) {
 	pn := s.pn
 	found := make(map[string]bool)
 
@@ -1241,7 +1284,7 @@ func (s *service) recusiveGenerateResponseType(resp APIResponses, async bool) (o
 		if r.Response != nil {
 			pn("%s []struct {", capitalize(r.Name))
 			sort.Sort(r.Response)
-			s.recusiveGenerateResponseType(r.Response, async)
+			s.recursiveGenerateResponseType(r.Response, async)
 			pn("} `json:\"%s,omitempty\"`", r.Name)
 		} else {
 			if !found[r.Name] {
@@ -1272,22 +1315,38 @@ func getAllServices() (*allServices, []error, error) {
 	// Generate a complete set of services with their methods (APIs)
 	as := &allServices{}
 	errors := []error{}
-	for sn, apis := range layout {
-		s := &service{name: sn}
-		for _, api := range apis {
-			a, found := ai[api]
-			if !found {
-				errors = append(errors, &apiInfoNotFoundError{api})
-				continue
+	for _, api := range ai {
+		sn := api.ServiceName
+		var s *service
+		i := len(as.services)
+		//i := sort.Search(len(as.services), func(i int) bool { return as.services[i].name == sn })
+		for x := range as.services {
+			if as.services[x].name == sn {
+				i = x
+				break
 			}
-			s.apis = append(s.apis, a)
 		}
+
+		fmt.Printf("ServiceIndex\\ServicesLen:%3d\\%3d\tService: %s\tApi: %s\n", i, len(as.services), sn, api.Name)
+		if i == len(as.services) {
+			s = &service{name: sn}
+			as.services = append(as.services, s)
+		} else {
+			s = as.services[i]
+		}
+		s.apis = append(s.apis, api)
+		sort.Sort(s.apis)
 		for _, apis := range s.apis {
 			sort.Sort(apis.Params)
 		}
-		as.services = append(as.services, s)
 	}
 	sort.Sort(as.services)
+	for x, api := range as.services {
+		fmt.Printf("Service:%d %s\n", x, as.services[x].name)
+		for i, a := range api.apis {
+			fmt.Printf("\tCmd:%d %s\n", i, a.Name)
+		}
+	}
 	return as, errors, nil
 }
 
