@@ -308,7 +308,7 @@ func (s *RegionService) ListRegions(p *ListRegionsParams) (*ListRegionsResponse,
 		r.Count = l.Count
 		r.Regions = append(r.Regions, l.Regions...)
 
-		if r.Count != len(r.Regions) {
+		if r.Count == len(r.Regions) {
 			return &r, nil
 		}
 

@@ -306,7 +306,7 @@ func (s *NiciraNVPService) ListNiciraNvpDevices(p *ListNiciraNvpDevicesParams) (
 		r.Count = l.Count
 		r.NiciraNvpDevices = append(r.NiciraNvpDevices, l.NiciraNvpDevices...)
 
-		if r.Count != len(r.NiciraNvpDevices) {
+		if r.Count == len(r.NiciraNvpDevices) {
 			return &r, nil
 		}
 

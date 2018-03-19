@@ -1094,6 +1094,7 @@ func (s *SecurityGroupService) GetSecurityGroupByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.SecurityGroups[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for SecurityGroup UUID: %s!", id)
 }
 
@@ -1113,7 +1114,7 @@ func (s *SecurityGroupService) ListSecurityGroups(p *ListSecurityGroupsParams) (
 		r.Count = l.Count
 		r.SecurityGroups = append(r.SecurityGroups, l.SecurityGroups...)
 
-		if r.Count != len(r.SecurityGroups) {
+		if r.Count == len(r.SecurityGroups) {
 			return &r, nil
 		}
 

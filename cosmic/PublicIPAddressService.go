@@ -686,6 +686,7 @@ func (s *PublicIPAddressService) GetPublicIpAddressByID(id string, opts ...Optio
 	if l.Count == 1 {
 		return l.PublicIpAddresses[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for PublicIpAddress UUID: %s!", id)
 }
 
@@ -705,7 +706,7 @@ func (s *PublicIPAddressService) ListPublicIpAddresses(p *ListPublicIpAddressesP
 		r.Count = l.Count
 		r.PublicIpAddresses = append(r.PublicIpAddresses, l.PublicIpAddresses...)
 
-		if r.Count != len(r.PublicIpAddresses) {
+		if r.Count == len(r.PublicIpAddresses) {
 			return &r, nil
 		}
 

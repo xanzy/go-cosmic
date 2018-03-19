@@ -1327,6 +1327,7 @@ func (s *AccountService) GetAccountByID(id string, opts ...OptionFunc) (*Account
 	if l.Count == 1 {
 		return l.Accounts[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Account UUID: %s!", id)
 }
 
@@ -1346,7 +1347,7 @@ func (s *AccountService) ListAccounts(p *ListAccountsParams) (*ListAccountsRespo
 		r.Count = l.Count
 		r.Accounts = append(r.Accounts, l.Accounts...)
 
-		if r.Count != len(r.Accounts) {
+		if r.Count == len(r.Accounts) {
 			return &r, nil
 		}
 
@@ -1730,7 +1731,7 @@ func (s *AccountService) ListProjectAccounts(p *ListProjectAccountsParams) (*Lis
 		r.Count = l.Count
 		r.ProjectAccounts = append(r.ProjectAccounts, l.ProjectAccounts...)
 
-		if r.Count != len(r.ProjectAccounts) {
+		if r.Count == len(r.ProjectAccounts) {
 			return &r, nil
 		}
 

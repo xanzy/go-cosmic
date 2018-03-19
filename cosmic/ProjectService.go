@@ -961,6 +961,7 @@ func (s *ProjectService) GetProjectInvitationByID(id string, opts ...OptionFunc)
 	if l.Count == 1 {
 		return l.ProjectInvitations[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for ProjectInvitation UUID: %s!", id)
 }
 
@@ -980,7 +981,7 @@ func (s *ProjectService) ListProjectInvitations(p *ListProjectInvitationsParams)
 		r.Count = l.Count
 		r.ProjectInvitations = append(r.ProjectInvitations, l.ProjectInvitations...)
 
-		if r.Count != len(r.ProjectInvitations) {
+		if r.Count == len(r.ProjectInvitations) {
 			return &r, nil
 		}
 
@@ -1234,6 +1235,7 @@ func (s *ProjectService) GetProjectByID(id string, opts ...OptionFunc) (*Project
 	if l.Count == 1 {
 		return l.Projects[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Project UUID: %s!", id)
 }
 
@@ -1253,7 +1255,7 @@ func (s *ProjectService) ListProjects(p *ListProjectsParams) (*ListProjectsRespo
 		r.Count = l.Count
 		r.Projects = append(r.Projects, l.Projects...)
 
-		if r.Count != len(r.Projects) {
+		if r.Count == len(r.Projects) {
 			return &r, nil
 		}
 

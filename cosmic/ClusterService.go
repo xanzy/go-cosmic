@@ -673,6 +673,7 @@ func (s *ClusterService) GetClusterByID(id string, opts ...OptionFunc) (*Cluster
 	if l.Count == 1 {
 		return l.Clusters[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Cluster UUID: %s!", id)
 }
 
@@ -692,7 +693,7 @@ func (s *ClusterService) ListClusters(p *ListClustersParams) (*ListClustersRespo
 		r.Count = l.Count
 		r.Clusters = append(r.Clusters, l.Clusters...)
 
-		if r.Count != len(r.Clusters) {
+		if r.Count == len(r.Clusters) {
 			return &r, nil
 		}
 
@@ -907,7 +908,7 @@ func (s *ClusterService) ListDedicatedClusters(p *ListDedicatedClustersParams) (
 		r.Count = l.Count
 		r.DedicatedClusters = append(r.DedicatedClusters, l.DedicatedClusters...)
 
-		if r.Count != len(r.DedicatedClusters) {
+		if r.Count == len(r.DedicatedClusters) {
 			return &r, nil
 		}
 

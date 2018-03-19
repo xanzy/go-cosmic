@@ -282,7 +282,7 @@ func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
 		r.Count = l.Count
 		r.Nics = append(r.Nics, l.Nics...)
 
-		if r.Count != len(r.Nics) {
+		if r.Count == len(r.Nics) {
 			return &r, nil
 		}
 

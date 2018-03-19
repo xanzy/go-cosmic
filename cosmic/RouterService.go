@@ -878,6 +878,7 @@ func (s *RouterService) GetRouterByID(id string, opts ...OptionFunc) (*Router, i
 	if l.Count == 1 {
 		return l.Routers[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Router UUID: %s!", id)
 }
 
@@ -897,7 +898,7 @@ func (s *RouterService) ListRouters(p *ListRoutersParams) (*ListRoutersResponse,
 		r.Count = l.Count
 		r.Routers = append(r.Routers, l.Routers...)
 
-		if r.Count != len(r.Routers) {
+		if r.Count == len(r.Routers) {
 			return &r, nil
 		}
 
@@ -1398,6 +1399,7 @@ func (s *RouterService) GetVirtualRouterElementByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.VirtualRouterElements[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VirtualRouterElement UUID: %s!", id)
 }
 
@@ -1417,7 +1419,7 @@ func (s *RouterService) ListVirtualRouterElements(p *ListVirtualRouterElementsPa
 		r.Count = l.Count
 		r.VirtualRouterElements = append(r.VirtualRouterElements, l.VirtualRouterElements...)
 
-		if r.Count != len(r.VirtualRouterElements) {
+		if r.Count == len(r.VirtualRouterElements) {
 			return &r, nil
 		}
 

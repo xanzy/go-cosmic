@@ -455,6 +455,7 @@ func (s *AlertService) GetAlertByID(id string, opts ...OptionFunc) (*Alert, int,
 	if l.Count == 1 {
 		return l.Alerts[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Alert UUID: %s!", id)
 }
 
@@ -474,7 +475,7 @@ func (s *AlertService) ListAlerts(p *ListAlertsParams) (*ListAlertsResponse, err
 		r.Count = l.Count
 		r.Alerts = append(r.Alerts, l.Alerts...)
 
-		if r.Count != len(r.Alerts) {
+		if r.Count == len(r.Alerts) {
 			return &r, nil
 		}
 

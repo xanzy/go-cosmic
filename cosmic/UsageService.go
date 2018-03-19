@@ -330,7 +330,7 @@ func (s *UsageService) ListTrafficTypes(p *ListTrafficTypesParams) (*ListTraffic
 		r.Count = l.Count
 		r.TrafficTypes = append(r.TrafficTypes, l.TrafficTypes...)
 
-		if r.Count != len(r.TrafficTypes) {
+		if r.Count == len(r.TrafficTypes) {
 			return &r, nil
 		}
 

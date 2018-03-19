@@ -128,7 +128,7 @@ func (s *ResourcetagsService) ListStorageTags(p *ListStorageTagsParams) (*ListSt
 		r.Count = l.Count
 		r.StorageTags = append(r.StorageTags, l.StorageTags...)
 
-		if r.Count != len(r.StorageTags) {
+		if r.Count == len(r.StorageTags) {
 			return &r, nil
 		}
 
@@ -515,7 +515,7 @@ func (s *ResourcetagsService) ListTags(p *ListTagsParams) (*ListTagsResponse, er
 		r.Count = l.Count
 		r.Tags = append(r.Tags, l.Tags...)
 
-		if r.Count != len(r.Tags) {
+		if r.Count == len(r.Tags) {
 			return &r, nil
 		}
 

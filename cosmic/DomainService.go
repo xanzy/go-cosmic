@@ -533,6 +533,7 @@ func (s *DomainService) GetDomainChildrenByID(id string, opts ...OptionFunc) (*D
 	if l.Count == 1 {
 		return l.DomainChildren[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for DomainChildren UUID: %s!", id)
 }
 
@@ -552,7 +553,7 @@ func (s *DomainService) ListDomainChildren(p *ListDomainChildrenParams) (*ListDo
 		r.Count = l.Count
 		r.DomainChildren = append(r.DomainChildren, l.DomainChildren...)
 
-		if r.Count != len(r.DomainChildren) {
+		if r.Count == len(r.DomainChildren) {
 			return &r, nil
 		}
 
@@ -789,6 +790,7 @@ func (s *DomainService) GetDomainByID(id string, opts ...OptionFunc) (*Domain, i
 	if l.Count == 1 {
 		return l.Domains[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Domain UUID: %s!", id)
 }
 
@@ -808,7 +810,7 @@ func (s *DomainService) ListDomains(p *ListDomainsParams) (*ListDomainsResponse,
 		r.Count = l.Count
 		r.Domains = append(r.Domains, l.Domains...)
 
-		if r.Count != len(r.Domains) {
+		if r.Count == len(r.Domains) {
 			return &r, nil
 		}
 

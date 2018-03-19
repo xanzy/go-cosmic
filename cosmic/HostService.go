@@ -198,7 +198,7 @@ func (s *HostService) ListDedicatedHosts(p *ListDedicatedHostsParams) (*ListDedi
 		r.Count = l.Count
 		r.DedicatedHosts = append(r.DedicatedHosts, l.DedicatedHosts...)
 
-		if r.Count != len(r.DedicatedHosts) {
+		if r.Count == len(r.DedicatedHosts) {
 			return &r, nil
 		}
 
@@ -1420,7 +1420,7 @@ func (s *HostService) ListHostTags(p *ListHostTagsParams) (*ListHostTagsResponse
 		r.Count = l.Count
 		r.HostTags = append(r.HostTags, l.HostTags...)
 
-		if r.Count != len(r.HostTags) {
+		if r.Count == len(r.HostTags) {
 			return &r, nil
 		}
 
@@ -1694,6 +1694,7 @@ func (s *HostService) GetHostByID(id string, opts ...OptionFunc) (*Host, int, er
 	if l.Count == 1 {
 		return l.Hosts[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Host UUID: %s!", id)
 }
 
@@ -1713,7 +1714,7 @@ func (s *HostService) ListHosts(p *ListHostsParams) (*ListHostsResponse, error) 
 		r.Count = l.Count
 		r.Hosts = append(r.Hosts, l.Hosts...)
 
-		if r.Count != len(r.Hosts) {
+		if r.Count == len(r.Hosts) {
 			return &r, nil
 		}
 

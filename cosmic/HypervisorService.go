@@ -126,6 +126,7 @@ func (s *HypervisorService) GetHypervisorCapabilityByID(id string, opts ...Optio
 	if l.Count == 1 {
 		return l.HypervisorCapabilities[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for HypervisorCapability UUID: %s!", id)
 }
 
@@ -145,7 +146,7 @@ func (s *HypervisorService) ListHypervisorCapabilities(p *ListHypervisorCapabili
 		r.Count = l.Count
 		r.HypervisorCapabilities = append(r.HypervisorCapabilities, l.HypervisorCapabilities...)
 
-		if r.Count != len(r.HypervisorCapabilities) {
+		if r.Count == len(r.HypervisorCapabilities) {
 			return &r, nil
 		}
 

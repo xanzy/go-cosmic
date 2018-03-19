@@ -1102,6 +1102,7 @@ func (s *NetworkACLService) GetNetworkACLListByID(id string, opts ...OptionFunc)
 	if l.Count == 1 {
 		return l.NetworkACLLists[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for NetworkACLList UUID: %s!", id)
 }
 
@@ -1121,7 +1122,7 @@ func (s *NetworkACLService) ListNetworkACLLists(p *ListNetworkACLListsParams) (*
 		r.Count = l.Count
 		r.NetworkACLLists = append(r.NetworkACLLists, l.NetworkACLLists...)
 
-		if r.Count != len(r.NetworkACLLists) {
+		if r.Count == len(r.NetworkACLLists) {
 			return &r, nil
 		}
 
@@ -1363,6 +1364,7 @@ func (s *NetworkACLService) GetNetworkACLByID(id string, opts ...OptionFunc) (*N
 	if l.Count == 1 {
 		return l.NetworkACLs[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for NetworkACL UUID: %s!", id)
 }
 
@@ -1382,7 +1384,7 @@ func (s *NetworkACLService) ListNetworkACLs(p *ListNetworkACLsParams) (*ListNetw
 		r.Count = l.Count
 		r.NetworkACLs = append(r.NetworkACLs, l.NetworkACLs...)
 
-		if r.Count != len(r.NetworkACLs) {
+		if r.Count == len(r.NetworkACLs) {
 			return &r, nil
 		}
 

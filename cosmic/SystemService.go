@@ -227,7 +227,7 @@ func (s *SystemService) ListCapacity(p *ListCapacityParams) (*ListCapacityRespon
 		r.Count = l.Count
 		r.Capacity = append(r.Capacity, l.Capacity...)
 
-		if r.Count != len(r.Capacity) {
+		if r.Count == len(r.Capacity) {
 			return &r, nil
 		}
 

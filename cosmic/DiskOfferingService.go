@@ -610,6 +610,7 @@ func (s *DiskOfferingService) GetDiskOfferingByID(id string, opts ...OptionFunc)
 	if l.Count == 1 {
 		return l.DiskOfferings[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for DiskOffering UUID: %s!", id)
 }
 
@@ -629,7 +630,7 @@ func (s *DiskOfferingService) ListDiskOfferings(p *ListDiskOfferingsParams) (*Li
 		r.Count = l.Count
 		r.DiskOfferings = append(r.DiskOfferings, l.DiskOfferings...)
 
-		if r.Count != len(r.DiskOfferings) {
+		if r.Count == len(r.DiskOfferings) {
 			return &r, nil
 		}
 

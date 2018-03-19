@@ -866,6 +866,7 @@ func (s *UserService) GetUserByID(id string, opts ...OptionFunc) (*User, int, er
 	if l.Count == 1 {
 		return l.Users[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for User UUID: %s!", id)
 }
 
@@ -885,7 +886,7 @@ func (s *UserService) ListUsers(p *ListUsersParams) (*ListUsersResponse, error) 
 		r.Count = l.Count
 		r.Users = append(r.Users, l.Users...)
 
-		if r.Count != len(r.Users) {
+		if r.Count == len(r.Users) {
 			return &r, nil
 		}
 

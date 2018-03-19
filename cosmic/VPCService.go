@@ -423,6 +423,7 @@ func (s *VPCService) GetPrivateGatewayByID(id string, opts ...OptionFunc) (*Priv
 	if l.Count == 1 {
 		return l.PrivateGateways[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for PrivateGateway UUID: %s!", id)
 }
 
@@ -442,7 +443,7 @@ func (s *VPCService) ListPrivateGateways(p *ListPrivateGatewaysParams) (*ListPri
 		r.Count = l.Count
 		r.PrivateGateways = append(r.PrivateGateways, l.PrivateGateways...)
 
-		if r.Count != len(r.PrivateGateways) {
+		if r.Count == len(r.PrivateGateways) {
 			return &r, nil
 		}
 
@@ -864,6 +865,7 @@ func (s *VPCService) GetStaticRouteByID(id string, opts ...OptionFunc) (*StaticR
 	if l.Count == 1 {
 		return l.StaticRoutes[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for StaticRoute UUID: %s!", id)
 }
 
@@ -883,7 +885,7 @@ func (s *VPCService) ListStaticRoutes(p *ListStaticRoutesParams) (*ListStaticRou
 		r.Count = l.Count
 		r.StaticRoutes = append(r.StaticRoutes, l.StaticRoutes...)
 
-		if r.Count != len(r.StaticRoutes) {
+		if r.Count == len(r.StaticRoutes) {
 			return &r, nil
 		}
 
@@ -2348,6 +2350,7 @@ func (s *VPCService) GetVPCOfferingByID(id string, opts ...OptionFunc) (*VPCOffe
 	if l.Count == 1 {
 		return l.VPCOfferings[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VPCOffering UUID: %s!", id)
 }
 
@@ -2367,7 +2370,7 @@ func (s *VPCService) ListVPCOfferings(p *ListVPCOfferingsParams) (*ListVPCOfferi
 		r.Count = l.Count
 		r.VPCOfferings = append(r.VPCOfferings, l.VPCOfferings...)
 
-		if r.Count != len(r.VPCOfferings) {
+		if r.Count == len(r.VPCOfferings) {
 			return &r, nil
 		}
 
@@ -2713,6 +2716,7 @@ func (s *VPCService) GetVPCByID(id string, opts ...OptionFunc) (*VPC, int, error
 	if l.Count == 1 {
 		return l.VPCs[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VPC UUID: %s!", id)
 }
 
@@ -2732,7 +2736,7 @@ func (s *VPCService) ListVPCs(p *ListVPCsParams) (*ListVPCsResponse, error) {
 		r.Count = l.Count
 		r.VPCs = append(r.VPCs, l.VPCs...)
 
-		if r.Count != len(r.VPCs) {
+		if r.Count == len(r.VPCs) {
 			return &r, nil
 		}
 

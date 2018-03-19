@@ -198,7 +198,7 @@ func (s *ZoneService) ListDedicatedZones(p *ListDedicatedZonesParams) (*ListDedi
 		r.Count = l.Count
 		r.DedicatedZones = append(r.DedicatedZones, l.DedicatedZones...)
 
-		if r.Count != len(r.DedicatedZones) {
+		if r.Count == len(r.DedicatedZones) {
 			return &r, nil
 		}
 
@@ -1059,6 +1059,7 @@ func (s *ZoneService) GetZoneByID(id string, opts ...OptionFunc) (*Zone, int, er
 	if l.Count == 1 {
 		return l.Zones[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Zone UUID: %s!", id)
 }
 
@@ -1078,7 +1079,7 @@ func (s *ZoneService) ListZones(p *ListZonesParams) (*ListZonesResponse, error) 
 		r.Count = l.Count
 		r.Zones = append(r.Zones, l.Zones...)
 
-		if r.Count != len(r.Zones) {
+		if r.Count == len(r.Zones) {
 			return &r, nil
 		}
 

@@ -5147,6 +5147,7 @@ func (s *VirtualMachineService) GetVirtualMachineByID(id string, opts ...OptionF
 	if l.Count == 1 {
 		return l.VirtualMachines[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VirtualMachine UUID: %s!", id)
 }
 
@@ -5166,7 +5167,7 @@ func (s *VirtualMachineService) ListVirtualMachines(p *ListVirtualMachinesParams
 		r.Count = l.Count
 		r.VirtualMachines = append(r.VirtualMachines, l.VirtualMachines...)
 
-		if r.Count != len(r.VirtualMachines) {
+		if r.Count == len(r.VirtualMachines) {
 			return &r, nil
 		}
 

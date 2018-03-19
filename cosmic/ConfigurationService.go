@@ -313,7 +313,7 @@ func (s *ConfigurationService) ListConfigurations(p *ListConfigurationsParams) (
 		r.Count = l.Count
 		r.Configurations = append(r.Configurations, l.Configurations...)
 
-		if r.Count != len(r.Configurations) {
+		if r.Count == len(r.Configurations) {
 			return &r, nil
 		}
 
@@ -404,7 +404,7 @@ func (s *ConfigurationService) ListDeploymentPlanners(p *ListDeploymentPlannersP
 		r.Count = l.Count
 		r.DeploymentPlanners = append(r.DeploymentPlanners, l.DeploymentPlanners...)
 
-		if r.Count != len(r.DeploymentPlanners) {
+		if r.Count == len(r.DeploymentPlanners) {
 			return &r, nil
 		}
 

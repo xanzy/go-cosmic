@@ -968,6 +968,7 @@ func (s *SystemVMService) GetSystemVmByID(id string, opts ...OptionFunc) (*Syste
 	if l.Count == 1 {
 		return l.SystemVms[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for SystemVm UUID: %s!", id)
 }
 
@@ -987,7 +988,7 @@ func (s *SystemVMService) ListSystemVms(p *ListSystemVmsParams) (*ListSystemVmsR
 		r.Count = l.Count
 		r.SystemVms = append(r.SystemVms, l.SystemVms...)
 
-		if r.Count != len(r.SystemVms) {
+		if r.Count == len(r.SystemVms) {
 			return &r, nil
 		}
 

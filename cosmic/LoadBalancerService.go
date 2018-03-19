@@ -372,6 +372,7 @@ func (s *LoadBalancerService) GetLBHealthCheckPolicyByID(id string, opts ...Opti
 	if l.Count == 1 {
 		return l.LBHealthCheckPolicies[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for LBHealthCheckPolicy UUID: %s!", id)
 }
 
@@ -391,7 +392,7 @@ func (s *LoadBalancerService) ListLBHealthCheckPolicies(p *ListLBHealthCheckPoli
 		r.Count = l.Count
 		r.LBHealthCheckPolicies = append(r.LBHealthCheckPolicies, l.LBHealthCheckPolicies...)
 
-		if r.Count != len(r.LBHealthCheckPolicies) {
+		if r.Count == len(r.LBHealthCheckPolicies) {
 			return &r, nil
 		}
 
@@ -869,6 +870,7 @@ func (s *LoadBalancerService) GetLBStickinessPolicyByID(id string, opts ...Optio
 	if l.Count == 1 {
 		return l.LBStickinessPolicies[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for LBStickinessPolicy UUID: %s!", id)
 }
 
@@ -888,7 +890,7 @@ func (s *LoadBalancerService) ListLBStickinessPolicies(p *ListLBStickinessPolici
 		r.Count = l.Count
 		r.LBStickinessPolicies = append(r.LBStickinessPolicies, l.LBStickinessPolicies...)
 
-		if r.Count != len(r.LBStickinessPolicies) {
+		if r.Count == len(r.LBStickinessPolicies) {
 			return &r, nil
 		}
 
@@ -1857,6 +1859,7 @@ func (s *LoadBalancerService) GetLoadBalancerRuleInstanceByID(id string, opts ..
 	if l.Count == 1 {
 		return l.LoadBalancerRuleInstances[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancerRuleInstance UUID: %s!", id)
 }
 
@@ -1876,7 +1879,7 @@ func (s *LoadBalancerService) ListLoadBalancerRuleInstances(p *ListLoadBalancerR
 		r.Count = l.Count
 		r.LoadBalancerRuleInstances = append(r.LoadBalancerRuleInstances, l.LoadBalancerRuleInstances...)
 
-		if r.Count != len(r.LoadBalancerRuleInstances) {
+		if r.Count == len(r.LoadBalancerRuleInstances) {
 			return &r, nil
 		}
 
@@ -2166,6 +2169,7 @@ func (s *LoadBalancerService) GetLoadBalancerRuleByID(id string, opts ...OptionF
 	if l.Count == 1 {
 		return l.LoadBalancerRules[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for LoadBalancerRule UUID: %s!", id)
 }
 
@@ -2185,7 +2189,7 @@ func (s *LoadBalancerService) ListLoadBalancerRules(p *ListLoadBalancerRulesPara
 		r.Count = l.Count
 		r.LoadBalancerRules = append(r.LoadBalancerRules, l.LoadBalancerRules...)
 
-		if r.Count != len(r.LoadBalancerRules) {
+		if r.Count == len(r.LoadBalancerRules) {
 			return &r, nil
 		}
 

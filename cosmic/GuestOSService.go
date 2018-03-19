@@ -508,6 +508,7 @@ func (s *GuestOSService) GetGuestOsMappingByID(id string, opts ...OptionFunc) (*
 	if l.Count == 1 {
 		return l.GuestOsMapping[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for GuestOsMapping UUID: %s!", id)
 }
 
@@ -527,7 +528,7 @@ func (s *GuestOSService) ListGuestOsMapping(p *ListGuestOsMappingParams) (*ListG
 		r.Count = l.Count
 		r.GuestOsMapping = append(r.GuestOsMapping, l.GuestOsMapping...)
 
-		if r.Count != len(r.GuestOsMapping) {
+		if r.Count == len(r.GuestOsMapping) {
 			return &r, nil
 		}
 
@@ -856,6 +857,7 @@ func (s *GuestOSService) GetOsCategoryByID(id string, opts ...OptionFunc) (*OsCa
 	if l.Count == 1 {
 		return l.OsCategories[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for OsCategory UUID: %s!", id)
 }
 
@@ -875,7 +877,7 @@ func (s *GuestOSService) ListOsCategories(p *ListOsCategoriesParams) (*ListOsCat
 		r.Count = l.Count
 		r.OsCategories = append(r.OsCategories, l.OsCategories...)
 
-		if r.Count != len(r.OsCategories) {
+		if r.Count == len(r.OsCategories) {
 			return &r, nil
 		}
 
@@ -1006,6 +1008,7 @@ func (s *GuestOSService) GetOsTypeByID(id string, opts ...OptionFunc) (*OsType, 
 	if l.Count == 1 {
 		return l.OsTypes[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for OsType UUID: %s!", id)
 }
 
@@ -1025,7 +1028,7 @@ func (s *GuestOSService) ListOsTypes(p *ListOsTypesParams) (*ListOsTypesResponse
 		r.Count = l.Count
 		r.OsTypes = append(r.OsTypes, l.OsTypes...)
 
-		if r.Count != len(r.OsTypes) {
+		if r.Count == len(r.OsTypes) {
 			return &r, nil
 		}
 

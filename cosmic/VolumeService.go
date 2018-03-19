@@ -1941,6 +1941,7 @@ func (s *VolumeService) GetVolumeByID(id string, opts ...OptionFunc) (*Volume, i
 	if l.Count == 1 {
 		return l.Volumes[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Volume UUID: %s!", id)
 }
 
@@ -1960,7 +1961,7 @@ func (s *VolumeService) ListVolumes(p *ListVolumesParams) (*ListVolumesResponse,
 		r.Count = l.Count
 		r.Volumes = append(r.Volumes, l.Volumes...)
 
-		if r.Count != len(r.Volumes) {
+		if r.Count == len(r.Volumes) {
 			return &r, nil
 		}
 

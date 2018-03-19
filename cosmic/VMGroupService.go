@@ -430,6 +430,7 @@ func (s *VMGroupService) GetInstanceGroupByID(id string, opts ...OptionFunc) (*I
 	if l.Count == 1 {
 		return l.InstanceGroups[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for InstanceGroup UUID: %s!", id)
 }
 
@@ -449,7 +450,7 @@ func (s *VMGroupService) ListInstanceGroups(p *ListInstanceGroupsParams) (*ListI
 		r.Count = l.Count
 		r.InstanceGroups = append(r.InstanceGroups, l.InstanceGroups...)
 
-		if r.Count != len(r.InstanceGroups) {
+		if r.Count == len(r.InstanceGroups) {
 			return &r, nil
 		}
 

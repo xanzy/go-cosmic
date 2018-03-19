@@ -952,7 +952,7 @@ func (s *NetworkService) ListNetworkIsolationMethods(p *ListNetworkIsolationMeth
 		r.Count = l.Count
 		r.NetworkIsolationMethods = append(r.NetworkIsolationMethods, l.NetworkIsolationMethods...)
 
-		if r.Count != len(r.NetworkIsolationMethods) {
+		if r.Count == len(r.NetworkIsolationMethods) {
 			return &r, nil
 		}
 
@@ -1375,7 +1375,7 @@ func (s *NetworkService) ListNetworkServiceProviders(p *ListNetworkServiceProvid
 		r.Count = l.Count
 		r.NetworkServiceProviders = append(r.NetworkServiceProviders, l.NetworkServiceProviders...)
 
-		if r.Count != len(r.NetworkServiceProviders) {
+		if r.Count == len(r.NetworkServiceProviders) {
 			return &r, nil
 		}
 
@@ -1745,6 +1745,7 @@ func (s *NetworkService) GetNetworkByID(id string, opts ...OptionFunc) (*Network
 	if l.Count == 1 {
 		return l.Networks[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Network UUID: %s!", id)
 }
 
@@ -1764,7 +1765,7 @@ func (s *NetworkService) ListNetworks(p *ListNetworksParams) (*ListNetworksRespo
 		r.Count = l.Count
 		r.Networks = append(r.Networks, l.Networks...)
 
-		if r.Count != len(r.Networks) {
+		if r.Count == len(r.Networks) {
 			return &r, nil
 		}
 
@@ -1974,7 +1975,7 @@ func (s *NetworkService) ListNiciraNvpDeviceNetworks(p *ListNiciraNvpDeviceNetwo
 		r.Count = l.Count
 		r.NiciraNvpDeviceNetworks = append(r.NiciraNvpDeviceNetworks, l.NiciraNvpDeviceNetworks...)
 
-		if r.Count != len(r.NiciraNvpDeviceNetworks) {
+		if r.Count == len(r.NiciraNvpDeviceNetworks) {
 			return &r, nil
 		}
 
@@ -2568,6 +2569,7 @@ func (s *NetworkService) GetPhysicalNetworkByID(id string, opts ...OptionFunc) (
 	if l.Count == 1 {
 		return l.PhysicalNetworks[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for PhysicalNetwork UUID: %s!", id)
 }
 
@@ -2587,7 +2589,7 @@ func (s *NetworkService) ListPhysicalNetworks(p *ListPhysicalNetworksParams) (*L
 		r.Count = l.Count
 		r.PhysicalNetworks = append(r.PhysicalNetworks, l.PhysicalNetworks...)
 
-		if r.Count != len(r.PhysicalNetworks) {
+		if r.Count == len(r.PhysicalNetworks) {
 			return &r, nil
 		}
 
@@ -3075,6 +3077,7 @@ func (s *NetworkService) GetStorageNetworkIpRangeByID(id string, opts ...OptionF
 	if l.Count == 1 {
 		return l.StorageNetworkIpRange[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for StorageNetworkIpRange UUID: %s!", id)
 }
 
@@ -3094,7 +3097,7 @@ func (s *NetworkService) ListStorageNetworkIpRange(p *ListStorageNetworkIpRangeP
 		r.Count = l.Count
 		r.StorageNetworkIpRange = append(r.StorageNetworkIpRange, l.StorageNetworkIpRange...)
 
-		if r.Count != len(r.StorageNetworkIpRange) {
+		if r.Count == len(r.StorageNetworkIpRange) {
 			return &r, nil
 		}
 
@@ -3327,7 +3330,7 @@ func (s *NetworkService) ListSupportedNetworkServices(p *ListSupportedNetworkSer
 		r.Count = l.Count
 		r.SupportedNetworkServices = append(r.SupportedNetworkServices, l.SupportedNetworkServices...)
 
-		if r.Count != len(r.SupportedNetworkServices) {
+		if r.Count == len(r.SupportedNetworkServices) {
 			return &r, nil
 		}
 
