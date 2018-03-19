@@ -500,6 +500,7 @@ func (s *VPNService) GetRemoteAccessVpnByID(id string, opts ...OptionFunc) (*Rem
 	if l.Count == 1 {
 		return l.RemoteAccessVpns[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for RemoteAccessVpn UUID: %s!", id)
 }
 
@@ -519,7 +520,7 @@ func (s *VPNService) ListRemoteAccessVpns(p *ListRemoteAccessVpnsParams) (*ListR
 		r.Count = l.Count
 		r.RemoteAccessVpns = append(r.RemoteAccessVpns, l.RemoteAccessVpns...)
 
-		if r.Count != len(r.RemoteAccessVpns) {
+		if r.Count == len(r.RemoteAccessVpns) {
 			return &r, nil
 		}
 
@@ -1129,6 +1130,7 @@ func (s *VPNService) GetVpnConnectionByID(id string, opts ...OptionFunc) (*VpnCo
 	if l.Count == 1 {
 		return l.VpnConnections[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VpnConnection UUID: %s!", id)
 }
 
@@ -1148,7 +1150,7 @@ func (s *VPNService) ListVpnConnections(p *ListVpnConnectionsParams) (*ListVpnCo
 		r.Count = l.Count
 		r.VpnConnections = append(r.VpnConnections, l.VpnConnections...)
 
-		if r.Count != len(r.VpnConnections) {
+		if r.Count == len(r.VpnConnections) {
 			return &r, nil
 		}
 
@@ -1881,6 +1883,7 @@ func (s *VPNService) GetVpnCustomerGatewayByID(id string, opts ...OptionFunc) (*
 	if l.Count == 1 {
 		return l.VpnCustomerGateways[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VpnCustomerGateway UUID: %s!", id)
 }
 
@@ -1900,7 +1903,7 @@ func (s *VPNService) ListVpnCustomerGateways(p *ListVpnCustomerGatewaysParams) (
 		r.Count = l.Count
 		r.VpnCustomerGateways = append(r.VpnCustomerGateways, l.VpnCustomerGateways...)
 
-		if r.Count != len(r.VpnCustomerGateways) {
+		if r.Count == len(r.VpnCustomerGateways) {
 			return &r, nil
 		}
 
@@ -2356,6 +2359,7 @@ func (s *VPNService) GetVpnGatewayByID(id string, opts ...OptionFunc) (*VpnGatew
 	if l.Count == 1 {
 		return l.VpnGateways[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VpnGateway UUID: %s!", id)
 }
 
@@ -2375,7 +2379,7 @@ func (s *VPNService) ListVpnGateways(p *ListVpnGatewaysParams) (*ListVpnGateways
 		r.Count = l.Count
 		r.VpnGateways = append(r.VpnGateways, l.VpnGateways...)
 
-		if r.Count != len(r.VpnGateways) {
+		if r.Count == len(r.VpnGateways) {
 			return &r, nil
 		}
 
@@ -2770,6 +2774,7 @@ func (s *VPNService) GetVpnUserByID(id string, opts ...OptionFunc) (*VpnUser, in
 	if l.Count == 1 {
 		return l.VpnUsers[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VpnUser UUID: %s!", id)
 }
 
@@ -2789,7 +2794,7 @@ func (s *VPNService) ListVpnUsers(p *ListVpnUsersParams) (*ListVpnUsersResponse,
 		r.Count = l.Count
 		r.VpnUsers = append(r.VpnUsers, l.VpnUsers...)
 
-		if r.Count != len(r.VpnUsers) {
+		if r.Count == len(r.VpnUsers) {
 			return &r, nil
 		}
 

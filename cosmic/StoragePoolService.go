@@ -797,6 +797,7 @@ func (s *StoragePoolService) GetStoragePoolByID(id string, opts ...OptionFunc) (
 	if l.Count == 1 {
 		return l.StoragePools[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for StoragePool UUID: %s!", id)
 }
 
@@ -816,7 +817,7 @@ func (s *StoragePoolService) ListStoragePools(p *ListStoragePoolsParams) (*ListS
 		r.Count = l.Count
 		r.StoragePools = append(r.StoragePools, l.StoragePools...)
 
-		if r.Count != len(r.StoragePools) {
+		if r.Count == len(r.StoragePools) {
 			return &r, nil
 		}
 
@@ -1038,7 +1039,7 @@ func (s *StoragePoolService) ListStorageProviders(p *ListStorageProvidersParams)
 		r.Count = l.Count
 		r.StorageProviders = append(r.StorageProviders, l.StorageProviders...)
 
-		if r.Count != len(r.StorageProviders) {
+		if r.Count == len(r.StorageProviders) {
 			return &r, nil
 		}
 

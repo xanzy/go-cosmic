@@ -441,7 +441,7 @@ func (s *LimitService) ListResourceLimits(p *ListResourceLimitsParams) (*ListRes
 		r.Count = l.Count
 		r.ResourceLimits = append(r.ResourceLimits, l.ResourceLimits...)
 
-		if r.Count != len(r.ResourceLimits) {
+		if r.Count == len(r.ResourceLimits) {
 			return &r, nil
 		}
 

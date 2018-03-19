@@ -433,6 +433,7 @@ func (s *EventService) GetEventByID(id string, opts ...OptionFunc) (*Event, int,
 	if l.Count == 1 {
 		return l.Events[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Event UUID: %s!", id)
 }
 
@@ -452,7 +453,7 @@ func (s *EventService) ListEvents(p *ListEventsParams) (*ListEventsResponse, err
 		r.Count = l.Count
 		r.Events = append(r.Events, l.Events...)
 
-		if r.Count != len(r.Events) {
+		if r.Count == len(r.Events) {
 			return &r, nil
 		}
 

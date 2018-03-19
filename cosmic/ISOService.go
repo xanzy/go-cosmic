@@ -1379,6 +1379,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	if l.Count == 1 {
 		return l.IsoPermissions[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
@@ -1819,6 +1820,7 @@ func (s *ISOService) GetIsoByID(id string, opts ...OptionFunc) (*Iso, int, error
 	if l.Count == 1 {
 		return l.Isos[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Iso UUID: %s!", id)
 }
 
@@ -1838,7 +1840,7 @@ func (s *ISOService) ListIsos(p *ListIsosParams) (*ListIsosResponse, error) {
 		r.Count = l.Count
 		r.Isos = append(r.Isos, l.Isos...)
 
-		if r.Count != len(r.Isos) {
+		if r.Count == len(r.Isos) {
 			return &r, nil
 		}
 

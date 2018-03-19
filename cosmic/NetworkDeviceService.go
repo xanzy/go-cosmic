@@ -229,7 +229,7 @@ func (s *NetworkDeviceService) ListNetworkDevice(p *ListNetworkDeviceParams) (*L
 		r.Count = l.Count
 		r.NetworkDevice = append(r.NetworkDevice, l.NetworkDevice...)
 
-		if r.Count != len(r.NetworkDevice) {
+		if r.Count == len(r.NetworkDevice) {
 			return &r, nil
 		}
 

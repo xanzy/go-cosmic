@@ -358,6 +358,7 @@ func (s *ImageStoreService) GetImageStoreByID(id string, opts ...OptionFunc) (*I
 	if l.Count == 1 {
 		return l.ImageStores[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for ImageStore UUID: %s!", id)
 }
 
@@ -377,7 +378,7 @@ func (s *ImageStoreService) ListImageStores(p *ListImageStoresParams) (*ListImag
 		r.Count = l.Count
 		r.ImageStores = append(r.ImageStores, l.ImageStores...)
 
-		if r.Count != len(r.ImageStores) {
+		if r.Count == len(r.ImageStores) {
 			return &r, nil
 		}
 
@@ -737,6 +738,7 @@ func (s *ImageStoreService) GetSecondaryStagingStoreByID(id string, opts ...Opti
 	if l.Count == 1 {
 		return l.SecondaryStagingStores[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for SecondaryStagingStore UUID: %s!", id)
 }
 
@@ -756,7 +758,7 @@ func (s *ImageStoreService) ListSecondaryStagingStores(p *ListSecondaryStagingSt
 		r.Count = l.Count
 		r.SecondaryStagingStores = append(r.SecondaryStagingStores, l.SecondaryStagingStores...)
 
-		if r.Count != len(r.SecondaryStagingStores) {
+		if r.Count == len(r.SecondaryStagingStores) {
 			return &r, nil
 		}
 

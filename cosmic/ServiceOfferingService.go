@@ -754,6 +754,7 @@ func (s *ServiceOfferingService) GetServiceOfferingByID(id string, opts ...Optio
 	if l.Count == 1 {
 		return l.ServiceOfferings[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for ServiceOffering UUID: %s!", id)
 }
 
@@ -773,7 +774,7 @@ func (s *ServiceOfferingService) ListServiceOfferings(p *ListServiceOfferingsPar
 		r.Count = l.Count
 		r.ServiceOfferings = append(r.ServiceOfferings, l.ServiceOfferings...)
 
-		if r.Count != len(r.ServiceOfferings) {
+		if r.Count == len(r.ServiceOfferings) {
 			return &r, nil
 		}
 

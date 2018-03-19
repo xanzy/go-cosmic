@@ -242,6 +242,7 @@ func (s *VLANService) GetDedicatedGuestVlanRangeByID(id string, opts ...OptionFu
 	if l.Count == 1 {
 		return l.DedicatedGuestVlanRanges[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for DedicatedGuestVlanRange UUID: %s!", id)
 }
 
@@ -261,7 +262,7 @@ func (s *VLANService) ListDedicatedGuestVlanRanges(p *ListDedicatedGuestVlanRang
 		r.Count = l.Count
 		r.DedicatedGuestVlanRanges = append(r.DedicatedGuestVlanRanges, l.DedicatedGuestVlanRanges...)
 
-		if r.Count != len(r.DedicatedGuestVlanRanges) {
+		if r.Count == len(r.DedicatedGuestVlanRanges) {
 			return &r, nil
 		}
 
@@ -850,6 +851,7 @@ func (s *VLANService) GetVlanIpRangeByID(id string, opts ...OptionFunc) (*VlanIp
 	if l.Count == 1 {
 		return l.VlanIpRanges[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for VlanIpRange UUID: %s!", id)
 }
 
@@ -869,7 +871,7 @@ func (s *VLANService) ListVlanIpRanges(p *ListVlanIpRangesParams) (*ListVlanIpRa
 		r.Count = l.Count
 		r.VlanIpRanges = append(r.VlanIpRanges, l.VlanIpRanges...)
 
-		if r.Count != len(r.VlanIpRanges) {
+		if r.Count == len(r.VlanIpRanges) {
 			return &r, nil
 		}
 

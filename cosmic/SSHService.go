@@ -706,7 +706,7 @@ func (s *SSHService) ListSSHKeyPairs(p *ListSSHKeyPairsParams) (*ListSSHKeyPairs
 		r.Count = l.Count
 		r.SSHKeyPairs = append(r.SSHKeyPairs, l.SSHKeyPairs...)
 
-		if r.Count != len(r.SSHKeyPairs) {
+		if r.Count == len(r.SSHKeyPairs) {
 			return &r, nil
 		}
 

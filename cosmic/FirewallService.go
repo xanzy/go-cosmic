@@ -639,6 +639,7 @@ func (s *FirewallService) GetEgressFirewallRuleByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.EgressFirewallRules[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for EgressFirewallRule UUID: %s!", id)
 }
 
@@ -658,7 +659,7 @@ func (s *FirewallService) ListEgressFirewallRules(p *ListEgressFirewallRulesPara
 		r.Count = l.Count
 		r.EgressFirewallRules = append(r.EgressFirewallRules, l.EgressFirewallRules...)
 
-		if r.Count != len(r.EgressFirewallRules) {
+		if r.Count == len(r.EgressFirewallRules) {
 			return &r, nil
 		}
 
@@ -1264,6 +1265,7 @@ func (s *FirewallService) GetFirewallRuleByID(id string, opts ...OptionFunc) (*F
 	if l.Count == 1 {
 		return l.FirewallRules[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for FirewallRule UUID: %s!", id)
 }
 
@@ -1283,7 +1285,7 @@ func (s *FirewallService) ListFirewallRules(p *ListFirewallRulesParams) (*ListFi
 		r.Count = l.Count
 		r.FirewallRules = append(r.FirewallRules, l.FirewallRules...)
 
-		if r.Count != len(r.FirewallRules) {
+		if r.Count == len(r.FirewallRules) {
 			return &r, nil
 		}
 
@@ -1962,6 +1964,7 @@ func (s *FirewallService) GetPortForwardingRuleByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.PortForwardingRules[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for PortForwardingRule UUID: %s!", id)
 }
 
@@ -1981,7 +1984,7 @@ func (s *FirewallService) ListPortForwardingRules(p *ListPortForwardingRulesPara
 		r.Count = l.Count
 		r.PortForwardingRules = append(r.PortForwardingRules, l.PortForwardingRules...)
 
-		if r.Count != len(r.PortForwardingRules) {
+		if r.Count == len(r.PortForwardingRules) {
 			return &r, nil
 		}
 

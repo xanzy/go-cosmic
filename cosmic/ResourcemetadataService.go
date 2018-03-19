@@ -386,7 +386,7 @@ func (s *ResourcemetadataService) ListResourceDetails(p *ListResourceDetailsPara
 		r.Count = l.Count
 		r.ResourceDetails = append(r.ResourceDetails, l.ResourceDetails...)
 
-		if r.Count != len(r.ResourceDetails) {
+		if r.Count == len(r.ResourceDetails) {
 			return &r, nil
 		}
 

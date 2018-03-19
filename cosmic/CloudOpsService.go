@@ -133,7 +133,7 @@ func (s *CloudOpsService) ListHAWorkers(p *ListHAWorkersParams) (*ListHAWorkersR
 		r.Count = l.Count
 		r.HAWorkers = append(r.HAWorkers, l.HAWorkers...)
 
-		if r.Count != len(r.HAWorkers) {
+		if r.Count == len(r.HAWorkers) {
 			return &r, nil
 		}
 
@@ -284,7 +284,7 @@ func (s *CloudOpsService) ListWhoHasThisIp(p *ListWhoHasThisIpParams) (*ListWhoH
 		r.Count = l.Count
 		r.WhoHasThisIp = append(r.WhoHasThisIp, l.WhoHasThisIp...)
 
-		if r.Count != len(r.WhoHasThisIp) {
+		if r.Count == len(r.WhoHasThisIp) {
 			return &r, nil
 		}
 
@@ -440,7 +440,7 @@ func (s *CloudOpsService) ListWhoHasThisMac(p *ListWhoHasThisMacParams) (*ListWh
 		r.Count = l.Count
 		r.WhoHasThisMac = append(r.WhoHasThisMac, l.WhoHasThisMac...)
 
-		if r.Count != len(r.WhoHasThisMac) {
+		if r.Count == len(r.WhoHasThisMac) {
 			return &r, nil
 		}
 

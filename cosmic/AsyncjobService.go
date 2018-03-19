@@ -212,7 +212,7 @@ func (s *AsyncjobService) ListAsyncJobs(p *ListAsyncJobsParams) (*ListAsyncJobsR
 		r.Count = l.Count
 		r.AsyncJobs = append(r.AsyncJobs, l.AsyncJobs...)
 
-		if r.Count != len(r.AsyncJobs) {
+		if r.Count == len(r.AsyncJobs) {
 			return &r, nil
 		}
 

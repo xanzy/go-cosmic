@@ -705,6 +705,7 @@ func (s *SnapshotService) GetSnapshotByID(id string, opts ...OptionFunc) (*Snaps
 	if l.Count == 1 {
 		return l.Snapshots[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Snapshot UUID: %s!", id)
 }
 
@@ -724,7 +725,7 @@ func (s *SnapshotService) ListSnapshots(p *ListSnapshotsParams) (*ListSnapshotsR
 		r.Count = l.Count
 		r.Snapshots = append(r.Snapshots, l.Snapshots...)
 
-		if r.Count != len(r.Snapshots) {
+		if r.Count == len(r.Snapshots) {
 			return &r, nil
 		}
 
@@ -1406,7 +1407,7 @@ func (s *SnapshotService) ListVMSnapshot(p *ListVMSnapshotParams) (*ListVMSnapsh
 		r.Count = l.Count
 		r.VMSnapshot = append(r.VMSnapshot, l.VMSnapshot...)
 
-		if r.Count != len(r.VMSnapshot) {
+		if r.Count == len(r.VMSnapshot) {
 			return &r, nil
 		}
 

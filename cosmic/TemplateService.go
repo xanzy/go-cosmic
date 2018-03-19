@@ -1477,6 +1477,7 @@ func (s *TemplateService) GetTemplatePermissionByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.TemplatePermissions[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for TemplatePermission UUID: %s!", id)
 }
 
@@ -1886,6 +1887,7 @@ func (s *TemplateService) GetTemplateByID(id string, templatefilter string, opts
 	if l.Count == 1 {
 		return l.Templates[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Template UUID: %s!", id)
 }
 
@@ -1905,7 +1907,7 @@ func (s *TemplateService) ListTemplates(p *ListTemplatesParams) (*ListTemplatesR
 		r.Count = l.Count
 		r.Templates = append(r.Templates, l.Templates...)
 
-		if r.Count != len(r.Templates) {
+		if r.Count == len(r.Templates) {
 			return &r, nil
 		}
 

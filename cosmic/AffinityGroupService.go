@@ -327,7 +327,7 @@ func (s *AffinityGroupService) ListAffinityGroupTypes(p *ListAffinityGroupTypesP
 		r.Count = l.Count
 		r.AffinityGroupTypes = append(r.AffinityGroupTypes, l.AffinityGroupTypes...)
 
-		if r.Count != len(r.AffinityGroupTypes) {
+		if r.Count == len(r.AffinityGroupTypes) {
 			return &r, nil
 		}
 
@@ -577,6 +577,7 @@ func (s *AffinityGroupService) GetAffinityGroupByID(id string, opts ...OptionFun
 	if l.Count == 1 {
 		return l.AffinityGroups[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for AffinityGroup UUID: %s!", id)
 }
 
@@ -596,7 +597,7 @@ func (s *AffinityGroupService) ListAffinityGroups(p *ListAffinityGroupsParams) (
 		r.Count = l.Count
 		r.AffinityGroups = append(r.AffinityGroups, l.AffinityGroups...)
 
-		if r.Count != len(r.AffinityGroups) {
+		if r.Count == len(r.AffinityGroups) {
 			return &r, nil
 		}
 

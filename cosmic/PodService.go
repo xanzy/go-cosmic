@@ -198,7 +198,7 @@ func (s *PodService) ListDedicatedPods(p *ListDedicatedPodsParams) (*ListDedicat
 		r.Count = l.Count
 		r.DedicatedPods = append(r.DedicatedPods, l.DedicatedPods...)
 
-		if r.Count != len(r.DedicatedPods) {
+		if r.Count == len(r.DedicatedPods) {
 			return &r, nil
 		}
 
@@ -816,6 +816,7 @@ func (s *PodService) GetPodByID(id string, opts ...OptionFunc) (*Pod, int, error
 	if l.Count == 1 {
 		return l.Pods[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for Pod UUID: %s!", id)
 }
 
@@ -835,7 +836,7 @@ func (s *PodService) ListPods(p *ListPodsParams) (*ListPodsResponse, error) {
 		r.Count = l.Count
 		r.Pods = append(r.Pods, l.Pods...)
 
-		if r.Count != len(r.Pods) {
+		if r.Count == len(r.Pods) {
 			return &r, nil
 		}
 

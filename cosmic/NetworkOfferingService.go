@@ -855,6 +855,7 @@ func (s *NetworkOfferingService) GetNetworkOfferingByID(id string, opts ...Optio
 	if l.Count == 1 {
 		return l.NetworkOfferings[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for NetworkOffering UUID: %s!", id)
 }
 
@@ -874,7 +875,7 @@ func (s *NetworkOfferingService) ListNetworkOfferings(p *ListNetworkOfferingsPar
 		r.Count = l.Count
 		r.NetworkOfferings = append(r.NetworkOfferings, l.NetworkOfferings...)
 
-		if r.Count != len(r.NetworkOfferings) {
+		if r.Count == len(r.NetworkOfferings) {
 			return &r, nil
 		}
 

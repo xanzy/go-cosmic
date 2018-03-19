@@ -407,6 +407,7 @@ func (s *NATService) GetIpForwardingRuleByID(id string, opts ...OptionFunc) (*Ip
 	if l.Count == 1 {
 		return l.IpForwardingRules[0], l.Count, nil
 	}
+
 	return nil, l.Count, fmt.Errorf("There is more then one result for IpForwardingRule UUID: %s!", id)
 }
 
@@ -426,7 +427,7 @@ func (s *NATService) ListIpForwardingRules(p *ListIpForwardingRulesParams) (*Lis
 		r.Count = l.Count
 		r.IpForwardingRules = append(r.IpForwardingRules, l.IpForwardingRules...)
 
-		if r.Count != len(r.IpForwardingRules) {
+		if r.Count == len(r.IpForwardingRules) {
 			return &r, nil
 		}
 

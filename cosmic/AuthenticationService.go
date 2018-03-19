@@ -586,7 +586,7 @@ func (s *AuthenticationService) ListLdapConfigurations(p *ListLdapConfigurations
 		r.Count = l.Count
 		r.LdapConfigurations = append(r.LdapConfigurations, l.LdapConfigurations...)
 
-		if r.Count != len(r.LdapConfigurations) {
+		if r.Count == len(r.LdapConfigurations) {
 			return &r, nil
 		}
 
@@ -825,7 +825,7 @@ func (s *AuthenticationService) ListLdapUsers(p *ListLdapUsersParams) (*ListLdap
 		r.Count = l.Count
 		r.LdapUsers = append(r.LdapUsers, l.LdapUsers...)
 
-		if r.Count != len(r.LdapUsers) {
+		if r.Count == len(r.LdapUsers) {
 			return &r, nil
 		}
 
