@@ -118,7 +118,6 @@ type DestroyRouterResponse struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -255,7 +254,6 @@ type RebootRouterResponse struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -392,7 +390,6 @@ type StartRouterResponse struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -540,7 +537,6 @@ type StopRouterResponse struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -940,7 +936,6 @@ type Router struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -1067,7 +1062,6 @@ type ChangeServiceForRouterResponse struct {
 	Networkdomain       string `json:"networkdomain,omitempty"`
 	Nic                 []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`

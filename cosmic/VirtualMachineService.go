@@ -116,7 +116,6 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -151,7 +150,6 @@ type UpdateDefaultNicForVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -369,7 +367,6 @@ type RemoveNicFromVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -404,7 +401,6 @@ type RemoveNicFromVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -642,7 +638,6 @@ type AddNicToVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -677,7 +672,6 @@ type AddNicToVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -884,7 +878,6 @@ type ResetPasswordForVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -919,7 +912,6 @@ type ResetPasswordForVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -1131,7 +1123,6 @@ type ChangeServiceForVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -1166,7 +1157,6 @@ type ChangeServiceForVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -1500,7 +1490,6 @@ type AssignVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -1535,7 +1524,6 @@ type AssignVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -2063,7 +2051,6 @@ type DeployVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -2098,7 +2085,6 @@ type DeployVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -2266,7 +2252,7 @@ func (s *VirtualMachineService) NewDestroyVirtualMachineParams(id string) *Destr
 	return p
 }
 
-// Destroys a virtual machine.
+// Destroys a virtual machine. Once destroyed, only the administrator can recover it.
 func (s *VirtualMachineService) DestroyVirtualMachine(p *DestroyVirtualMachineParams) (*DestroyVirtualMachineResponse, error) {
 	resp, err := s.cs.newRequest("destroyVirtualMachine", p.toURLValues())
 	if err != nil {
@@ -2316,7 +2302,6 @@ type DestroyVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -2351,7 +2336,6 @@ type DestroyVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -2644,7 +2628,6 @@ type MigrateVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -2679,7 +2662,6 @@ type MigrateVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -2886,7 +2868,6 @@ type RebootVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -2921,7 +2902,6 @@ type RebootVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -3107,7 +3087,6 @@ type RecoverVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -3142,7 +3121,6 @@ type RecoverVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -3359,7 +3337,6 @@ type RestoreVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -3394,7 +3371,6 @@ type RestoreVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -3713,7 +3689,6 @@ type StartVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -3748,7 +3723,6 @@ type StartVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -3966,7 +3940,6 @@ type StopVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -4001,7 +3974,6 @@ type StopVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -4305,7 +4277,6 @@ type UpdateVirtualMachineResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -4340,7 +4311,6 @@ type UpdateVirtualMachineResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -4573,7 +4543,6 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -4608,7 +4577,6 @@ type MigrateVirtualMachineWithVolumeResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
@@ -5196,7 +5164,6 @@ type VirtualMachine struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -5231,7 +5198,6 @@ type VirtualMachine struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`

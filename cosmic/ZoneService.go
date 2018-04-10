@@ -406,16 +406,16 @@ func (s *ZoneService) CreateZone(p *CreateZoneParams) (*CreateZoneResponse, erro
 type CreateZoneResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
+		Capacitytotal       int64  `json:"capacitytotal,omitempty"`
+		Capacityused        int64  `json:"capacityused,omitempty"`
+		Clusterid           string `json:"clusterid,omitempty"`
+		Clustername         string `json:"clustername,omitempty"`
+		Percentageallocated string `json:"percentageallocated,omitempty"`
+		Podid               string `json:"podid,omitempty"`
+		Podname             string `json:"podname,omitempty"`
+		Type                int    `json:"type,omitempty"`
+		Zoneid              string `json:"zoneid,omitempty"`
+		Zonename            string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
 	Description           string            `json:"description,omitempty"`
 	Dhcpprovider          string            `json:"dhcpprovider,omitempty"`
@@ -805,16 +805,16 @@ func (s *ZoneService) UpdateZone(p *UpdateZoneParams) (*UpdateZoneResponse, erro
 type UpdateZoneResponse struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
+		Capacitytotal       int64  `json:"capacitytotal,omitempty"`
+		Capacityused        int64  `json:"capacityused,omitempty"`
+		Clusterid           string `json:"clusterid,omitempty"`
+		Clustername         string `json:"clustername,omitempty"`
+		Percentageallocated string `json:"percentageallocated,omitempty"`
+		Podid               string `json:"podid,omitempty"`
+		Podname             string `json:"podname,omitempty"`
+		Type                int    `json:"type,omitempty"`
+		Zoneid              string `json:"zoneid,omitempty"`
+		Zonename            string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
 	Description           string            `json:"description,omitempty"`
 	Dhcpprovider          string            `json:"dhcpprovider,omitempty"`
@@ -1096,16 +1096,16 @@ type ListZonesResponse struct {
 type Zone struct {
 	Allocationstate string `json:"allocationstate,omitempty"`
 	Capacity        []struct {
-		Capacitytotal int64  `json:"capacitytotal,omitempty"`
-		Capacityused  int64  `json:"capacityused,omitempty"`
-		Clusterid     string `json:"clusterid,omitempty"`
-		Clustername   string `json:"clustername,omitempty"`
-		Percentused   string `json:"percentused,omitempty"`
-		Podid         string `json:"podid,omitempty"`
-		Podname       string `json:"podname,omitempty"`
-		Type          int    `json:"type,omitempty"`
-		Zoneid        string `json:"zoneid,omitempty"`
-		Zonename      string `json:"zonename,omitempty"`
+		Capacitytotal       int64  `json:"capacitytotal,omitempty"`
+		Capacityused        int64  `json:"capacityused,omitempty"`
+		Clusterid           string `json:"clusterid,omitempty"`
+		Clustername         string `json:"clustername,omitempty"`
+		Percentageallocated string `json:"percentageallocated,omitempty"`
+		Podid               string `json:"podid,omitempty"`
+		Podname             string `json:"podname,omitempty"`
+		Type                int    `json:"type,omitempty"`
+		Zoneid              string `json:"zoneid,omitempty"`
+		Zonename            string `json:"zonename,omitempty"`
 	} `json:"capacity,omitempty"`
 	Description           string            `json:"description,omitempty"`
 	Dhcpprovider          string            `json:"dhcpprovider,omitempty"`

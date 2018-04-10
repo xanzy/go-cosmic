@@ -45,10 +45,6 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 		vv := strconv.Itoa(v.(int))
 		u.Set("cpunumber", vv)
 	}
-	if v, found := p.p["cpuspeed"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("cpuspeed", vv)
-	}
 	if v, found := p.p["customizediops"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("customizediops", vv)
@@ -154,13 +150,6 @@ func (p *CreateServiceOfferingParams) SetCpunumber(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cpunumber"] = v
-}
-
-func (p *CreateServiceOfferingParams) SetCpuspeed(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["cpuspeed"] = v
 }
 
 func (p *CreateServiceOfferingParams) SetCustomizediops(v bool) {
@@ -347,7 +336,6 @@ func (s *ServiceOfferingService) CreateServiceOffering(p *CreateServiceOfferingP
 
 type CreateServiceOfferingResponse struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
@@ -507,7 +495,6 @@ func (s *ServiceOfferingService) UpdateServiceOffering(p *UpdateServiceOfferingP
 
 type UpdateServiceOfferingResponse struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
@@ -790,7 +777,6 @@ type ListServiceOfferingsResponse struct {
 
 type ServiceOffering struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`

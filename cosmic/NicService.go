@@ -298,7 +298,6 @@ type ListNicsResponse struct {
 
 type Nic struct {
 	Broadcasturi string `json:"broadcasturi,omitempty"`
-	Deviceid     string `json:"deviceid,omitempty"`
 	Gateway      string `json:"gateway,omitempty"`
 	Id           string `json:"id,omitempty"`
 	Ip6address   string `json:"ip6address,omitempty"`
@@ -411,7 +410,6 @@ type UpdateVmNicIpResponse struct {
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
-	Cpuspeed              int               `json:"cpuspeed,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -446,7 +444,6 @@ type UpdateVmNicIpResponse struct {
 	Networkkbswrite       int64             `json:"networkkbswrite,omitempty"`
 	Nic                   []struct {
 		Broadcasturi string `json:"broadcasturi,omitempty"`
-		Deviceid     string `json:"deviceid,omitempty"`
 		Gateway      string `json:"gateway,omitempty"`
 		Id           string `json:"id,omitempty"`
 		Ip6address   string `json:"ip6address,omitempty"`
