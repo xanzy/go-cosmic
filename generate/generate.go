@@ -30,6 +30,7 @@ import (
 	"strings"
 	"unicode"
 
+	"flag"
 	"github.com/fatih/camelcase"
 )
 
@@ -174,13 +175,16 @@ func (s APIResponses) Swap(i, j int) {
 }
 
 func main() {
+	listApis := flag.String("api", "listApis.json", "path to the saved JSON output of listApis")
+	flag.Parse()
+
 	outdir, err := sourceDir()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	os.RemoveAll(outdir)
-	allServices, err := getAllServices()
+	allServices, err := getAllServices(*listApis)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -1295,14 +1299,21 @@ func (s *service) recursiveGenerateResponseType(resp APIResponses, async bool) (
 	return
 }
 
-func getAllServices() (services, error) {
+func getAllServices(filename string) (services, error) {
 	var raw struct {
 		ListAPIsResponse struct {
 			Count int    `json:"count"`
 			APIs  []*API `json:"api"`
 		} `json:"listapisresponse"`
 	}
-	if err := json.Unmarshal([]byte(api), &raw); err != nil {
+
+	file, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+
+	if err := json.Unmarshal(file, &raw); err != nil {
 		return nil, err
 	}
 
