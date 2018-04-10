@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -238,7 +238,7 @@ func (as services) GeneralCode() ([]byte, error) {
 		p(format+"\n", args...)
 	}
 	pn("//")
-	pn("// Copyright 2016, Sander van Harmelen")
+	pn("// Copyright 2018, Sander van Harmelen")
 	pn("//")
 	pn("// Licensed under the Apache License, Version 2.0 (the \"License\");")
 	pn("// you may not use this file except in compliance with the License.")
@@ -580,7 +580,7 @@ func (s *service) GenerateCode() ([]byte, error) {
 	pn := s.pn
 
 	pn("//")
-	pn("// Copyright 2016, Sander van Harmelen")
+	pn("// Copyright 2018, Sander van Harmelen")
 	pn("//")
 	pn("// Licensed under the Apache License, Version 2.0 (the \"License\");")
 	pn("// you may not use this file except in compliance with the License.")
