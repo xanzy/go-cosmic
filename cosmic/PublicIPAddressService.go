@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -690,7 +690,7 @@ func (s *PublicIPAddressService) GetPublicIpAddressByID(id string, opts ...Optio
 	return nil, l.Count, fmt.Errorf("There is more then one result for PublicIpAddress UUID: %s!", id)
 }
 
-// Lists all public IP addresses
+// Lists all public ip addresses
 func (s *PublicIPAddressService) ListPublicIpAddresses(p *ListPublicIpAddressesParams) (*ListPublicIpAddressesResponse, error) {
 	var r, l ListPublicIpAddressesResponse
 	for page := 2; ; page++ {

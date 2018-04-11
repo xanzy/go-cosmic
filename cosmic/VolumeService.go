@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1688,14 +1688,8 @@ func (p *ListVolumesParams) toURLValues() url.Values {
 	if v, found := p.p["podid"]; found {
 		u.Set("podid", v.(string))
 	}
-	if v, found := p.p["podid"]; found {
-		u.Set("podid", v.(string))
-	}
 	if v, found := p.p["projectid"]; found {
 		u.Set("projectid", v.(string))
-	}
-	if v, found := p.p["storageid"]; found {
-		u.Set("storageid", v.(string))
 	}
 	if v, found := p.p["storageid"]; found {
 		u.Set("storageid", v.(string))

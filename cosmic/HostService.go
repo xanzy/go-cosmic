@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -377,7 +377,6 @@ type AddHostResponse struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -681,7 +680,6 @@ type ReconnectHostResponse struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -835,7 +833,6 @@ type UpdateHostResponse struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -969,7 +966,6 @@ type PrepareHostForMaintenanceResponse struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -1103,7 +1099,6 @@ type CancelHostMaintenanceResponse struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -1741,7 +1736,6 @@ type Host struct {
 	Cpuallocated            string            `json:"cpuallocated,omitempty"`
 	Cpunumber               int               `json:"cpunumber,omitempty"`
 	Cpusockets              int               `json:"cpusockets,omitempty"`
-	Cpuspeed                int64             `json:"cpuspeed,omitempty"`
 	Cpuused                 string            `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string            `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string            `json:"created,omitempty"`
@@ -1885,7 +1879,6 @@ type FindHostsForMigrationResponse struct {
 	Clustertype             string `json:"clustertype,omitempty"`
 	Cpuallocated            string `json:"cpuallocated,omitempty"`
 	Cpunumber               int    `json:"cpunumber,omitempty"`
-	Cpuspeed                int64  `json:"cpuspeed,omitempty"`
 	Cpuused                 string `json:"cpuused,omitempty"`
 	Cpuwithoverprovisioning string `json:"cpuwithoverprovisioning,omitempty"`
 	Created                 string `json:"created,omitempty"`

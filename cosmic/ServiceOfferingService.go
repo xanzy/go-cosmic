@@ -1,5 +1,5 @@
 //
-// Copyright 2016, Sander van Harmelen
+// Copyright 2018, Sander van Harmelen
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,10 +44,6 @@ func (p *CreateServiceOfferingParams) toURLValues() url.Values {
 	if v, found := p.p["cpunumber"]; found {
 		vv := strconv.Itoa(v.(int))
 		u.Set("cpunumber", vv)
-	}
-	if v, found := p.p["cpuspeed"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("cpuspeed", vv)
 	}
 	if v, found := p.p["customizediops"]; found {
 		vv := strconv.FormatBool(v.(bool))
@@ -154,13 +150,6 @@ func (p *CreateServiceOfferingParams) SetCpunumber(v int) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["cpunumber"] = v
-}
-
-func (p *CreateServiceOfferingParams) SetCpuspeed(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["cpuspeed"] = v
 }
 
 func (p *CreateServiceOfferingParams) SetCustomizediops(v bool) {
@@ -347,7 +336,6 @@ func (s *ServiceOfferingService) CreateServiceOffering(p *CreateServiceOfferingP
 
 type CreateServiceOfferingResponse struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
@@ -507,7 +495,6 @@ func (s *ServiceOfferingService) UpdateServiceOffering(p *UpdateServiceOfferingP
 
 type UpdateServiceOfferingResponse struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
@@ -790,7 +777,6 @@ type ListServiceOfferingsResponse struct {
 
 type ServiceOffering struct {
 	Cpunumber                 int               `json:"cpunumber,omitempty"`
-	Cpuspeed                  int               `json:"cpuspeed,omitempty"`
 	Created                   string            `json:"created,omitempty"`
 	Defaultuse                bool              `json:"defaultuse,omitempty"`
 	Deploymentplanner         string            `json:"deploymentplanner,omitempty"`
