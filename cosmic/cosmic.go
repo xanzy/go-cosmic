@@ -121,14 +121,14 @@ type CosmicClient struct {
 }
 
 // Creates a new client for communicating with Cosmic
-func newClient(apiurl string, apikey string, secret string, async bool, tlsConfig *tls.Config) *CosmicClient {
+func newClient(apiurl string, apikey string, secret string, async bool, tlsConfig *tls.Config, timeout int64) *CosmicClient {
 	cs := &CosmicClient{
 		client: &http.Client{
 			Transport: &http.Transport{
 				Proxy:           http.ProxyFromEnvironment,
 				TLSClientConfig: tlsConfig,
 			},
-			Timeout: time.Duration(60 * time.Second),
+			Timeout: time.Duration(time.Duration(timeout) * time.Second),
 		},
 		baseURL: apiurl,
 		apiKey:  apikey,
@@ -192,18 +192,18 @@ func newClient(apiurl string, apikey string, secret string, async bool, tlsConfi
 
 // Default non-async client. So for async calls you need to implement and check the async job result yourself. When using
 // HTTPS with a self-signed certificate to connect to your Cosmic API, you would probably want to set 'verifyssl' to
-// false so the call ignores the SSL errors/warnings.
-func NewClient(apiurl string, apikey string, secret string, tlsConfig *tls.Config) *CosmicClient {
-	cs := newClient(apiurl, apikey, secret, false, tlsConfig)
+// false so the call ignores the SSL errors/warnings. Timeout for the http request is in seconds.
+func NewClient(apiurl string, apikey string, secret string, tlsConfig *tls.Config, timeout int64) *CosmicClient {
+	cs := newClient(apiurl, apikey, secret, false, tlsConfig, timeout)
 	return cs
 }
 
 // For sync API calls this client behaves exactly the same as a standard client call, but for async API calls
 // this client will wait until the async job is finished or until the configured AsyncTimeout is reached. When the async
 // job finishes successfully it will return actual object received from the API and nil, but when the timout is
-// reached it will return the initial object containing the async job ID for the running job and a warning.
-func NewAsyncClient(apiurl string, apikey string, secret string, tlsConfig *tls.Config) *CosmicClient {
-	cs := newClient(apiurl, apikey, secret, true, tlsConfig)
+// reached it will return the initial object containing the async job ID for the running job and a warning. Timeout for the http request is in seconds.
+func NewAsyncClient(apiurl string, apikey string, secret string, tlsConfig *tls.Config, timeout int64) *CosmicClient {
+	cs := newClient(apiurl, apikey, secret, true, tlsConfig, timeout)
 	return cs
 }
 
