@@ -1088,8 +1088,9 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	// Generate the function body
 	switch {
 	case strings.HasPrefix(fn, "List") && hasPageParamField(a.Params):
-		pn("	var r, l %s", fn+"Response")
+		pn("	var r %s", fn+"Response")
 		pn("	for page := 2; ; page++ {")
+		pn("		var l %s", fn+"Response")
 		pn("		resp, err := s.cs.newRequest(\"%s\", p.toURLValues())", a.Name)
 		pn("		if err != nil {")
 		pn("			return nil, err")
