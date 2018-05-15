@@ -5121,8 +5121,9 @@ func (s *VirtualMachineService) GetVirtualMachineByID(id string, opts ...OptionF
 
 // List the virtual machines owned by the account.
 func (s *VirtualMachineService) ListVirtualMachines(p *ListVirtualMachinesParams) (*ListVirtualMachinesResponse, error) {
-	var r, l ListVirtualMachinesResponse
+	var r ListVirtualMachinesResponse
 	for page := 2; ; page++ {
+		var l ListVirtualMachinesResponse
 		resp, err := s.cs.newRequest("listVirtualMachines", p.toURLValues())
 		if err != nil {
 			return nil, err

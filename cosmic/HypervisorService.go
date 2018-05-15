@@ -132,8 +132,9 @@ func (s *HypervisorService) GetHypervisorCapabilityByID(id string, opts ...Optio
 
 // Lists all hypervisor capabilities.
 func (s *HypervisorService) ListHypervisorCapabilities(p *ListHypervisorCapabilitiesParams) (*ListHypervisorCapabilitiesResponse, error) {
-	var r, l ListHypervisorCapabilitiesResponse
+	var r ListHypervisorCapabilitiesResponse
 	for page := 2; ; page++ {
+		var l ListHypervisorCapabilitiesResponse
 		resp, err := s.cs.newRequest("listHypervisorCapabilities", p.toURLValues())
 		if err != nil {
 			return nil, err

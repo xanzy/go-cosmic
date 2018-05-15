@@ -313,8 +313,9 @@ func (s *AffinityGroupService) NewListAffinityGroupTypesParams() *ListAffinityGr
 
 // Lists affinity group types available
 func (s *AffinityGroupService) ListAffinityGroupTypes(p *ListAffinityGroupTypesParams) (*ListAffinityGroupTypesResponse, error) {
-	var r, l ListAffinityGroupTypesResponse
+	var r ListAffinityGroupTypesResponse
 	for page := 2; ; page++ {
+		var l ListAffinityGroupTypesResponse
 		resp, err := s.cs.newRequest("listAffinityGroupTypes", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -583,8 +584,9 @@ func (s *AffinityGroupService) GetAffinityGroupByID(id string, opts ...OptionFun
 
 // Lists affinity groups
 func (s *AffinityGroupService) ListAffinityGroups(p *ListAffinityGroupsParams) (*ListAffinityGroupsResponse, error) {
-	var r, l ListAffinityGroupsResponse
+	var r ListAffinityGroupsResponse
 	for page := 2; ; page++ {
+		var l ListAffinityGroupsResponse
 		resp, err := s.cs.newRequest("listAffinityGroups", p.toURLValues())
 		if err != nil {
 			return nil, err

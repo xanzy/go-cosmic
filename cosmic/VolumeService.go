@@ -1941,8 +1941,9 @@ func (s *VolumeService) GetVolumeByID(id string, opts ...OptionFunc) (*Volume, i
 
 // Lists all volumes.
 func (s *VolumeService) ListVolumes(p *ListVolumesParams) (*ListVolumesResponse, error) {
-	var r, l ListVolumesResponse
+	var r ListVolumesResponse
 	for page := 2; ; page++ {
+		var l ListVolumesResponse
 		resp, err := s.cs.newRequest("listVolumes", p.toURLValues())
 		if err != nil {
 			return nil, err

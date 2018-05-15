@@ -429,8 +429,9 @@ func (s *VPCService) GetPrivateGatewayByID(id string, opts ...OptionFunc) (*Priv
 
 // List private gateways
 func (s *VPCService) ListPrivateGateways(p *ListPrivateGatewaysParams) (*ListPrivateGatewaysResponse, error) {
-	var r, l ListPrivateGatewaysResponse
+	var r ListPrivateGatewaysResponse
 	for page := 2; ; page++ {
+		var l ListPrivateGatewaysResponse
 		resp, err := s.cs.newRequest("listPrivateGateways", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -871,8 +872,9 @@ func (s *VPCService) GetStaticRouteByID(id string, opts ...OptionFunc) (*StaticR
 
 // Lists all static routes
 func (s *VPCService) ListStaticRoutes(p *ListStaticRoutesParams) (*ListStaticRoutesResponse, error) {
-	var r, l ListStaticRoutesResponse
+	var r ListStaticRoutesResponse
 	for page := 2; ; page++ {
+		var l ListStaticRoutesResponse
 		resp, err := s.cs.newRequest("listStaticRoutes", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -2356,8 +2358,9 @@ func (s *VPCService) GetVPCOfferingByID(id string, opts ...OptionFunc) (*VPCOffe
 
 // Lists VPC offerings
 func (s *VPCService) ListVPCOfferings(p *ListVPCOfferingsParams) (*ListVPCOfferingsResponse, error) {
-	var r, l ListVPCOfferingsResponse
+	var r ListVPCOfferingsResponse
 	for page := 2; ; page++ {
+		var l ListVPCOfferingsResponse
 		resp, err := s.cs.newRequest("listVPCOfferings", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -2722,8 +2725,9 @@ func (s *VPCService) GetVPCByID(id string, opts ...OptionFunc) (*VPC, int, error
 
 // Lists VPCs
 func (s *VPCService) ListVPCs(p *ListVPCsParams) (*ListVPCsResponse, error) {
-	var r, l ListVPCsResponse
+	var r ListVPCsResponse
 	for page := 2; ; page++ {
+		var l ListVPCsResponse
 		resp, err := s.cs.newRequest("listVPCs", p.toURLValues())
 		if err != nil {
 			return nil, err
