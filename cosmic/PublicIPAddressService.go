@@ -692,8 +692,9 @@ func (s *PublicIPAddressService) GetPublicIpAddressByID(id string, opts ...Optio
 
 // Lists all public ip addresses
 func (s *PublicIPAddressService) ListPublicIpAddresses(p *ListPublicIpAddressesParams) (*ListPublicIpAddressesResponse, error) {
-	var r, l ListPublicIpAddressesResponse
+	var r ListPublicIpAddressesResponse
 	for page := 2; ; page++ {
+		var l ListPublicIpAddressesResponse
 		resp, err := s.cs.newRequest("listPublicIpAddresses", p.toURLValues())
 		if err != nil {
 			return nil, err

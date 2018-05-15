@@ -974,8 +974,9 @@ func (s *SystemVMService) GetSystemVmByID(id string, opts ...OptionFunc) (*Syste
 
 // List system virtual machines.
 func (s *SystemVMService) ListSystemVms(p *ListSystemVmsParams) (*ListSystemVmsResponse, error) {
-	var r, l ListSystemVmsResponse
+	var r ListSystemVmsResponse
 	for page := 2; ; page++ {
+		var l ListSystemVmsResponse
 		resp, err := s.cs.newRequest("listSystemVms", p.toURLValues())
 		if err != nil {
 			return nil, err

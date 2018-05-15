@@ -198,8 +198,9 @@ func (s *AsyncjobService) NewListAsyncJobsParams() *ListAsyncJobsParams {
 
 // Lists all pending asynchronous jobs for the account.
 func (s *AsyncjobService) ListAsyncJobs(p *ListAsyncJobsParams) (*ListAsyncJobsResponse, error) {
-	var r, l ListAsyncJobsResponse
+	var r ListAsyncJobsResponse
 	for page := 2; ; page++ {
+		var l ListAsyncJobsResponse
 		resp, err := s.cs.newRequest("listAsyncJobs", p.toURLValues())
 		if err != nil {
 			return nil, err
