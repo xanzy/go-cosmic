@@ -711,8 +711,9 @@ func (s *SnapshotService) GetSnapshotByID(id string, opts ...OptionFunc) (*Snaps
 
 // Lists all available snapshots for the account.
 func (s *SnapshotService) ListSnapshots(p *ListSnapshotsParams) (*ListSnapshotsResponse, error) {
-	var r, l ListSnapshotsResponse
+	var r ListSnapshotsResponse
 	for page := 2; ; page++ {
+		var l ListSnapshotsResponse
 		resp, err := s.cs.newRequest("listSnapshots", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -1391,8 +1392,9 @@ func (s *SnapshotService) GetVMSnapshotID(name string, opts ...OptionFunc) (stri
 
 // List virtual machine snapshot by conditions
 func (s *SnapshotService) ListVMSnapshot(p *ListVMSnapshotParams) (*ListVMSnapshotResponse, error) {
-	var r, l ListVMSnapshotResponse
+	var r ListVMSnapshotResponse
 	for page := 2; ; page++ {
+		var l ListVMSnapshotResponse
 		resp, err := s.cs.newRequest("listVMSnapshot", p.toURLValues())
 		if err != nil {
 			return nil, err

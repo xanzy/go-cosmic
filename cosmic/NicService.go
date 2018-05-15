@@ -268,8 +268,9 @@ func (s *NicService) NewListNicsParams(virtualmachineid string) *ListNicsParams 
 
 // list the vm nics  IP to NIC
 func (s *NicService) ListNics(p *ListNicsParams) (*ListNicsResponse, error) {
-	var r, l ListNicsResponse
+	var r ListNicsResponse
 	for page := 2; ; page++ {
+		var l ListNicsResponse
 		resp, err := s.cs.newRequest("listNics", p.toURLValues())
 		if err != nil {
 			return nil, err

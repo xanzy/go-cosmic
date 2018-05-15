@@ -1893,8 +1893,9 @@ func (s *TemplateService) GetTemplateByID(id string, templatefilter string, opts
 
 // List all public, private, and privileged templates.
 func (s *TemplateService) ListTemplates(p *ListTemplatesParams) (*ListTemplatesResponse, error) {
-	var r, l ListTemplatesResponse
+	var r ListTemplatesResponse
 	for page := 2; ; page++ {
+		var l ListTemplatesResponse
 		resp, err := s.cs.newRequest("listTemplates", p.toURLValues())
 		if err != nil {
 			return nil, err

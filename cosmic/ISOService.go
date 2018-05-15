@@ -1822,8 +1822,9 @@ func (s *ISOService) GetIsoByID(id string, opts ...OptionFunc) (*Iso, int, error
 
 // Lists all available ISO files.
 func (s *ISOService) ListIsos(p *ListIsosParams) (*ListIsosResponse, error) {
-	var r, l ListIsosResponse
+	var r ListIsosResponse
 	for page := 2; ; page++ {
+		var l ListIsosResponse
 		resp, err := s.cs.newRequest("listIsos", p.toURLValues())
 		if err != nil {
 			return nil, err

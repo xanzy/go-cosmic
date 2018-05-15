@@ -1100,8 +1100,9 @@ func (s *SecurityGroupService) GetSecurityGroupByID(id string, opts ...OptionFun
 
 // Lists security groups
 func (s *SecurityGroupService) ListSecurityGroups(p *ListSecurityGroupsParams) (*ListSecurityGroupsResponse, error) {
-	var r, l ListSecurityGroupsResponse
+	var r ListSecurityGroupsResponse
 	for page := 2; ; page++ {
+		var l ListSecurityGroupsResponse
 		resp, err := s.cs.newRequest("listSecurityGroups", p.toURLValues())
 		if err != nil {
 			return nil, err

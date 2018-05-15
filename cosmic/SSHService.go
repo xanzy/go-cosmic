@@ -690,8 +690,9 @@ func (s *SSHService) NewListSSHKeyPairsParams() *ListSSHKeyPairsParams {
 
 // List registered keypairs
 func (s *SSHService) ListSSHKeyPairs(p *ListSSHKeyPairsParams) (*ListSSHKeyPairsResponse, error) {
-	var r, l ListSSHKeyPairsResponse
+	var r ListSSHKeyPairsResponse
 	for page := 2; ; page++ {
+		var l ListSSHKeyPairsResponse
 		resp, err := s.cs.newRequest("listSSHKeyPairs", p.toURLValues())
 		if err != nil {
 			return nil, err

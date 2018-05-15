@@ -184,8 +184,9 @@ func (s *ZoneService) NewListDedicatedZonesParams() *ListDedicatedZonesParams {
 
 // List dedicated zones.
 func (s *ZoneService) ListDedicatedZones(p *ListDedicatedZonesParams) (*ListDedicatedZonesResponse, error) {
-	var r, l ListDedicatedZonesResponse
+	var r ListDedicatedZonesResponse
 	for page := 2; ; page++ {
+		var l ListDedicatedZonesResponse
 		resp, err := s.cs.newRequest("listDedicatedZones", p.toURLValues())
 		if err != nil {
 			return nil, err
@@ -1065,8 +1066,9 @@ func (s *ZoneService) GetZoneByID(id string, opts ...OptionFunc) (*Zone, int, er
 
 // Lists zones
 func (s *ZoneService) ListZones(p *ListZonesParams) (*ListZonesResponse, error) {
-	var r, l ListZonesResponse
+	var r ListZonesResponse
 	for page := 2; ; page++ {
+		var l ListZonesResponse
 		resp, err := s.cs.newRequest("listZones", p.toURLValues())
 		if err != nil {
 			return nil, err
