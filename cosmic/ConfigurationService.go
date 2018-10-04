@@ -75,7 +75,6 @@ type Capability struct {
 	Kvmsnapshotenabled          bool   `json:"kvmsnapshotenabled,omitempty"`
 	Projectinviterequired       bool   `json:"projectinviterequired,omitempty"`
 	Regionsecondaryenabled      bool   `json:"regionsecondaryenabled,omitempty"`
-	Securitygroupsenabled       bool   `json:"securitygroupsenabled,omitempty"`
 	SupportELB                  string `json:"supportELB,omitempty"`
 	Userpublictemplateenabled   bool   `json:"userpublictemplateenabled,omitempty"`
 	Xenserverdeploymentsenabled bool   `json:"xenserverdeploymentsenabled,omitempty"`
@@ -335,91 +334,4 @@ type Configuration struct {
 	Name        string `json:"name,omitempty"`
 	Scope       string `json:"scope,omitempty"`
 	Value       string `json:"value,omitempty"`
-}
-
-type ListDeploymentPlannersParams struct {
-	p map[string]interface{}
-}
-
-func (p *ListDeploymentPlannersParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["keyword"]; found {
-		u.Set("keyword", v.(string))
-	}
-	if v, found := p.p["page"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("page", vv)
-	}
-	if v, found := p.p["pagesize"]; found {
-		vv := strconv.Itoa(v.(int))
-		u.Set("pagesize", vv)
-	}
-	return u
-}
-
-func (p *ListDeploymentPlannersParams) SetKeyword(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["keyword"] = v
-}
-
-func (p *ListDeploymentPlannersParams) SetPage(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["page"] = v
-}
-
-func (p *ListDeploymentPlannersParams) SetPagesize(v int) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["pagesize"] = v
-}
-
-// You should always use this function to get a new ListDeploymentPlannersParams instance,
-// as then you are sure you have configured all required params
-func (s *ConfigurationService) NewListDeploymentPlannersParams() *ListDeploymentPlannersParams {
-	p := &ListDeploymentPlannersParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Lists all DeploymentPlanners available.
-func (s *ConfigurationService) ListDeploymentPlanners(p *ListDeploymentPlannersParams) (*ListDeploymentPlannersResponse, error) {
-	var r ListDeploymentPlannersResponse
-	for page := 2; ; page++ {
-		var l ListDeploymentPlannersResponse
-		resp, err := s.cs.newRequest("listDeploymentPlanners", p.toURLValues())
-		if err != nil {
-			return nil, err
-		}
-
-		if err := json.Unmarshal(resp, &l); err != nil {
-			return nil, err
-		}
-
-		r.Count = l.Count
-		r.DeploymentPlanners = append(r.DeploymentPlanners, l.DeploymentPlanners...)
-
-		if r.Count == len(r.DeploymentPlanners) {
-			return &r, nil
-		}
-
-		p.SetPagesize(len(l.DeploymentPlanners))
-		p.SetPage(page)
-	}
-}
-
-type ListDeploymentPlannersResponse struct {
-	Count              int                  `json:"count"`
-	DeploymentPlanners []*DeploymentPlanner `json:"deploymentplanner"`
-}
-
-type DeploymentPlanner struct {
-	Name string `json:"name,omitempty"`
 }

@@ -67,57 +67,44 @@ type CosmicClient struct {
 	async   bool         // Wait for async calls to finish
 	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds
 
-	Account          *AccountService
-	AffinityGroup    *AffinityGroupService
-	Alert            *AlertService
-	Asyncjob         *AsyncjobService
-	Authentication   *AuthenticationService
-	Certificate      *CertificateService
-	CloudOps         *CloudOpsService
-	Cluster          *ClusterService
-	Configuration    *ConfigurationService
-	DiskOffering     *DiskOfferingService
-	Domain           *DomainService
-	Event            *EventService
-	Firewall         *FirewallService
-	GuestOS          *GuestOSService
-	Host             *HostService
-	Hypervisor       *HypervisorService
-	ISO              *ISOService
-	ImageStore       *ImageStoreService
-	Limit            *LimitService
-	LoadBalancer     *LoadBalancerService
-	NAT              *NATService
-	NetworkACL       *NetworkACLService
-	NetworkDevice    *NetworkDeviceService
-	NetworkOffering  *NetworkOfferingService
-	Network          *NetworkService
-	Nic              *NicService
-	NiciraNVP        *NiciraNVPService
-	Pod              *PodService
-	Project          *ProjectService
-	PublicIPAddress  *PublicIPAddressService
-	Region           *RegionService
-	Resourcemetadata *ResourcemetadataService
-	Resourcetags     *ResourcetagsService
-	Router           *RouterService
-	SSH              *SSHService
-	SecurityGroup    *SecurityGroupService
-	ServiceOffering  *ServiceOfferingService
-	Snapshot         *SnapshotService
-	StoragePool      *StoragePoolService
-	System           *SystemService
-	SystemVM         *SystemVMService
-	Template         *TemplateService
-	Usage            *UsageService
-	User             *UserService
-	VLAN             *VLANService
-	VMGroup          *VMGroupService
-	VPC              *VPCService
-	VPN              *VPNService
-	VirtualMachine   *VirtualMachineService
-	Volume           *VolumeService
-	Zone             *ZoneService
+	Account         *AccountService
+	AffinityGroup   *AffinityGroupService
+	Asyncjob        *AsyncjobService
+	Authentication  *AuthenticationService
+	CloudOps        *CloudOpsService
+	Configuration   *ConfigurationService
+	DiskOffering    *DiskOfferingService
+	Domain          *DomainService
+	Event           *EventService
+	Firewall        *FirewallService
+	GuestOS         *GuestOSService
+	Host            *HostService
+	Hypervisor      *HypervisorService
+	ISO             *ISOService
+	Limit           *LimitService
+	LoadBalancer    *LoadBalancerService
+	NAT             *NATService
+	NetworkACL      *NetworkACLService
+	NetworkOffering *NetworkOfferingService
+	Network         *NetworkService
+	Nic             *NicService
+	Project         *ProjectService
+	PublicIPAddress *PublicIPAddressService
+	Region          *RegionService
+	Resourcetags    *ResourcetagsService
+	Router          *RouterService
+	SSH             *SSHService
+	ServiceOffering *ServiceOfferingService
+	Snapshot        *SnapshotService
+	System          *SystemService
+	Template        *TemplateService
+	User            *UserService
+	VMGroup         *VMGroupService
+	VPC             *VPCService
+	VPN             *VPNService
+	VirtualMachine  *VirtualMachineService
+	Volume          *VolumeService
+	Zone            *ZoneService
 }
 
 // Creates a new client for communicating with Cosmic
@@ -138,12 +125,9 @@ func newClient(apiurl string, apikey string, secret string, async bool, tlsConfi
 	}
 	cs.Account = NewAccountService(cs)
 	cs.AffinityGroup = NewAffinityGroupService(cs)
-	cs.Alert = NewAlertService(cs)
 	cs.Asyncjob = NewAsyncjobService(cs)
 	cs.Authentication = NewAuthenticationService(cs)
-	cs.Certificate = NewCertificateService(cs)
 	cs.CloudOps = NewCloudOpsService(cs)
-	cs.Cluster = NewClusterService(cs)
 	cs.Configuration = NewConfigurationService(cs)
 	cs.DiskOffering = NewDiskOfferingService(cs)
 	cs.Domain = NewDomainService(cs)
@@ -153,34 +137,24 @@ func newClient(apiurl string, apikey string, secret string, async bool, tlsConfi
 	cs.Host = NewHostService(cs)
 	cs.Hypervisor = NewHypervisorService(cs)
 	cs.ISO = NewISOService(cs)
-	cs.ImageStore = NewImageStoreService(cs)
 	cs.Limit = NewLimitService(cs)
 	cs.LoadBalancer = NewLoadBalancerService(cs)
 	cs.NAT = NewNATService(cs)
 	cs.NetworkACL = NewNetworkACLService(cs)
-	cs.NetworkDevice = NewNetworkDeviceService(cs)
 	cs.NetworkOffering = NewNetworkOfferingService(cs)
 	cs.Network = NewNetworkService(cs)
 	cs.Nic = NewNicService(cs)
-	cs.NiciraNVP = NewNiciraNVPService(cs)
-	cs.Pod = NewPodService(cs)
 	cs.Project = NewProjectService(cs)
 	cs.PublicIPAddress = NewPublicIPAddressService(cs)
 	cs.Region = NewRegionService(cs)
-	cs.Resourcemetadata = NewResourcemetadataService(cs)
 	cs.Resourcetags = NewResourcetagsService(cs)
 	cs.Router = NewRouterService(cs)
 	cs.SSH = NewSSHService(cs)
-	cs.SecurityGroup = NewSecurityGroupService(cs)
 	cs.ServiceOffering = NewServiceOfferingService(cs)
 	cs.Snapshot = NewSnapshotService(cs)
-	cs.StoragePool = NewStoragePoolService(cs)
 	cs.System = NewSystemService(cs)
-	cs.SystemVM = NewSystemVMService(cs)
 	cs.Template = NewTemplateService(cs)
-	cs.Usage = NewUsageService(cs)
 	cs.User = NewUserService(cs)
-	cs.VLAN = NewVLANService(cs)
 	cs.VMGroup = NewVMGroupService(cs)
 	cs.VPC = NewVPCService(cs)
 	cs.VPN = NewVPNService(cs)
@@ -423,14 +397,6 @@ func NewAffinityGroupService(cs *CosmicClient) *AffinityGroupService {
 	return &AffinityGroupService{cs: cs}
 }
 
-type AlertService struct {
-	cs *CosmicClient
-}
-
-func NewAlertService(cs *CosmicClient) *AlertService {
-	return &AlertService{cs: cs}
-}
-
 type AsyncjobService struct {
 	cs *CosmicClient
 }
@@ -447,28 +413,12 @@ func NewAuthenticationService(cs *CosmicClient) *AuthenticationService {
 	return &AuthenticationService{cs: cs}
 }
 
-type CertificateService struct {
-	cs *CosmicClient
-}
-
-func NewCertificateService(cs *CosmicClient) *CertificateService {
-	return &CertificateService{cs: cs}
-}
-
 type CloudOpsService struct {
 	cs *CosmicClient
 }
 
 func NewCloudOpsService(cs *CosmicClient) *CloudOpsService {
 	return &CloudOpsService{cs: cs}
-}
-
-type ClusterService struct {
-	cs *CosmicClient
-}
-
-func NewClusterService(cs *CosmicClient) *ClusterService {
-	return &ClusterService{cs: cs}
 }
 
 type ConfigurationService struct {
@@ -543,14 +493,6 @@ func NewISOService(cs *CosmicClient) *ISOService {
 	return &ISOService{cs: cs}
 }
 
-type ImageStoreService struct {
-	cs *CosmicClient
-}
-
-func NewImageStoreService(cs *CosmicClient) *ImageStoreService {
-	return &ImageStoreService{cs: cs}
-}
-
 type LimitService struct {
 	cs *CosmicClient
 }
@@ -583,14 +525,6 @@ func NewNetworkACLService(cs *CosmicClient) *NetworkACLService {
 	return &NetworkACLService{cs: cs}
 }
 
-type NetworkDeviceService struct {
-	cs *CosmicClient
-}
-
-func NewNetworkDeviceService(cs *CosmicClient) *NetworkDeviceService {
-	return &NetworkDeviceService{cs: cs}
-}
-
 type NetworkOfferingService struct {
 	cs *CosmicClient
 }
@@ -613,22 +547,6 @@ type NicService struct {
 
 func NewNicService(cs *CosmicClient) *NicService {
 	return &NicService{cs: cs}
-}
-
-type NiciraNVPService struct {
-	cs *CosmicClient
-}
-
-func NewNiciraNVPService(cs *CosmicClient) *NiciraNVPService {
-	return &NiciraNVPService{cs: cs}
-}
-
-type PodService struct {
-	cs *CosmicClient
-}
-
-func NewPodService(cs *CosmicClient) *PodService {
-	return &PodService{cs: cs}
 }
 
 type ProjectService struct {
@@ -655,14 +573,6 @@ func NewRegionService(cs *CosmicClient) *RegionService {
 	return &RegionService{cs: cs}
 }
 
-type ResourcemetadataService struct {
-	cs *CosmicClient
-}
-
-func NewResourcemetadataService(cs *CosmicClient) *ResourcemetadataService {
-	return &ResourcemetadataService{cs: cs}
-}
-
 type ResourcetagsService struct {
 	cs *CosmicClient
 }
@@ -687,14 +597,6 @@ func NewSSHService(cs *CosmicClient) *SSHService {
 	return &SSHService{cs: cs}
 }
 
-type SecurityGroupService struct {
-	cs *CosmicClient
-}
-
-func NewSecurityGroupService(cs *CosmicClient) *SecurityGroupService {
-	return &SecurityGroupService{cs: cs}
-}
-
 type ServiceOfferingService struct {
 	cs *CosmicClient
 }
@@ -711,28 +613,12 @@ func NewSnapshotService(cs *CosmicClient) *SnapshotService {
 	return &SnapshotService{cs: cs}
 }
 
-type StoragePoolService struct {
-	cs *CosmicClient
-}
-
-func NewStoragePoolService(cs *CosmicClient) *StoragePoolService {
-	return &StoragePoolService{cs: cs}
-}
-
 type SystemService struct {
 	cs *CosmicClient
 }
 
 func NewSystemService(cs *CosmicClient) *SystemService {
 	return &SystemService{cs: cs}
-}
-
-type SystemVMService struct {
-	cs *CosmicClient
-}
-
-func NewSystemVMService(cs *CosmicClient) *SystemVMService {
-	return &SystemVMService{cs: cs}
 }
 
 type TemplateService struct {
@@ -743,28 +629,12 @@ func NewTemplateService(cs *CosmicClient) *TemplateService {
 	return &TemplateService{cs: cs}
 }
 
-type UsageService struct {
-	cs *CosmicClient
-}
-
-func NewUsageService(cs *CosmicClient) *UsageService {
-	return &UsageService{cs: cs}
-}
-
 type UserService struct {
 	cs *CosmicClient
 }
 
 func NewUserService(cs *CosmicClient) *UserService {
 	return &UserService{cs: cs}
-}
-
-type VLANService struct {
-	cs *CosmicClient
-}
-
-func NewVLANService(cs *CosmicClient) *VLANService {
-	return &VLANService{cs: cs}
 }
 
 type VMGroupService struct {
