@@ -64,58 +64,6 @@ type GetApiLimitResponse struct {
 	ExpireAfter int64  `json:"expireAfter,omitempty"`
 }
 
-type ResetApiLimitParams struct {
-	p map[string]interface{}
-}
-
-func (p *ResetApiLimitParams) toURLValues() url.Values {
-	u := url.Values{}
-	if p.p == nil {
-		return u
-	}
-	if v, found := p.p["account"]; found {
-		u.Set("account", v.(string))
-	}
-	return u
-}
-
-func (p *ResetApiLimitParams) SetAccount(v string) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["account"] = v
-}
-
-// You should always use this function to get a new ResetApiLimitParams instance,
-// as then you are sure you have configured all required params
-func (s *LimitService) NewResetApiLimitParams() *ResetApiLimitParams {
-	p := &ResetApiLimitParams{}
-	p.p = make(map[string]interface{})
-	return p
-}
-
-// Reset api count
-func (s *LimitService) ResetApiLimit(p *ResetApiLimitParams) (*ResetApiLimitResponse, error) {
-	resp, err := s.cs.newRequest("resetApiLimit", p.toURLValues())
-	if err != nil {
-		return nil, err
-	}
-
-	var r ResetApiLimitResponse
-	if err := json.Unmarshal(resp, &r); err != nil {
-		return nil, err
-	}
-	return &r, nil
-}
-
-type ResetApiLimitResponse struct {
-	Account     string `json:"account,omitempty"`
-	Accountid   string `json:"accountid,omitempty"`
-	ApiAllowed  int    `json:"apiAllowed,omitempty"`
-	ApiIssued   int    `json:"apiIssued,omitempty"`
-	ExpireAfter int64  `json:"expireAfter,omitempty"`
-}
-
 type UpdateResourceCountParams struct {
 	p map[string]interface{}
 }

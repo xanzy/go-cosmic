@@ -115,6 +115,7 @@ type AttachIsoResponse struct {
 		Type              string   `json:"type,omitempty"`
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
+	Bootmenutimeout       int64             `json:"bootmenutimeout,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -144,6 +145,8 @@ type AttachIsoResponse struct {
 	Isoid                 string            `json:"isoid,omitempty"`
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
@@ -170,90 +173,23 @@ type AttachIsoResponse struct {
 		Type             string `json:"type,omitempty"`
 		Virtualmachineid string `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int64  `json:"ostypeid,omitempty"`
-	Password        string `json:"password,omitempty"`
-	Passwordenabled bool   `json:"passwordenabled,omitempty"`
-	Project         string `json:"project,omitempty"`
-	Projectid       string `json:"projectid,omitempty"`
-	Publicip        string `json:"publicip,omitempty"`
-	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
-	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
-	Securitygroup   []struct {
-		Account     string `json:"account,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domain      string `json:"domain,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Egressrule  []struct {
-			Account           string `json:"account,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-			Tags              []struct {
-				Account      string `json:"account,omitempty"`
-				Customer     string `json:"customer,omitempty"`
-				Domain       string `json:"domain,omitempty"`
-				Domainid     string `json:"domainid,omitempty"`
-				Key          string `json:"key,omitempty"`
-				Project      string `json:"project,omitempty"`
-				Projectid    string `json:"projectid,omitempty"`
-				Resourceid   string `json:"resourceid,omitempty"`
-				Resourcetype string `json:"resourcetype,omitempty"`
-				Value        string `json:"value,omitempty"`
-			} `json:"tags,omitempty"`
-		} `json:"egressrule,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Ingressrule []struct {
-			Account           string `json:"account,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-			Tags              []struct {
-				Account      string `json:"account,omitempty"`
-				Customer     string `json:"customer,omitempty"`
-				Domain       string `json:"domain,omitempty"`
-				Domainid     string `json:"domainid,omitempty"`
-				Key          string `json:"key,omitempty"`
-				Project      string `json:"project,omitempty"`
-				Projectid    string `json:"projectid,omitempty"`
-				Resourceid   string `json:"resourceid,omitempty"`
-				Resourcetype string `json:"resourcetype,omitempty"`
-				Value        string `json:"value,omitempty"`
-			} `json:"tags,omitempty"`
-		} `json:"ingressrule,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Project   string `json:"project,omitempty"`
-		Projectid string `json:"projectid,omitempty"`
-		Tags      []struct {
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
-	} `json:"securitygroup,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Servicestate        string `json:"servicestate,omitempty"`
-	State               string `json:"state,omitempty"`
-	Tags                []struct {
+	Optimisefor          string `json:"optimisefor,omitempty"`
+	Ostypeid             int64  `json:"ostypeid,omitempty"`
+	Password             string `json:"password,omitempty"`
+	Passwordenabled      bool   `json:"passwordenabled,omitempty"`
+	Project              string `json:"project,omitempty"`
+	Projectid            string `json:"projectid,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicipid           string `json:"publicipid,omitempty"`
+	Restartrequired      bool   `json:"restartrequired,omitempty"`
+	Rootdevicecontroller string `json:"rootdevicecontroller,omitempty"`
+	Rootdeviceid         int64  `json:"rootdeviceid,omitempty"`
+	Rootdevicetype       string `json:"rootdevicetype,omitempty"`
+	Serviceofferingid    string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname  string `json:"serviceofferingname,omitempty"`
+	Servicestate         string `json:"servicestate,omitempty"`
+	State                string `json:"state,omitempty"`
+	Tags                 []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -367,6 +303,7 @@ type CopyIsoResponse struct {
 	Accountid             string            `json:"accountid,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
+	Cpuflags              string            `json:"cpuflags,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	CrossZones            bool              `json:"crossZones,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -383,7 +320,11 @@ type CopyIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured,omitempty"`
 	Ispublic              bool              `json:"ispublic,omitempty"`
 	Isready               bool              `json:"isready,omitempty"`
+	Maclearning           string            `json:"maclearning,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Name                  string            `json:"name,omitempty"`
+	Optimisefor           string            `json:"optimisefor,omitempty"`
 	Ostypeid              string            `json:"ostypeid,omitempty"`
 	Ostypename            string            `json:"ostypename,omitempty"`
 	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
@@ -569,6 +510,7 @@ type DetachIsoResponse struct {
 		Type              string   `json:"type,omitempty"`
 		VirtualmachineIds []string `json:"virtualmachineIds,omitempty"`
 	} `json:"affinitygroup,omitempty"`
+	Bootmenutimeout       int64             `json:"bootmenutimeout,omitempty"`
 	Cpunumber             int               `json:"cpunumber,omitempty"`
 	Cpuused               string            `json:"cpuused,omitempty"`
 	Created               string            `json:"created,omitempty"`
@@ -598,6 +540,8 @@ type DetachIsoResponse struct {
 	Isoid                 string            `json:"isoid,omitempty"`
 	Isoname               string            `json:"isoname,omitempty"`
 	Keypair               string            `json:"keypair,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Memory                int               `json:"memory,omitempty"`
 	Name                  string            `json:"name,omitempty"`
 	Networkkbsread        int64             `json:"networkkbsread,omitempty"`
@@ -624,90 +568,23 @@ type DetachIsoResponse struct {
 		Type             string `json:"type,omitempty"`
 		Virtualmachineid string `json:"virtualmachineid,omitempty"`
 	} `json:"nic,omitempty"`
-	Ostypeid        int64  `json:"ostypeid,omitempty"`
-	Password        string `json:"password,omitempty"`
-	Passwordenabled bool   `json:"passwordenabled,omitempty"`
-	Project         string `json:"project,omitempty"`
-	Projectid       string `json:"projectid,omitempty"`
-	Publicip        string `json:"publicip,omitempty"`
-	Publicipid      string `json:"publicipid,omitempty"`
-	Rootdeviceid    int64  `json:"rootdeviceid,omitempty"`
-	Rootdevicetype  string `json:"rootdevicetype,omitempty"`
-	Securitygroup   []struct {
-		Account     string `json:"account,omitempty"`
-		Description string `json:"description,omitempty"`
-		Domain      string `json:"domain,omitempty"`
-		Domainid    string `json:"domainid,omitempty"`
-		Egressrule  []struct {
-			Account           string `json:"account,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-			Tags              []struct {
-				Account      string `json:"account,omitempty"`
-				Customer     string `json:"customer,omitempty"`
-				Domain       string `json:"domain,omitempty"`
-				Domainid     string `json:"domainid,omitempty"`
-				Key          string `json:"key,omitempty"`
-				Project      string `json:"project,omitempty"`
-				Projectid    string `json:"projectid,omitempty"`
-				Resourceid   string `json:"resourceid,omitempty"`
-				Resourcetype string `json:"resourcetype,omitempty"`
-				Value        string `json:"value,omitempty"`
-			} `json:"tags,omitempty"`
-		} `json:"egressrule,omitempty"`
-		Id          string `json:"id,omitempty"`
-		Ingressrule []struct {
-			Account           string `json:"account,omitempty"`
-			Cidr              string `json:"cidr,omitempty"`
-			Endport           int    `json:"endport,omitempty"`
-			Icmpcode          int    `json:"icmpcode,omitempty"`
-			Icmptype          int    `json:"icmptype,omitempty"`
-			Protocol          string `json:"protocol,omitempty"`
-			Ruleid            string `json:"ruleid,omitempty"`
-			Securitygroupname string `json:"securitygroupname,omitempty"`
-			Startport         int    `json:"startport,omitempty"`
-			Tags              []struct {
-				Account      string `json:"account,omitempty"`
-				Customer     string `json:"customer,omitempty"`
-				Domain       string `json:"domain,omitempty"`
-				Domainid     string `json:"domainid,omitempty"`
-				Key          string `json:"key,omitempty"`
-				Project      string `json:"project,omitempty"`
-				Projectid    string `json:"projectid,omitempty"`
-				Resourceid   string `json:"resourceid,omitempty"`
-				Resourcetype string `json:"resourcetype,omitempty"`
-				Value        string `json:"value,omitempty"`
-			} `json:"tags,omitempty"`
-		} `json:"ingressrule,omitempty"`
-		Name      string `json:"name,omitempty"`
-		Project   string `json:"project,omitempty"`
-		Projectid string `json:"projectid,omitempty"`
-		Tags      []struct {
-			Account      string `json:"account,omitempty"`
-			Customer     string `json:"customer,omitempty"`
-			Domain       string `json:"domain,omitempty"`
-			Domainid     string `json:"domainid,omitempty"`
-			Key          string `json:"key,omitempty"`
-			Project      string `json:"project,omitempty"`
-			Projectid    string `json:"projectid,omitempty"`
-			Resourceid   string `json:"resourceid,omitempty"`
-			Resourcetype string `json:"resourcetype,omitempty"`
-			Value        string `json:"value,omitempty"`
-		} `json:"tags,omitempty"`
-		Virtualmachinecount int      `json:"virtualmachinecount,omitempty"`
-		Virtualmachineids   []string `json:"virtualmachineids,omitempty"`
-	} `json:"securitygroup,omitempty"`
-	Serviceofferingid   string `json:"serviceofferingid,omitempty"`
-	Serviceofferingname string `json:"serviceofferingname,omitempty"`
-	Servicestate        string `json:"servicestate,omitempty"`
-	State               string `json:"state,omitempty"`
-	Tags                []struct {
+	Optimisefor          string `json:"optimisefor,omitempty"`
+	Ostypeid             int64  `json:"ostypeid,omitempty"`
+	Password             string `json:"password,omitempty"`
+	Passwordenabled      bool   `json:"passwordenabled,omitempty"`
+	Project              string `json:"project,omitempty"`
+	Projectid            string `json:"projectid,omitempty"`
+	Publicip             string `json:"publicip,omitempty"`
+	Publicipid           string `json:"publicipid,omitempty"`
+	Restartrequired      bool   `json:"restartrequired,omitempty"`
+	Rootdevicecontroller string `json:"rootdevicecontroller,omitempty"`
+	Rootdeviceid         int64  `json:"rootdeviceid,omitempty"`
+	Rootdevicetype       string `json:"rootdevicetype,omitempty"`
+	Serviceofferingid    string `json:"serviceofferingid,omitempty"`
+	Serviceofferingname  string `json:"serviceofferingname,omitempty"`
+	Servicestate         string `json:"servicestate,omitempty"`
+	State                string `json:"state,omitempty"`
+	Tags                 []struct {
 		Account      string `json:"account,omitempty"`
 		Customer     string `json:"customer,omitempty"`
 		Domain       string `json:"domain,omitempty"`
@@ -887,8 +764,17 @@ func (p *RegisterIsoParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("ispublic", vv)
 	}
+	if v, found := p.p["maintenancepolicy"]; found {
+		u.Set("maintenancepolicy", v.(string))
+	}
+	if v, found := p.p["manufacturerstring"]; found {
+		u.Set("manufacturerstring", v.(string))
+	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
+	}
+	if v, found := p.p["optimisefor"]; found {
+		u.Set("optimisefor", v.(string))
 	}
 	if v, found := p.p["ostypeid"]; found {
 		u.Set("ostypeid", v.(string))
@@ -975,11 +861,32 @@ func (p *RegisterIsoParams) SetIspublic(v bool) {
 	p.p["ispublic"] = v
 }
 
+func (p *RegisterIsoParams) SetMaintenancepolicy(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["maintenancepolicy"] = v
+}
+
+func (p *RegisterIsoParams) SetManufacturerstring(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["manufacturerstring"] = v
+}
+
 func (p *RegisterIsoParams) SetName(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+}
+
+func (p *RegisterIsoParams) SetOptimisefor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["optimisefor"] = v
 }
 
 func (p *RegisterIsoParams) SetOstypeid(v string) {
@@ -1041,6 +948,7 @@ type RegisterIsoResponse struct {
 	Accountid             string            `json:"accountid,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
+	Cpuflags              string            `json:"cpuflags,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	CrossZones            bool              `json:"crossZones,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -1057,7 +965,11 @@ type RegisterIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured,omitempty"`
 	Ispublic              bool              `json:"ispublic,omitempty"`
 	Isready               bool              `json:"isready,omitempty"`
+	Maclearning           string            `json:"maclearning,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Name                  string            `json:"name,omitempty"`
+	Optimisefor           string            `json:"optimisefor,omitempty"`
 	Ostypeid              string            `json:"ostypeid,omitempty"`
 	Ostypename            string            `json:"ostypename,omitempty"`
 	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
@@ -1100,6 +1012,9 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("bootable", vv)
 	}
+	if v, found := p.p["cpuflags"]; found {
+		u.Set("cpuflags", v.(string))
+	}
 	if v, found := p.p["details"]; found {
 		i := 0
 		for k, vv := range v.(map[string]string) {
@@ -1125,8 +1040,20 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("isrouting", vv)
 	}
+	if v, found := p.p["maclearning"]; found {
+		u.Set("maclearning", v.(string))
+	}
+	if v, found := p.p["maintenancepolicy"]; found {
+		u.Set("maintenancepolicy", v.(string))
+	}
+	if v, found := p.p["manufacturerstring"]; found {
+		u.Set("manufacturerstring", v.(string))
+	}
 	if v, found := p.p["name"]; found {
 		u.Set("name", v.(string))
+	}
+	if v, found := p.p["optimisefor"]; found {
+		u.Set("optimisefor", v.(string))
 	}
 	if v, found := p.p["ostypeid"]; found {
 		u.Set("ostypeid", v.(string))
@@ -1134,10 +1061,6 @@ func (p *UpdateIsoParams) toURLValues() url.Values {
 	if v, found := p.p["passwordenabled"]; found {
 		vv := strconv.FormatBool(v.(bool))
 		u.Set("passwordenabled", vv)
-	}
-	if v, found := p.p["requireshvm"]; found {
-		vv := strconv.FormatBool(v.(bool))
-		u.Set("requireshvm", vv)
 	}
 	if v, found := p.p["sortkey"]; found {
 		vv := strconv.Itoa(v.(int))
@@ -1154,6 +1077,13 @@ func (p *UpdateIsoParams) SetBootable(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["bootable"] = v
+}
+
+func (p *UpdateIsoParams) SetCpuflags(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["cpuflags"] = v
 }
 
 func (p *UpdateIsoParams) SetDetails(v map[string]string) {
@@ -1198,11 +1128,39 @@ func (p *UpdateIsoParams) SetIsrouting(v bool) {
 	p.p["isrouting"] = v
 }
 
+func (p *UpdateIsoParams) SetMaclearning(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["maclearning"] = v
+}
+
+func (p *UpdateIsoParams) SetMaintenancepolicy(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["maintenancepolicy"] = v
+}
+
+func (p *UpdateIsoParams) SetManufacturerstring(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["manufacturerstring"] = v
+}
+
 func (p *UpdateIsoParams) SetName(v string) {
 	if p.p == nil {
 		p.p = make(map[string]interface{})
 	}
 	p.p["name"] = v
+}
+
+func (p *UpdateIsoParams) SetOptimisefor(v string) {
+	if p.p == nil {
+		p.p = make(map[string]interface{})
+	}
+	p.p["optimisefor"] = v
 }
 
 func (p *UpdateIsoParams) SetOstypeid(v string) {
@@ -1217,13 +1175,6 @@ func (p *UpdateIsoParams) SetPasswordenabled(v bool) {
 		p.p = make(map[string]interface{})
 	}
 	p.p["passwordenabled"] = v
-}
-
-func (p *UpdateIsoParams) SetRequireshvm(v bool) {
-	if p.p == nil {
-		p.p = make(map[string]interface{})
-	}
-	p.p["requireshvm"] = v
 }
 
 func (p *UpdateIsoParams) SetSortkey(v int) {
@@ -1268,6 +1219,7 @@ type UpdateIsoResponse struct {
 	Accountid             string            `json:"accountid,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
+	Cpuflags              string            `json:"cpuflags,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	CrossZones            bool              `json:"crossZones,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -1284,7 +1236,11 @@ type UpdateIsoResponse struct {
 	Isfeatured            bool              `json:"isfeatured,omitempty"`
 	Ispublic              bool              `json:"ispublic,omitempty"`
 	Isready               bool              `json:"isready,omitempty"`
+	Maclearning           string            `json:"maclearning,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Name                  string            `json:"name,omitempty"`
+	Optimisefor           string            `json:"optimisefor,omitempty"`
 	Ostypeid              string            `json:"ostypeid,omitempty"`
 	Ostypename            string            `json:"ostypename,omitempty"`
 	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
@@ -1379,7 +1335,7 @@ func (s *ISOService) GetIsoPermissionByID(id string, opts ...OptionFunc) (*IsoPe
 	return nil, l.Count, fmt.Errorf("There is more then one result for IsoPermission UUID: %s!", id)
 }
 
-// List ISO visibility and all accounts that have permissions to view this ISO.
+// List iso visibility and all accounts that have permissions to view this iso.
 func (s *ISOService) ListIsoPermissions(p *ListIsoPermissionsParams) (*ListIsoPermissionsResponse, error) {
 	resp, err := s.cs.newRequest("listIsoPermissions", p.toURLValues())
 	if err != nil {
@@ -1856,6 +1812,7 @@ type Iso struct {
 	Accountid             string            `json:"accountid,omitempty"`
 	Bootable              bool              `json:"bootable,omitempty"`
 	Checksum              string            `json:"checksum,omitempty"`
+	Cpuflags              string            `json:"cpuflags,omitempty"`
 	Created               string            `json:"created,omitempty"`
 	CrossZones            bool              `json:"crossZones,omitempty"`
 	Details               map[string]string `json:"details,omitempty"`
@@ -1872,7 +1829,11 @@ type Iso struct {
 	Isfeatured            bool              `json:"isfeatured,omitempty"`
 	Ispublic              bool              `json:"ispublic,omitempty"`
 	Isready               bool              `json:"isready,omitempty"`
+	Maclearning           string            `json:"maclearning,omitempty"`
+	Maintenancepolicy     string            `json:"maintenancepolicy,omitempty"`
+	Manufacturerstring    string            `json:"manufacturerstring,omitempty"`
 	Name                  string            `json:"name,omitempty"`
+	Optimisefor           string            `json:"optimisefor,omitempty"`
 	Ostypeid              string            `json:"ostypeid,omitempty"`
 	Ostypename            string            `json:"ostypename,omitempty"`
 	Passwordenabled       bool              `json:"passwordenabled,omitempty"`
