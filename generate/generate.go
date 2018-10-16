@@ -1,5 +1,6 @@
 //
 // Copyright 2018, Sander van Harmelen
+// Copyright 2018, Stephen Hoekstra
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +20,7 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"go/format"
 	"io/ioutil"
@@ -30,7 +32,6 @@ import (
 	"strings"
 	"unicode"
 
-	"flag"
 	"github.com/fatih/camelcase"
 )
 
@@ -285,12 +286,12 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("type CosmicClient struct {")
 	pn("	HTTPGETOnly bool // If `true` only use HTTP GET calls")
 	pn("")
-	pn("	client  *http.Client // The http client for communicating")
-	pn("	baseURL string       // The base URL of the API")
-	pn("	apiKey  string       // Api key")
-	pn("	secret  string       // Secret key")
-	pn("	async   bool         // Wait for async calls to finish")
-	pn("	timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds")
+	pn("	Client  *http.Client // The http client for communicating")
+	pn("	BaseURL string       // The base URL of the API")
+	pn("	ApiKey  string       // Api key")
+	pn("	Secret  string       // Secret key")
+	pn("	Async   bool         // Wait for async calls to finish")
+	pn("	Timeout int64        // Max waiting timeout in seconds for async jobs to finish; defaults to 300 seconds")
 	pn("")
 	for _, s := range as {
 		pn("  %s *%s", strings.TrimSuffix(s.name, "Service"), s.name)
@@ -300,18 +301,18 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("// Creates a new client for communicating with Cosmic")
 	pn("func newClient(apiurl string, apikey string, secret string, async bool, tlsConfig *tls.Config, timeout int64) *CosmicClient {")
 	pn("	cs := &CosmicClient{")
-	pn("		client: &http.Client{")
+	pn("		Client: &http.Client{")
 	pn("			Transport: &http.Transport{")
 	pn("				Proxy:           http.ProxyFromEnvironment,")
 	pn("				TLSClientConfig: tlsConfig,")
 	pn("			},")
 	pn("		Timeout: time.Duration(time.Duration(timeout) * time.Second),")
 	pn("		},")
-	pn("		baseURL: apiurl,")
-	pn("		apiKey:  apikey,")
-	pn("		secret:  secret,")
-	pn("		async:   async,")
-	pn("		timeout: 300,")
+	pn("		BaseURL: apiurl,")
+	pn("		ApiKey:  apikey,")
+	pn("		Secret:  secret,")
+	pn("		Async:   async,")
+	pn("		Timeout: 300,")
 	pn("	}")
 	for _, s := range as {
 		pn("	cs.%s = New%s(cs)", strings.TrimSuffix(s.name, "Service"), s.name)
@@ -339,7 +340,7 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("// When using the async client an api call will wait for the async call to finish before returning. The default is to poll for 300 seconds")
 	pn("// seconds, to check if the async job is finished.")
 	pn("func (cs *CosmicClient) AsyncTimeout(timeoutInSeconds int64) {")
-	pn("	cs.timeout = timeoutInSeconds")
+	pn("	cs.Timeout = timeoutInSeconds")
 	pn("}")
 	pn("")
 	pn("var AsyncTimeoutErr = errors.New(\"Timeout while waiting for async job to finish\")")
@@ -389,7 +390,7 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("// no error occured. If the API returns an error the result will be nil and the HTTP error code and CS")
 	pn("// error details. If a processing (code) error occurs the result will be nil and the generated error")
 	pn("func (cs *CosmicClient) newRequest(api string, params url.Values) (json.RawMessage, error) {")
-	pn("	params.Set(\"apiKey\", cs.apiKey)")
+	pn("	params.Set(\"apiKey\", cs.ApiKey)")
 	pn("	params.Set(\"command\", api)")
 	pn("	params.Set(\"response\", \"json\")")
 	pn("")
@@ -402,7 +403,7 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("	s := encodeValues(params)")
 	pn("	s2 := strings.ToLower(s)")
 	pn("	s3 := strings.Replace(s2, \"+\", \"%%20\", -1)")
-	pn("	mac := hmac.New(sha1.New, []byte(cs.secret))")
+	pn("	mac := hmac.New(sha1.New, []byte(cs.Secret))")
 	pn("	mac.Write([]byte(s3))")
 	pn("	signature := base64.StdEncoding.EncodeToString(mac.Sum(nil))")
 	pn("")
@@ -416,13 +417,13 @@ func (as services) GeneralCode() ([]byte, error) {
 	pn("		params.Set(\"signature\", signature)")
 	pn("")
 	pn("		// Make a POST call")
-	pn("		resp, err = cs.client.PostForm(cs.baseURL, params)")
+	pn("		resp, err = cs.Client.PostForm(cs.BaseURL, params)")
 	pn("	} else {")
 	pn("		// Create the final URL before we issue the request")
-	pn("		url := cs.baseURL + \"?\" + s + \"&signature=\" + url.QueryEscape(signature)")
+	pn("		url := cs.BaseURL + \"?\" + s + \"&signature=\" + url.QueryEscape(signature)")
 	pn("")
 	pn("		// Make a GET call")
-	pn("		resp, err = cs.client.Get(url)")
+	pn("		resp, err = cs.Client.Get(url)")
 	pn("	}")
 	pn("	if err != nil {")
 	pn("		return nil, err")
@@ -1145,8 +1146,8 @@ func (s *service) generateNewAPICallFunc(a *API) {
 	if a.Isasync {
 		pn("")
 		pn("	// If we have a async client, we need to wait for the async result")
-		pn("	if s.cs.async {")
-		pn("		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.timeout)")
+		pn("	if s.cs.Async {")
+		pn("		b, err := s.cs.GetAsyncJobResult(r.JobID, s.cs.Timeout)")
 		pn("		if err != nil {")
 		pn("			if err == AsyncTimeoutErr {")
 		pn("				return &r, err")
