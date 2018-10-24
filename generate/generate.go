@@ -1302,10 +1302,7 @@ func (s *service) recursiveGenerateResponseType(resp APIResponses, async bool) (
 
 func getAllServices(filename string) (services, error) {
 	var raw struct {
-		ListAPIsResponse struct {
-			Count int    `json:"count"`
-			APIs  []*API `json:"api"`
-		} `json:"listapisresponse"`
+		APIs  []*API `json:"api"`
 	}
 
 	file, err := ioutil.ReadFile(filename)
@@ -1320,7 +1317,7 @@ func getAllServices(filename string) (services, error) {
 
 	// Make a map of all retrieved Services and their APIs
 	allAPIs := make(map[string]apis)
-	for _, api := range raw.ListAPIsResponse.APIs {
+	for _, api := range raw.APIs {
 		sort.Sort(api.Params)
 		allAPIs[api.GroupName] = append(allAPIs[api.GroupName], api)
 	}
